@@ -29,19 +29,11 @@ class _HomePageState extends State<HomePage> {
   getStories() async {
     var dio = Dio();
     try {
-      final response = await dio.post(
-          'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/price-calculator',
-          data: {
-            "tenantSet_id": "PAM01",
-            "tenantUsecase": "pam",
-            "useCase": "tip",
-            "type": "stories",
-          });
+      final response = await dio.get(
+          "https://my-json-server.typicode.com/gauravmehta13/Aurask-App/stories");
       print(response);
-      Map<String, dynamic> map = json.decode(response.toString());
-      print(map);
       setState(() {
-        stories = map["resp"];
+        stories = response.data;
         storiesLoaded = true;
       });
     } catch (e) {
