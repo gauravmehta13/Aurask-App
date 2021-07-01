@@ -1,6 +1,6 @@
 import 'package:aurask/Home/BottomNavBar.dart';
+import 'package:aurask/auth/OnBoarding.dart';
 import 'package:flutter/material.dart';
-import 'Home/HomePage.dart';
 
 void main() {
   runApp(MyApp());

@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   cached_network_image: ^3.0.0
-  carousel_slider: ^3.0.0
+  carousel_slider: ^4.0.0
   confetti: ^0.5.5
   cupertino_icons: ^1.0.3
   dashed_circle: ^0.0.2
@@ -68,4 +68,3 @@ dev_dependencies:
     sdk: flutter
 flutter:
   uses-material-design: true
- 

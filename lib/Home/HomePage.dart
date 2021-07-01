@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/Components/Stories/Story.dart';
+import 'package:aurask/Screens/CoursePage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +32,6 @@ class _HomePageState extends State<HomePage> {
       final response = await dio.post(
           'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/price-calculator',
           data: {
-            // "id": _auth.currentUser == null ? "" : _auth.currentUser.uid,
             "tenantSet_id": "PAM01",
             "tenantUsecase": "pam",
             "useCase": "tip",
@@ -57,25 +57,201 @@ class _HomePageState extends State<HomePage> {
       "name": "Design Thinking",
       "image": "https://img-c.udemycdn.com/course/480x270/3938952_2445_2.jpg",
       "instructor": "Vinay Yadav",
-      "rating": "4.9"
+      "rating": "4.9",
+      "description":
+          "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+      "overview":
+          "At Aurask we help you identify the core problems and build a mindset of ambiguity solving. We have personalized learning for the final year students, freshers and working professionals. You'll learn foundation skills while attaining niche technology learning of solving Business Process Management.",
+      "syllabus": [
+        {
+          "title": "Enterprise Design",
+          "session": 1,
+          "content": [
+            "Availability, Cluster Topologies",
+            "Micro problems identification",
+            "Lego based bottoms up design pattern"
+          ]
+        },
+        {
+          "title": "Designing for Specialization",
+          "session": 2,
+          "content": [
+            "Asset Design and Re-use",
+            "Object oriented Pega development",
+            "Choosing right Application structure",
+            "Specialization Design Considerations"
+          ]
+        },
+        {
+          "title": "Process oriented mindset",
+          "session": 3,
+          "content": [
+            "Process design patterns",
+            "Involved Parties and work items",
+            "Automated routing : Push and Pull Routing",
+            "Alternate ways to execute business process"
+          ]
+        },
+        {
+          "title": "Release Management",
+          "session": 4,
+          "content": [
+            "Define release management approach",
+            "Devops release pipeline : Continuous integration and Delivery",
+            "Modular Testing strategy"
+          ]
+        },
+      ]
     },
     {
       "name": "Architecture Mindset",
       "image": "https://img-c.udemycdn.com/course/480x270/1183372_43f5.jpg",
       "instructor": "",
-      "rating": "4.8"
+      "rating": "4.8",
+      "description":
+          "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+      "overview":
+          "At Aurask we help you identify the core problems and build a mindset of ambiguity solving. We have personalized learning for the final year students, freshers and working professionals. You'll learn foundation skills while attaining niche technology learning of solving Business Process Management.",
+      "syllabus": [
+        {
+          "title": "Enterprise Design",
+          "session": 1,
+          "content": [
+            "Availability, Cluster Topologies",
+            "Micro problems identification",
+            "Lego based bottoms up design pattern"
+          ]
+        },
+        {
+          "title": "Designing for Specialization",
+          "session": 2,
+          "content": [
+            "Asset Design and Re-use",
+            "Object oriented Pega development",
+            "Choosing right Application structure",
+            "Specialization Design Considerations"
+          ]
+        },
+        {
+          "title": "Process oriented mindset",
+          "session": 3,
+          "content": [
+            "Process design patterns",
+            "Involved Parties and work items",
+            "Automated routing : Push and Pull Routing",
+            "Alternate ways to execute business process"
+          ]
+        },
+        {
+          "title": "Release Management",
+          "session": 4,
+          "content": [
+            "Define release management approach",
+            "Devops release pipeline : Continuous integration and Delivery",
+            "Modular Testing strategy"
+          ]
+        },
+      ]
     },
     {
       "name": "Product Evolution",
       "image": "https://img-c.udemycdn.com/course/480x270/1647046_c11d.jpg",
       "instructor": "Vinay Yadav",
-      "rating": "4.5"
+      "rating": "4.5",
+      "description":
+          "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+      "overview":
+          "At Aurask we help you identify the core problems and build a mindset of ambiguity solving. We have personalized learning for the final year students, freshers and working professionals. You'll learn foundation skills while attaining niche technology learning of solving Business Process Management.",
+      "syllabus": [
+        {
+          "title": "Enterprise Design",
+          "session": 1,
+          "content": [
+            "Availability, Cluster Topologies",
+            "Micro problems identification",
+            "Lego based bottoms up design pattern"
+          ]
+        },
+        {
+          "title": "Designing for Specialization",
+          "session": 2,
+          "content": [
+            "Asset Design and Re-use",
+            "Object oriented Pega development",
+            "Choosing right Application structure",
+            "Specialization Design Considerations"
+          ]
+        },
+        {
+          "title": "Process oriented mindset",
+          "session": 3,
+          "content": [
+            "Process design patterns",
+            "Involved Parties and work items",
+            "Automated routing : Push and Pull Routing",
+            "Alternate ways to execute business process"
+          ]
+        },
+        {
+          "title": "Release Management",
+          "session": 4,
+          "content": [
+            "Define release management approach",
+            "Devops release pipeline : Continuous integration and Delivery",
+            "Modular Testing strategy"
+          ]
+        },
+      ]
     },
     {
       "name": "Leadership Journey",
       "image": "https://img-c.udemycdn.com/course/480x270/80938_4fd4_9.jpg",
       "instructor": "Vinay Yadav",
-      "rating": "4.0"
+      "rating": "4.0",
+      "description":
+          "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+      "overview":
+          "At Aurask we help you identify the core problems and build a mindset of ambiguity solving. We have personalized learning for the final year students, freshers and working professionals. You'll learn foundation skills while attaining niche technology learning of solving Business Process Management.",
+      "syllabus": [
+        {
+          "title": "Enterprise Design",
+          "session": 1,
+          "content": [
+            "Availability, Cluster Topologies",
+            "Micro problems identification",
+            "Lego based bottoms up design pattern"
+          ]
+        },
+        {
+          "title": "Designing for Specialization",
+          "session": 2,
+          "content": [
+            "Asset Design and Re-use",
+            "Object oriented Pega development",
+            "Choosing right Application structure",
+            "Specialization Design Considerations"
+          ]
+        },
+        {
+          "title": "Process oriented mindset",
+          "session": 3,
+          "content": [
+            "Process design patterns",
+            "Involved Parties and work items",
+            "Automated routing : Push and Pull Routing",
+            "Alternate ways to execute business process"
+          ]
+        },
+        {
+          "title": "Release Management",
+          "session": 4,
+          "content": [
+            "Define release management approach",
+            "Devops release pipeline : Continuous integration and Delivery",
+            "Modular Testing strategy"
+          ]
+        },
+      ]
     },
   ];
 
@@ -90,8 +266,9 @@ class _HomePageState extends State<HomePage> {
     {
       "name": "Interview Ready - Product Managers",
       "image": "https://img-c.udemycdn.com/course/480x270/1183372_43f5.jpg",
-      "subtitle": "ok",
-      "rating": "4.8"
+      "subtitle":
+          "Live interview-centric course to prepare engineers for interviews for companies like Google, Amazon, Adobe, Uber, etc",
+      "rating": "4.9"
     },
   ];
 
@@ -214,7 +391,9 @@ class _HomePageState extends State<HomePage> {
                   if (storiesLoaded)
                     GoFlexeStories(
                       stories: stories,
-                    ),
+                    )
+                  else
+                    box20,
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Row(
@@ -246,7 +425,10 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                FadeRoute(page: HomePage()),
+                                FadeRoute(
+                                    page: CoursePage(
+                                  course: courses[index],
+                                )),
                               );
                             },
                             child: Column(
@@ -361,47 +543,51 @@ class _HomePageState extends State<HomePage> {
                       itemCount: interviewCourses.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Container(
+                          clipBehavior: Clip.hardEdge,
                           margin: EdgeInsets.only(bottom: 16),
                           width: double.maxFinite,
-                          padding: EdgeInsets.all(10),
                           decoration: BoxDecoration(
-                              color: Colors.grey[200],
+                              border: Border.all(color: Colors.grey[300]!),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(15))),
                           child: Row(
                             children: [
                               Container(
-                                clipBehavior: Clip.hardEdge,
-                                decoration: BoxDecoration(
-                                    //color: CarRental.bgColor,
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(13))),
-                                height: 65,
-                                width: 65,
+                                width: 90,
+                                height: 100,
                                 child: Image.network(
                                   interviewCourses[index]["image"],
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.fitHeight,
                                 ),
                               ),
                               SizedBox(
                                 width: 15,
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(interviewCourses[index]["name"],
-                                      style: GoogleFonts.montserrat(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w700)),
-                                  Text(
-                                      interviewCourses[index]["subtitle"] ?? "",
-                                      style: TextStyle(
-                                          fontSize: 12,
-                                          color: Colors.grey[400],
-                                          fontWeight: FontWeight.w700)),
-                                ],
+                              Expanded(
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.symmetric(vertical: 15),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(interviewCourses[index]["name"],
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w700)),
+                                      box5,
+                                      Text(
+                                          interviewCourses[index]["subtitle"] ??
+                                              "",
+                                          style: TextStyle(
+                                            fontSize: 12,
+                                            color: Colors.grey[600],
+                                          )),
+                                    ],
+                                  ),
+                                ),
                               ),
                               SizedBox(
                                 width: 20,

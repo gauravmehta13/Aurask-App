@@ -133,8 +133,20 @@ launchWhatsApp() async {
 }
 
 const EdgeInsets padding10 = EdgeInsets.all(10);
+const SizedBox wbox5 = SizedBox(
+  width: 5,
+);
+const SizedBox wbox10 = SizedBox(
+  width: 10,
+);
+const SizedBox wbox20 = SizedBox(
+  width: 20,
+);
+const SizedBox wbox30 = SizedBox(
+  width: 30,
+);
 const SizedBox box5 = SizedBox(
-  height: 5,
+  width: 5,
 );
 const SizedBox box10 = SizedBox(
   height: 10,

@@ -94,7 +94,7 @@ class _GoFlexeStoriesState extends State<GoFlexeStories>
                 itemBuilder: (context, index) {
                   return Container(
                     width: 80,
-                    padding: EdgeInsets.only(right: 10),
+                    padding: EdgeInsets.only(right: 10, top: 5),
                     alignment: Alignment.center,
                     child: InkWell(
                       onTap: () {
@@ -169,7 +169,7 @@ class _GoFlexeStoriesState extends State<GoFlexeStories>
                                 )
                             ],
                           ),
-                          box5,
+                          box10,
                           Text(
                             widget.stories[index]["name"],
                             overflow: TextOverflow.ellipsis,
