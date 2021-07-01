@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "491094163637",
+    "project_id": "aurask-ca6bb",
+    "storage_bucket": "aurask-ca6bb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491094163637:android:e8999b7b178e1db7363efc",
+        "android_client_info": {
+          "package_name": "com.aurask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "491094163637-fnipo7qbhqsnam1d4d3gqc7r4iaej9pf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aurask",
+            "certificate_hash": "9d25b6fbfed005e7ca5654492ff12fe181cd63a9"
+          }
+        },
+        {
+          "client_id": "491094163637-0hsilgo9vkubpvj4i7nb4roms38dub28.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJoBVHa_UuWTqFiJyq0u6-_YG1BNwFt-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "491094163637-0hsilgo9vkubpvj4i7nb4roms38dub28.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
