@@ -577,7 +577,7 @@ class _HomePageState extends State<HomePage> {
                                           style: GoogleFonts.montserrat(
                                               fontSize: 13,
                                               fontWeight: FontWeight.w700)),
-                                      box5,
+                                      box10,
                                       Text(
                                           interviewCourses[index]["subtitle"] ??
                                               "",
