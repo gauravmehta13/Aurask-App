@@ -16,8 +16,8 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final googleSignIn = GoogleSignIn();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final googleSignIn = GoogleSignIn();
 
   @override
   void initState() {
@@ -198,47 +198,47 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     );
   }
 
-  // Future googleLogin() async {
-  //   try {
-  //     final user = await googleSignIn.signIn();
-  //     if (user == null) {
-  //       return;
-  //     } else {
-  //       final googleAuth = await user.authentication;
-  //       final credential = GoogleAuthProvider.credential(
-  //         accessToken: googleAuth.accessToken,
-  //         idToken: googleAuth.idToken,
-  //       );
-  //       await _auth.signInWithCredential(credential).then((value) async {
-  //         // print(value.additionalUserInfo!.isNewUser);
-  //         // if (value.additionalUserInfo!.isNewUser) {
-  //         //   await DatabaseService(_auth.currentUser!.uid).updateUserData("");
-  //         //   Navigator.pushReplacement(context,
-  //         //       MaterialPageRoute(builder: (context) => SelectTenant()));
-  //         // } else {
-  //         //   Navigator.pushReplacement(context,
-  //         //       MaterialPageRoute(builder: (context) => SelectTenant()));
-  //         // }
-  //         setState(() {
-  //           loading = false;
-  //         });
-  //       });
-  //     }
-  //   } catch (e) {
-  //     setState(() {
-  //       loading = false;
-  //     });
-  //     displaySnackBar("Error, please try again later..!!", context);
-  //   }
-  // }
+  Future googleLogin() async {
+    try {
+      final user = await googleSignIn.signIn();
+      if (user == null) {
+        return;
+      } else {
+        final googleAuth = await user.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await _auth.signInWithCredential(credential).then((value) async {
+          // print(value.additionalUserInfo!.isNewUser);
+          // if (value.additionalUserInfo!.isNewUser) {
+          //   await DatabaseService(_auth.currentUser!.uid).updateUserData("");
+          //   Navigator.pushReplacement(context,
+          //       MaterialPageRoute(builder: (context) => SelectTenant()));
+          // } else {
+          //   Navigator.pushReplacement(context,
+          //       MaterialPageRoute(builder: (context) => SelectTenant()));
+          // }
+          setState(() {
+            loading = false;
+          });
+        });
+      }
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      displaySnackBar("Error, please try again later..!!", context);
+    }
+  }
 
-  // checkAuthentification() async {
-  //   _auth.authStateChanges().listen((user) {
-  //     if (user != null) {
-  //       print(user);
-  //       Navigator.pushReplacement(
-  //           context, MaterialPageRoute(builder: (context) => HomeScreen()));
-  //     }
-  //   });
-  // }
+  checkAuthentification() async {
+    _auth.authStateChanges().listen((user) {
+      if (user != null) {
+        print(user);
+        Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => HomePage()));
+      }
+    });
+  }
 }
