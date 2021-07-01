@@ -2,6 +2,8 @@ import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/auth/OnBoarding.dart';
 import 'package:flutter/material.dart';
 
+import 'Constants.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -11,9 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Aurask',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: themeData(context),
       debugShowCheckedModeBanner: false,
       home: OnboardingScreen(),
     );

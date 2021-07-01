@@ -1,3 +1,4 @@
+import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/auth/carousel.dart';
@@ -152,7 +153,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                       onTap: () {
                         Navigator.push(
                           context,
-                          FadeRoute(page: HomePage()),
+                          FadeRoute(page: BottomNavBar()),
                         );
                       },
                       child: Card(
