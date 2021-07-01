@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:firebase_analytics/firebase_analytics.dart';
+// import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -13,9 +13,9 @@ import 'Widgets/Fade Route.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-logEvent(String text) {
-  if (kReleaseMode) FirebaseAnalytics().logEvent(name: text, parameters: null);
-}
+// logEvent(String text) {
+//   if (kReleaseMode) FirebaseAnalytics().logEvent(name: text, parameters: null);
+// }
 
 // authNavigate(Widget page, context) {
 //   if (_auth.currentUser == null) {

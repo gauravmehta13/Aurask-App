@@ -1,4 +1,3 @@
-import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/auth/OnBoarding.dart';
 import 'package:flutter/material.dart';
 

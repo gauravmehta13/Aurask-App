@@ -59,7 +59,9 @@ class InstructorProfile extends StatelessWidget {
                     children: [
                       Text(
                         "Total Students",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                       box20,
                       Text(
@@ -79,7 +81,9 @@ class InstructorProfile extends StatelessWidget {
                     children: [
                       Text(
                         "Reviews",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                       box20,
                       Text(
@@ -99,7 +103,9 @@ class InstructorProfile extends StatelessWidget {
                     children: [
                       Text(
                         "Ratings",
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600, fontSize: 13),
                       ),
                       box20,
                       Text(
