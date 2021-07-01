@@ -8,6 +8,7 @@ import 'package:aurask/Widgets/Loading.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -369,30 +370,46 @@ class _HomePageState extends State<HomePage> {
                                     width: 15,
                                   ),
                                   Expanded(
-                                    child: Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                          vertical: 15),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(interviewCourses[index]["name"],
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: 13,
-                                                  fontWeight: FontWeight.w700)),
-                                          box10,
-                                          Text(
-                                              interviewCourses[index]
-                                                      ["subtitle"] ??
-                                                  "",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey[600],
-                                              )),
-                                        ],
-                                      ),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Text(interviewCourses[index]["name"],
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w700)),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        RatingBar.builder(
+                                          ignoreGestures: true,
+                                          initialRating: 4.3,
+                                          minRating: 1,
+                                          direction: Axis.horizontal,
+                                          itemSize: 15,
+                                          allowHalfRating: true,
+                                          itemCount: 5,
+                                          itemPadding: EdgeInsets.symmetric(
+                                              horizontal: 1.0),
+                                          itemBuilder: (context, _) => Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                          ),
+                                          onRatingUpdate: (double value) {},
+                                        ),
+                                        SizedBox(
+                                          height: 8,
+                                        ),
+                                        Text(
+                                            "Get trained for comapnies like google , amazon , netflix etc.",
+                                            maxLines: 2,
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey[600],
+                                            )),
+                                      ],
                                     ),
                                   ),
                                   SizedBox(

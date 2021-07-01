@@ -1,4 +1,6 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Screens/InstructorPage.dart';
+import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -121,19 +123,6 @@ class _CoursePageState extends State<CoursePage> {
                                   wbox5,
                                   Text(
                                     "English",
-                                    style: TextStyle(
-                                        fontSize: 13, color: Colors.grey[800]),
-                                  )
-                                ],
-                              ),
-                              box10,
-                              Row(
-                                children: [
-                                  Icon(Icons.closed_caption,
-                                      size: 15, color: Colors.grey[800]!),
-                                  wbox5,
-                                  Text(
-                                    "English , Hindi",
                                     style: TextStyle(
                                         fontSize: 13, color: Colors.grey[800]),
                                   )
@@ -408,39 +397,45 @@ class _CoursePageState extends State<CoursePage> {
                                       fontSize: 20),
                                 ),
                                 box20,
-                                Row(
-                                  children: [
-                                    CircleAvatar(
-                                      radius: 30,
-                                      backgroundColor: Colors.grey[300],
-                                      backgroundImage: NetworkImage(
-                                          "https://media-exp3.licdn.com/dms/image/C5603AQGacJ-P9gTj7w/profile-displayphoto-shrink_400_400/0/1517799815988?e=1630540800&v=beta&t=8G_NtmxHv0FI0hIcXO5W4XJcVnVFJ8QG1rBXPLV2f8E"),
-                                    ),
-                                    wbox20,
-                                    Expanded(
-                                      flex: 10,
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            "Vinay Yadav",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                          box5,
-                                          Text(
-                                            "Software Development Manager at Amazon",
-                                            style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey[800]),
-                                          ),
-                                        ],
+                                InkWell(
+                                  onTap: () {
+                                    Navigator.push(context,
+                                        FadeRoute(page: InstructorProfile()));
+                                  },
+                                  child: Row(
+                                    children: [
+                                      CircleAvatar(
+                                        radius: 30,
+                                        backgroundColor: Colors.grey[300],
+                                        backgroundImage: NetworkImage(
+                                            "https://media-exp3.licdn.com/dms/image/C5603AQGacJ-P9gTj7w/profile-displayphoto-shrink_400_400/0/1517799815988?e=1630540800&v=beta&t=8G_NtmxHv0FI0hIcXO5W4XJcVnVFJ8QG1rBXPLV2f8E"),
                                       ),
-                                    ),
-                                    Spacer(),
-                                    Icon(Icons.arrow_forward_ios)
-                                  ],
+                                      wbox20,
+                                      Expanded(
+                                        flex: 10,
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Vinay Yadav",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                            box5,
+                                            Text(
+                                              "Software Development Manager at Amazon",
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey[800]),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Spacer(),
+                                      Icon(Icons.arrow_forward_ios)
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
