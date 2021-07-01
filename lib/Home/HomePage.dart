@@ -32,21 +32,20 @@ class _HomePageState extends State<HomePage> {
   }
 
   getCourses() async {
-    var dio = Dio();
-    try {
-      final response = await dio.get(
-          "https://my-json-server.typicode.com/gauravmehta13/Aurask-App/courses");
-      print(response);
-      // setState(() {
-      //   stories = response.data;
-      //   courseLoaded = true;
-      // });
-    } catch (e) {
-      print(e);
-      setState(() {
-        courseLoaded = false;
-      });
+    String data =
+        await DefaultAssetBundle.of(context).loadString("assets/courses.json");
+    var map = json.decode(data);
+    print(map);
+    for (var i = 0; i < map["courses"].length; i++) {
+      if (map["courses"][i]["type"] == "popular") {
+        courses.add(map["courses"][i]);
+      } else {
+        interviewCourses.add(map["courses"][i]);
+      }
     }
+    setState(() {
+      courseLoaded = true;
+    });
   }
 
   getStories() async {

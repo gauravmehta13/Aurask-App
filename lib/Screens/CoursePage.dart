@@ -275,61 +275,51 @@ class _CoursePageState extends State<CoursePage> {
                         box10,
                         Divider(),
                         box10,
-                        // Text(
-                        //   "What you'll Learn",
-                        //   style:
-                        //       TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-                        // ),
-                        // box10,
-                        // ListView.builder(
-                        //     physics: NeverScrollableScrollPhysics(),
-                        //     shrinkWrap: true,
-                        //     itemCount: 5,
-                        //     itemBuilder: (BuildContext context, int index) {
-                        //       return Padding(
-                        //         padding: const EdgeInsets.symmetric(vertical: 5),
-                        //         child: Row(
-                        //           children: [
-                        //             Icon(
-                        //               Icons.done,
-                        //               size: 15,
-                        //             ),
-                        //             wbox10,
-                        //             Expanded(
-                        //               child: Text(
-                        //                 "Change your mindset and master the basi  djfwiebfhinking erdfugi.",
-                        //                 style: TextStyle(fontSize: 13),
-                        //               ),
-                        //             )
-                        //           ],
-                        //         ),
-                        //       );
-                        //     }),
-                        // TextButton(
-                        //     onPressed: () {},
-                        //     child: Text(
-                        //       "SHOW MORE",
-                        //       style: TextStyle(fontSize: 12),
-                        //     )),
-                        // box20,
+                        Text(
+                          "What you'll Learn",
+                          style: TextStyle(
+                              fontWeight: FontWeight.w800, fontSize: 16),
+                        ),
+                        box10,
+                        ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            shrinkWrap: true,
+                            itemCount: 5,
+                            itemBuilder: (BuildContext context, int index) {
+                              return Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5),
+                                child: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.done,
+                                      size: 15,
+                                    ),
+                                    wbox10,
+                                    Expanded(
+                                      child: Text(
+                                        "Change your mindset and master the basi  djfwiebfhinking erdfugi.",
+                                        style: TextStyle(fontSize: 13),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }),
+                        TextButton(
+                            onPressed: () {},
+                            child: Text(
+                              "SHOW MORE",
+                              style: TextStyle(fontSize: 12),
+                            )),
+                        box20,
                         Text(
                           "Description",
                           style: TextStyle(
                               fontWeight: FontWeight.w800, fontSize: 20),
                         ),
                         box10,
-                        //              "syllabus": [
-                        // {
-                        //   "title": "Enterprise Design",
-                        //   "session": 1,
-                        //   "content": [
-                        //     "Availability, Cluster Topologies",
-                        //     "Micro problems identification",
-                        //     "Lego based bottoms up design pattern"
-                        //   ]
-                        // },
                         Text(widget.course["description"]),
-
                         box30,
                         Text(
                           "Course Content",
@@ -337,7 +327,6 @@ class _CoursePageState extends State<CoursePage> {
                               fontWeight: FontWeight.w800, fontSize: 20),
                         ),
                         box20,
-
                         ListView.builder(
                             physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
@@ -406,7 +395,6 @@ class _CoursePageState extends State<CoursePage> {
                                 ),
                               );
                             }),
-
                         box30,
                         InkWell(
                           child: Container(

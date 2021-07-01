@@ -1,0 +1,304 @@
+{"courses":[ {
+    "name": "Design Thinking",
+    "type":"popular",
+    "image": "https://img-c.udemycdn.com/course/480x270/3938952_2445_2.jpg",
+    "instructor": "Vinay Yadav",
+    "rating": "4.9",
+    "overview":
+        "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+    "description":
+        "At Aurask we help you identify the core problems and build a mindset of ambiguity solving. We have personalized learning for the final year students, freshers and working professionals. You'll learn foundation skills while attaining niche technology learning of solving Business Process Management.",
+    "syllabus": [
+      {
+        "title": "Enterprise Design",
+        "session": 1,
+        "content": [
+          "Availability, Cluster Topologies",
+          "Micro problems identification",
+          "Lego based bottoms up design pattern"
+        ]
+      },
+      {
+        "title": "Designing for Specialization",
+        "session": 2,
+        "content": [
+          "Asset Design and Re-use",
+          "Object oriented Pega development",
+          "Choosing right Application structure",
+          "Specialization Design Considerations"
+        ]
+      },
+      {
+        "title": "Process oriented mindset",
+        "session": 3,
+        "content": [
+          "Process design patterns",
+          "Involved Parties and work items",
+          "Automated routing : Push and Pull Routing",
+          "Alternate ways to execute business process"
+        ]
+      },
+      {
+        "title": "Release Management",
+        "session": 4,
+        "content": [
+          "Define release management approach",
+          "Devops release pipeline : Continuous integration and Delivery",
+          "Modular Testing strategy"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Architecture Mindset",
+    "type":"popular",
+    "image": "https://img-c.udemycdn.com/course/480x270/1183372_43f5.jpg",
+    "instructor": "Vinay Yadav",
+    "rating": "4.8",
+    "description":
+        "This course will help you build a strong base on the fundamentals of designing long term architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+    "overview":
+        "Come and learn an abstract way of building technology solutions while utilizing the latest technology from digitisation and automation. You will establish the architecture thought process that covers customer-focused solutions and build components that can be reused. ",
+    "syllabus": [
+      {
+        "title": "UX Design and Automated Processing",
+        "session": 1,
+        "content": [
+          "Identify functionality that impacts UX",
+          "Use behaviour performance strategies",
+          "Asynchronous Integration","Design UX patterns to optimize performance"
+        ]
+      },
+      {
+        "title": "Data Model Design",
+        "session": 2,
+        "content": [
+          "Data Model reuse layers",
+          "Proactive greenfield data modelling",
+          "Template Pattern, Data integrity"
+        ]
+      },
+      {
+        "title": "Security Management",
+        "session": 3,
+        "content": [
+          "Authentication design considerations",
+          "Authorization design and models",
+          "Roles and Access Groups and Security Mode"
+        
+        ]
+      },
+      {
+        "title": "Analytics",
+        "session": 4,
+        "content": [
+          "Reporting Strategy",
+          "Data warehousing",
+          "Reporting strategy","Design reports pattern"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Product Evolution",
+    "type":"popular",
+    "image": "https://img-c.udemycdn.com/course/480x270/1647046_c11d.jpg",
+    "instructor": "Vinay Yadav",
+    "rating": "4.5",
+    "description":
+        "Learn the art of working backwards from customers, Identifying the core business by the method of use cases, removing unwanted problems from today's business, we perform Decision making with the help of Data and providing value to our customers in a continuous manner. Created especially for working professionals who have long experience and managers to enhance their career goals.",
+    "overview":
+        "Come and learn long term product building strategy even if you have no experience in business and technology. Here you will be learning all that there is to know about product management. All beginners are welcome here!",
+    "syllabus": [
+      {
+        "title": "Customer focused ",
+        "session": 1,
+        "content": [
+          "Working backward thought process",
+          "Innovating on users behalf",
+          "Dealing with Ambiguity","Identifying use case and problem"
+        ]
+      },
+      {
+        "title": "Data Decisioning",
+        "session": 2,
+        "content": [
+          "Understanding Data",
+          "Ignoring bias",
+          "Mechanisms of decision making",
+          "Abstract thinking"
+        ]
+      },
+      {
+        "title": "Agile implementation",
+        "session": 3,
+        "content": [
+          "Written Communication",
+          "Epics, user stories and sprints",
+          "People skills focused on user Behaviour",
+          "Committing to process","Celebrating small wins"
+        ]
+      },
+      {
+        "title": "Excellent Timing ",
+        "session": 4,
+        "content": [
+          "Time Management",
+          "Goal based prioritization",
+          "Prioritization","Influencing Strategy"
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Leadership Journey",
+    "type":"popular",
+    "image": "https://img-c.udemycdn.com/course/480x270/80938_4fd4_9.jpg",
+    "instructor": "Vinay Yadav",
+    "rating": "4.0",
+    "description":
+        "Result Oriented leadership have always valued the take of an Entrepreneur on Understanding, Influencing shareholders, getting promotion from a manager to a leader and continuously creating innovative and useful products. It's built specifically for managers and entrepreneurs, to help them to reach to the next level of leadership or business.",
+    "overview":
+        "Result Oriented leadership have always valued the take of an Entrepreneur on Understanding, Influencing shareholders, getting promotion from a manager to a leader and continuously creating innovative and useful products. It's built specifically for managers and entrepreneurs, to help them to reach to the next level of leadership or business.",
+    "syllabus": [
+      {
+        "title": "Building productive teams",
+        "session": 1,
+        "content": [
+          "Types of organizations",
+          "Hiring Strategy",
+          "People Management","Building Manager of Managers"
+        ]
+      },
+      {
+        "title": "Time Management",
+        "session": 2,
+        "content": [
+          "Task management",
+          "Effort to reward ratio",
+          "Manager of Managers",
+          "Dive Deep with Delegation"
+        ]
+      },
+      {
+        "title": "Continuous learning",
+        "session": 3,
+        "content": [
+          "Auditing Strategy - Weekly, Monthly and Quarterly review",
+          "Self learning loops",
+          "Commitment towards recurring process",
+          "Evolving Goals and milestones"
+        ]
+      },
+      {
+        "title": "Thermostat leadership",
+        "session": 4,
+        "content": [
+          "Long term strategy building",
+          "Innovation",
+          "Stakeholder management","Investment in technology then in people."
+        ]
+      }
+    ]
+  }, {
+    "name": "Interview Ready - Engineers",
+    "type":"interview", 
+    "image": "https://img-c.udemycdn.com/course/480x270/80938_4fd4_9.jpg",
+    "instructor": "Vinay Yadav",
+    "rating": "4.0",
+    "description":
+        "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+    "overview":
+        "This is a live interview-centric course in which the content has been designed in a manner that will prepare engineers for interviews for companies like Google, Amazon, Adobe, Uber, etc. Industry experts having first-hand experience will be mentoring and guiding you throughout the duration of the course.",
+    "syllabus": [
+      {
+        "title": "Enterprise Design",
+        "session": 1,
+        "content": [
+          "Availability, Cluster Topologies",
+          "Micro problems identification",
+          "Lego based bottoms up design pattern"
+        ]
+      },
+      {
+        "title": "Designing for Specialization",
+        "session": 2,
+        "content": [
+          "Asset Design and Re-use",
+          "Object oriented Pega development",
+          "Choosing right Application structure",
+          "Specialization Design Considerations"
+        ]
+      },
+      {
+        "title": "Process oriented mindset",
+        "session": 3,
+        "content": [
+          "Process design patterns",
+          "Involved Parties and work items",
+          "Automated routing : Push and Pull Routing",
+          "Alternate ways to execute business process"
+        ]
+      },
+      {
+        "title": "Release Management",
+        "session": 4,
+        "content": [
+          "Define release management approach",
+          "Devops release pipeline : Continuous integration and Delivery",
+          "Modular Testing strategy"
+        ]
+      }
+    ]
+  }, {
+    "name": "Interview Ready - Product Managers",
+    "type":"interview",
+    "image": "https://img-c.udemycdn.com/course/480x270/80938_4fd4_9.jpg",
+    "instructor": "Vinay Yadav",
+    "rating": "4.0",
+    "description":
+        "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
+    "overview":
+        "This is a live interview-centric course in which the content has been designed in a manner that will prepare engineers for interviews for companies like Google, Amazon, Adobe, Uber, etc. Industry experts having first-hand experience will be mentoring and guiding you throughout the duration of the course",
+    "syllabus": [
+      {
+        "title": "Enterprise Design",
+        "session": 1,
+        "content": [
+          "Availability, Cluster Topologies",
+          "Micro problems identification",
+          "Lego based bottoms up design pattern"
+        ]
+      },
+      {
+        "title": "Designing for Specialization",
+        "session": 2,
+        "content": [
+          "Asset Design and Re-use",
+          "Object oriented Pega development",
+          "Choosing right Application structure",
+          "Specialization Design Considerations"
+        ]
+      },
+      {
+        "title": "Process oriented mindset",
+        "session": 3,
+        "content": [
+          "Process design patterns",
+          "Involved Parties and work items",
+          "Automated routing : Push and Pull Routing",
+          "Alternate ways to execute business process"
+        ]
+      },
+      {
+        "title": "Release Management",
+        "session": 4,
+        "content": [
+          "Define release management approach",
+          "Devops release pipeline : Continuous integration and Delivery",
+          "Modular Testing strategy"
+        ]
+      }
+    ]
+  }
+]}
