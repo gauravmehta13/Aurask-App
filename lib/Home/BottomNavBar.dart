@@ -1,5 +1,6 @@
 import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Screens/Premium%20Membership.dart';
+import 'package:aurask/Screens/UserAccount.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -17,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HomePage(),
     PremiumMembership(),
     Container(),
-    Container(),
+    UserAccount()
   ];
 
   @override

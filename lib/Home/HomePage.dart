@@ -6,6 +6,7 @@ import 'package:aurask/Screens/CoursePage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
 import 'package:dio/dio.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -20,6 +21,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   List stories = [];
   List courses = [];
   List interviewCourses = [];
@@ -106,7 +108,8 @@ class _HomePageState extends State<HomePage> {
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text("Hi Gaurav",
+                                Text(
+                                    "Hi ${_auth.currentUser!.displayName!.split(" ")[0]}",
                                     style: GoogleFonts.montserrat(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,

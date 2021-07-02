@@ -1,4 +1,6 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Home/BottomNavBar.dart';
+import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -68,21 +70,29 @@ class _UserDetailsState extends State<UserDetails> {
                     Expanded(child: Text("")),
                     Expanded(
                       flex: 3,
-                      child: Container(
-                          child: Column(
-                        children: [
-                          Text(
-                            "I am currently Studying / Recently passed out of College",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontWeight: FontWeight.w400,
-                                color: Colors.white,
-                                fontSize: 20),
-                          ),
-                          box10,
-                          Text("data")
-                        ],
-                      )),
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            FadeRoute(page: BottomNavBar()),
+                          );
+                        },
+                        child: Container(
+                            child: Column(
+                          children: [
+                            Text(
+                              "I am currently Studying / Recently passed out of College",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400,
+                                  color: Colors.white,
+                                  fontSize: 20),
+                            ),
+                            box10,
+                            Text("data")
+                          ],
+                        )),
+                      ),
                     ),
                     Expanded(
                       flex: 3,

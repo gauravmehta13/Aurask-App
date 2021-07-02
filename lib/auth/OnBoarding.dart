@@ -1,7 +1,7 @@
 import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
-
+import 'package:aurask/auth/UserInfo.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -10,13 +10,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../Constants.dart';
 
-final List<String> imgList = [
-  'https://images.unsplash.com/photo-1520342868574-5fa3804e551c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=6ff92caffcdd63681a35134a6770ed3b&auto=format&fit=crop&w=1951&q=80',
-  'https://images.unsplash.com/photo-1522205408450-add114ad53fe?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=368f45b0888aeb0b7b08e3a1084d3ede&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=94a1e718d89ca60a6337a6008341ca50&auto=format&fit=crop&w=1950&q=80',
-  'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=89719a0d55dd05e2deae4120227e6efc&auto=format&fit=crop&w=1953&q=80',
-  'https://images.unsplash.com/photo-1508704019882-f9cf40e475b4?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=8c6e5e3aba713b17aa1fe71ab4f0ae5b&auto=format&fit=crop&w=1352&q=80',
-  'https://images.unsplash.com/photo-1519985176271-adb1088fa94c?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=a0c8d632e977f94e5d312d9893258f59&auto=format&fit=crop&w=1355&q=80'
+final List<String> topText = [
+  "Learn the most In-Demand skills for Free",
+  "Prepare and Crack your Dream Job",
+  "Transform your Career with Live Semainars"
 ];
 
 class OnboardingScreen extends StatefulWidget {
@@ -46,76 +43,53 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Container(
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 40),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
+              box30,
               Text(
                 'Aurask',
                 style: GoogleFonts.montserrat(
                   fontWeight: FontWeight.bold,
-                  fontSize: 30,
+                  fontSize: 40,
                 ),
               ),
               box20,
-              Text(
-                'Learn the most\n In-Demand skills for Free',
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w600, fontSize: 20),
-              ),
-              box20,
+              // Text(
+              //   'Learn the most\n In-Demand skills for Free',
+              //   textAlign: TextAlign.center,
+              //   style: GoogleFonts.montserrat(
+              //       fontWeight: FontWeight.w600, fontSize: 20),
+              // ),
+              // box20,
               Spacer(),
               CarouselSlider(
-                items: imgList
-                    .map((item) => Container(
-                          child: Container(
-                            height: MediaQuery.of(context).size.height / 2,
-                            margin: EdgeInsets.all(5.0),
-                            child: ClipRRect(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(5.0)),
-                                child: Stack(
-                                  children: <Widget>[
-                                    Image.network(item,
-                                        fit: BoxFit.cover, width: 1000.0),
-                                    Positioned(
-                                      bottom: 0.0,
-                                      left: 0.0,
-                                      right: 0.0,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Color.fromARGB(200, 0, 0, 0),
-                                              Color.fromARGB(0, 0, 0, 0)
-                                            ],
-                                            begin: Alignment.bottomCenter,
-                                            end: Alignment.topCenter,
-                                          ),
-                                        ),
-                                        padding: EdgeInsets.symmetric(
-                                            vertical: 10.0, horizontal: 20.0),
-                                        child: Text(
-                                          'No. ${imgList.indexOf(item)} image',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                )),
+                items: List<Widget>.generate(
+                    3,
+                    (i) => Container(
+                          child: Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  topText[i],
+                                  textAlign: TextAlign.center,
+                                  style: GoogleFonts.montserrat(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 20),
+                                ),
+                              ),
+                              Image.asset("assets/login/${i + 1}.png",
+                                  fit: BoxFit.cover, width: double.maxFinite),
+                            ],
                           ),
-                        ))
-                    .toList(),
+                        )),
                 carouselController: _controller,
                 options: CarouselOptions(
+                    viewportFraction: 1.0,
+                    height: MediaQuery.of(context).size.height / 1.8,
                     autoPlay: true,
-                    enlargeCenterPage: true,
-                    aspectRatio: 2.0,
                     onPageChanged: (index, reason) {
                       setState(() {
                         _current = index;
@@ -124,12 +98,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: imgList.asMap().entries.map((entry) {
+                children: topText.asMap().entries.map((entry) {
                   return GestureDetector(
                     onTap: () => _controller.animateToPage(entry.key),
                     child: Container(
-                      width: 12.0,
-                      height: 12.0,
+                      width: 10.0,
+                      height: 10.0,
                       margin:
                           EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                       decoration: BoxDecoration(
@@ -151,7 +125,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         color: Color(0xFF186be5),
                         elevation: 5,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(5),
+                          borderRadius: BorderRadius.circular(15),
                         ),
                         child: Container(
                           width: MediaQuery.of(context).size.width - 100,
@@ -162,11 +136,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                               Container(
                                   decoration: BoxDecoration(
                                     color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5),
+                                    borderRadius: BorderRadius.circular(10),
                                   ),
                                   padding: EdgeInsets.all(10),
-                                  height: 50,
-                                  width: 50,
+                                  height: 45,
+                                  width: 45,
                                   child: Image.network(
                                       'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png')),
                               Text(
@@ -203,16 +177,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         await _auth.signInWithCredential(credential).then((value) async {
           print(value.additionalUserInfo!.isNewUser);
           if (value.additionalUserInfo!.isNewUser) {
-            // await DatabaseService(_auth.currentUser!.uid).updateUserData("");
-            // Navigator.pushReplacement(
-            //   context,
-            //   FadeRoute(page: BottomNavBar()),
-            // );
+            Navigator.pushReplacement(
+              context,
+              FadeRoute(page: UserDetails()),
+            );
           } else {
-            // Navigator.pushReplacement(
-            //   context,
-            //   FadeRoute(page: BottomNavBar()),
-            // );
+            Navigator.pushReplacement(
+              context,
+              FadeRoute(page: BottomNavBar()),
+            );
           }
           setState(() {
             loading = false;

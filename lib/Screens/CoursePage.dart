@@ -1,6 +1,8 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Screens/Date%20Card.dart';
 import 'package:aurask/Screens/InstructorPage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +22,7 @@ class _CoursePageState extends State<CoursePage> {
   @override
   void initState() {
     super.initState();
+
     _controller = VideoPlayerController.network(
         'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
       ..initialize().then((_) {
@@ -28,33 +31,212 @@ class _CoursePageState extends State<CoursePage> {
       });
   }
 
+  List pricing = [
+    {
+      "title": "Free Seminar",
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session, Life time validity of the course.",
+      "selected": false
+    },
+  ];
+
+  bool free = false;
+  bool live = false;
+  bool self = true;
+
   @override
   void dispose() {
     super.dispose();
     _controller.dispose();
   }
 
+  void displayCourseChoices(BuildContext context) {
+    showModalBottomSheet(
+        context: context,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        builder: (ctx) {
+          return Container(
+            child: Column(
+              children: [
+                Container(
+                  width: double.maxFinite,
+                  child: Row(children: [
+                    Expanded(
+                        child: Card(
+                      child: Container(
+                        color: Colors.grey[300],
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[300],
+                                  maxRadius: 100,
+                                  child: Text(
+                                    "₹ 0",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Free Seminar",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                      ),
+                    )),
+                    Expanded(
+                        child: Card(
+                      child: Container(
+                        color: Colors.grey[300],
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[300],
+                                  maxRadius: 100,
+                                  child: Text(
+                                    "₹ 3999",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Self Tutorial",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                      ),
+                    )),
+                    Expanded(
+                        child: Card(
+                      child: Container(
+                        color: Colors.grey[300],
+                        padding: EdgeInsets.all(10),
+                        child: Column(
+                          children: [
+                            CircleAvatar(
+                              radius: 70,
+                              backgroundColor: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: CircleAvatar(
+                                  backgroundColor: Colors.grey[300],
+                                  maxRadius: 100,
+                                  child: Text(
+                                    "₹ 5999",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              "Live Session",
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 20, fontWeight: FontWeight.w600),
+                            )
+                          ],
+                        ),
+                      ),
+                    )),
+                  ]),
+                ),
+                InkWell(
+                  onTap: () {
+                    displayCourseChoices(context);
+                  },
+                  child: Card(
+                    margin: EdgeInsets.zero,
+                    clipBehavior: Clip.antiAlias,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0),
+                    ),
+                    elevation: 4,
+                    child: Container(
+                        width: double.maxFinite,
+                        height: 60,
+                        color: primaryColor,
+                        child: Center(
+                          child: Text("Join Course",
+                              style: GoogleFonts.montserrat(
+                                  color: Colors.white,
+                                  fontSize: 17,
+                                  fontWeight: FontWeight.w600)),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: Card(
-          margin: EdgeInsets.zero,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8.0),
+        bottomNavigationBar: InkWell(
+          onTap: () {
+            displayCourseChoices(context);
+          },
+          child: Card(
+            margin: EdgeInsets.zero,
+            clipBehavior: Clip.antiAlias,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            elevation: 4,
+            child: Container(
+                width: double.maxFinite,
+                height: 60,
+                color: primaryColor,
+                child: Center(
+                  child: Text("Join Course",
+                      style: GoogleFonts.montserrat(
+                          color: Colors.white,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600)),
+                )),
           ),
-          elevation: 4,
-          child: Container(
-              width: double.maxFinite,
-              height: 60,
-              color: primaryColor,
-              child: Center(
-                child: Text("Join Course",
-                    style: GoogleFonts.montserrat(
-                        color: Colors.white,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600)),
-              )),
         ),
         appBar: AppBar(
           backgroundColor: primaryColor,
@@ -481,6 +663,72 @@ class _CoursePageState extends State<CoursePage> {
                         box10,
                         Divider(),
                       ])),
+              GridView.builder(
+                shrinkWrap: true,
+                itemCount: pricing.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    childAspectRatio: 0.6, crossAxisCount: 3),
+                itemBuilder: (BuildContext context, int index) {
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        for (var i = 0; i < pricing.length; i++) {
+                          pricing[i]["selected"] = false;
+                        }
+                        pricing[index]["selected"] = true;
+                      });
+                    },
+                    child: Card(
+                      child: Container(
+                        color: pricing[index]["selected"] == true
+                            ? primaryColor
+                            : Colors.grey[300],
+                        padding: EdgeInsets.only(
+                            left: 10, right: 10, top: 10, bottom: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            CircleAvatar(
+                              radius: 60,
+                              backgroundColor: Colors.white,
+                              child: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: CircleAvatar(
+                                  backgroundColor:
+                                      pricing[index]["selected"] == true
+                                          ? primaryColor.withOpacity(0.1)
+                                          : Colors.grey[300],
+                                  maxRadius: 100,
+                                  child: Text(
+                                    "₹ ${pricing[index]["price"].toString()}",
+                                    style: GoogleFonts.montserrat(
+                                        color: primaryColor,
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.w900),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Text(
+                              pricing[index]["title"],
+                              textAlign: TextAlign.center,
+                              style: GoogleFonts.montserrat(
+                                  color: pricing[index]["selected"] == true
+                                      ? Colors.white
+                                      : Colors.black,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            if (pricing[index]["selected"] == true)
+                              Icon(Icons.keyboard_arrow_down,
+                                  color: Colors.white)
+                          ],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
               Container(
                 color: Colors.grey[200],
                 padding: EdgeInsets.all(10),
