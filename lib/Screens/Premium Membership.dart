@@ -29,17 +29,22 @@ class _PremiumMembershipState extends State<PremiumMembership> {
               Row(
                 children: [
                   Spacer(),
-                  CircleAvatar(
-                    backgroundColor: Colors.grey[300],
-                    radius: 15,
-                    child: Icon(
-                      Icons.close,
-                      color: Colors.white,
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                    },
+                    child: CircleAvatar(
+                      backgroundColor: Colors.grey[300],
+                      radius: 15,
+                      child: Icon(
+                        Icons.close,
+                        color: Colors.white,
+                      ),
                     ),
                   )
                 ],
               ),
-              box20,
+              box10,
               Container(
                 padding: EdgeInsets.all(20),
                 decoration: BoxDecoration(
@@ -60,8 +65,9 @@ class _PremiumMembershipState extends State<PremiumMembership> {
               Text(
                   "Includes all self tutorial and interview sessions for all courses of Aurask for life. Also can join virtual QnA sessions and career guidance from industry experts once every month.",
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.montserrat(color: Colors.grey[800])),
-              box30,
+                  style: GoogleFonts.montserrat(
+                      color: Colors.grey[800], fontSize: 13)),
+              box20,
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 decoration: BoxDecoration(
@@ -71,11 +77,12 @@ class _PremiumMembershipState extends State<PremiumMembership> {
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.w600)),
               ),
-              box30,
+              box20,
               Text(
                   "If you choose Aurask Pro now, You'll get 50% discount on our most popular subscriptions.",
                   textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.grey[800])),
+                  style: GoogleFonts.montserrat(
+                      color: Colors.grey[800], fontSize: 13)),
               box20,
               Container(
                 clipBehavior: Clip.hardEdge,
@@ -111,14 +118,81 @@ class _PremiumMembershipState extends State<PremiumMembership> {
                             EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         child: Column(
                           children: [
-                            Text("LifeTime :  Rs. 14999"),
+                            Text("LifeTime :  Rs. 14999",
+                                style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[800],
+                                    fontSize: 13)),
                             box10,
-                            Text("Instead of Rs. 29999")
+                            Text("Instead of Rs. 29999",
+                                style: GoogleFonts.montserrat(
+                                    color: Colors.grey[700], fontSize: 11))
                           ],
                         ))
                   ],
                 ),
-              )
+              ),
+              box20,
+              Container(
+                width: double.maxFinite,
+                clipBehavior: Clip.hardEdge,
+                padding: EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: primaryColor),
+                    color: primaryColor.withOpacity(0.2)),
+                child: Column(
+                  children: [
+                    Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                        child: Column(
+                          children: [
+                            Text("1 Year :  Rs. 3999",
+                                style: GoogleFonts.montserrat(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[800],
+                                    fontSize: 13)),
+                            box10,
+                            Text("Instead of Rs. 7999",
+                                style: GoogleFonts.montserrat(
+                                    color: Colors.grey[700], fontSize: 11))
+                          ],
+                        ))
+                  ],
+                ),
+              ),
+              Spacer(),
+              Text("Automatic Payment can be cancelled at anytime",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                      color: Colors.grey[800], fontSize: 13)),
+              box10,
+              Text("Subscription starts immidiately",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                      color: Colors.grey[800], fontSize: 13)),
+              Spacer(),
+              Card(
+                margin: EdgeInsets.zero,
+                clipBehavior: Clip.antiAlias,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                elevation: 4,
+                child: Container(
+                    width: double.maxFinite,
+                    height: 60,
+                    color: primaryColor,
+                    child: Center(
+                      child: Text("Subscribe Now",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600)),
+                    )),
+              ),
+              Spacer(),
             ],
           ),
         ),

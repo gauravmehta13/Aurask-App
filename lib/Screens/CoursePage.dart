@@ -4,6 +4,7 @@ import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:video_player/video_player.dart';
 
 class CoursePage extends StatefulWidget {
   final Map course;
@@ -14,6 +15,25 @@ class CoursePage extends StatefulWidget {
 }
 
 class _CoursePageState extends State<CoursePage> {
+  late VideoPlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = VideoPlayerController.network(
+        'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
+      ..initialize().then((_) {
+        // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
+        setState(() {});
+      });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -151,27 +171,44 @@ class _CoursePageState extends State<CoursePage> {
                                 ),
                               ),
                               Container(
-                                alignment: Alignment.center,
-                                color: Colors.black.withOpacity(0.5),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(""),
-                                    Icon(
-                                      Icons.play_arrow,
-                                      size: 100,
-                                      color: Colors.white,
-                                    ),
-                                    Text(
-                                      "Preview this Course",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          fontSize: 15,
-                                          color: Colors.white),
-                                    ),
-                                    Text("")
-                                  ],
+                                height: 250,
+                                child: VideoPlayer(_controller),
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    _controller.value.isPlaying
+                                        ? _controller.pause()
+                                        : _controller.play();
+                                  });
+                                },
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  color: _controller.value.isPlaying
+                                      ? Colors.transparent
+                                      : Colors.black.withOpacity(0.5),
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(""),
+                                      if (!_controller.value.isPlaying)
+                                        Icon(
+                                          Icons.play_arrow,
+                                          size: 100,
+                                          color: Colors.white,
+                                        ),
+                                      if (!_controller.value.isPlaying)
+                                        Text(
+                                          "Preview this Course",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.w600,
+                                              fontSize: 15,
+                                              color: Colors.white),
+                                        ),
+                                      Text("")
+                                    ],
+                                  ),
                                 ),
                               )
                             ],

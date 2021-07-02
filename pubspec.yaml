@@ -25,6 +25,7 @@ dependencies:
     sdk: flutter
   cached_network_image: ^3.0.0
   carousel_slider: ^4.0.0
+  cloud_firestore: ^2.3.0
   confetti: ^0.5.5
   cupertino_icons: ^1.0.3
   dashed_circle: ^0.0.2

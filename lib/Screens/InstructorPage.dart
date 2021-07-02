@@ -57,13 +57,18 @@ class InstructorProfile extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
+                      Image.network(
+                        "https://image.flaticon.com/icons/png/128/3135/3135755.png",
+                        height: 30,
+                      ),
+                      box10,
                       Text(
                         "Total Students",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 13),
                       ),
-                      box20,
+                      box5,
                       Text(
                         "23,594",
                         style: TextStyle(
@@ -79,13 +84,18 @@ class InstructorProfile extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
+                      Image.network(
+                        "https://image.flaticon.com/icons/png/128/2665/2665038.png",
+                        height: 30,
+                      ),
+                      box10,
                       Text(
                         "Reviews",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 13),
                       ),
-                      box20,
+                      box5,
                       Text(
                         "3,532",
                         style: TextStyle(
@@ -101,13 +111,18 @@ class InstructorProfile extends StatelessWidget {
                   padding: EdgeInsets.all(10),
                   child: Column(
                     children: [
+                      Image.network(
+                        "https://image.flaticon.com/icons/png/128/1484/1484560.png",
+                        height: 30,
+                      ),
+                      box10,
                       Text(
                         "Ratings",
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             fontWeight: FontWeight.w600, fontSize: 13),
                       ),
-                      box20,
+                      box5,
                       Text(
                         "4.8",
                         style: TextStyle(
