@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Screens/InstructorPage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
+import 'package:aurask/model/reviews%20Model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
+
+import 'CustomerReviews.dart';
 
 class CoursePage extends StatefulWidget {
   final Map course;
@@ -22,7 +27,9 @@ class _CoursePageState extends State<CoursePage> {
   @override
   void initState() {
     super.initState();
+    print(widget.course);
     setInitialPrice();
+    loadJson();
     _controller = VideoPlayerController.network(
         'https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_20mb.mp4')
       ..initialize().then((_) {
@@ -33,10 +40,23 @@ class _CoursePageState extends State<CoursePage> {
 
   setInitialPrice() {
     for (var i = 0; i < widget.course["pricing"].length; i++) {
-      if (widget.course[i]["selected"] == true) {
-        selectedPrice = widget.course[i];
+      if (widget.course["pricing"][i]["selected"] == true) {
+        selectedPrice = widget.course["pricing"][i];
       }
     }
+  }
+
+  List<Reviews> reviews = [];
+
+  loadJson() async {
+    String data =
+        await DefaultAssetBundle.of(context).loadString("assets/reviews.json");
+
+    setState(() {
+      reviews =
+          (json.decode(data) as List).map((d) => Reviews.fromJson(d)).toList();
+      reviews.shuffle();
+    });
   }
 
   @override
@@ -61,18 +81,20 @@ class _CoursePageState extends State<CoursePage> {
                 children: [
                   GridView.builder(
                     shrinkWrap: true,
-                    itemCount: widget.course.length,
+                    itemCount: widget.course["pricing"].length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         childAspectRatio: 0.6, crossAxisCount: 3),
                     itemBuilder: (BuildContext context, int index) {
                       return InkWell(
                         onTap: () {
                           setState(() {
-                            for (var i = 0; i < widget.course.length; i++) {
-                              widget.course[i]["selected"] = false;
+                            for (var i = 0;
+                                i < widget.course["pricing"].length;
+                                i++) {
+                              widget.course["pricing"][i]["selected"] = false;
                             }
-                            widget.course[index]["selected"] = true;
-                            selectedPrice = widget.course[index];
+                            widget.course["pricing"][index]["selected"] = true;
+                            selectedPrice = widget.course["pricing"][index];
                           });
                         },
                         child: Card(
@@ -81,7 +103,9 @@ class _CoursePageState extends State<CoursePage> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Container(
-                            color: widget.course[index]["selected"] == true
+                            color: widget.course["pricing"][index]
+                                        ["selected"] ==
+                                    true
                                 ? primaryColor
                                 : Colors.grey[300],
                             padding: EdgeInsets.only(
@@ -95,14 +119,14 @@ class _CoursePageState extends State<CoursePage> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(2),
                                     child: CircleAvatar(
-                                      backgroundColor: widget.course[index]
-                                                  ["selected"] ==
+                                      backgroundColor: widget.course["pricing"]
+                                                  [index]["selected"] ==
                                               true
                                           ? primaryColor.withOpacity(0.1)
                                           : Colors.grey[300],
                                       maxRadius: 100,
                                       child: Text(
-                                        "₹ ${widget.course[index]["price"].toString()}",
+                                        "₹ ${widget.course["pricing"][index]["price"].toString()}",
                                         style: GoogleFonts.montserrat(
                                             color: primaryColor,
                                             fontSize: 20,
@@ -112,17 +136,20 @@ class _CoursePageState extends State<CoursePage> {
                                   ),
                                 ),
                                 Text(
-                                  widget.course[index]["title"],
+                                  widget.course["pricing"][index]["title"],
                                   textAlign: TextAlign.center,
                                   style: GoogleFonts.montserrat(
-                                      color: widget.course[index]["selected"] ==
+                                      color: widget.course["pricing"][index]
+                                                  ["selected"] ==
                                               true
                                           ? Colors.white
                                           : Colors.black,
                                       fontSize: 20,
                                       fontWeight: FontWeight.w600),
                                 ),
-                                if (widget.course[index]["selected"] == true)
+                                if (widget.course["pricing"][index]
+                                        ["selected"] ==
+                                    true)
                                   Icon(Icons.keyboard_arrow_down,
                                       color: Colors.white)
                               ],
@@ -149,6 +176,7 @@ class _CoursePageState extends State<CoursePage> {
                   ),
                   InkWell(
                     onTap: () {
+                      Navigator.pop(context);
                       displaySnackBar("Coming Soon", context);
                     },
                     child: Card(
@@ -473,7 +501,7 @@ class _CoursePageState extends State<CoursePage> {
                                     wbox10,
                                     Expanded(
                                       child: Text(
-                                        "Change your mindset and master the basi  djfwiebfhinking erdfugi.",
+                                        "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.  ",
                                         style: TextStyle(fontSize: 13),
                                       ),
                                     )
@@ -629,6 +657,10 @@ class _CoursePageState extends State<CoursePage> {
                         ),
                         box10,
                         Divider(),
+                        box10,
+                        CustomerReviews(
+                          reviews: reviews,
+                        ),
                       ])),
               Container(
                 color: Colors.grey[200],

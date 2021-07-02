@@ -118,15 +118,15 @@ class _PremiumMembershipState extends State<PremiumMembership> {
                             EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         child: Column(
                           children: [
-                            Text("LifeTime :  Rs. 14999",
+                            Text("LifeTime :  ₹ 14999",
                                 style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.grey[800],
-                                    fontSize: 13)),
+                                    fontSize: 15)),
                             box10,
-                            Text("Instead of Rs. 29999",
+                            Text("Instead of  ₹ 29999",
                                 style: GoogleFonts.montserrat(
-                                    color: Colors.grey[700], fontSize: 11))
+                                    color: Colors.grey[700], fontSize: 12))
                           ],
                         ))
                   ],
@@ -148,15 +148,15 @@ class _PremiumMembershipState extends State<PremiumMembership> {
                             EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                         child: Column(
                           children: [
-                            Text("1 Year :  Rs. 3999",
+                            Text("1 Year :  ₹ 3999",
                                 style: GoogleFonts.montserrat(
                                     fontWeight: FontWeight.w600,
                                     color: Colors.grey[800],
-                                    fontSize: 13)),
+                                    fontSize: 15)),
                             box10,
-                            Text("Instead of Rs. 7999",
+                            Text("Instead of  ₹ 7999",
                                 style: GoogleFonts.montserrat(
-                                    color: Colors.grey[700], fontSize: 11))
+                                    color: Colors.grey[700], fontSize: 12))
                           ],
                         ))
                   ],

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/Components/Stories/Story.dart';
 import 'package:aurask/Screens/CoursePage.dart';
+import 'package:aurask/Screens/Premium%20Membership.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
 import 'package:dio/dio.dart';
@@ -352,74 +353,81 @@ class _HomePageState extends State<HomePage> {
                           shrinkWrap: true,
                           itemCount: interviewCourses.length,
                           itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              clipBehavior: Clip.hardEdge,
-                              margin: EdgeInsets.only(bottom: 16),
-                              width: double.maxFinite,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.grey[300]!),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(15))),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    width: 90,
-                                    height: 100,
-                                    child: Image.network(
-                                      interviewCourses[index]["image"],
-                                      fit: BoxFit.fitHeight,
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(context,
+                                    FadeRoute(page: PremiumMembership()));
+                              },
+                              child: Container(
+                                clipBehavior: Clip.hardEdge,
+                                margin: EdgeInsets.only(bottom: 16),
+                                width: double.maxFinite,
+                                decoration: BoxDecoration(
+                                    border:
+                                        Border.all(color: Colors.grey[300]!),
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(15))),
+                                child: Row(
+                                  children: [
+                                    Container(
+                                      width: 90,
+                                      height: 100,
+                                      child: Image.network(
+                                        interviewCourses[index]["image"],
+                                        fit: BoxFit.fitHeight,
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 15,
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(interviewCourses[index]["name"],
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700)),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        RatingBar.builder(
-                                          ignoreGestures: true,
-                                          initialRating: 4.3,
-                                          minRating: 1,
-                                          direction: Axis.horizontal,
-                                          itemSize: 15,
-                                          allowHalfRating: true,
-                                          itemCount: 5,
-                                          itemPadding: EdgeInsets.symmetric(
-                                              horizontal: 1.0),
-                                          itemBuilder: (context, _) => Icon(
-                                            Icons.star,
-                                            color: Colors.amber,
+                                    SizedBox(
+                                      width: 15,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(interviewCourses[index]["name"],
+                                              style: GoogleFonts.montserrat(
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w700)),
+                                          SizedBox(
+                                            height: 8,
                                           ),
-                                          onRatingUpdate: (double value) {},
-                                        ),
-                                        SizedBox(
-                                          height: 8,
-                                        ),
-                                        Text(
-                                            "Get trained for comapnies like google , amazon , netflix etc.",
-                                            maxLines: 2,
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.grey[600],
-                                            )),
-                                      ],
+                                          RatingBar.builder(
+                                            ignoreGestures: true,
+                                            initialRating: 4.3,
+                                            minRating: 1,
+                                            direction: Axis.horizontal,
+                                            itemSize: 15,
+                                            allowHalfRating: true,
+                                            itemCount: 5,
+                                            itemPadding: EdgeInsets.symmetric(
+                                                horizontal: 1.0),
+                                            itemBuilder: (context, _) => Icon(
+                                              Icons.star,
+                                              color: Colors.amber,
+                                            ),
+                                            onRatingUpdate: (double value) {},
+                                          ),
+                                          SizedBox(
+                                            height: 8,
+                                          ),
+                                          Text(
+                                              "Get trained for comapnies like google , amazon , netflix etc.",
+                                              maxLines: 2,
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                color: Colors.grey[600],
+                                              )),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  SizedBox(
-                                    width: 20,
-                                  ),
-                                ],
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           }),
