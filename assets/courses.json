@@ -8,7 +8,30 @@
         "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
     "description":
         "At Aurask we help you identify the core problems and build a mindset of ambiguity solving. We have personalized learning for the final year students, freshers and working professionals. You'll learn foundation skills while attaining niche technology learning of solving Business Process Management.",
-    "syllabus": [
+    "pricing":[  {
+      "title": "Free Seminar",
+      "id": 0,
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "id": 1,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "id": 2,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session",
+      "selected": false
+    }
+  ],"syllabus": [
       {
         "title": "Enterprise Design",
         "session": 1,
@@ -59,7 +82,30 @@
         "This course will help you build a strong base on the fundamentals of designing long term architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
     "overview":
         "Come and learn an abstract way of building technology solutions while utilizing the latest technology from digitisation and automation. You will establish the architecture thought process that covers customer-focused solutions and build components that can be reused. ",
-    "syllabus": [
+    "pricing":[  {
+      "title": "Free Seminar",
+      "id": 0,
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "id": 1,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "id": 2,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session",
+      "selected": false
+    }
+  ],"syllabus": [
       {
         "title": "UX Design and Automated Processing",
         "session": 1,
@@ -109,7 +155,30 @@
         "Learn the art of working backwards from customers, Identifying the core business by the method of use cases, removing unwanted problems from today's business, we perform Decision making with the help of Data and providing value to our customers in a continuous manner. Created especially for working professionals who have long experience and managers to enhance their career goals.",
     "overview":
         "Come and learn long term product building strategy even if you have no experience in business and technology. Here you will be learning all that there is to know about product management. All beginners are welcome here!",
-    "syllabus": [
+    "pricing":[  {
+      "title": "Free Seminar",
+      "id": 0,
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "id": 1,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "id": 2,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session",
+      "selected": false
+    }
+  ],"syllabus": [
       {
         "title": "Customer focused ",
         "session": 1,
@@ -160,7 +229,30 @@
         "Result Oriented leadership have always valued the take of an Entrepreneur on Understanding, Influencing shareholders, getting promotion from a manager to a leader and continuously creating innovative and useful products. It's built specifically for managers and entrepreneurs, to help them to reach to the next level of leadership or business.",
     "overview":
         "Result Oriented leadership have always valued the take of an Entrepreneur on Understanding, Influencing shareholders, getting promotion from a manager to a leader and continuously creating innovative and useful products. It's built specifically for managers and entrepreneurs, to help them to reach to the next level of leadership or business.",
-    "syllabus": [
+    "pricing":[  {
+      "title": "Free Seminar",
+      "id": 0,
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "id": 1,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "id": 2,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session",
+      "selected": false
+    }
+  ],"syllabus": [
       {
         "title": "Building productive teams",
         "session": 1,
@@ -210,7 +302,30 @@
         "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
     "overview":
         "This is a live interview-centric course in which the content has been designed in a manner that will prepare engineers for interviews for companies like Google, Amazon, Adobe, Uber, etc. Industry experts having first-hand experience will be mentoring and guiding you throughout the duration of the course.",
-    "syllabus": [
+    "pricing":[  {
+      "title": "Free Seminar",
+      "id": 0,
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "id": 1,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "id": 2,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session",
+      "selected": false
+    }
+  ],"syllabus": [
       {
         "title": "Enterprise Design",
         "session": 1,
@@ -260,7 +375,30 @@
         "Come and learn problem solving even if you have no experience in technology. This course will help you build a strong base on the fundamentals of designing an architecture. Be the creator of new technologies with limits as far as your imagination goes! All beginners are welcome here!",
     "overview":
         "This is a live interview-centric course in which the content has been designed in a manner that will prepare engineers for interviews for companies like Google, Amazon, Adobe, Uber, etc. Industry experts having first-hand experience will be mentoring and guiding you throughout the duration of the course",
-    "syllabus": [
+    "pricing":[  {
+      "title": "Free Seminar",
+      "id": 0,
+      "price": 0,
+      "description": "Free Seminars every month",
+      "selected": false
+    },
+    {
+      "title": "Self Tutorial",
+      "price": 3999,
+      "id": 1,
+      "description":
+          "Includes pre-recorded videos, live QnA doubt session, Lifetime access to the course.",
+      "selected": true
+    },
+    {
+      "title": "Live Session",
+      "price": 4999,
+      "id": 2,
+      "description":
+          "2 Day workshop from industry experts. Also includes pre-recorded videos, live QnA doubt session",
+      "selected": false
+    }
+  ],"syllabus": [
       {
         "title": "Enterprise Design",
         "session": 1,
