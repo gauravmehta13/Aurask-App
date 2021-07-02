@@ -101,12 +101,10 @@ class _UserDetailsState extends State<UserDetails> {
                                 DatabaseService(_auth.currentUser!.uid)
                                     .updateUserData(experience[index]["title"],
                                         experience[index]["level"]);
-
                                 Navigator.pushReplacement(
                                   context,
                                   FadeRoute(page: BottomNavBar()),
                                 );
-
                                 setState(() {
                                   loading = false;
                                 });

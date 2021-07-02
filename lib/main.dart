@@ -33,12 +33,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        title: 'Aurask',
-        theme: themeData(context),
-        debugShowCheckedModeBanner: false,
-        home: UserDetails()
-
-        //_auth.currentUser == null ? OnboardingScreen() : BottomNavBar(),
-        );
+      title: 'Aurask',
+      theme: themeData(context),
+      debugShowCheckedModeBanner: false,
+      home: _auth.currentUser == null ? OnboardingScreen() : BottomNavBar(),
+    );
   }
 }
