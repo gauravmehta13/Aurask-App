@@ -1,7 +1,7 @@
 import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
-import 'package:aurask/auth/UserInfo.dart';
+import 'package:aurask/auth/UserDetails.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';

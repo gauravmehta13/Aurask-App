@@ -80,6 +80,7 @@ class _CoursePageState extends State<CoursePage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: widget.course["pricing"].length,
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

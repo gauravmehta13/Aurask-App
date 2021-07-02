@@ -110,7 +110,7 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    "Hi ${_auth.currentUser!.displayName!.split(" ")[0]}",
+                                    "Hi ${_auth.currentUser?.displayName?.split(" ")[0]}",
                                     style: GoogleFonts.montserrat(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
@@ -214,123 +214,139 @@ class _HomePageState extends State<HomePage> {
                   box20,
                   !courseLoaded
                       ? Loading()
-                      : Container(
-                          height: 200,
-                          child: ListView.builder(
-                              physics: BouncingScrollPhysics(),
-                              padding: EdgeInsets.symmetric(horizontal: 20),
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: courses.length,
-                              itemBuilder: (BuildContext context, int index) {
-                                return InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      FadeRoute(
-                                          page: CoursePage(
-                                        course: courses[index],
-                                      )),
-                                    );
-                                  },
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Expanded(
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                                clipBehavior: Clip.hardEdge,
-                                                margin:
-                                                    EdgeInsets.only(right: 20),
-                                                width: MediaQuery.of(context)
-                                                        .size
-                                                        .width /
-                                                    1.5,
+                      : Column(
+                          children: [
+                            Container(
+                              height: 200,
+                              child: ListView.builder(
+                                  physics: BouncingScrollPhysics(),
+                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.horizontal,
+                                  itemCount: courses.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          FadeRoute(
+                                              page: CoursePage(
+                                            course: courses[index],
+                                          )),
+                                        );
+                                      },
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Stack(
+                                              children: [
+                                                Container(
+                                                    clipBehavior: Clip.hardEdge,
+                                                    margin: EdgeInsets.only(
+                                                        right: 20),
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                                .size
+                                                                .width /
+                                                            1.5,
+                                                    decoration: BoxDecoration(
+                                                        color: primaryColor,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    15))),
+                                                    child: Image.network(
+                                                      courses[index]["image"],
+                                                      fit: BoxFit.fill,
+                                                    )),
+                                                Positioned(
+                                                  top: 10,
+                                                  left: 10,
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    7))),
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            vertical: 5,
+                                                            horizontal: 7),
+                                                    child: Text(
+                                                      "⭐ ${courses[index]["rating"]}",
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                              fontSize: 12,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                              color: Color(
+                                                                  0xFFf09ea3)),
+                                                    ),
+                                                  ),
+                                                )
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Text(courses[index]["name"],
+                                                style: TextStyle(
+                                                    fontSize: 14,
+                                                    fontWeight:
+                                                        FontWeight.w600)),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                const EdgeInsets.only(left: 8),
+                                            child: Row(children: [
+                                              Icon(
+                                                Icons.person,
+                                                color: Colors.grey[400],
+                                                size: 14,
+                                              ),
+                                              SizedBox(
+                                                width: 8,
+                                              ),
+                                              Text("Vinay Yadav",
+                                                  style: TextStyle(
+                                                    color: Colors.grey[600],
+                                                    fontSize: 14,
+                                                  )),
+                                              SizedBox(
+                                                width: 20,
+                                              ),
+                                              Container(
                                                 decoration: BoxDecoration(
-                                                    color: primaryColor,
+                                                    color: Color(0xFFf09ea3)
+                                                        .withOpacity(0.3),
                                                     borderRadius:
                                                         BorderRadius.all(
                                                             Radius.circular(
                                                                 15))),
-                                                child: Image.network(
-                                                  courses[index]["image"],
-                                                  fit: BoxFit.fill,
-                                                )),
-                                            Positioned(
-                                              top: 10,
-                                              left: 10,
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                    color: Colors.white,
-                                                    borderRadius:
-                                                        BorderRadius.all(
-                                                            Radius.circular(
-                                                                7))),
                                                 padding: EdgeInsets.symmetric(
-                                                    vertical: 5, horizontal: 7),
+                                                    vertical: 3, horizontal: 7),
                                                 child: Text(
-                                                  "⭐ ${courses[index]["rating"]}",
+                                                  "Best Seller",
                                                   style: GoogleFonts.montserrat(
-                                                      fontSize: 12,
+                                                      fontSize: 10,
                                                       fontWeight:
                                                           FontWeight.w600,
-                                                      color: Color(0xFFf09ea3)),
+                                                      color: Color(0xFFd88e93)),
                                                 ),
                                               ),
-                                            )
-                                          ],
-                                        ),
+                                            ]),
+                                          )
+                                        ],
                                       ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(courses[index]["name"],
-                                            style: TextStyle(
-                                                fontSize: 14,
-                                                fontWeight: FontWeight.w600)),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(left: 8),
-                                        child: Row(children: [
-                                          Icon(
-                                            Icons.person,
-                                            color: Colors.grey[400],
-                                            size: 14,
-                                          ),
-                                          SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text("Vinay Yadav",
-                                              style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 14,
-                                              )),
-                                          SizedBox(
-                                            width: 20,
-                                          ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                color: Color(0xFFf09ea3)
-                                                    .withOpacity(0.3),
-                                                borderRadius: BorderRadius.all(
-                                                    Radius.circular(15))),
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 3, horizontal: 7),
-                                            child: Text(
-                                              "Best Seller",
-                                              style: GoogleFonts.montserrat(
-                                                  fontSize: 10,
-                                                  fontWeight: FontWeight.w600,
-                                                  color: Color(0xFFd88e93)),
-                                            ),
-                                          ),
-                                        ]),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
+                                    );
+                                  }),
+                            ),
+                          ],
                         ),
                   box30,
                   Padding(

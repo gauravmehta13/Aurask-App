@@ -1,5 +1,6 @@
 import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/auth/OnBoarding.dart';
+import 'package:aurask/auth/UserDetails.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -32,10 +33,12 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Aurask',
-      theme: themeData(context),
-      debugShowCheckedModeBanner: false,
-      home: _auth.currentUser == null ? OnboardingScreen() : BottomNavBar(),
-    );
+        title: 'Aurask',
+        theme: themeData(context),
+        debugShowCheckedModeBanner: false,
+        home: UserDetails()
+
+        //_auth.currentUser == null ? OnboardingScreen() : BottomNavBar(),
+        );
   }
 }
