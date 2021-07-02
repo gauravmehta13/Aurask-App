@@ -1,6 +1,6 @@
 import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Screens/Premium%20Membership.dart';
-import 'package:aurask/Screens/UserAccount.dart';
+import 'package:aurask/Screens/Profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -18,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
     HomePage(),
     PremiumMembership(),
     Container(),
-    UserAccount()
+    ProfilePage()
   ];
 
   @override
@@ -30,7 +30,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         type: BottomNavigationBarType.fixed,
         backgroundColor: Colors.white,
         selectedItemColor: primaryColor,
-        unselectedItemColor: Colors.grey,
+        unselectedItemColor: Colors.grey[700],
         enableFeedback: true,
         selectedFontSize: 14,
         unselectedFontSize: 14,
