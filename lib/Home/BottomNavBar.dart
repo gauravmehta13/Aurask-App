@@ -1,10 +1,15 @@
 import 'package:aurask/Home/HomePage.dart';
+import 'package:aurask/Screens/MyCourses.dart';
 import 'package:aurask/Screens/Premium%20Membership.dart';
 import 'package:aurask/Screens/Profile.dart';
+import 'package:aurask/auth/OnBoarding.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../Constants.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -16,9 +21,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> tabs = [
     HomePage(),
+    _auth.currentUser == null ? OnboardingScreen() : MyCourses(),
     PremiumMembership(),
-    Container(),
-    ProfilePage()
+    _auth.currentUser == null ? OnboardingScreen() : ProfilePage()
   ];
 
   @override

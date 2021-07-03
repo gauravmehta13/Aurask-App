@@ -17,6 +17,8 @@ final List<String> topText = [
 ];
 
 class OnboardingScreen extends StatefulWidget {
+  final Widget? page;
+  OnboardingScreen({this.page});
   @override
   _OnboardingScreenState createState() => _OnboardingScreenState();
 }
@@ -56,13 +58,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 ),
               ),
               box20,
-              // Text(
-              //   'Learn the most\n In-Demand skills for Free',
-              //   textAlign: TextAlign.center,
-              //   style: GoogleFonts.montserrat(
-              //       fontWeight: FontWeight.w600, fontSize: 20),
-              // ),
-              // box20,
               Spacer(),
               CarouselSlider(
                 items: List<Widget>.generate(
@@ -179,12 +174,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           if (value.additionalUserInfo!.isNewUser) {
             Navigator.pushReplacement(
               context,
-              FadeRoute(page: UserDetails()),
+              FadeRoute(
+                  page: UserDetails(
+                page: widget.page,
+              )),
             );
           } else {
             Navigator.pushReplacement(
               context,
-              FadeRoute(page: BottomNavBar()),
+              FadeRoute(page: widget.page ?? BottomNavBar()),
             );
           }
           setState(() {

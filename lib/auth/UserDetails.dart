@@ -2,13 +2,13 @@ import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
-import 'package:aurask/model/database.dart';
+import 'package:aurask/model/supabase%20Manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserDetails extends StatefulWidget {
-  const UserDetails({Key? key}) : super(key: key);
-
+  final Widget? page;
+  const UserDetails({Key? key, this.page}) : super(key: key);
   @override
   _UserDetailsState createState() => _UserDetailsState();
 }
@@ -34,6 +34,33 @@ class _UserDetailsState extends State<UserDetails> {
       "subtitle": "Lorem Ipsum doler"
     },
   ];
+
+  sendData(ex) async {
+    setState(() {
+      loading = true;
+    });
+    var resp = await client.from('user').insert([
+      {
+        'userId': _auth.currentUser?.uid,
+        "name": _auth.currentUser?.displayName ?? "",
+        "email": _auth.currentUser?.email ?? "",
+        "experience": ex["level"],
+      }
+    ]).execute();
+    print(resp.status);
+    if (resp.status == 201) {
+      Navigator.pushReplacement(
+        context,
+        FadeRoute(page: widget.page ?? BottomNavBar()),
+      );
+      setState(() {
+        loading = false;
+      });
+    } else {
+      displaySnackBar(resp.error!.message, context);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,20 +121,8 @@ class _UserDetailsState extends State<UserDetails> {
                           itemCount: experience.length,
                           itemBuilder: (context, int index) {
                             return InkWell(
-                              onTap: () async {
-                                setState(() {
-                                  loading = true;
-                                });
-                                DatabaseService(_auth.currentUser!.uid)
-                                    .updateUserData(experience[index]["title"],
-                                        experience[index]["level"]);
-                                Navigator.pushReplacement(
-                                  context,
-                                  FadeRoute(page: BottomNavBar()),
-                                );
-                                setState(() {
-                                  loading = false;
-                                });
+                              onTap: () {
+                                sendData(experience[index]);
                               },
                               child: Container(
                                   color: primaryColor,
@@ -135,106 +150,6 @@ class _UserDetailsState extends State<UserDetails> {
                                   )),
                             );
                           }),
-
-                  //   Column(
-                  //     children: [
-                  //       Divider(
-                  //         height: 1,
-                  //         color: Colors.white54,
-                  //       ),
-                  //       box30,
-                  //       Expanded(
-                  //         flex: 3,
-                  //         child: InkWell(
-                  //           onTap: () {
-                  //             Navigator.pushReplacement(
-                  //               context,
-                  //               FadeRoute(page: BottomNavBar()),
-                  //             );
-                  //           },
-                  //           child: Container(
-                  //               child: Column(
-                  //             children: [
-                  //               Text(
-                  //                 "Currently Studying / Recently passed out of College",
-                  //                 textAlign: TextAlign.center,
-                  //                 style: TextStyle(
-                  //                     fontWeight: FontWeight.w400,
-                  //                     color: Colors.white,
-                  //                     fontSize: 20),
-                  //               ),
-                  //               box10,
-                  //               Text(
-                  //                 "data",
-                  //                 textAlign: TextAlign.center,
-                  //                 style: TextStyle(
-                  //                     fontWeight: FontWeight.w400,
-                  //                     color: Colors.white70,
-                  //                     fontSize: 13),
-                  //               ),
-                  //               Divider()
-                  //             ],
-                  //           )),
-                  //         ),
-                  //       ),
-                  //       Expanded(
-                  //         flex: 3,
-                  //         child: Container(
-                  //             child: Column(
-                  //           children: [
-                  //             Text(
-                  //               "Working in a Service Based company for 1-2 Years",
-                  //               textAlign: TextAlign.center,
-                  //               style: TextStyle(
-                  //                   fontWeight: FontWeight.w400,
-                  //                   color: Colors.white,
-                  //                   fontSize: 20),
-                  //             ),
-                  //             box10,
-                  //             Text(
-                  //               "data",
-                  //               textAlign: TextAlign.center,
-                  //               style: TextStyle(
-                  //                   fontWeight: FontWeight.w400,
-                  //                   color: Colors.white70,
-                  //                   fontSize: 13),
-                  //             ),
-                  //             Divider()
-                  //           ],
-                  //         )),
-                  //       ),
-                  //       Expanded(
-                  //         flex: 3,
-                  //         child: Container(
-                  //             child: Column(
-                  //           children: [
-                  //             Text(
-                  //               "Having 5-10 years of Job Experience",
-                  //               textAlign: TextAlign.center,
-                  //               style: TextStyle(
-                  //                   fontWeight: FontWeight.w400,
-                  //                   color: Colors.white,
-                  //                   fontSize: 20),
-                  //             ),
-                  //             box10,
-                  //             Text(
-                  //               "data",
-                  //               textAlign: TextAlign.center,
-                  //               style: TextStyle(
-                  //                   fontWeight: FontWeight.w400,
-                  //                   color: Colors.white70,
-                  //                   fontSize: 13),
-                  //             ),
-                  //           ],
-                  //         )),
-                  //       ),
-                  //       Divider(
-                  //         height: 1,
-                  //         color: Colors.white54,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                 ))
           ],
         ),

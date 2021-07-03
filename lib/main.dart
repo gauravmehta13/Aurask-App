@@ -1,6 +1,5 @@
 import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/auth/OnBoarding.dart';
-import 'package:aurask/auth/UserDetails.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +22,6 @@ class _MyAppState extends State<MyApp> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   Noti noti = AppNoti();
-
   @override
   void initState() {
     super.initState();
@@ -36,7 +34,7 @@ class _MyAppState extends State<MyApp> {
       title: 'Aurask',
       theme: themeData(context),
       debugShowCheckedModeBanner: false,
-      home: _auth.currentUser == null ? OnboardingScreen() : BottomNavBar(),
+      home: BottomNavBar(),
     );
   }
 }

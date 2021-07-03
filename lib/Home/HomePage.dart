@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'package:aurask/model/supabase%20Manager.dart';
+import 'package:supabase/supabase.dart' as sb;
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/Components/Stories/Story.dart';
 import 'package:aurask/Screens/CoursePage.dart';
@@ -36,18 +37,28 @@ class _HomePageState extends State<HomePage> {
   }
 
   getCourses() async {
-    String data =
-        await DefaultAssetBundle.of(context).loadString("assets/courses.json");
-    var map = json.decode(data);
-    print(map);
-    for (var i = 0; i < map["courses"].length; i++) {
-      if (map["courses"][i]["type"] == "popular") {
-        courses.add(map["courses"][i]);
-      } else {
-        interviewCourses.add(map["courses"][i]);
-      }
-    }
+    // String data =
+    //     await DefaultAssetBundle.of(context).loadString("assets/courses.json");
+
+    // Select from table `countries` ordering by `name`
+    final response = await client
+        .from('courses')
+        .select()
+        .order('id', ascending: true)
+        .execute();
+    //print(response.data);
+
+    //var map = json.decode(response.data);
+    // print(map);
+    // for (var i = 0; i < map["courses"].length; i++) {
+    //   if (map["courses"][i]["type"] == "popular") {
+    //     courses.add(map["courses"][i]);
+    //   } else {
+    //     interviewCourses.add(map["courses"][i]);
+    //   }
+    // }
     setState(() {
+      courses = response.data;
       courseLoaded = true;
     });
   }
@@ -110,7 +121,9 @@ class _HomePageState extends State<HomePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                    "Hi ${_auth.currentUser?.displayName?.split(" ")[0]}",
+                                    _auth.currentUser == null
+                                        ? "Welcome,"
+                                        : "Hi ${_auth.currentUser?.displayName?.split(" ")[0]}",
                                     style: GoogleFonts.montserrat(
                                         fontSize: 20,
                                         fontWeight: FontWeight.w600,
