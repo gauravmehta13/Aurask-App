@@ -116,7 +116,8 @@ class CustomerReviews extends StatelessWidget {
                                   maxLines: 3,
                                   overflow: TextOverflow.ellipsis,
                                   style: TextStyle(
-                                    fontWeight: FontWeight.w500,
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w400,
                                     color: Colors.grey,
                                   ),
                                 ),
