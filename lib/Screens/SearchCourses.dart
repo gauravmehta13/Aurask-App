@@ -1,5 +1,5 @@
 import 'package:aurask/Constants.dart';
-import 'package:aurask/Screens/CoursePage.dart';
+import 'package:aurask/Screens/CourseInfo.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
 import 'package:aurask/Widgets/No%20Results%20Found.dart';
@@ -137,7 +137,7 @@ class _SearchCoursesState extends State<SearchCourses> {
                           Navigator.push(
                               context,
                               FadeRoute(
-                                  page: CoursePage(
+                                  page: CourseInfo(
                                       course: filteredCourses[index])));
                         },
                         child: Container(
