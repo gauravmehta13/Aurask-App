@@ -1,3 +1,4 @@
+import 'package:aurask/Screens/ReferAndEarn.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/auth/OnBoarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,7 +55,7 @@ class ProfilePage extends StatelessWidget {
         title: "Rewards",
         icon: Icons.celebration,
         onTap: () {
-          comingSoon(context);
+          Navigator.push(context, FadeRoute(page: ReferAndEarn()));
         },
       ),
       ProfilePage(

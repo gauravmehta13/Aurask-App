@@ -42,6 +42,7 @@ class _MyCoursesState extends State<MyCourses> {
         .select(
           'courseType,courses(*)',
         )
+        //.contains(column, value)
         // .match({"userId": _auth.currentUser?.uid})
         .eq("userId", _auth.currentUser?.uid)
         .execute();

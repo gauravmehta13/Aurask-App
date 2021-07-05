@@ -1,9 +1,9 @@
-import 'package:aurask/Home/BottomNavBar.dart';
-import 'package:aurask/auth/OnBoarding.dart';
+import 'package:aurask/auth/UserDetails.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'Constants.dart';
+import 'Home/BottomNavBar.dart';
 import 'notifications/importNoti.dart';
 import 'notifications/notis/ab/abNoti.dart';
 

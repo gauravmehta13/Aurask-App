@@ -19,19 +19,19 @@ class _UserDetailsState extends State<UserDetails> {
 
   List experience = [
     {
-      "level": "Beginner",
+      "level": "Student",
+      "img": "https://image.flaticon.com/icons/png/512/3135/3135755.png",
       "title": "Currently Studying / Recently passed out of College",
-      "subtitle": "Lorem Ipsum doler"
     },
     {
-      "level": "Intermediate",
+      "level": "Working Professional",
+      "img": "https://image.flaticon.com/icons/png/512/4961/4961532.png",
       "title": "Working in a Service Based company for 1-2 Years",
-      "subtitle": "Lorem Ipsum doler"
     },
     {
-      "level": "Advanced",
+      "level": "Leader",
+      "img": "https://image.flaticon.com/icons/png/512/2552/2552801.png",
       "title": "Having 5-10 years of Job Experience",
-      "subtitle": "Lorem Ipsum doler"
     },
   ];
 
@@ -67,14 +67,14 @@ class _UserDetailsState extends State<UserDetails> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        actions: [
-          IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.question_answer,
-                color: Colors.black,
-              ))
-        ],
+        // actions: [
+        //   IconButton(
+        //       onPressed: () {},
+        //       icon: Icon(
+        //         Icons.question_answer,
+        //         color: Colors.black,
+        //       ))
+        // ],
       ),
       body: Container(
         width: double.maxFinite,
@@ -115,6 +115,7 @@ class _UserDetailsState extends State<UserDetails> {
                       ? Loading(color: Colors.white)
                       : ListView.separated(
                           separatorBuilder: (context, index) => Divider(
+                                height: 40,
                                 color: Colors.white,
                               ),
                           shrinkWrap: true,
@@ -126,11 +127,15 @@ class _UserDetailsState extends State<UserDetails> {
                               },
                               child: Container(
                                   color: primaryColor,
-                                  padding: EdgeInsets.symmetric(vertical: 20),
                                   child: Column(
                                     children: [
+                                      Image.network(
+                                        experience[index]["img"],
+                                        height: 30,
+                                      ),
+                                      box10,
                                       Text(
-                                        experience[index]["title"],
+                                        experience[index]["level"],
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,
@@ -139,7 +144,7 @@ class _UserDetailsState extends State<UserDetails> {
                                       ),
                                       box10,
                                       Text(
-                                        experience[index]["subtitle"],
+                                        experience[index]["title"],
                                         textAlign: TextAlign.center,
                                         style: TextStyle(
                                             fontWeight: FontWeight.w400,

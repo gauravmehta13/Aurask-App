@@ -40,8 +40,8 @@ class _CoursePageState extends State<CoursePage> {
   }
 
   Future<void> initializeVideoPlayer() async {
-    videoPlayerController = VideoPlayerController.network(
-        "https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4");
+    videoPlayerController =
+        VideoPlayerController.network(widget.course["videoUrl"]);
     await Future.wait([videoPlayerController.initialize()]);
     chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
@@ -416,10 +416,19 @@ class _CoursePageState extends State<CoursePage> {
                                 ? Chewie(
                                     controller: chewieController,
                                   )
-                                : Image.network(
-                                    widget.course["image"],
-                                    fit: BoxFit.cover,
-                                  ),
+                                : Container(
+                                    decoration: BoxDecoration(
+                                      image: new DecorationImage(
+                                        image: new NetworkImage(
+                                            widget.course["image"]),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                    child: Center(
+                                      child: CircularProgressIndicator(
+                                        color: primaryColor.withOpacity(0.5),
+                                      ),
+                                    )),
                           ),
                           box20,
                           Text(
@@ -652,8 +661,8 @@ class _CoursePageState extends State<CoursePage> {
                                         CircleAvatar(
                                           radius: 30,
                                           backgroundColor: Colors.grey[300],
-                                          backgroundImage: NetworkImage(
-                                              "https://media-exp3.licdn.com/dms/image/C5603AQGacJ-P9gTj7w/profile-displayphoto-shrink_400_400/0/1517799815988?e=1630540800&v=beta&t=8G_NtmxHv0FI0hIcXO5W4XJcVnVFJ8QG1rBXPLV2f8E"),
+                                          backgroundImage: NetworkImage(widget
+                                              .course["instructor"]["imgUrl"]),
                                         ),
                                         wbox20,
                                         Expanded(
@@ -663,14 +672,16 @@ class _CoursePageState extends State<CoursePage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                "Vinay Yadav",
+                                                widget.course["instructor"]
+                                                    ["title"],
                                                 style: TextStyle(
                                                     fontWeight:
                                                         FontWeight.w600),
                                               ),
                                               box5,
                                               Text(
-                                                "Software Development Manager at Amazon",
+                                                widget.course["instructor"]
+                                                    ["subtitle"],
                                                 style: TextStyle(
                                                     fontSize: 12,
                                                     color: Colors.grey[800]),

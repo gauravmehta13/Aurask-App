@@ -1,3 +1,4 @@
+import 'package:aurask/Screens/SearchCourses.dart';
 import 'package:aurask/model/supabase%20Manager.dart';
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/Components/Stories/Story.dart';
@@ -26,8 +27,11 @@ class _HomePageState extends State<HomePage>
   List stories = [];
   List courses = [];
   List interviewCourses = [];
+  List allCourses = [];
   bool storiesLoaded = false;
   bool courseLoaded = false;
+
+  TextEditingController query = TextEditingController();
 
   void initState() {
     super.initState();
@@ -39,7 +43,7 @@ class _HomePageState extends State<HomePage>
     final response = await client
         .from('courses')
         .select()
-        .order('id', ascending: true)
+        .order('inserted_at', ascending: true)
         .execute();
 
     var map = response.data;
@@ -51,6 +55,7 @@ class _HomePageState extends State<HomePage>
         interviewCourses.add(map[i]);
       }
       setState(() {
+        allCourses = map;
         courseLoaded = true;
       });
     }
@@ -151,6 +156,8 @@ class _HomePageState extends State<HomePage>
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 child: TextFormField(
+                                  textInputAction: TextInputAction.go,
+                                  controller: query,
                                   cursorColor: Colors.black,
                                   decoration: new InputDecoration(
                                       prefixIcon: Icon(
@@ -170,22 +177,44 @@ class _HomePageState extends State<HomePage>
                                           top: 15,
                                           right: 15),
                                       hintText: "Search for a Course"),
+                                  onFieldSubmitted: (e) {
+                                    Navigator.push(
+                                      context,
+                                      FadeRoute(
+                                          page: SearchCourses(
+                                        allCourses: allCourses,
+                                        keyword: query.text,
+                                      )),
+                                    );
+                                  },
                                 ),
                               ),
                             ),
                             SizedBox(
                               width: 10,
                             ),
-                            Container(
-                              height: 48,
-                              width: 48,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              child: Icon(
-                                Icons.sort,
-                                color: primaryColor,
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  FadeRoute(
+                                      page: SearchCourses(
+                                    allCourses: allCourses,
+                                    keyword: query.text,
+                                  )),
+                                );
+                              },
+                              child: Container(
+                                height: 48,
+                                width: 48,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10))),
+                                child: Icon(
+                                  Icons.arrow_forward_ios,
+                                  color: primaryColor,
+                                ),
                               ),
                             )
                           ],

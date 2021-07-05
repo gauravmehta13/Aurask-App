@@ -1,17 +1,15 @@
 import 'dart:math';
 // import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter/scheduler.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
-import 'Widgets/Fade Route.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
+final FirebaseAuth auth = FirebaseAuth.instance;
 
 // logEvent(String text) {
 //   if (kReleaseMode) FirebaseAnalytics().logEvent(name: text, parameters: null);
