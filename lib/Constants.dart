@@ -1,5 +1,6 @@
 import 'dart:math';
 // import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:aurask/auth/OnBoarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -9,19 +10,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
-final FirebaseAuth auth = FirebaseAuth.instance;
+import 'Widgets/Fade Route.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 // logEvent(String text) {
 //   if (kReleaseMode) FirebaseAnalytics().logEvent(name: text, parameters: null);
 // }
 
-// authNavigate(Widget page, context) {
-//   if (_auth.currentUser == null) {
-//     Navigator.push(context, FadeRoute(page: RedirectLogin(screen: page)));
-//   } else {
-//     Navigator.push(context, FadeRoute(page: page));
-//   }
-// }
+authNavigate(Widget page, context) {
+  if (_auth.currentUser == null) {
+    Navigator.push(context, FadeRoute(page: OnboardingScreen(page: page)));
+  } else {
+    Navigator.push(context, FadeRoute(page: page));
+  }
+}
 
 // checkLogin(Widget page, context) {
 //   if (_auth.currentUser == null) {

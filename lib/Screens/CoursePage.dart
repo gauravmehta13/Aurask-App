@@ -281,7 +281,9 @@ class _CoursePageState extends State<CoursePage> {
       child: Scaffold(
           bottomNavigationBar: InkWell(
             onTap: () {
-              displayCourseChoices(context);
+              _auth.currentUser == null
+                  ? authNavigate(CoursePage(course: widget.course), context)
+                  : displayCourseChoices(context);
             },
             child: Card(
               margin: EdgeInsets.zero,

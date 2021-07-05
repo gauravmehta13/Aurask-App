@@ -1,9 +1,12 @@
 import 'package:aurask/Constants.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
+
+final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class ReferAndEarn extends StatelessWidget {
   const ReferAndEarn({Key? key}) : super(key: key);
@@ -82,7 +85,7 @@ class ReferAndEarn extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 15),
                             child: Text(
-                              auth.currentUser!.uid,
+                              _auth.currentUser!.uid,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w600),
                             ),
@@ -99,7 +102,7 @@ class ReferAndEarn extends StatelessWidget {
                                 onPrimary: Colors.white, // foreground
                               ),
                               onPressed: () async {
-                                Share.share(auth.currentUser!.uid);
+                                Share.share(_auth.currentUser!.uid);
                               },
                               child: Text("SHARE WITH FRIENDS"))),
                     ],

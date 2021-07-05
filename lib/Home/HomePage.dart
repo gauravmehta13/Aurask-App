@@ -135,13 +135,6 @@ class _HomePageState extends State<HomePage>
                             Spacer(),
                             IconButton(
                                 onPressed: () {},
-                                icon: Icon(
-                                  FontAwesomeIcons.cartPlus,
-                                  color: Colors.white,
-                                  size: 20,
-                                )),
-                            IconButton(
-                                onPressed: () {},
                                 icon: Icon(Icons.notifications,
                                     color: Colors.white))
                           ],
@@ -417,8 +410,11 @@ class _HomePageState extends State<HomePage>
                           itemBuilder: (BuildContext context, int index) {
                             return InkWell(
                               onTap: () {
-                                Navigator.push(context,
-                                    FadeRoute(page: PremiumMembership()));
+                                Navigator.push(
+                                    context,
+                                    FadeRoute(
+                                        page: CoursePage(
+                                            course: interviewCourses[index])));
                               },
                               child: Container(
                                 clipBehavior: Clip.hardEdge,
