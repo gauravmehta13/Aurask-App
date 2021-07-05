@@ -1,4 +1,4 @@
-import 'package:aurask/Screens/ReferAndEarn.dart';
+import 'package:aurask/Screens/Gamification/ReferAndEarn.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/auth/OnBoarding.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,9 +1,9 @@
+import 'package:aurask/Home/Components/banners.dart';
 import 'package:aurask/Screens/SearchCourses.dart';
 import 'package:aurask/model/supabase%20Manager.dart';
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/Components/Stories/Story.dart';
-import 'package:aurask/Screens/CoursePage.dart';
-import 'package:aurask/Screens/Premium%20Membership.dart';
+import 'package:aurask/Screens/CourseInfo.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
 import 'package:dio/dio.dart';
@@ -11,7 +11,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -270,7 +269,7 @@ class _HomePageState extends State<HomePage>
                                         Navigator.push(
                                           context,
                                           FadeRoute(
-                                              page: CoursePage(
+                                              page: CourseInfo(
                                             course: courses[index],
                                           )),
                                         );
@@ -413,7 +412,7 @@ class _HomePageState extends State<HomePage>
                                 Navigator.push(
                                     context,
                                     FadeRoute(
-                                        page: CoursePage(
+                                        page: CourseInfo(
                                             course: interviewCourses[index])));
                               },
                               child: Container(
@@ -489,6 +488,8 @@ class _HomePageState extends State<HomePage>
                               ),
                             );
                           }),
+                  buildSpinAndWin(context),
+                  buildReferAndEarn(context)
                 ],
               ),
             ),

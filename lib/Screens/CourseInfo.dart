@@ -16,17 +16,17 @@ import 'CustomerReviews.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
-class CoursePage extends StatefulWidget {
+class CourseInfo extends StatefulWidget {
   final Map course;
-  const CoursePage({Key? key, required this.course}) : super(key: key);
+  const CourseInfo({Key? key, required this.course}) : super(key: key);
 
   @override
-  _CoursePageState createState() => _CoursePageState();
+  _CourseInfoState createState() => _CourseInfoState();
 }
 
 Map selectedPrice = {};
 
-class _CoursePageState extends State<CoursePage> {
+class _CourseInfoState extends State<CourseInfo> {
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
 
@@ -282,7 +282,7 @@ class _CoursePageState extends State<CoursePage> {
           bottomNavigationBar: InkWell(
             onTap: () {
               _auth.currentUser == null
-                  ? authNavigate(CoursePage(course: widget.course), context)
+                  ? authNavigate(CourseInfo(course: widget.course), context)
                   : displayCourseChoices(context);
             },
             child: Card(
