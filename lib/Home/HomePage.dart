@@ -237,12 +237,23 @@ class _HomePageState extends State<HomePage>
                         Text("Popular Courses 🔥",
                             style: GoogleFonts.montserrat(
                                 fontSize: 17, fontWeight: FontWeight.w600)),
-                        Text("See all",
-                            style: GoogleFonts.montserrat(
-                                decoration: TextDecoration.underline,
-                                color: primaryColor,
-                                fontSize: 13,
-                                fontWeight: FontWeight.w600)),
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              FadeRoute(
+                                  page: SearchCourses(
+                                allCourses: allCourses,
+                              )),
+                            );
+                          },
+                          child: Text("See all",
+                              style: GoogleFonts.montserrat(
+                                  decoration: TextDecoration.underline,
+                                  color: primaryColor,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600)),
+                        ),
                       ],
                     ),
                   ),
