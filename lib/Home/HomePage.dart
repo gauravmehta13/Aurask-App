@@ -13,6 +13,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+List allCourse = [];
+
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -54,6 +56,7 @@ class _HomePageState extends State<HomePage>
         interviewCourses.add(map[i]);
       }
       setState(() {
+        allCourse = map;
         allCourses = map;
         courseLoaded = true;
       });

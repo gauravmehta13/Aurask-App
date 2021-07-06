@@ -1,10 +1,14 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
 import 'package:aurask/model/supabase%20Manager.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import 'Course/CourseTabs.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -143,10 +147,17 @@ class _MyCoursesState extends State<MyCourses> {
                       shrinkWrap: true,
                       itemCount: filteredCourses.length,
                       itemBuilder: (BuildContext context, int index) {
-                        return InkWell(
-                          onTap: () {
-                            // Navigator.push(context,
-                            //     FadeRoute(page: PremiumMembership()));
+                        return GestureDetector(
+                          onTap: () async {
+                            filteredCourses[index]["courseType"]["id"] != 1
+                                ? await launch(
+                                    "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20210226T033000/20210226T040000&ctz=Asia/Calcutta&location&text=Blawsome:+A+Crystal+Alchemy+Healing+Meditation&details=Parth+Pitroda")
+                                : Navigator.push(
+                                    context,
+                                    FadeRoute(
+                                        page: CourseTabs(
+                                      course: filteredCourses[index],
+                                    )));
                           },
                           child: Container(
                             clipBehavior: Clip.hardEdge,

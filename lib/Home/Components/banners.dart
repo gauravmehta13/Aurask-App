@@ -105,24 +105,45 @@ Widget buildReferAndEarn(context) {
                     fontSize: 17,
                   ),
                 ),
-                Text(
-                  '₹ 100',
-                  style: GoogleFonts.montserrat(
-                    color: primaryColor,
-                    fontWeight: FontWeight.w900,
-                    fontSize: 35,
-                    shadows: [
-                      Shadow(
-                        blurRadius: 10.0,
-                        color: Colors.white.withOpacity(0.7),
-                        offset: Offset(2.0, 2.0),
+                Row(
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      '100',
+                      style: GoogleFonts.montserrat(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 35,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 10.0,
+                            color: Colors.white.withOpacity(0.7),
+                            offset: Offset(2.0, 2.0),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                    wbox5,
+                    Text(
+                      'Aurask Coins',
+                      style: GoogleFonts.montserrat(
+                        color: primaryColor,
+                        fontWeight: FontWeight.w900,
+                        fontSize: 15,
+                        shadows: [
+                          Shadow(
+                            blurRadius: 10.0,
+                            color: Colors.white.withOpacity(0.7),
+                            offset: Offset(2.0, 2.0),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
                 box10,
                 Text(
-                  "Also help your friend get 5% discount on their first order.",
+                  "Also help your friend get 5% discount on their first course.",
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 13,

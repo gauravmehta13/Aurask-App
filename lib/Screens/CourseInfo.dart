@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Screens/Booking/SeminarInfo.dart';
 import 'package:aurask/Screens/InstructorPage.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
@@ -242,11 +243,20 @@ class _CourseInfoState extends State<CourseInfo> {
                     ),
                   ),
                   InkWell(
-                    onTap: () async {
-                      await sendData();
-                      // Navigator.pop(context);
-                      // displaySnackBar("Coming Soon", context);
-                    },
+                    onTap: selectedPrice["id"] != 1
+                        ? () async {
+                            //await sendData();
+                            Navigator.push(
+                                context,
+                                FadeRoute(
+                                    page: SeminarInfo(
+                                  id: "",
+                                )));
+                          }
+                        : () {
+                            Navigator.pop(context);
+                            displaySnackBar("Coming Soon", context);
+                          },
                     child: Card(
                       margin: EdgeInsets.zero,
                       clipBehavior: Clip.antiAlias,
