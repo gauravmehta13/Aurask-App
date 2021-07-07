@@ -1,6 +1,6 @@
 import 'package:aurask/Screens/Gamification/ReferAndEarn.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
-import 'package:aurask/auth/OnBoarding.dart';
+import 'package:aurask/auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -64,7 +64,7 @@ class ProfilePage extends StatelessWidget {
         onTap: () {
           _auth.signOut().then((value) => Navigator.pushReplacement(
                 context,
-                FadeRoute(page: OnboardingScreen()),
+                FadeRoute(page: LoginScreen()),
               ));
         },
       )

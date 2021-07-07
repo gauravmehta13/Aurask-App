@@ -1,6 +1,6 @@
 import 'dart:math';
 // import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:aurask/auth/OnBoarding.dart';
+import 'package:aurask/auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
@@ -20,7 +20,7 @@ final FirebaseAuth _auth = FirebaseAuth.instance;
 
 authNavigate(Widget page, context) {
   if (_auth.currentUser == null) {
-    Navigator.push(context, FadeRoute(page: OnboardingScreen(page: page)));
+    Navigator.push(context, FadeRoute(page: LoginScreen(page: page)));
   } else {
     Navigator.push(context, FadeRoute(page: page));
   }

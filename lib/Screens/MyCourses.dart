@@ -1,4 +1,5 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Screens/Booking/TicketDetails.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/Widgets/Loading.dart';
 import 'package:aurask/model/supabase%20Manager.dart';
@@ -150,8 +151,8 @@ class _MyCoursesState extends State<MyCourses> {
                         return GestureDetector(
                           onTap: () async {
                             filteredCourses[index]["courseType"]["id"] != 1
-                                ? await launch(
-                                    "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20210226T033000/20210226T040000&ctz=Asia/Calcutta&location&text=Blawsome:+A+Crystal+Alchemy+Healing+Meditation&details=Parth+Pitroda")
+                                ? Navigator.push(
+                                    context, FadeRoute(page: TicketDetails()))
                                 : Navigator.push(
                                     context,
                                     FadeRoute(

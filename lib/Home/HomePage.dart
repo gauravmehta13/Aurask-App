@@ -225,7 +225,7 @@ class _HomePageState extends State<HomePage>
                     box20,
                   box10,
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -261,7 +261,7 @@ class _HomePageState extends State<HomePage>
                               height: 200,
                               child: ListView.builder(
                                   physics: BouncingScrollPhysics(),
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
+                                  padding: EdgeInsets.symmetric(horizontal: 10),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   itemCount: courses.length,
@@ -391,7 +391,7 @@ class _HomePageState extends State<HomePage>
                         ),
                   box30,
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -405,7 +405,7 @@ class _HomePageState extends State<HomePage>
                   !courseLoaded
                       ? Loading()
                       : ListView.builder(
-                          padding: EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 10),
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: interviewCourses.length,

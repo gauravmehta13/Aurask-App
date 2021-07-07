@@ -2,7 +2,7 @@ import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Screens/MyCourses.dart';
 import 'package:aurask/Screens/Premium%20Membership.dart';
 import 'package:aurask/Screens/Profile.dart';
-import 'package:aurask/auth/OnBoarding.dart';
+import 'package:aurask/auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,9 +21,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> tabs = [
     HomePage(),
-    _auth.currentUser == null ? OnboardingScreen() : MyCourses(),
+    _auth.currentUser == null ? LoginScreen() : MyCourses(),
     PremiumMembership(),
-    _auth.currentUser == null ? OnboardingScreen() : ProfilePage()
+    _auth.currentUser == null ? LoginScreen() : ProfilePage()
   ];
 
   @override

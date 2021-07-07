@@ -1,210 +1,294 @@
-import 'package:aurask/Home/BottomNavBar.dart';
-import 'package:aurask/Home/HomePage.dart';
+import 'package:aurask/Constants.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
-import 'package:aurask/auth/UserDetails.dart';
-import 'package:carousel_slider/carousel_controller.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:aurask/auth/Login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import '../Constants.dart';
 
-final List<String> topText = [
-  "Learn the most In-Demand skills for Free",
-  "Prepare and Crack your Dream Job",
-  "Transform your Career with Live Semainars"
-];
+class Onboarding extends StatefulWidget {
+  const Onboarding({Key? key}) : super(key: key);
 
-class OnboardingScreen extends StatefulWidget {
-  final Widget? page;
-  OnboardingScreen({this.page});
   @override
-  _OnboardingScreenState createState() => _OnboardingScreenState();
+  _OnboardingState createState() => _OnboardingState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final googleSignIn = GoogleSignIn();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  int _current = 0;
-  final CarouselController _controller = CarouselController();
-
-  bool loading = false;
-
+class _OnboardingState extends State<Onboarding> {
+  List skillsGrid = [
+    {
+      "title": "Gain expertise in the latest skills",
+      "subtitle":
+          "with courses and Specializations in computer science, humanities, and more",
+      "icon": "https://image.flaticon.com/icons/png/128/4185/4185510.png"
+    },
+    {
+      "title": "Learn job-ready career skills",
+      "subtitle":
+          "in artificial intelligence, machine learning, data science, cloud engineering, and more",
+      "icon": "https://image.flaticon.com/icons/png/128/3281/3281289.png"
+    },
+    {
+      "title": "Earn a Certificate",
+      "subtitle":
+          "from the world's leading universities in business, computer science, and more",
+      "icon": "https://image.flaticon.com/icons/png/128/2303/2303934.png"
+    },
+    {
+      "title": "Upskill your organization",
+      "subtitle": "with on-demand training and development programs",
+      "icon": "https://image.flaticon.com/icons/png/128/3214/3214721.png"
+    },
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        bottom: false,
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          width: MediaQuery.of(context).size.width,
-          padding: EdgeInsets.symmetric(horizontal: 0, vertical: 40),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              box30,
-              Text(
-                'Aurask',
-                style: GoogleFonts.montserrat(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 40,
-                ),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text("Aurask",
+            style: GoogleFonts.montserrat(
+                fontSize: 20, fontWeight: FontWeight.w600)),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: MediaQuery.of(context).size.height / 2 - 50,
+              padding: EdgeInsets.all(20),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  box10,
+                  Text("Learn Without\nLimits",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 40, fontWeight: FontWeight.w600)),
+                  Text(
+                      "Take the next step in your career with a world class learning experience.",
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.montserrat(
+                          fontSize: 17, fontWeight: FontWeight.w500)),
+                  loginButton()
+                ],
               ),
-              box20,
-              Spacer(),
-              CarouselSlider(
-                items: List<Widget>.generate(
-                    3,
-                    (i) => Container(
-                          child: Column(
+            ),
+            box20,
+            Container(
+              height: MediaQuery.of(context).size.height / 2 - 50,
+              color: Colors.grey[300],
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        TextSpan(
+                          text: "We collaborate with ",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
+                        TextSpan(
+                          text: '200+ leading universities and companies',
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: primaryColor),
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.network(
+                        "https://www.pngplay.com/wp-content/uploads/3/Bank-Of-America-Logo-Background-PNG-Image.png",
+                        height: 60,
+                      ),
+                      Image.network(
+                        "http://assets.stickpng.com/thumbs/58480a96cef1014c0b5e491d.png",
+                        height: 60,
+                      ),
+                      Image.network(
+                        "https://www.mulesoft.com/sites/default/files/2018-10/wells_fargo.png",
+                        height: 60,
+                      ),
+                      Image.network(
+                        "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Bank-of-New-York-Mellon-Logo.svg/1200px-Bank-of-New-York-Mellon-Logo.svg.png",
+                        height: 60,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.network(
+                        "https://1000logos.net/wp-content/uploads/2020/06/BNP-Paribas-Logo.png",
+                        height: 60,
+                      ),
+                      Image.network(
+                        "https://www.wipro.com/content/dam/nexus/en/brand/images/wipro-primary-logo-color-rbg.png",
+                        height: 60,
+                      ),
+                      Image.network(
+                        "https://cdn.freebiesupply.com/logos/large/2x/inautix-technologies-logo-png-transparent.png",
+                        height: 60,
+                        scale: 6,
+                      ),
+                      Image.network(
+                        "https://download.logo.wine/logo/HCL_Technologies/HCL_Technologies-Logo.wine.png",
+                        height: 60,
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Image.network(
+                        "https://commercetools.com/wp-content/uploads/2018/06/zensar_technologies_logo.png",
+                        height: 60,
+                      ),
+                      Image.network(
+                        "https://png2.cleanpng.com/sh/4106dde0c0fd364b60fbad0626c4b26c/L0KzQYm3VsE6N6J1fZH0aYP2gLBuTf1qdpV5itduLXbyhbBrggRqd58yhNHwbz35db20lPVkcF56httBZYL2ecXCTfJ2e5pzReJ8eXPrf732hCkudJDsh58AYkK7SbbsUMAyaZc4TZCEMkC8SIG8VsE2Omo4UKoCNkizQIeCTwBvbz==/kisspng-mindtree-foundation-logo-vel-tech-university-busin-psychology-logo-5b289ee001af35.9209805615293887680069.png",
+                        height: 60,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            box20,
+            Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: [
+                    Text("Find your path to success",
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.montserrat(
+                            fontSize: 25, fontWeight: FontWeight.w600)),
+                    box20,
+                    GridView.builder(
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: skillsGrid.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2),
+                      itemBuilder: (BuildContext context, int index) {
+                        return new Card(
+                          child: Container(
+                            padding: EdgeInsets.all(5),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Image.network(
+                                  skillsGrid[index]["icon"],
+                                  height: 40,
+                                ),
+                                Text(skillsGrid[index]["title"],
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600)),
+                                Text(skillsGrid[index]["subtitle"],
+                                    textAlign: TextAlign.center,
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 12,
+                                        color: Colors.grey[800],
+                                        fontWeight: FontWeight.w400)),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ],
+                )),
+            box20,
+            Container(
+              child: Column(
+                children: [
+                  Image.asset("assets/courses.png"),
+                  Container(
+                    width: double.maxFinite,
+                    padding: EdgeInsets.all(20),
+                    color: primaryColor.withOpacity(0.15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        box30,
+                        Text("World-class\nlearning for you",
+                            style: GoogleFonts.montserrat(
+                                fontSize: 30, fontWeight: FontWeight.w600)),
+                        box30,
+                        Text.rich(
+                          TextSpan(
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  topText[i],
-                                  textAlign: TextAlign.center,
-                                  style: GoogleFonts.montserrat(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20),
+                              TextSpan(
+                                text: "Pursue ",
+                                style: TextStyle(fontSize: 16),
+                              ),
+                              TextSpan(
+                                text:
+                                    'a promotion, a raise, or switch careers. 89% of learners',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
                                 ),
                               ),
-                              Image.asset("assets/login/${i + 1}.png",
-                                  fit: BoxFit.cover, width: double.maxFinite),
-                            ],
-                          ),
-                        )),
-                carouselController: _controller,
-                options: CarouselOptions(
-                    viewportFraction: 1.0,
-                    height: MediaQuery.of(context).size.height / 1.8,
-                    autoPlay: true,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                      });
-                    }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: topText.asMap().entries.map((entry) {
-                  return GestureDetector(
-                    onTap: () => _controller.animateToPage(entry.key),
-                    child: Container(
-                      width: 10.0,
-                      height: 10.0,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: primaryColor
-                              .withOpacity(_current == entry.key ? 0.9 : 0.1)),
-                    ),
-                  );
-                }).toList(),
-              ),
-              Spacer(),
-              loading
-                  ? CircularProgressIndicator()
-                  : InkWell(
-                      onTap: () {
-                        googleLogin();
-                      },
-                      child: Card(
-                        color: Color(0xFF186be5),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width - 100,
-                          padding: EdgeInsets.all(5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  padding: EdgeInsets.all(10),
-                                  height: 45,
-                                  width: 45,
-                                  child: Image.network(
-                                      'https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2048px-Google_%22G%22_Logo.svg.png')),
-                              Text(
-                                'CONTINUE WITH GOOGLE',
-                                style: GoogleFonts.montserrat(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600),
+                              TextSpan(
+                                text: " who have taken a course ",
+                                style: TextStyle(fontSize: 16),
                               ),
-                              Text("")
+                              TextSpan(
+                                text: 'report career benefits.',
+                                style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ],
                           ),
                         ),
-                      ),
+                        box30,
+                        box20,
+                        loginButton(),
+                        box20,
+                      ],
                     ),
-              Spacer(),
-            ],
-          ),
+                  )
+                ],
+              ),
+            ),
+            // SizedBox(
+            //   height: 2000,
+            // )
+          ],
         ),
       ),
     );
   }
 
-  Future googleLogin() async {
-    try {
-      final user = await googleSignIn.signIn();
-      if (user == null) {
-        return;
-      } else {
-        final googleAuth = await user.authentication;
-        final credential = GoogleAuthProvider.credential(
-          accessToken: googleAuth.accessToken,
-          idToken: googleAuth.idToken,
+  Widget loginButton() {
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          FadeRoute(page: LoginScreen()),
         );
-        await _auth.signInWithCredential(credential).then((value) async {
-          print(value.additionalUserInfo!.isNewUser);
-          if (value.additionalUserInfo!.isNewUser) {
-            Navigator.pushReplacement(
-              context,
-              FadeRoute(
-                  page: UserDetails(
-                page: widget.page,
-              )),
-            );
-          } else {
-            Navigator.pushReplacement(
-              context,
-              FadeRoute(page: widget.page ?? BottomNavBar()),
-            );
-          }
-          setState(() {
-            loading = false;
-          });
-        });
-      }
-    } catch (e) {
-      setState(() {
-        loading = false;
-      });
-      displaySnackBar("Error, please try again later..!!", context);
-    }
-  }
-
-  checkAuthentification() async {
-    _auth.authStateChanges().listen((user) {
-      if (user != null) {
-        print(user);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
-      }
-    });
+      },
+      child: Container(
+          decoration: BoxDecoration(
+              color: primaryColor,
+              borderRadius: BorderRadius.all(Radius.circular(5))),
+          width: double.maxFinite,
+          height: 55,
+          child: Center(
+            child: Text("Join for Free",
+                style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600)),
+          )),
+    );
   }
 }

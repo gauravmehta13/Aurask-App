@@ -1,5 +1,6 @@
 import 'package:aurask/Constants.dart';
 import 'package:aurask/Home/HomePage.dart';
+import 'package:aurask/Screens/Booking/Booking%20Complete.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -25,7 +26,9 @@ class _SeminarInfoState extends State<SeminarInfo> {
       ),
       extendBodyBehindAppBar: true,
       bottomNavigationBar: InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.push(context, FadeRoute(page: BookingComplete()));
+        },
         child: Card(
           margin: EdgeInsets.zero,
           clipBehavior: Clip.antiAlias,
