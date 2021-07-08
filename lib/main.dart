@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'Constants.dart';
 import 'Home/BottomNavBar.dart';
+import 'Screens/Quiz/home.dart';
 import 'notifications/importNoti.dart';
 import 'notifications/notis/ab/abNoti.dart';
 
@@ -53,6 +54,8 @@ class _MyAppState extends State<MyApp> {
             title: 'Aurask',
             theme: themeData(context),
             debugShowCheckedModeBanner: false,
-            home: home);
+            home: HomePage()
+            //home
+            );
   }
 }
