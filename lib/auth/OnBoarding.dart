@@ -1,8 +1,15 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Home/HomePage.dart';
+import 'package:aurask/Screens/CourseInfo.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/auth/Login.dart';
+import 'package:aurask/model/dynamic%20height.dart';
+import 'package:aurask/model/reviews%20Model.dart';
+import 'package:aurask/model/supabase%20Manager.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -12,6 +19,29 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  void initState() {
+    super.initState();
+    setProgress();
+    getCourses();
+  }
+
+  setProgress() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setBool('seen', true);
+  }
+
+  getCourses() async {
+    final response = await client
+        .from('courses')
+        .select()
+        .order('inserted_at', ascending: true)
+        .execute();
+
+    var map = response.data;
+    print(map);
+    allCourse = map;
+  }
+
   List skillsGrid = [
     {
       "title": "Gain expertise in the latest skills",
@@ -49,28 +79,40 @@ class _OnboardingState extends State<Onboarding> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              height: MediaQuery.of(context).size.height / 2 - 50,
-              padding: EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  box10,
-                  Text("Learn Without\nLimits",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
-                          fontSize: 40, fontWeight: FontWeight.w600)),
-                  Text(
-                      "Take the next step in your career with a world class learning experience.",
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.montserrat(
-                          fontSize: 17, fontWeight: FontWeight.w500)),
-                  loginButton()
-                ],
-              ),
+            Stack(
+              children: [
+                Container(
+                  height: MediaQuery.of(context).size.height / 2 - 40,
+                  width: double.maxFinite,
+                  child: Image.network(
+                    "https://images.pexels.com/photos/3483968/pexels-photo-3483968.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Container(
+                  height: MediaQuery.of(context).size.height / 2 - 40,
+                  padding: EdgeInsets.all(20),
+                  color: Colors.white.withOpacity(0.6),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      box10,
+                      Text("Unleash\nExcellence",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 50, fontWeight: FontWeight.w600)),
+                      Text(
+                          "Take the next step in your career with a world class learning experience.",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 17, fontWeight: FontWeight.w500)),
+                      loginButton()
+                    ],
+                  ),
+                ),
+              ],
             ),
-            box20,
             Container(
               height: MediaQuery.of(context).size.height / 2 - 50,
               color: Colors.grey[300],
@@ -259,11 +301,263 @@ class _OnboardingState extends State<Onboarding> {
                 ],
               ),
             ),
-            // SizedBox(
-            //   height: 2000,
-            // )
+            box20,
+            Container(
+              padding: EdgeInsets.all(10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text("From the Aurask community",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 25, fontWeight: FontWeight.w600)),
+                  box10,
+                  Text("1000+ people are already learning on Aurask",
+                      style: GoogleFonts.montserrat(
+                          color: Colors.grey[800],
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500)),
+                  CarouselSlider(
+                    options: CarouselOptions(
+                      viewportFraction: 1.0,
+                      height: 400,
+                      autoPlay: true,
+                    ),
+                    items:
+                        List<Widget>.generate(3, (i) => buildReview("review")),
+                  ),
+                ],
+              ),
+            ),
+            box20,
+            Container(
+              width: double.maxFinite,
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text("Get job-ready for an in-demand career",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 25, fontWeight: FontWeight.w500)),
+                  ),
+                  box20,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Text(
+                        "Break into a new field like Design Thinking or Architect Mindset. No prior experience necessary to get started.",
+                        style: GoogleFonts.montserrat(
+                            fontSize: 15,
+                            color: Colors.grey[800],
+                            fontWeight: FontWeight.w500)),
+                  ),
+                  box30,
+                  Container(
+                    height: 200,
+                    child: ListView.builder(
+                        padding: EdgeInsets.only(left: 20),
+                        physics: BouncingScrollPhysics(),
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: allCourse.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                FadeRoute(
+                                    page: CourseInfo(
+                                  course: allCourse[index],
+                                )),
+                              );
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      Container(
+                                          clipBehavior: Clip.hardEdge,
+                                          margin: EdgeInsets.only(right: 20),
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width /
+                                              1.5,
+                                          decoration: BoxDecoration(
+                                              color: primaryColor,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(15))),
+                                          child: Image.network(
+                                            allCourse[index]["image"],
+                                            fit: BoxFit.fill,
+                                          )),
+                                      Positioned(
+                                        top: 10,
+                                        left: 10,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: Colors.white,
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(7))),
+                                          padding: EdgeInsets.symmetric(
+                                              vertical: 5, horizontal: 7),
+                                          child: Text(
+                                            "⭐ ${allCourse[index]["rating"]}",
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 12,
+                                                fontWeight: FontWeight.w600,
+                                                color: Color(0xFFf09ea3)),
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(allCourse[index]["name"],
+                                      style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600)),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 8),
+                                  child: Row(children: [
+                                    Icon(
+                                      Icons.person,
+                                      color: Colors.grey[400],
+                                      size: 14,
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Text("Vinay Yadav",
+                                        style: TextStyle(
+                                          color: Colors.grey[600],
+                                          fontSize: 14,
+                                        )),
+                                    SizedBox(
+                                      width: 20,
+                                    ),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          color: Color(0xFFf09ea3)
+                                              .withOpacity(0.3),
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15))),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 3, horizontal: 7),
+                                      child: Text(
+                                        "Best Seller",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 10,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xFFd88e93)),
+                                      ),
+                                    ),
+                                  ]),
+                                )
+                              ],
+                            ),
+                          );
+                        }),
+                  ),
+                  box10,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              FadeRoute(page: HomePage()),
+                            );
+                          },
+                          child: Text(
+                            "Explore All Courses",
+                            style: TextStyle(color: primaryColor),
+                          )),
+                      wbox5,
+                      Icon(
+                        Icons.arrow_forward,
+                        size: 20,
+                        color: primaryColor,
+                      )
+                    ],
+                  ),
+                  box30,
+                ],
+              ),
+            ),
+            box20,
+            Container(
+                padding: EdgeInsets.all(20),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(right: 50),
+                        child: Image.network(
+                            "https://images.pexels.com/photos/3184405/pexels-photo-3184405.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500"),
+                      ),
+                      box20,
+                      Text(
+                          "Take the next step toward your personal and professional goals with Aurask.",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 25, fontWeight: FontWeight.w600)),
+                      box20,
+                      Text(
+                          "Join now to receive personalized recommendations from the full Aurask catalog.",
+                          style: GoogleFonts.montserrat(
+                              fontSize: 15,
+                              color: Colors.grey[800],
+                              fontWeight: FontWeight.w600)),
+                      box30,
+                      loginButton(),
+                      box20,
+                    ])),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildReview(review) {
+    return Container(
+      width: double.maxFinite,
+      padding: EdgeInsets.all(20),
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+              radius: 60,
+              backgroundImage: NetworkImage(
+                  "https://lh3.googleusercontent.com/a-/AOh14Ghe4tFlInoDofkTw5ftNmFEyHDFRFiFQYJSoqfHPA=s128-c0x00000000-cc-rp-mo-ba2")),
+          box10,
+          Text("E Naveen",
+              style: GoogleFonts.montserrat(
+                  fontSize: 17, fontWeight: FontWeight.w500)),
+          box5,
+          Text("Design Thinking Student",
+              style: GoogleFonts.montserrat(
+                  fontSize: 13, fontWeight: FontWeight.w500)),
+          box5,
+          Text("Telangana",
+              style: GoogleFonts.montserrat(
+                fontSize: 13,
+              )),
+          Container(
+              margin: EdgeInsets.symmetric(
+                  vertical: 20,
+                  horizontal: MediaQuery.of(context).size.width / 3),
+              height: 2,
+              color: Colors.black),
+          Text(
+              "' The Knowledge I gained through design thinking course helped me change my mindset and land a job in Netflix. '",
+              textAlign: TextAlign.center,
+              style: GoogleFonts.montserrat(
+                  fontSize: 15, fontWeight: FontWeight.w400))
+        ],
       ),
     );
   }

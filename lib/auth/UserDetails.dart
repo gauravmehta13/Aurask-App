@@ -67,14 +67,6 @@ class _UserDetailsState extends State<UserDetails> {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        // actions: [
-        //   IconButton(
-        //       onPressed: () {},
-        //       icon: Icon(
-        //         Icons.question_answer,
-        //         color: Colors.black,
-        //       ))
-        // ],
       ),
       body: Container(
         width: double.maxFinite,
