@@ -1,15 +1,18 @@
 import 'package:aurask/Constants.dart';
+import 'package:aurask/Home/BottomNavBar.dart';
 import 'package:aurask/Home/HomePage.dart';
 import 'package:aurask/Screens/CourseInfo.dart';
 import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/auth/Login.dart';
-import 'package:aurask/model/dynamic%20height.dart';
-import 'package:aurask/model/reviews%20Model.dart';
 import 'package:aurask/model/supabase%20Manager.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'UserDetails.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -19,6 +22,10 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final googleSignIn = GoogleSignIn();
+  bool loading = false;
+
   void initState() {
     super.initState();
     setProgress();
@@ -39,7 +46,9 @@ class _OnboardingState extends State<Onboarding> {
 
     var map = response.data;
     print(map);
-    allCourse = map;
+    setState(() {
+      allCourse = map;
+    });
   }
 
   List skillsGrid = [
@@ -565,24 +574,72 @@ class _OnboardingState extends State<Onboarding> {
   Widget loginButton() {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          FadeRoute(page: LoginScreen()),
-        );
+        googleLogin();
       },
-      child: Container(
-          decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: BorderRadius.all(Radius.circular(5))),
-          width: double.maxFinite,
-          height: 55,
-          child: Center(
-            child: Text("Join for Free",
-                style: GoogleFonts.montserrat(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600)),
-          )),
+      child: Center(
+        child: Container(
+            decoration: BoxDecoration(
+                color: primaryColor,
+                borderRadius:
+                    BorderRadius.all(Radius.circular(loading ? 60 : 5))),
+            child: loading
+                ? Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: new CircularProgressIndicator(
+                        valueColor:
+                            new AlwaysStoppedAnimation<Color>(Colors.white)),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.all(15),
+                    child: Center(
+                      child: Text("Join for Free",
+                          style: GoogleFonts.montserrat(
+                              color: Colors.white,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600)),
+                    ),
+                  )),
+      ),
     );
+  }
+
+  Future googleLogin() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      final user = await googleSignIn.signIn();
+      if (user == null) {
+        return;
+      } else {
+        final googleAuth = await user.authentication;
+        final credential = GoogleAuthProvider.credential(
+          accessToken: googleAuth.accessToken,
+          idToken: googleAuth.idToken,
+        );
+        await _auth.signInWithCredential(credential).then((value) async {
+          print(value.additionalUserInfo!.isNewUser);
+          if (value.additionalUserInfo!.isNewUser) {
+            Navigator.pushReplacement(
+              context,
+              FadeRoute(page: UserDetails()),
+            );
+          } else {
+            Navigator.pushReplacement(
+              context,
+              FadeRoute(page: BottomNavBar()),
+            );
+          }
+          setState(() {
+            loading = false;
+          });
+        });
+      }
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      displaySnackBar("Error, please try again later..!!", context);
+    }
   }
 }

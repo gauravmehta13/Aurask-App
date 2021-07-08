@@ -26,6 +26,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final googleSignIn = GoogleSignIn();
+  bool loading = false;
 
   @override
   void initState() {
@@ -34,8 +35,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   int _current = 0;
   final CarouselController _controller = CarouselController();
-
-  bool loading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -110,19 +109,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 }).toList(),
               ),
               Spacer(),
-              loading
-                  ? CircularProgressIndicator()
-                  : InkWell(
-                      onTap: () {
-                        googleLogin();
-                      },
-                      child: Card(
-                        color: Color(0xFF186be5),
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15),
-                        ),
-                        child: Container(
+              InkWell(
+                onTap: () {
+                  googleLogin();
+                },
+                child: Card(
+                  color: Color(0xFF186be5),
+                  elevation: 5,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(loading ? 50 : 15),
+                  ),
+                  child: loading
+                      ? Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: new CircularProgressIndicator(
+                              valueColor: new AlwaysStoppedAnimation<Color>(
+                                  Colors.white)),
+                        )
+                      : Container(
                           width: MediaQuery.of(context).size.width - 100,
                           padding: EdgeInsets.all(5),
                           child: Row(
@@ -148,8 +152,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                      ),
-                    ),
+                ),
+              ),
               Spacer(),
             ],
           ),
@@ -159,6 +163,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future googleLogin() async {
+    setState(() {
+      loading = true;
+    });
     try {
       final user = await googleSignIn.signIn();
       if (user == null) {
