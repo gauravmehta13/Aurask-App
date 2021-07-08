@@ -3,20 +3,7 @@ import 'package:aurask/models/category.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
-  final List<Color> tileColors = [
-    Colors.green,
-    Colors.blue,
-    Colors.purple,
-    Colors.pink,
-    Colors.indigo,
-    Colors.lightBlue,
-    Colors.amber,
-    Colors.deepOrange,
-    Colors.red,
-    Colors.brown
-  ];
-
+class QuizHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

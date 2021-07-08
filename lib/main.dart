@@ -54,8 +54,6 @@ class _MyAppState extends State<MyApp> {
             title: 'Aurask',
             theme: themeData(context),
             debugShowCheckedModeBanner: false,
-            home: HomePage()
-            //home
-            );
+            home: home);
   }
 }
