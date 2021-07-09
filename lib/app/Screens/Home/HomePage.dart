@@ -1,5 +1,7 @@
 import 'package:aurask/app/Screens/Other/CourseInfo.dart';
+import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
+import 'package:aurask/core/resources/api_provider.dart';
 import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
@@ -14,7 +16,7 @@ import '../SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+// final FirebaseAuth _auth = FirebaseAuth.instance;
 
 List allCourse = [];
 
@@ -40,33 +42,6 @@ class _HomePageState extends State<HomePage>
   void initState() {
     super.initState();
     getStories();
-    getCourses();
-  }
-
-  getCourses() async {
-    var dio = Dio();
-    try {
-      var resp = await dio.get(
-        'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/dynamic-ui?tenantSet_id=AURASK01&usecase=training',
-      );
-      print(resp);
-      var map = resp.data["resp"];
-      print(map);
-      for (var i = 0; i < map.length; i++) {
-        if (map[i]["type"] == "popular") {
-          courses.add(map[i]);
-        } else {
-          interviewCourses.add(map[i]);
-        }
-        setState(() {
-          allCourse = map;
-          allCourses = map;
-          courseLoaded = true;
-        });
-      }
-    } catch (e) {
-      print(e);
-    }
   }
 
   // getCourses() async {
@@ -114,7 +89,22 @@ class _HomePageState extends State<HomePage>
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
-        onInit: (store) {},
+        onInit: (store) async {
+          if (store.state.courses!.length == 0) {
+            List courses = await getCourses();
+            for (var i = 0; i < courses.length; i++) {
+              if (courses[i]["type"] == "popular") {
+                courses.add(courses[i]);
+              } else {
+                interviewCourses.add(courses[i]);
+              }
+              setState(() {
+                courseLoaded = true;
+              });
+            }
+            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             body: AnnotatedRegion<SystemUiOverlayStyle>(

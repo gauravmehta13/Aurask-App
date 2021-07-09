@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
-import '../InstructorPage.dart';
 import 'CustomerReviews.dart';
+import 'InstructorPage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

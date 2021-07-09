@@ -2,6 +2,7 @@ import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
 import 'package:aurask/app/Screens/Home/HomePage.dart';
 import 'package:aurask/app/Screens/Other/CourseInfo.dart';
 import 'package:aurask/core/model/supabase%20Manager.dart';
+import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
 import 'package:aurask/core/resources/api_provider.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
@@ -82,7 +83,12 @@ class _OnboardingState extends State<Onboarding> {
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
-        onInit: (store) {},
+        onInit: (store) async {
+          if (store.state.courses!.length == 0) {
+            List courses = await getCourses();
+            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+          }
+        },
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(

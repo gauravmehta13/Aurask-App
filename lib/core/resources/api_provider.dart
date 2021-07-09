@@ -5,6 +5,16 @@ import 'package:dio/dio.dart';
 const String baseUrl = "https://opentdb.com/api.php";
 var dio = Dio();
 
+Future<List> getCourses() async {
+  var dio = Dio();
+  var resp = await dio.get(
+    'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/dynamic-ui?tenantSet_id=AURASK01&usecase=training',
+  );
+  print(resp);
+  var map = resp.data["resp"];
+  return map;
+}
+
 Future postUserDetails(id, experience) async {
   try {
     var dio = Dio();
