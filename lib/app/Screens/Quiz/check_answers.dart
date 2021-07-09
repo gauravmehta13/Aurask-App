@@ -1,4 +1,4 @@
-import 'package:aurask/app/model/question.dart';
+import 'package:aurask/core/model/question.dart';
 import 'package:flutter/material.dart';
 import 'package:html_unescape/html_unescape.dart';
 

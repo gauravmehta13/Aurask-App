@@ -1,6 +1,6 @@
 import 'package:aurask/app/Screens/Quiz/quiz_finished.dart';
-import 'package:aurask/app/model/question.dart';
 import 'package:aurask/core/model/category.dart';
+import 'package:aurask/core/model/question.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';

@@ -1,5 +1,5 @@
-import 'package:aurask/app/model/question.dart';
 import 'package:aurask/core/model/category.dart';
+import 'package:aurask/core/model/question.dart';
 import 'package:dio/dio.dart';
 
 const String baseUrl = "https://opentdb.com/api.php";

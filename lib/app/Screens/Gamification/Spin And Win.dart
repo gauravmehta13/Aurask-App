@@ -558,9 +558,7 @@ class _SpinAndWinState extends State<SpinAndWin> {
   Widget buildRewards() {
     final double runSpacing = 5;
     final double spacing = 5;
-    final columns = 3;
-    final w = (MediaQuery.of(context).size.width - runSpacing * (columns - 1)) /
-        columns;
+
     return Container(
         child: Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -633,9 +631,6 @@ class _SpinAndWinState extends State<SpinAndWin> {
 
     final double runSpacing = 10;
     final double spacing = 10;
-    final columns = 2;
-    final w = (MediaQuery.of(context).size.width - runSpacing * (columns - 1)) /
-        columns;
     return Container(
         padding: EdgeInsets.symmetric(horizontal: 15),
         width: double.maxFinite,
