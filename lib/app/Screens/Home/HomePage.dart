@@ -69,6 +69,8 @@ class HomePage extends StatelessWidget {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) async {
+          popularCourses = [];
+          interviewCourses = [];
           if (stories.length == 0) getStories();
           if (store.state.courses.length == 0) {
             List courses = await getCourses();
@@ -89,6 +91,7 @@ class HomePage extends StatelessWidget {
               }
             }
           }
+          allCourses = store.state.courses;
           courseLoaded = true;
           getStories();
         },
