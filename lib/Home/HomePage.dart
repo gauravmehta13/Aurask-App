@@ -13,6 +13,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+final FirebaseAuth _auth = FirebaseAuth.instance;
+
 List allCourse = [];
 
 class HomePage extends StatefulWidget {
@@ -36,8 +38,35 @@ class _HomePageState extends State<HomePage>
 
   void initState() {
     super.initState();
-    getStories();
-    getCourses();
+    // getStories();
+    // getCourses();
+    getSp();
+  }
+
+  getSp() async {
+    var dio = Dio();
+    try {
+      var resp = await dio.get(
+        'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/dynamic-ui?tenantSet_id=AURASK01&usecase=training',
+      );
+      print(resp);
+      var map = resp.data["resp"];
+      print(map);
+      for (var i = 0; i < map.length; i++) {
+        if (map[i]["type"] == "popular") {
+          courses.add(map[i]);
+        } else {
+          interviewCourses.add(map[i]);
+        }
+        setState(() {
+          allCourse = map;
+          allCourses = map;
+          courseLoaded = true;
+        });
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   getCourses() async {

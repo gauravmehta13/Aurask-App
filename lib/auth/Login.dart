@@ -4,6 +4,7 @@ import 'package:aurask/Widgets/Fade%20Route.dart';
 import 'package:aurask/auth/UserDetails.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -213,5 +214,24 @@ class _LoginScreenState extends State<LoginScreen> {
             context, MaterialPageRoute(builder: (context) => HomePage()));
       }
     });
+  }
+
+  postDetails() async {
+    try {
+      var dio = Dio();
+      final response = await dio.post(
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=SIGNUP&tenantUsecase=xyz&usecase=aurask",
+          data: {
+            "user": {
+              "id": _auth.currentUser!.uid,
+              "Phone": "0",
+              "email": _auth.currentUser!.email,
+              // "refferedBy": widget.id
+            }
+          });
+      print(response.data);
+    } catch (e) {
+      print(e);
+    }
   }
 }
