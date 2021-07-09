@@ -19,18 +19,10 @@ import 'Components/banners.dart';
 // final FirebaseAuth _auth = FirebaseAuth.instance;
 
 List allCourse = [];
+List stories = [];
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
-
-  @override
-  _HomePageState createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage>
-    with AutomaticKeepAliveClientMixin {
+class HomePage extends StatelessWidget {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  List stories = [];
   List popularCourses = [];
   List interviewCourses = [];
   List allCourses = [];
@@ -38,11 +30,6 @@ class _HomePageState extends State<HomePage>
   bool courseLoaded = false;
 
   TextEditingController query = TextEditingController();
-
-  void initState() {
-    super.initState();
-    getStories();
-  }
 
   // getCourses() async {
   //   final response = await client
@@ -72,25 +59,17 @@ class _HomePageState extends State<HomePage>
     try {
       final response = await dio.get(
           "https://my-json-server.typicode.com/gauravmehta13/Aurask-App/stories");
-      print(response);
-      setState(() {
-        stories = response.data;
-        storiesLoaded = true;
-      });
-    } catch (e) {
-      print(e);
-      setState(() {
-        storiesLoaded = false;
-      });
-    }
+      stories = response.data;
+      storiesLoaded = true;
+    } catch (e) {}
   }
 
   @override
   Widget build(BuildContext context) {
-    super.build(context);
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) async {
+          if (stories.length == 0) getStories();
           if (store.state.courses.length == 0) {
             List courses = await getCourses();
             for (var i = 0; i < courses.length; i++) {
@@ -111,6 +90,7 @@ class _HomePageState extends State<HomePage>
             }
           }
           courseLoaded = true;
+          getStories();
         },
         builder: (context, state) {
           return Scaffold(
@@ -562,7 +542,4 @@ class _HomePageState extends State<HomePage>
           );
         });
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }
