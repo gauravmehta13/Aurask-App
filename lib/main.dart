@@ -1,14 +1,12 @@
-import 'package:aurask/auth/OnBoarding.dart';
-import 'package:aurask/auth/UserDetails.dart';
+import 'package:aurask/core/notifications/notis/ab/abNoti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'Constants.dart';
-import 'Home/BottomNavBar.dart';
-import 'Screens/Quiz/home.dart';
-import 'notifications/importNoti.dart';
-import 'notifications/notis/ab/abNoti.dart';
+import 'app/Screens/Home/BottomNavBar.dart';
+import 'app/auth/OnBoarding.dart';
+import 'core/notifications/importNoti.dart';
+import 'meta/Utility/Constants.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
