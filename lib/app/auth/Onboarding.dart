@@ -1,7 +1,6 @@
 import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
 import 'package:aurask/app/Screens/Home/HomePage.dart';
 import 'package:aurask/app/Screens/Other/CourseInfo.dart';
-import 'package:aurask/core/model/supabase%20Manager.dart';
 import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
 import 'package:aurask/core/resources/api_provider.dart';
@@ -32,7 +31,6 @@ class _OnboardingState extends State<Onboarding> {
   void initState() {
     super.initState();
     setProgress();
-    getCourses();
   }
 
   setProgress() async {
@@ -40,19 +38,19 @@ class _OnboardingState extends State<Onboarding> {
     prefs.setBool('seen', true);
   }
 
-  getCourses() async {
-    final response = await client
-        .from('courses')
-        .select()
-        .order('inserted_at', ascending: true)
-        .execute();
+  // getCourses() async {
+  //   final response = await client
+  //       .from('courses')
+  //       .select()
+  //       .order('inserted_at', ascending: true)
+  //       .execute();
 
-    var map = response.data;
-    print(map);
-    setState(() {
-      allCourse = map;
-    });
-  }
+  //   var map = response.data;
+  //   print(map);
+  //   setState(() {
+  //     allCourse = map;
+  //   });
+  // }
 
   List skillsGrid = [
     {
@@ -84,7 +82,7 @@ class _OnboardingState extends State<Onboarding> {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) async {
-          if (store.state.courses!.length == 0) {
+          if (store.state.courses.length == 0) {
             List courses = await getCourses();
             StoreProvider.of<AppState>(context).dispatch(Courses(courses));
           }
@@ -381,15 +379,16 @@ class _OnboardingState extends State<Onboarding> {
                               physics: BouncingScrollPhysics(),
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
-                              itemCount: allCourse.length,
+                              itemCount: state.courses.length,
                               itemBuilder: (BuildContext context, int index) {
+                                var course = state.courses[index];
                                 return InkWell(
                                   onTap: () {
                                     Navigator.push(
                                       context,
                                       FadeRoute(
                                           page: CourseInfo(
-                                        course: allCourse[index],
+                                        course: course,
                                       )),
                                     );
                                   },
@@ -415,7 +414,7 @@ class _OnboardingState extends State<Onboarding> {
                                                             Radius.circular(
                                                                 15))),
                                                 child: Image.network(
-                                                  allCourse[index]["image"],
+                                                  course["image"],
                                                   fit: BoxFit.fill,
                                                 )),
                                             Positioned(
@@ -431,7 +430,7 @@ class _OnboardingState extends State<Onboarding> {
                                                 padding: EdgeInsets.symmetric(
                                                     vertical: 5, horizontal: 7),
                                                 child: Text(
-                                                  "⭐ ${allCourse[index]["rating"]}",
+                                                  "⭐ ${course["rating"]}",
                                                   style: GoogleFonts.montserrat(
                                                       fontSize: 12,
                                                       fontWeight:
@@ -445,7 +444,7 @@ class _OnboardingState extends State<Onboarding> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(allCourse[index]["name"],
+                                        child: Text(course["name"],
                                             style: TextStyle(
                                                 fontSize: 14,
                                                 fontWeight: FontWeight.w600)),

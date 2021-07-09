@@ -1,4 +1,5 @@
 import 'package:aurask/app/Screens/Other/CourseInfo.dart';
+import 'package:aurask/app/Screens/Other/SearchCourses.dart';
 import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
 import 'package:aurask/core/resources/api_provider.dart';
@@ -12,7 +13,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   List stories = [];
-  List courses = [];
+  List popularCourses = [];
   List interviewCourses = [];
   List allCourses = [];
   bool storiesLoaded = false;
@@ -87,23 +87,30 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) async {
-          if (store.state.courses!.length == 0) {
+          if (store.state.courses.length == 0) {
             List courses = await getCourses();
             for (var i = 0; i < courses.length; i++) {
               if (courses[i]["type"] == "popular") {
-                courses.add(courses[i]);
+                popularCourses.add(courses[i]);
               } else {
                 interviewCourses.add(courses[i]);
               }
-              setState(() {
-                courseLoaded = true;
-              });
             }
             StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+          } else {
+            for (var i = 0; i < store.state.courses.length; i++) {
+              if (store.state.courses[i]["type"] == "popular") {
+                popularCourses.add(store.state.courses[i]);
+              } else {
+                interviewCourses.add(store.state.courses[i]);
+              }
+            }
           }
+          courseLoaded = true;
         },
         builder: (context, state) {
           return Scaffold(
@@ -130,9 +137,7 @@ class _HomePageState extends State<HomePage>
                               ],
                             ),
                             borderRadius: BorderRadius.only(
-                                // topRight: Radius.circular(20),
                                 bottomRight: Radius.circular(25),
-                                // topLeft: Radius.circular(20),
                                 bottomLeft: Radius.circular(25)),
                           ),
                           padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
@@ -290,7 +295,7 @@ class _HomePageState extends State<HomePage>
                                             horizontal: 10),
                                         shrinkWrap: true,
                                         scrollDirection: Axis.horizontal,
-                                        itemCount: courses.length,
+                                        itemCount: popularCourses.length,
                                         itemBuilder:
                                             (BuildContext context, int index) {
                                           return InkWell(
@@ -299,7 +304,7 @@ class _HomePageState extends State<HomePage>
                                                 context,
                                                 FadeRoute(
                                                     page: CourseInfo(
-                                                  course: courses[index],
+                                                  course: popularCourses[index],
                                                 )),
                                               );
                                             },
@@ -329,8 +334,8 @@ class _HomePageState extends State<HomePage>
                                                                       .circular(
                                                                           15))),
                                                           child: Image.network(
-                                                            courses[index]
-                                                                ["image"],
+                                                            popularCourses[
+                                                                index]["image"],
                                                             fit: BoxFit.fill,
                                                           )),
                                                       Positioned(
@@ -350,7 +355,7 @@ class _HomePageState extends State<HomePage>
                                                                   horizontal:
                                                                       7),
                                                           child: Text(
-                                                            "⭐ ${courses[index]["rating"]}",
+                                                            "⭐ ${popularCourses[index]["rating"]}",
                                                             style: GoogleFonts
                                                                 .montserrat(
                                                                     fontSize:
@@ -370,7 +375,8 @@ class _HomePageState extends State<HomePage>
                                                   padding:
                                                       const EdgeInsets.all(8.0),
                                                   child: Text(
-                                                      courses[index]["name"],
+                                                      popularCourses[index]
+                                                          ["name"],
                                                       style: TextStyle(
                                                           fontSize: 14,
                                                           fontWeight:

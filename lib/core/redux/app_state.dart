@@ -1,8 +1,8 @@
 class AppState {
-  List<dynamic>? courses = [];
+  List<dynamic> courses = [];
 
   AppState({
-    this.courses,
+    required this.courses,
   });
 
   AppState.fromAppState(AppState another) {

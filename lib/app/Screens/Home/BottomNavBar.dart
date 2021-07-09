@@ -1,12 +1,11 @@
 import 'package:aurask/app/Screens/Other/MyCourses.dart';
+import 'package:aurask/app/Screens/Other/Premium%20Membership.dart';
 import 'package:aurask/app/Screens/Other/Profile.dart';
 import 'package:aurask/app/auth/Login.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-import '../Premium Membership.dart';
 import 'HomePage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;

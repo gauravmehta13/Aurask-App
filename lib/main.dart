@@ -2,6 +2,7 @@ import 'package:aurask/core/notifications/notis/ab/abNoti.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'app/Screens/Home/BottomNavBar.dart';
@@ -56,10 +57,12 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return loading
         ? Container(child: Center(child: CircularProgressIndicator()))
-        : MaterialApp(
-            title: 'Aurask',
-            theme: themeData(context),
-            debugShowCheckedModeBanner: false,
-            home: home);
+        : StoreProvider<AppState>(
+            store: widget.store!,
+            child: MaterialApp(
+                title: 'Aurask',
+                theme: themeData(context),
+                debugShowCheckedModeBanner: false,
+                home: home));
   }
 }
