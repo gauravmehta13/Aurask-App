@@ -7,7 +7,7 @@ class QuizFinishedPage extends StatelessWidget {
   late final List<Question> questions;
   late final Map<int, dynamic> answers;
 
-  late int correctAnswers;
+  late final int correctAnswers;
   QuizFinishedPage({Key? key, required this.questions, required this.answers})
       : super(key: key);
 
@@ -88,7 +88,7 @@ class QuizFinishedPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  RaisedButton(
+                  MaterialButton(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16.0, vertical: 20.0),
                     shape: RoundedRectangleBorder(
@@ -98,7 +98,7 @@ class QuizFinishedPage extends StatelessWidget {
                     child: Text("Goto Home"),
                     onPressed: () => Navigator.pop(context),
                   ),
-                  RaisedButton(
+                  MaterialButton(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16.0, vertical: 20.0),
                     shape: RoundedRectangleBorder(

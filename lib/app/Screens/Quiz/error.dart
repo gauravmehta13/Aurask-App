@@ -39,7 +39,7 @@ class ErrorPage extends StatelessWidget {
                           color: Colors.red),
                     ),
                     SizedBox(height: 20.0),
-                    RaisedButton(
+                    ElevatedButton(
                       child: Text("Try Again"),
                       onPressed: () => Navigator.pop(context),
                     )

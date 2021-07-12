@@ -1,5 +1,4 @@
 import 'dart:html' as html;
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -20,17 +19,6 @@ class AppNoti implements Noti {
         print("INIT r : ${r ?? 'r'}");
         String? token = await FirebaseMessaging.instance.getToken();
         print("token : ${token ?? 'token NULL!'}");
-        FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-        NotificationSettings settings = await messaging.requestPermission(
-          alert: true,
-          announcement: false,
-          badge: true,
-          carPlay: false,
-          criticalAlert: false,
-          provisional: false,
-          sound: true,
-        );
 
         await FirebaseMessaging.instance
             .setForegroundNotificationPresentationOptions(

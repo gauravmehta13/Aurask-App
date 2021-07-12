@@ -1,7 +1,5 @@
-import '../My%20Courses/Live%20Sessions.dart';
 import '../Course/CourseTabs.dart';
 import '../../../core/model/supabase%20Manager.dart';
-import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
 import '../../../meta/Widgets/Loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';

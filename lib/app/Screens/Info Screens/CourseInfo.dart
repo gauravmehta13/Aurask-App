@@ -746,7 +746,6 @@ class _CourseInfoState extends State<CourseInfo> {
                           shrinkWrap: true,
                           itemCount: widget.course["syllabus"].length,
                           itemBuilder: (BuildContext context, int index) {
-                            var x = widget.course["syllabus"][index];
                             return Container(
                               decoration: BoxDecoration(
                                 border: Border(
