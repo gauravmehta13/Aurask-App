@@ -29,7 +29,7 @@ class _CoursesTabbarState extends State<CoursesTabbar>
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tab bar',
+          'My Courses',
         ),
       ),
       body: Column(
