@@ -1,5 +1,4 @@
 import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
-import 'package:aurask/app/Screens/Home/HomePage.dart';
 import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
 import 'package:aurask/core/redux/app_state.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
