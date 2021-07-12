@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 
+import '../../../meta/Utility/Constants.dart';
 import '../My%20Courses/Live%20Sessions.dart';
 import '../My%20Courses/Self%20Tutorials.dart';
-import '../../../meta/Utility/Constants.dart';
-import 'package:flutter/material.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

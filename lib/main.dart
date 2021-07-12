@@ -1,4 +1,3 @@
-import 'core/notifications/notis/ab/abNoti.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -6,9 +5,12 @@ import 'package:redux/redux.dart';
 
 import 'app/Screens/Home/BottomNavBar.dart';
 import 'core/notifications/importNoti.dart';
+import 'core/notifications/notis/ab/abNoti.dart';
 import 'core/redux/app_state.dart';
 import 'core/redux/reducers.dart';
 import 'meta/Utility/Constants.dart';
+import 'meta/Utility/responsive.dart';
+import 'test.dart';
 
 Future<void> main() async {
   final _initialState = AppState(courses: []);
@@ -49,6 +51,17 @@ class _MyAppState extends State<MyApp> {
                 title: 'Aurask',
                 theme: themeData(context),
                 debugShowCheckedModeBanner: false,
-                home: home));
+                home: Scaffold(body: MyApp2())));
+  }
+}
+
+class MyApp2 extends StatelessWidget {
+  const MyApp2({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Responsive.isDesktop(context) ? DesktopView() : BottomNavBar(),
+    );
   }
 }

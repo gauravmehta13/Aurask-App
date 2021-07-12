@@ -1,8 +1,9 @@
-import '../../Gamification/ReferAndEarn.dart';
-import '../../Gamification/Spin%20And%20Win.dart';
-import '../../../../meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../meta/Utility/Constants.dart';
+import '../../Gamification/ReferAndEarn.dart';
+import '../../Gamification/Spin%20And%20Win.dart';
 
 Widget buildSpinAndWin(context) {
   return InkWell(

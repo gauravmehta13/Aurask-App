@@ -1,11 +1,12 @@
-import '../Course/CourseTabs.dart';
-import '../../../core/model/supabase%20Manager.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
-import '../../../meta/Widgets/Loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../core/model/supabase%20Manager.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/Loading.dart';
+import '../Course/CourseTabs.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

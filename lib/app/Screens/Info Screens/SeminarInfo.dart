@@ -1,15 +1,15 @@
-import '../../../core/redux/actions.dart';
-import '../../../core/redux/app_state.dart';
-import '../../../core/resources/api_provider.dart';
-import '../../../meta/Utility/Constants.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'CourseInfo.dart';
+import '../../../core/redux/actions.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../core/resources/api_provider.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
 import '../Other/Booking Complete.dart';
+import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {
   final id;

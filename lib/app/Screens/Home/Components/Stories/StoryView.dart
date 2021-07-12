@@ -1,8 +1,9 @@
-import '../../../../../meta/Utility/Constants.dart';
-import '../../../../../meta/Widgets/Loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:story/story_page_view/story_page_view.dart';
+
+import '../../../../../meta/Utility/Constants.dart';
+import '../../../../../meta/Widgets/Loading.dart';
 
 class UserModel {
   UserModel(this.stories, this.userName, this.imageUrl);
