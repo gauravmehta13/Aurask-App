@@ -25,6 +25,7 @@ Future postUserDetails(id, experience) async {
         "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=SIGNUP&tenantUsecase=xyz&usecase=aurask",
         data: {
           "user": {
+            "Phone": "0",
             "id": id,
             "experience": experience,
           }
