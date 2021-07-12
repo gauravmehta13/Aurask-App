@@ -1,10 +1,11 @@
-import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+
+import '../../core/resources/api_provider.dart';
+import '../../meta/Utility/Constants.dart';
+import '../../meta/Utility/Fade%20Route.dart';
+import '../../meta/Widgets/Loading.dart';
+import '../Screens/Home/BottomNavBar.dart';
 
 class UserDetails extends StatefulWidget {
   final Widget? page;

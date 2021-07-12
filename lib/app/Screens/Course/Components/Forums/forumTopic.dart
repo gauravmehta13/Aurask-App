@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../../../meta/Utility/Constants.dart';
+import '../../../../../meta/Utility/Fade%20Route.dart';
 import 'forumQuestion.dart';
 
 class ForumTopic extends StatefulWidget {

@@ -1,7 +1,8 @@
-import 'package:aurask/app/Screens/Quiz/quiz_options.dart';
-import 'package:aurask/core/model/category.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/model/category.dart';
+import 'quiz_options.dart';
 
 class QuizHome extends StatelessWidget {
   @override

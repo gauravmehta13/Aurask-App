@@ -1,12 +1,12 @@
-import 'package:aurask/core/model/supabase%20Manager.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
-import 'package:aurask/meta/Widgets/No%20Results%20Found.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/model/supabase%20Manager.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/Loading.dart';
+import '../../../meta/Widgets/No%20Results%20Found.dart';
 import '../Info Screens/CourseInfo.dart';
 
 class SearchCourses extends StatefulWidget {

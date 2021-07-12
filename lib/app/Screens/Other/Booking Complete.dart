@@ -1,8 +1,8 @@
-import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
-import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
-import 'package:aurask/core/redux/app_state.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
+import '../Home/BottomNavBar.dart';
+import '../Info%20Screens/CourseInfo.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';

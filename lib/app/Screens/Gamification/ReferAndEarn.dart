@@ -1,10 +1,11 @@
-import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../../meta/Utility/Constants.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

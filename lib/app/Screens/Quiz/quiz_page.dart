@@ -1,10 +1,11 @@
-import 'package:aurask/app/Screens/Quiz/quiz_finished.dart';
-import 'package:aurask/core/model/category.dart';
-import 'package:aurask/core/model/question.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:html_unescape/html_unescape.dart';
+
+import '../../../core/model/category.dart';
+import '../../../core/model/question.dart';
+import '../../../meta/Utility/Constants.dart';
+import 'quiz_finished.dart';
 
 class QuizPage extends StatefulWidget {
   final List<Question> questions;

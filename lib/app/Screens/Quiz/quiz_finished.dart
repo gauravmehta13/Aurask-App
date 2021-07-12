@@ -1,5 +1,6 @@
-import 'package:aurask/core/model/question.dart';
 import 'package:flutter/material.dart';
+
+import '../../../core/model/question.dart';
 import 'check_answers.dart';
 
 class QuizFinishedPage extends StatelessWidget {

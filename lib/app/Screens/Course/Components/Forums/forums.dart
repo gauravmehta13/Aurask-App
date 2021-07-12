@@ -1,7 +1,7 @@
-import 'package:aurask/app/Screens/Course/Components/Forums/ForumTopic.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../../meta/Utility/Fade%20Route.dart';
+import 'ForumTopic.dart';
 
 class Forum extends StatelessWidget {
   const Forum({Key? key}) : super(key: key);

@@ -1,19 +1,21 @@
 import 'dart:async';
 import 'dart:math';
 import 'dart:ui';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Widgets/Bottom%20Navigation%20Button.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
+
+import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
-import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:confetti/confetti.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
+import '../../../meta/Widgets/Loading.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

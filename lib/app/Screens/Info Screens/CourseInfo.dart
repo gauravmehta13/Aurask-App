@@ -1,16 +1,18 @@
 import 'dart:convert';
-import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
-import 'package:aurask/core/model/reviews%20Model.dart';
-import 'package:aurask/core/model/supabase%20Manager.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
+
 import 'package:chewie/chewie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
+
+import '../../../core/model/reviews%20Model.dart';
+import '../../../core/model/supabase%20Manager.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/Loading.dart';
+import '../Info%20Screens/SeminarInfo.dart';
 import '../Other/CustomerReviews.dart';
 import '../Other/InstructorPage.dart';
 

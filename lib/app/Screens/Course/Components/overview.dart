@@ -1,7 +1,9 @@
 import 'dart:math';
-import 'package:aurask/app/Screens/Home/HomePage.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../../../meta/Utility/Constants.dart';
+import '../../Home/HomePage.dart';
 
 class Overview extends StatelessWidget {
   const Overview({Key? key}) : super(key: key);

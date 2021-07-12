@@ -1,11 +1,13 @@
 import 'dart:io';
-import 'package:aurask/app/Screens/Quiz/error.dart';
-import 'package:aurask/app/Screens/Quiz/quiz_page.dart';
-import 'package:aurask/core/model/category.dart';
-import 'package:aurask/core/model/question.dart';
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
+
 import 'package:flutter/material.dart';
+
+import '../../../core/model/category.dart';
+import '../../../core/model/question.dart';
+import '../../../core/resources/api_provider.dart';
+import '../../../meta/Utility/Constants.dart';
+import 'error.dart';
+import 'quiz_page.dart';
 
 class QuizOptionsDialog extends StatefulWidget {
   final Category? category;

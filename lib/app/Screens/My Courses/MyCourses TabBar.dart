@@ -1,6 +1,6 @@
-import 'package:aurask/app/Screens/My%20Courses/Live%20Sessions.dart';
-import 'package:aurask/app/Screens/My%20Courses/Self%20Tutorials.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
+import '../My%20Courses/Live%20Sessions.dart';
+import '../My%20Courses/Self%20Tutorials.dart';
+import '../../../meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 
 class MyCoursesTabbar extends StatefulWidget {

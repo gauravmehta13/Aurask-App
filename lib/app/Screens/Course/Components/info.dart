@@ -1,7 +1,8 @@
-import 'package:aurask/app/Screens/Other/InstructorPage.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
+
+import '../../../../meta/Utility/Constants.dart';
+import '../../../../meta/Utility/Fade%20Route.dart';
+import '../../Other/InstructorPage.dart';
 
 class Info extends StatelessWidget {
   const Info({Key? key}) : super(key: key);

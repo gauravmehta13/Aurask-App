@@ -1,9 +1,9 @@
-import 'package:aurask/app/Screens/Home/HomePage.dart';
-import 'package:aurask/core/redux/actions.dart';
-import 'package:aurask/core/redux/app_state.dart';
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
+import '../Home/HomePage.dart';
+import '../../../core/redux/actions.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../core/resources/api_provider.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

@@ -1,10 +1,11 @@
-import 'package:aurask/app/Screens/Course/Components/Forums/forums.dart';
-import 'package:aurask/app/Screens/Course/Components/grades.dart';
-import 'package:aurask/app/Screens/Course/Components/info.dart';
-import 'package:aurask/app/Screens/Course/Components/overview.dart';
-import 'package:aurask/app/Screens/Course/Components/resources.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../meta/Utility/Constants.dart';
+import 'Components/Forums/forums.dart';
+import 'Components/grades.dart';
+import 'Components/info.dart';
+import 'Components/overview.dart';
+import 'Components/resources.dart';
 
 class CourseTabs extends StatefulWidget {
   final Map course;

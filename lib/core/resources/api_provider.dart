@@ -1,7 +1,8 @@
-import 'package:aurask/core/model/category.dart';
-import 'package:aurask/core/model/question.dart';
-import 'package:aurask/core/resources/SharedPrefs.dart';
 import 'package:dio/dio.dart';
+
+import '../model/category.dart';
+import '../model/question.dart';
+import 'SharedPrefs.dart';
 
 SharedPref sharedPrefs = SharedPref();
 const String baseUrl = "https://opentdb.com/api.php";

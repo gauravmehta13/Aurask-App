@@ -1,14 +1,15 @@
-import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
-import 'package:aurask/app/Screens/Home/HomePage.dart';
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:carousel_slider/carousel_controller.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../../core/resources/api_provider.dart';
+import '../../meta/Utility/Constants.dart';
+import '../../meta/Utility/Fade%20Route.dart';
+import '../Screens/Home/BottomNavBar.dart';
+import '../Screens/Home/HomePage.dart';
 import 'UserDetails.dart';
 
 final List<String> topText = [

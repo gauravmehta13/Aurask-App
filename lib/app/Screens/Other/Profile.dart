@@ -1,10 +1,11 @@
-import 'package:aurask/app/Screens/Gamification/ReferAndEarn.dart';
-import 'package:aurask/app/auth/Login.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../auth/Login.dart';
+import '../Gamification/ReferAndEarn.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 

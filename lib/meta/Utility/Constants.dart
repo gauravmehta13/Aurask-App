@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:aurask/app/auth/Login.dart';
+import '../../app/auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';

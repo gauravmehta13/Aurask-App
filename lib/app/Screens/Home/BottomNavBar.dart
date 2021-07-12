@@ -1,15 +1,15 @@
-import 'package:aurask/app/Screens/My%20Courses/MyCourses%20TabBar.dart';
-import 'package:aurask/app/Screens/My%20Courses/Self%20Tutorials.dart';
-import 'package:aurask/app/Screens/Other/Premium%20Membership.dart';
-import 'package:aurask/app/Screens/Other/Profile.dart';
-import 'package:aurask/app/auth/Login.dart';
-import 'package:aurask/app/auth/Onboarding.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../auth/Login.dart';
+import '../../auth/Onboarding.dart';
+import '../My%20Courses/MyCourses%20TabBar.dart';
+import '../Other/Premium%20Membership.dart';
+import '../Other/Profile.dart';
 import 'HomePage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;

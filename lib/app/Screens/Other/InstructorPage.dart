@@ -1,5 +1,6 @@
-import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
+
+import '../../../meta/Utility/Constants.dart';
 
 class InstructorProfile extends StatelessWidget {
   @override

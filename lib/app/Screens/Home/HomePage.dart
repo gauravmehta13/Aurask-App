@@ -1,12 +1,3 @@
-import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
-import 'package:aurask/app/Screens/Other/SearchCourses.dart';
-import 'package:aurask/core/redux/actions.dart';
-import 'package:aurask/core/redux/app_state.dart';
-import 'package:aurask/core/resources/SharedPrefs.dart';
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +5,16 @@ import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../core/redux/actions.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../core/resources/SharedPrefs.dart';
+import '../../../core/resources/api_provider.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/Loading.dart';
+import '../Info%20Screens/CourseInfo.dart';
+import '../Other/SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 
