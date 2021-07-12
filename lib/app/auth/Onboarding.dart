@@ -90,6 +90,7 @@ class _OnboardingState extends State<Onboarding> {
         builder: (context, state) {
           return Scaffold(
             appBar: AppBar(
+              automaticallyImplyLeading: false,
               centerTitle: true,
               title: Text("Aurask",
                   style: GoogleFonts.montserrat(
