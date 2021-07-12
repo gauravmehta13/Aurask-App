@@ -21,7 +21,7 @@ class _SelfTutorialsState extends State<SelfTutorials> {
   @override
   void initState() {
     super.initState();
-    getMyCourses();
+    // getMyCourses();
   }
 
   getMyCourses() async {

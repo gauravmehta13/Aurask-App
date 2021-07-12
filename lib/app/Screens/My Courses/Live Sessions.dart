@@ -1,3 +1,5 @@
+import 'package:google_fonts/google_fonts.dart';
+
 import '../../../meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -30,7 +32,7 @@ class TicketView extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Container(
-              padding: EdgeInsets.all(16),
+              padding: EdgeInsets.fromLTRB(15, 15, 15, 5),
               decoration: BoxDecoration(
                   color: primaryColor.withOpacity(0.2),
                   borderRadius: BorderRadius.only(
@@ -74,7 +76,7 @@ class TicketView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Google Meet",
+                        "Online",
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
@@ -158,9 +160,6 @@ class TicketView extends StatelessWidget {
                       bottomRight: Radius.circular(20))),
               child: Row(
                 children: <Widget>[
-                  SizedBox(
-                    width: 16,
-                  ),
                   Text("Vinay Yadav",
                       style: TextStyle(
                           fontSize: 14,
@@ -169,7 +168,7 @@ class TicketView extends StatelessWidget {
                   Expanded(
                       child: Text("₹ 240",
                           textAlign: TextAlign.end,
-                          style: TextStyle(
+                          style: GoogleFonts.ubuntu(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
                               color: Colors.black))),

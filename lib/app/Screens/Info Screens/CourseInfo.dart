@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:chewie/chewie.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -81,6 +82,24 @@ class _CourseInfoState extends State<CourseInfo> {
   }
 
   bool loading = false;
+
+  Future buyCourse() async {
+    try {
+      var dio = Dio();
+      print(_auth.currentUser?.uid);
+      print(widget.course["id"]);
+      final response = await dio.post(
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=ORDER01&usecase=aurask&tenantUsecase=post",
+          data: {
+            "id": _auth.currentUser?.uid,
+            "courseId": widget.course["id"],
+          });
+      print(response.data);
+      displaySnackBar(response.data["resp"], context);
+    } catch (e) {
+      print(e);
+    }
+  }
 
   sendData() async {
     setState(() {
@@ -266,8 +285,9 @@ class _CourseInfoState extends State<CourseInfo> {
                                 )));
                           }
                         : () {
+                            buyCourse();
                             Navigator.pop(context);
-                            displaySnackBar("Coming Soon", context);
+                            // displaySnackBar("Coming Soon", context);
                           },
                     child: Card(
                       margin: EdgeInsets.zero,
