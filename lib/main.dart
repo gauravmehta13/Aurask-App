@@ -63,6 +63,8 @@ class _MyAppState extends State<MyApp> {
                 title: 'Aurask',
                 theme: themeData(context),
                 debugShowCheckedModeBanner: false,
-                home: home));
+                home: Onboarding()
+                //home
+                ));
   }
 }

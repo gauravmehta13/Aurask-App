@@ -135,11 +135,14 @@ class _OnboardingState extends State<Onboarding> {
                   Container(
                     height: MediaQuery.of(context).size.height / 2 - 50,
                     color: Colors.grey[300],
-                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 50),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20,
+                    ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
+                        Spacer(),
                         Text.rich(
                           TextSpan(
                             children: [
@@ -159,62 +162,25 @@ class _OnboardingState extends State<Onboarding> {
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.network(
-                              "https://www.pngplay.com/wp-content/uploads/3/Bank-Of-America-Logo-Background-PNG-Image.png",
+                        Spacer(),
+                        Wrap(
+                          // direction: Axis.vertical,
+                          alignment: WrapAlignment.center,
+                          spacing: 8.0,
+                          runAlignment: WrapAlignment.center,
+                          runSpacing: 20,
+                          // crossAxisAlignment: WrapCrossAlignment.center,
+                          // textDirection: TextDirection.rtl,
+                          // verticalDirection: VerticalDirection.up,
+                          children: List.generate(
+                            10,
+                            (i) => Image.asset(
+                              "assets/companies/$i.png",
                               height: 60,
                             ),
-                            Image.network(
-                              "http://assets.stickpng.com/thumbs/58480a96cef1014c0b5e491d.png",
-                              height: 60,
-                            ),
-                            Image.network(
-                              "https://www.mulesoft.com/sites/default/files/2018-10/wells_fargo.png",
-                              height: 60,
-                            ),
-                            Image.network(
-                              "https://upload.wikimedia.org/wikipedia/commons/thumb/6/61/Bank-of-New-York-Mellon-Logo.svg/1200px-Bank-of-New-York-Mellon-Logo.svg.png",
-                              height: 60,
-                            ),
-                          ],
+                          ),
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.network(
-                              "https://1000logos.net/wp-content/uploads/2020/06/BNP-Paribas-Logo.png",
-                              height: 60,
-                            ),
-                            Image.network(
-                              "https://www.wipro.com/content/dam/nexus/en/brand/images/wipro-primary-logo-color-rbg.png",
-                              height: 60,
-                            ),
-                            Image.network(
-                              "https://cdn.freebiesupply.com/logos/large/2x/inautix-technologies-logo-png-transparent.png",
-                              height: 60,
-                              scale: 6,
-                            ),
-                            Image.network(
-                              "https://download.logo.wine/logo/HCL_Technologies/HCL_Technologies-Logo.wine.png",
-                              height: 60,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            Image.network(
-                              "https://commercetools.com/wp-content/uploads/2018/06/zensar_technologies_logo.png",
-                              height: 60,
-                            ),
-                            Image.network(
-                              "https://png2.cleanpng.com/sh/4106dde0c0fd364b60fbad0626c4b26c/L0KzQYm3VsE6N6J1fZH0aYP2gLBuTf1qdpV5itduLXbyhbBrggRqd58yhNHwbz35db20lPVkcF56httBZYL2ecXCTfJ2e5pzReJ8eXPrf732hCkudJDsh58AYkK7SbbsUMAyaZc4TZCEMkC8SIG8VsE2Omo4UKoCNkizQIeCTwBvbz==/kisspng-mindtree-foundation-logo-vel-tech-university-busin-psychology-logo-5b289ee001af35.9209805615293887680069.png",
-                              height: 60,
-                            ),
-                          ],
-                        ),
+                        Spacer(),
                       ],
                     ),
                   ),
