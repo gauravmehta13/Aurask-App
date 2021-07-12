@@ -10,7 +10,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'CourseInfo.dart';
-import '../Booking/Booking Complete.dart';
+import '../Other/Booking Complete.dart';
 
 class SeminarInfo extends StatefulWidget {
   final id;
