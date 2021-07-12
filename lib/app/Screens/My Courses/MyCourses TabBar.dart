@@ -3,12 +3,12 @@ import 'package:aurask/app/Screens/My%20Courses/Self%20Tutorials.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 
-class CoursesTabbar extends StatefulWidget {
+class MyCoursesTabbar extends StatefulWidget {
   @override
-  _CoursesTabbarState createState() => _CoursesTabbarState();
+  _MyCoursesTabbarState createState() => _MyCoursesTabbarState();
 }
 
-class _CoursesTabbarState extends State<CoursesTabbar>
+class _MyCoursesTabbarState extends State<MyCoursesTabbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 

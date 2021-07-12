@@ -65,9 +65,13 @@ class _SeminarInfoState extends State<SeminarInfo> {
                       height: MediaQuery.of(context).size.height / 3,
                       child: Stack(
                         children: [
-                          Image.network(
-                            "https://miro.medium.com/max/1954/1*kb1bu3bHdyKPskfGz-efgg.png",
-                            fit: BoxFit.cover,
+                          Container(
+                            width: double.maxFinite,
+                            height: MediaQuery.of(context).size.height / 3,
+                            child: Image.network(
+                              "https://miro.medium.com/max/1954/1*kb1bu3bHdyKPskfGz-efgg.png",
+                              fit: BoxFit.cover,
+                            ),
                           ),
                           Positioned(
                             top: 15,

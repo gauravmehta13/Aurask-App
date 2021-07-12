@@ -1,4 +1,4 @@
-import 'package:aurask/app/Screens/My%20Courses/Course%20Tabbar.dart';
+import 'package:aurask/app/Screens/My%20Courses/MyCourses%20TabBar.dart';
 import 'package:aurask/app/Screens/My%20Courses/Self%20Tutorials.dart';
 import 'package:aurask/app/Screens/Other/Premium%20Membership.dart';
 import 'package:aurask/app/Screens/Other/Profile.dart';
@@ -43,7 +43,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> tabs = [
     HomePage(),
-    _auth.currentUser == null ? LoginScreen() : CoursesTabbar(),
+    _auth.currentUser == null ? LoginScreen() : MyCoursesTabbar(),
     PremiumMembership(),
     _auth.currentUser == null ? LoginScreen() : ProfilePage()
   ];
