@@ -33,24 +33,12 @@ class _MyAppState extends State<MyApp> {
 
   Noti noti = AppNoti();
   late bool seen;
-  bool loading = true;
+  bool loading = false;
   Widget home = BottomNavBar();
   @override
   void initState() {
     super.initState();
-    checkFirstSeen();
     Future(noti.init);
-  }
-
-  checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      seen = (prefs.getBool('seen') ?? false);
-      if (!seen) {
-        home = Onboarding();
-      }
-      loading = false;
-    });
   }
 
   @override
@@ -63,8 +51,6 @@ class _MyAppState extends State<MyApp> {
                 title: 'Aurask',
                 theme: themeData(context),
                 debugShowCheckedModeBanner: false,
-                home: Onboarding()
-                //home
-                ));
+                home: home));
   }
 }
