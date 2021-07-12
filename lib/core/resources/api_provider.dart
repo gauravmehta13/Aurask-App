@@ -1,7 +1,9 @@
 import 'package:aurask/core/model/category.dart';
 import 'package:aurask/core/model/question.dart';
+import 'package:aurask/core/resources/SharedPrefs.dart';
 import 'package:dio/dio.dart';
 
+SharedPref sharedPrefs = SharedPref();
 const String baseUrl = "https://opentdb.com/api.php";
 var dio = Dio();
 
@@ -12,6 +14,7 @@ Future<List> getCourses() async {
   );
   print(resp);
   var map = resp.data["resp"];
+  sharedPrefs.save("courses", map);
   return map;
 }
 

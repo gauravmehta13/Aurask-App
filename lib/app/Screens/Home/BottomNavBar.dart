@@ -54,8 +54,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
             label: 'My Courses',
           ),
           BottomNavigationBarItem(
-            icon: Icon(FontAwesomeIcons.heart),
-            label: 'Wishlist',
+            icon: Icon(FontAwesomeIcons.graduationCap),
+            label: 'Programs',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),

@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:aurask/app/Screens/Booking/SeminarInfo.dart';
+import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
 import 'package:aurask/core/model/reviews%20Model.dart';
 import 'package:aurask/core/model/supabase%20Manager.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
@@ -11,8 +11,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:video_player/video_player.dart';
-import 'CustomerReviews.dart';
-import 'InstructorPage.dart';
+import '../Other/CustomerReviews.dart';
+import '../Other/InstructorPage.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 
@@ -44,6 +44,24 @@ class _CourseInfoState extends State<CourseInfo> {
         VideoPlayerController.network(widget.course["videoUrl"]);
     await Future.wait([videoPlayerController.initialize()]);
     chewieController = ChewieController(
+      // additionalOptions: (context) {
+      //   return <OptionItem>[
+      //     OptionItem(
+      //       onTap: () => debugPrint('My option works!'),
+      //       iconData: Icons.chat,
+      //       title: 'My localized title',
+      //     ),
+      //     OptionItem(
+      //       onTap: () => debugPrint('Another option working!'),
+      //       iconData: Icons.chat,
+      //       title: 'Another localized title',
+      //     ),
+      //   ];
+      // },
+      // fullScreenByDefault: true,
+      // placeholder: Image(
+      //   image: NetworkImage(widget.course["image"]),
+      // ),
       videoPlayerController: videoPlayerController,
       autoPlay: false,
       looping: false,
@@ -57,7 +75,6 @@ class _CourseInfoState extends State<CourseInfo> {
   void dispose() {
     super.dispose();
     videoPlayerController.dispose();
-
     chewieController.dispose();
   }
 
@@ -312,7 +329,6 @@ class _CourseInfoState extends State<CourseInfo> {
             backgroundColor: primaryColor,
             actions: [
               IconButton(onPressed: () {}, icon: Icon(Icons.share)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
             ],
           ),
           body: SingleChildScrollView(

@@ -1,3 +1,8 @@
+import 'package:aurask/app/Screens/Course/Components/Forums/forums.dart';
+import 'package:aurask/app/Screens/Course/Components/grades.dart';
+import 'package:aurask/app/Screens/Course/Components/info.dart';
+import 'package:aurask/app/Screens/Course/Components/overview.dart';
+import 'package:aurask/app/Screens/Course/Components/resources.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 
@@ -42,13 +47,7 @@ class _CourseTabsState extends State<CourseTabs> {
           ]),
         ),
         body: TabBarView(
-          children: [
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_car),
-            Icon(Icons.directions_transit),
-            Icon(Icons.directions_bike),
-          ],
+          children: [Overview(), Grades(), Forum(), Resources(), Info()],
         ),
       ),
     );

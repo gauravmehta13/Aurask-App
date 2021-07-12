@@ -1,7 +1,8 @@
-import 'package:aurask/app/Screens/Other/CourseInfo.dart';
+import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
 import 'package:aurask/app/Screens/Other/SearchCourses.dart';
 import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
+import 'package:aurask/core/resources/SharedPrefs.dart';
 import 'package:aurask/core/resources/api_provider.dart';
 import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:aurask/meta/Widgets/Loading.dart';
@@ -19,49 +20,56 @@ import 'Components/banners.dart';
 // final FirebaseAuth _auth = FirebaseAuth.instance;
 
 List allCourse = [];
-List stories = [];
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  List popularCourses = [];
-  List interviewCourses = [];
-  List allCourses = [];
-  bool storiesLoaded = false;
-  bool courseLoaded = false;
 
+  List popularCourses = [];
+
+  List stories = [];
+
+  List interviewCourses = [];
+
+  List allCourses = [];
+
+  bool courseLoaded = false;
+  SharedPref sharedPrefs = SharedPref();
   TextEditingController query = TextEditingController();
 
-  // getCourses() async {
-  //   final response = await client
-  //       .from('courses')
-  //       .select()
-  //       .order('inserted_at', ascending: true)
-  //       .execute();
-
-  //   var map = response.data;
-  //   print(map);
-  //   for (var i = 0; i < map.length; i++) {
-  //     if (map[i]["type"] == "popular") {
-  //       courses.add(map[i]);
-  //     } else {
-  //       interviewCourses.add(map[i]);
-  //     }
-  //     setState(() {
-  //       allCourse = map;
-  //       allCourses = map;
-  //       courseLoaded = true;
-  //     });
-  //   }
-  // }
+  @override
+  void initState() {
+    super.initState();
+    if (stories.length == 0) getStories();
+  }
 
   getStories() async {
+    stories = await sharedPrefs.read("stories");
+    setState(() {});
     var dio = Dio();
     try {
       final response = await dio.get(
           "https://my-json-server.typicode.com/gauravmehta13/Aurask-App/stories");
-      stories = response.data;
-      storiesLoaded = true;
+      sharedPrefs.save("stories", response.data);
+      setState(() {
+        stories = response.data;
+      });
     } catch (e) {}
+  }
+
+  divideCourses(course) {
+    for (var i = 0; i < course.length; i++) {
+      if (course[i]["type"] == "interview") {
+        interviewCourses.add(course[i]);
+      } else {
+        popularCourses.add(course[i]);
+      }
+    }
+    courseLoaded = true;
   }
 
   @override
@@ -71,29 +79,19 @@ class HomePage extends StatelessWidget {
         onInit: (store) async {
           popularCourses = [];
           interviewCourses = [];
-          if (stories.length == 0) getStories();
-          if (store.state.courses.length == 0) {
+          List tempCourses = await sharedPrefs.read("courses");
+          if (tempCourses.length == 0) {
             List courses = await getCourses();
-            for (var i = 0; i < courses.length; i++) {
-              if (courses[i]["type"] == "popular") {
-                popularCourses.add(courses[i]);
-              } else {
-                interviewCourses.add(courses[i]);
-              }
-            }
+            divideCourses(courses);
             StoreProvider.of<AppState>(context).dispatch(Courses(courses));
           } else {
-            for (var i = 0; i < store.state.courses.length; i++) {
-              if (store.state.courses[i]["type"] == "popular") {
-                popularCourses.add(store.state.courses[i]);
-              } else {
-                interviewCourses.add(store.state.courses[i]);
-              }
-            }
+            divideCourses(tempCourses);
+            List courses = await getCourses();
+            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
           }
-          allCourses = store.state.courses;
           courseLoaded = true;
-          getStories();
+          allCourses = store.state.courses;
+          allCourse = store.state.courses;
         },
         builder: (context, state) {
           return Scaffold(
@@ -229,7 +227,7 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        if (storiesLoaded)
+                        if (stories.length != 0)
                           GoFlexeStories(
                             stories: stories,
                           )
