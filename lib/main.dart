@@ -1,13 +1,9 @@
-import 'package:aurask/app/auth/UserDetails.dart';
 import 'package:aurask/core/notifications/notis/ab/abNoti.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'app/Screens/Home/BottomNavBar.dart';
-import 'app/auth/OnBoarding.dart';
 import 'core/notifications/importNoti.dart';
 import 'core/redux/app_state.dart';
 import 'core/redux/reducers.dart';
