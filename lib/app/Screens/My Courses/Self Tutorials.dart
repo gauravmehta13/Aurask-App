@@ -1,11 +1,10 @@
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../core/model/supabase%20Manager.dart';
+import '../../../core/resources/api_provider.dart';
+import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
 import '../../../meta/Widgets/Loading.dart';
 import '../Course/CourseTabs.dart';

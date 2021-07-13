@@ -9,8 +9,6 @@ import 'core/notifications/notis/ab/abNoti.dart';
 import 'core/redux/app_state.dart';
 import 'core/redux/reducers.dart';
 import 'meta/Utility/Constants.dart';
-import 'meta/Utility/responsive.dart';
-import 'test.dart';
 
 Future<void> main() async {
   final _initialState = AppState(courses: []);

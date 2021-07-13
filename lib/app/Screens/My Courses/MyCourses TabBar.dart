@@ -1,6 +1,3 @@
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../../meta/Utility/Constants.dart';

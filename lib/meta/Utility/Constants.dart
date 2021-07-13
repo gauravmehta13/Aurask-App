@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:aurask/core/resources/SharedPrefs.dart';
+import '../../core/resources/SharedPrefs.dart';
 
 import '../../app/auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -62,7 +62,7 @@ displaySnackBar(text, ctx) {
   ScaffoldMessenger.of(ctx).showSnackBar(
     SnackBar(
       content: Text(text),
-      duration: Duration(seconds: 1),
+      duration: Duration(seconds: 2),
     ),
   );
 }

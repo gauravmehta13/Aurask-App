@@ -28,6 +28,7 @@ class CourseInfo extends StatefulWidget {
 }
 
 Map selectedPrice = {};
+bool buyingCourse = false;
 
 class _CourseInfoState extends State<CourseInfo> {
   late VideoPlayerController videoPlayerController;
@@ -84,6 +85,9 @@ class _CourseInfoState extends State<CourseInfo> {
   bool loading = false;
 
   Future buyCourse() async {
+    setState(() {
+      buyingCourse = true;
+    });
     try {
       var dio = Dio();
       print(_auth.currentUser?.uid);
@@ -96,8 +100,16 @@ class _CourseInfoState extends State<CourseInfo> {
           });
       print(response.data);
       displaySnackBar(response.data["resp"], context);
+      setState(() {
+        buyingCourse = false;
+      });
     } catch (e) {
+      setState(() {
+        buyingCourse = false;
+      });
       print(e);
+      if (e.toString().contains("Already Purchased"))
+        displaySnackBar("Course Already Purchased", context);
     }
   }
 
@@ -331,20 +343,28 @@ class _CourseInfoState extends State<CourseInfo> {
               margin: EdgeInsets.zero,
               clipBehavior: Clip.antiAlias,
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(0),
               ),
               elevation: 4,
-              child: Container(
-                  width: double.maxFinite,
-                  height: 60,
-                  color: primaryColor,
-                  child: Center(
-                    child: Text("Join Course",
-                        style: GoogleFonts.montserrat(
-                            color: Colors.white,
-                            fontSize: 17,
-                            fontWeight: FontWeight.w600)),
-                  )),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (buyingCourse)
+                    LinearProgressIndicator(
+                        color: primaryColor, backgroundColor: Colors.black),
+                  Container(
+                      width: double.maxFinite,
+                      height: 60,
+                      color: primaryColor,
+                      child: Center(
+                        child: Text("Join Course",
+                            style: GoogleFonts.montserrat(
+                                color: Colors.white,
+                                fontSize: 17,
+                                fontWeight: FontWeight.w600)),
+                      )),
+                ],
+              ),
             ),
           ),
           appBar: AppBar(

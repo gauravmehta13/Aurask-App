@@ -3,7 +3,6 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 
 import '../../../../meta/Utility/Constants.dart';
-import '../../Home/HomePage.dart';
 
 class Overview extends StatelessWidget {
   final course;
