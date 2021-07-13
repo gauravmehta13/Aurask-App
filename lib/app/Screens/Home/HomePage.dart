@@ -8,7 +8,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/redux/actions.dart';
 import '../../../core/redux/app_state.dart';
-import '../../../core/resources/SharedPrefs.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';

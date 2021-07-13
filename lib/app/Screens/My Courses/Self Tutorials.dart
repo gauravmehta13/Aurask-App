@@ -84,7 +84,6 @@ class _SelfTutorialsState extends State<SelfTutorials> {
                   itemCount: filteredCourses.length,
                   itemBuilder: (BuildContext context, int index) {
                     var course = filteredCourses[index]["data"];
-                    print(course);
                     return GestureDetector(
                       onTap: () async {
                         Navigator.push(
