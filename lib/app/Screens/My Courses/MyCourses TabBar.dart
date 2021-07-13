@@ -1,3 +1,4 @@
+import 'package:aurask/core/resources/api_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -5,8 +6,6 @@ import 'package:flutter/material.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../My%20Courses/Live%20Sessions.dart';
 import '../My%20Courses/Self%20Tutorials.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class MyCoursesTabbar extends StatefulWidget {
   @override
@@ -21,29 +20,12 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
-    getMyCourses();
   }
 
   @override
   void dispose() {
     super.dispose();
     _tabController.dispose();
-  }
-
-  Future getMyCourses() async {
-    try {
-      var dio = Dio();
-
-      final response = await dio.post(
-          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=ORDER01&usecase=aurask&tenantUsecase=get",
-          data: {
-            "id": _auth.currentUser?.uid,
-          });
-      print(response.data);
-      displaySnackBar(response.data["resp"], context);
-    } catch (e) {
-      print(e);
-    }
   }
 
   @override

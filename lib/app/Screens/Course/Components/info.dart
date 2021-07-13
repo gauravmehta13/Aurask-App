@@ -5,7 +5,8 @@ import '../../../../meta/Utility/Fade%20Route.dart';
 import '../../Other/InstructorPage.dart';
 
 class Info extends StatelessWidget {
-  const Info({Key? key}) : super(key: key);
+  final course;
+  const Info({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

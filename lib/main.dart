@@ -51,17 +51,6 @@ class _MyAppState extends State<MyApp> {
                 title: 'Aurask',
                 theme: themeData(context),
                 debugShowCheckedModeBanner: false,
-                home: Scaffold(body: MyApp2())));
-  }
-}
-
-class MyApp2 extends StatelessWidget {
-  const MyApp2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Responsive.isDesktop(context) ? DesktopView() : BottomNavBar(),
-    );
+                home: home));
   }
 }

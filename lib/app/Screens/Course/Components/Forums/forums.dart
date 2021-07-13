@@ -4,7 +4,8 @@ import '../../../../../meta/Utility/Fade%20Route.dart';
 import 'ForumTopic.dart';
 
 class Forum extends StatelessWidget {
-  const Forum({Key? key}) : super(key: key);
+  final course;
+  const Forum({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

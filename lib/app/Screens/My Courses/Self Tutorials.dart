@@ -1,3 +1,5 @@
+import 'package:aurask/core/resources/api_provider.dart';
+import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -22,27 +24,43 @@ class _SelfTutorialsState extends State<SelfTutorials> {
   @override
   void initState() {
     super.initState();
-    // getMyCourses();
+    getCourses();
   }
 
-  getMyCourses() async {
-    final resp = await client
-        .from('purchasedCourses')
-        .select(
-          'courseType,courses(*)',
-        )
-        //.contains(column, value)
-        // .match({"userId": _auth.currentUser?.uid})
-        .eq("userId", _auth.currentUser?.uid)
-        .execute();
-    print(resp.data);
-    myCourses = resp.data;
-    filteredCourses = myCourses;
-    filter(1);
+  getCourses() async {
+    List localCourses = await sharedPrefs.read("myCourses");
+    if (localCourses.length != 0)
+      setState(() {
+        myCourses = localCourses;
+        filteredCourses = myCourses;
+        loading = false;
+      });
+    var tempCourses = await getMyCourses();
     setState(() {
+      myCourses = tempCourses;
+      filteredCourses = myCourses;
       loading = false;
     });
   }
+
+  // getMyCourses() async {
+  //   final resp = await client
+  //       .from('purchasedCourses')
+  //       .select(
+  //         'courseType,courses(*)',
+  //       )
+  //       //.contains(column, value)
+  //       // .match({"userId": _auth.currentUser?.uid})
+  //       .eq("userId", _auth.currentUser?.uid)
+  //       .execute();
+  //   print(resp.data);
+  //   myCourses = resp.data;
+  //   filteredCourses = myCourses;
+  //   filter(1);
+  //   setState(() {
+  //     loading = false;
+  //   });
+  // }
 
   filter(condition) {
     filteredCourses =
@@ -65,13 +83,15 @@ class _SelfTutorialsState extends State<SelfTutorials> {
                   shrinkWrap: true,
                   itemCount: filteredCourses.length,
                   itemBuilder: (BuildContext context, int index) {
+                    var course = filteredCourses[index]["data"];
+                    print(course);
                     return GestureDetector(
                       onTap: () async {
                         Navigator.push(
                             context,
                             FadeRoute(
                                 page: CourseTabs(
-                              course: filteredCourses[index],
+                              course: course,
                             )));
                       },
                       child: Container(
@@ -88,7 +108,7 @@ class _SelfTutorialsState extends State<SelfTutorials> {
                               width: 90,
                               height: 100,
                               child: Image.network(
-                                filteredCourses[index]["courses"]["image"],
+                                course["image"],
                                 fit: BoxFit.fitHeight,
                               ),
                             ),
@@ -103,18 +123,9 @@ class _SelfTutorialsState extends State<SelfTutorials> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
-                                          filteredCourses[index]["courses"]
-                                              ["name"],
+                                      Text(course["name"],
                                           style: GoogleFonts.montserrat(
                                               fontSize: 13,
-                                              fontWeight: FontWeight.w700)),
-                                      Spacer(),
-                                      Text(
-                                          filteredCourses[index]["courseType"]
-                                              ["title"],
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 10,
                                               fontWeight: FontWeight.w700)),
                                     ],
                                   ),
@@ -140,8 +151,7 @@ class _SelfTutorialsState extends State<SelfTutorials> {
                                   SizedBox(
                                     height: 8,
                                   ),
-                                  Text(
-                                      "Get trained for comapnies like google , amazon , netflix etc.",
+                                  Text(course["description"],
                                       maxLines: 2,
                                       style: TextStyle(
                                         fontSize: 12,

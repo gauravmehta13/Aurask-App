@@ -22,7 +22,7 @@ class _CourseTabsState extends State<CourseTabs> {
       length: 5,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.course["courses"]["name"]),
+          title: Text(widget.course["name"]),
           backgroundColor: primaryColor,
           //  leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
           actions: <Widget>[
@@ -48,7 +48,23 @@ class _CourseTabsState extends State<CourseTabs> {
           ]),
         ),
         body: TabBarView(
-          children: [Overview(), Grades(), Forum(), Resources(), Info()],
+          children: [
+            Overview(
+              course: widget.course,
+            ),
+            Grades(
+              course: widget.course,
+            ),
+            Forum(
+              course: widget.course,
+            ),
+            Resources(
+              course: widget.course,
+            ),
+            Info(
+              course: widget.course,
+            )
+          ],
         ),
       ),
     );

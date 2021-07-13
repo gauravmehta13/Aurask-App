@@ -6,7 +6,8 @@ import '../../../../meta/Utility/Constants.dart';
 import '../../Home/HomePage.dart';
 
 class Overview extends StatelessWidget {
-  const Overview({Key? key}) : super(key: key);
+  final course;
+  const Overview({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +15,9 @@ class Overview extends StatelessWidget {
       child: ListView.builder(
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
-          itemCount: allCourse[0]["syllabus"].length,
+          itemCount: course["syllabus"].length,
           itemBuilder: (BuildContext context, int index) {
-            var x = allCourse[0]["syllabus"][index];
+            var x = course["syllabus"][index];
             return Container(
               decoration: BoxDecoration(
                 border: Border(
