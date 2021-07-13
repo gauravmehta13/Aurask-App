@@ -1,4 +1,6 @@
 import 'dart:math';
+import 'package:aurask/core/resources/SharedPrefs.dart';
+
 import '../../app/auth/Login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +12,7 @@ import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 import 'Fade Route.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
+SharedPref sharedPrefs = SharedPref();
 
 // logEvent(String text) {
 //   if (kReleaseMode) FirebaseAnalytics().logEvent(name: text, parameters: null);

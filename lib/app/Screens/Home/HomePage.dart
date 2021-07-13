@@ -39,7 +39,6 @@ class _HomePageState extends State<HomePage> {
   List allCourses = [];
 
   bool courseLoaded = false;
-  SharedPref sharedPrefs = SharedPref();
   TextEditingController query = TextEditingController();
 
   @override
