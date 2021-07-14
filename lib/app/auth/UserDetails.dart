@@ -46,7 +46,8 @@ class _UserDetailsState extends State<UserDetails> {
     //     "experience": ex["level"],
     //   }
     // ]).execute();
-    await postUserDetails(auth.currentUser?.uid, ex["level"]);
+
+    //await postUserDetails(auth.currentUser?.uid, ex["level"]);
 
     Navigator.pushReplacement(
         context, FadeRoute(page: widget.page ?? BottomNavBar()));

@@ -100,7 +100,6 @@ class _CourseInfoState extends State<CourseInfo> {
           });
       print(response.data);
       successDialog(context, response.data["resp"], 10);
-
       setState(() {
         buyingCourse = false;
       });

@@ -311,7 +311,7 @@ class _HomePageState extends State<HomePage> {
                                                           child: Image.network(
                                                             popularCourses[
                                                                 index]["image"],
-                                                            fit: BoxFit.fill,
+                                                            fit: BoxFit.cover,
                                                           )),
                                                       Positioned(
                                                         top: 10,
