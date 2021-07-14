@@ -38,7 +38,7 @@ Future<Map> getCourses() async {
   var resp = await dio.get(
     'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/dynamic-ui?tenantSet_id=AURASK01&usecase=getAllCourses',
   );
-  var map = resp.data["resp"][0];
+  var map = resp.data["resp"];
   sharedPrefs.save("courses", map);
   print("Courses Updated Successfully");
   return map;

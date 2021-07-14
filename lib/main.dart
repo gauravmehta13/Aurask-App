@@ -11,7 +11,7 @@ import 'core/redux/reducers.dart';
 import 'meta/Utility/Constants.dart';
 
 Future<void> main() async {
-  final _initialState = AppState(courses: []);
+  final _initialState = AppState(courses: [], seminars: []);
   final Store<AppState> _store =
       Store<AppState>(reducer, initialState: _initialState);
   WidgetsFlutterBinding.ensureInitialized();

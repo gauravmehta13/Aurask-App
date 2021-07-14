@@ -6,6 +6,8 @@ AppState reducer(AppState prevState, dynamic action) {
 
   if (action is Courses) {
     newState.courses = action.payload;
+  } else if (action is Seminars) {
+    newState.seminars = action.payload;
   }
 
   return newState;

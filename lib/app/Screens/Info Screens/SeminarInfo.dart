@@ -14,9 +14,10 @@ import '../Other/Booking Complete.dart';
 import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {
+  final Map? seminar;
   final bool forwarded;
   final id;
-  const SeminarInfo({Key? key, this.id, this.forwarded = false})
+  const SeminarInfo({Key? key, this.id, this.forwarded = false, this.seminar})
       : super(key: key);
 
   @override
@@ -28,7 +29,11 @@ class _SeminarInfoState extends State<SeminarInfo> {
   void initState() {
     super.initState();
     loading = widget.forwarded ? true : false;
-    if (widget.forwarded) getSession();
+    if (widget.forwarded)
+      getSession();
+    else {
+      seminar = widget.seminar!;
+    }
   }
 
   bool loading = true;

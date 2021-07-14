@@ -422,6 +422,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.0.6"
+  grouped_list:
+    dependency: "direct main"
+    description:
+      name: grouped_list
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "4.0.0"
   html_unescape:
     dependency: "direct main"
     description:

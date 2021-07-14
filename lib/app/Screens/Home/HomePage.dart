@@ -16,8 +16,6 @@ import '../Other/SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 
-List allCourse = [];
-
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
@@ -79,16 +77,19 @@ class _HomePageState extends State<HomePage> {
             divideCourses(courses);
             StoreProvider.of<AppState>(context)
                 .dispatch(Courses(courses["courses"]));
+            StoreProvider.of<AppState>(context)
+                .dispatch(Seminars(courses["sessions"]));
           } else {
             print(tempCourses);
             divideCourses(tempCourses);
             Map courses = await getCourses();
             StoreProvider.of<AppState>(context)
                 .dispatch(Courses(courses["courses"]));
+            StoreProvider.of<AppState>(context)
+                .dispatch(Seminars(courses["sessions"]));
           }
           courseLoaded = true;
-          allCourses = store.state.courses;
-          allCourse = store.state.courses;
+          allCourses = store.state.courses + store.state.seminars;
         },
         builder: (context, state) {
           return Scaffold(

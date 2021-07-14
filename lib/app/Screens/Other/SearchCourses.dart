@@ -1,6 +1,8 @@
+import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:grouped_list/grouped_list.dart';
 
 import '../../../core/model/supabase%20Manager.dart';
 import '../../../meta/Utility/Constants.dart';
@@ -127,19 +129,46 @@ class _SearchCoursesState extends State<SearchCourses> {
                 child: Loading())
             : filteredCourses.length == 0
                 ? NoResult()
-                : ListView.builder(
+                : GroupedListView<dynamic, String>(
                     padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
                     physics: BouncingScrollPhysics(),
-                    shrinkWrap: true,
-                    itemCount: filteredCourses.length,
-                    itemBuilder: (BuildContext context, int index) {
+                    elements: filteredCourses,
+                    groupBy: (element) => element['type'],
+                    groupComparator: (value1, value2) =>
+                        value1.compareTo(value2),
+                    itemComparator: (item1, item2) =>
+                        item2['type'].compareTo(item1['type']),
+                    // optional
+                    useStickyGroupSeparators: true, // optional
+                    // floatingHeader: true, // optional
+                    order: GroupedListOrder.DESC,
+                    groupSeparatorBuilder: (String value) => Container(
+                          child: Card(
+                            margin: EdgeInsets.fromLTRB(0, 0, 0, 5),
+                            child: Container(
+                              width: double.maxFinite,
+                              padding: const EdgeInsets.all(8.0),
+                              color: primaryColor.withOpacity(0.2),
+                              child: Text(
+                                value,
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                        ),
+                    itemBuilder: (c, element) {
                       return InkWell(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              FadeRoute(
-                                  page: CourseInfo(
-                                      course: filteredCourses[index])));
+                          ["Live Session", "Free Seminar"]
+                                  .contains(element["type"])
+                              ? Navigator.push(
+                                  context,
+                                  FadeRoute(
+                                      page: SeminarInfo(seminar: element)))
+                              : Navigator.push(context,
+                                  FadeRoute(page: CourseInfo(course: element)));
                         },
                         child: Container(
                           clipBehavior: Clip.hardEdge,
@@ -155,7 +184,7 @@ class _SearchCoursesState extends State<SearchCourses> {
                                 width: 90,
                                 height: 100,
                                 child: Image.network(
-                                  filteredCourses[index]["image"],
+                                  element["image"],
                                   fit: BoxFit.fitHeight,
                                 ),
                               ),
@@ -170,7 +199,7 @@ class _SearchCoursesState extends State<SearchCourses> {
                                   children: [
                                     Row(
                                       children: [
-                                        Text(filteredCourses[index]["name"],
+                                        Text(element["name"],
                                             style: GoogleFonts.montserrat(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w700)),
