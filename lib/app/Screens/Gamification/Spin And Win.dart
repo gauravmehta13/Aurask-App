@@ -4,7 +4,6 @@ import 'dart:ui';
 
 import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';

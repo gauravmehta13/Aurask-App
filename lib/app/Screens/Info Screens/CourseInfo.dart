@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:chewie/chewie.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:video_player/video_player.dart';
 
 import '../../../core/model/reviews%20Model.dart';
@@ -96,7 +99,8 @@ class _CourseInfoState extends State<CourseInfo> {
             "courseId": widget.course["id"],
           });
       print(response.data);
-      displaySnackBar(response.data["resp"], context);
+      successDialog(context, response.data["resp"], 10);
+
       setState(() {
         buyingCourse = false;
       });
@@ -106,7 +110,7 @@ class _CourseInfoState extends State<CourseInfo> {
       });
       print(e);
       if (e.toString().contains("Already Purchased"))
-        displaySnackBar("Course Already Purchased", context);
+        errorDialog(context, "Course Already Purchased", 10);
     }
   }
 
@@ -302,7 +306,6 @@ class _CourseInfoState extends State<CourseInfo> {
                   InkWell(
                     onTap: selectedPrice["id"] != 1
                         ? () async {
-                            //await sendData();
                             Navigator.push(
                                 context,
                                 FadeRoute(
@@ -311,9 +314,8 @@ class _CourseInfoState extends State<CourseInfo> {
                                 )));
                           }
                         : () {
-                            buyCourse();
                             Navigator.pop(context);
-                            // displaySnackBar("Coming Soon", context);
+                            kIsWeb ? installAppDialog(context) : buyCourse();
                           },
                     child: Card(
                       margin: EdgeInsets.zero,

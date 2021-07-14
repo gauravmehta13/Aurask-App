@@ -1,19 +1,18 @@
 import 'dart:math';
-import 'package:flutter/foundation.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
-import '../../core/resources/SharedPrefs.dart';
-
-import '../../app/auth/Login.dart';
+import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+
+import '../../app/auth/Login.dart';
+import '../../core/resources/SharedPrefs.dart';
 import 'Fade Route.dart';
-import 'package:googleapis/calendar/v3.dart' as googleAPI;
 
 final googleSignIn = GoogleSignIn(
     // clientId:
@@ -196,4 +195,45 @@ Path drawStar(Size size) {
   }
   path.close();
   return path;
+}
+
+installAppDialog(context) {
+  return CoolAlert.show(
+      context: context,
+      type: CoolAlertType.info,
+      title: "Sorry",
+      text: 'Currently we are only accepting payments from app.',
+      autoCloseDuration: Duration(seconds: 10),
+      confirmBtnText: "Download App",
+      onConfirmBtnTap: () async {
+        await launch(
+            "https://play.google.com/store/apps/details?id=com.goflexepartner.lite");
+      });
+}
+
+errorDialog(context, text, seconds) {
+  return CoolAlert.show(
+    context: context,
+    type: CoolAlertType.error,
+    text: text,
+    autoCloseDuration: Duration(seconds: seconds),
+  );
+}
+
+successDialog(context, text, seconds) {
+  return CoolAlert.show(
+    context: context,
+    type: CoolAlertType.success,
+    text: text,
+    autoCloseDuration: Duration(seconds: seconds),
+  );
+}
+
+warningDialog(context, text, seconds) {
+  return CoolAlert.show(
+    context: context,
+    type: CoolAlertType.warning,
+    text: text,
+    autoCloseDuration: Duration(seconds: seconds),
+  );
 }
