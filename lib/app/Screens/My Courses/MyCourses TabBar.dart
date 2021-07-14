@@ -1,3 +1,5 @@
+import 'package:aurask/core/resources/api_provider.dart';
+import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:flutter/material.dart';
 
 import '../../../meta/Utility/Constants.dart';
@@ -17,6 +19,20 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
     super.initState();
+    getTempCourses();
+  }
+
+  List courses = [];
+  List liveSessions = [];
+  bool loading = true;
+
+  getTempCourses() async {
+    var tempCourses = await getMyCourses();
+    setState(() {
+      courses = tempCourses["courses"];
+      liveSessions = tempCourses["liveSessions"];
+      loading = false;
+    });
   }
 
   @override
@@ -71,18 +87,24 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
             ),
           ),
           // tab bar view here
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                // first tab bar view widget
-                SelfTutorials(),
+          loading
+              ? Loading()
+              : Expanded(
+                  child: TabBarView(
+                    controller: _tabController,
+                    children: [
+                      // first tab bar view widget
+                      SelfTutorials(
+                        courses: courses,
+                      ),
 
-                // second tab bar view widget
-                LiveSessions()
-              ],
-            ),
-          ),
+                      // second tab bar view widget
+                      LiveSessions(
+                        liveSessions: liveSessions,
+                      )
+                    ],
+                  ),
+                ),
         ],
       ),
     );

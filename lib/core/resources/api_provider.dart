@@ -8,25 +8,39 @@ import '../model/question.dart';
 const String baseUrl = "https://opentdb.com/api.php";
 var dio = Dio();
 
-Future<List> getMyCourses() async {
+Future<Map> getSeminarDetails(id) async {
   var dio = Dio();
   final response = await dio.post(
-      "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=ORDER01&usecase=aurask&tenantUsecase=get",
+      "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=liveSession&tenantUsecase=getLiveSession",
       data: {
-        "id": auth.currentUser?.uid,
+        "id": id,
       });
-  sharedPrefs.save("myCourses", response.data["resp"]);
   return response.data["resp"];
 }
 
-Future<List> getCourses() async {
+Future<Map> getMyCourses() async {
+  print("getting My Courses....");
+  var dio = Dio();
+  final response = await dio.post(
+      "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=getMyCourses",
+      data: {
+        "id": auth.currentUser?.uid,
+      });
+
+  sharedPrefs.save("myCourses", response.data["resp"]);
+  print("My Courses Updated Successfully");
+  return response.data["resp"];
+}
+
+Future<Map> getCourses() async {
+  print("getting Courses....");
   var dio = Dio();
   var resp = await dio.get(
-    'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/dynamic-ui?tenantSet_id=AURASK01&usecase=training',
+    'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/dynamic-ui?tenantSet_id=AURASK01&usecase=getAllCourses',
   );
-
-  var map = resp.data["resp"];
+  var map = resp.data["resp"][0];
   sharedPrefs.save("courses", map);
+  print("Courses Updated Successfully");
   return map;
 }
 

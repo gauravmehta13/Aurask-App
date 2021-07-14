@@ -1,3 +1,5 @@
+import 'package:aurask/meta/Widgets/Loading.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -12,8 +14,10 @@ import '../Other/Booking Complete.dart';
 import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {
+  final bool forwarded;
   final id;
-  const SeminarInfo({Key? key, this.id}) : super(key: key);
+  const SeminarInfo({Key? key, this.id, this.forwarded = false})
+      : super(key: key);
 
   @override
   _SeminarInfoState createState() => _SeminarInfoState();
@@ -21,13 +25,66 @@ class SeminarInfo extends StatefulWidget {
 
 class _SeminarInfoState extends State<SeminarInfo> {
   @override
+  void initState() {
+    super.initState();
+    loading = widget.forwarded ? true : false;
+    if (widget.forwarded) getSession();
+  }
+
+  bool loading = true;
+  Map seminar = {};
+
+  getSession() async {
+    var map = await getSeminarDetails(widget.id);
+    print(map);
+    setState(() {
+      seminar = map;
+      loading = false;
+    });
+  }
+
+  Future bookSession() async {
+    // setState(() {
+    //   buyingCourse = true;
+    // });
+    try {
+      var dio = Dio();
+      print(auth.currentUser?.uid);
+      print(widget.id);
+      final response = await dio.post(
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=bookLiveSession",
+          data: {
+            "id": auth.currentUser?.uid,
+            "email": auth.currentUser?.email,
+            "liveSessionId": widget.id,
+          });
+      print(response.data);
+      successDialog(context, response.data["resp"], 10);
+      //  Navigator.push(context, FadeRoute(page: BookingComplete()));
+      // setState(() {
+      //   buyingCourse = false;
+      // });
+    } catch (e) {
+      // setState(() {
+      //   buyingCourse = false;
+      // });
+      print(e);
+      if (e.toString().contains("Already Purchased"))
+        errorDialog(context, "Course Already Purchased", 10);
+      else
+        errorDialog(context, "Please Try Again after some time", 10);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) async {
           if (store.state.courses.length == 0) {
-            List courses = await getCourses();
-            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+            Map courses = await getCourses();
+            StoreProvider.of<AppState>(context)
+                .dispatch(Courses(courses["courses"]));
           }
         },
         builder: (context, state) {
@@ -35,7 +92,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
             child: Scaffold(
               bottomNavigationBar: InkWell(
                 onTap: () {
-                  Navigator.push(context, FadeRoute(page: BookingComplete()));
+                  bookSession();
                 },
                 child: Card(
                   margin: EdgeInsets.zero,
@@ -68,7 +125,8 @@ class _SeminarInfoState extends State<SeminarInfo> {
                             width: double.maxFinite,
                             height: MediaQuery.of(context).size.height / 3,
                             child: Image.network(
-                              "https://miro.medium.com/max/1954/1*kb1bu3bHdyKPskfGz-efgg.png",
+                              seminar["image"] ??
+                                  "https://miro.medium.com/max/1954/1*kb1bu3bHdyKPskfGz-efgg.png",
                               fit: BoxFit.cover,
                             ),
                           ),
@@ -92,80 +150,96 @@ class _SeminarInfoState extends State<SeminarInfo> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Design Thinking Live Seminar",
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 25, fontWeight: FontWeight.w600)),
+                          loading
+                              ? Loading()
+                              : Text(seminar["name"] + " " + seminar["type"],
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 25,
+                                      fontWeight: FontWeight.w600)),
                           box20,
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 0),
-                            dense: true,
-                            leading: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.calendar_today,
-                                  size: 20,
+                          loading
+                              ? Container(
+                                  height:
+                                      MediaQuery.of(context).size.height / 2,
+                                  child: Center(child: Loading()))
+                              : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    ListTile(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 0),
+                                      dense: true,
+                                      leading: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.calendar_today,
+                                            size: 20,
+                                          ),
+                                        ],
+                                      ),
+                                      title: Text(seminar["date"]),
+                                      subtitle: Text(seminar["time"]),
+                                    ),
+                                    ListTile(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 0),
+                                      dense: true,
+                                      leading: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(
+                                            Icons.location_pin,
+                                            size: 20,
+                                          ),
+                                        ],
+                                      ),
+                                      title: Text(seminar["mode"]),
+                                      subtitle: Text(seminar["venue"]),
+                                    ),
+                                    ListTile(
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 5, vertical: 0),
+                                      dense: true,
+                                      leading: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: <Widget>[
+                                          Icon(
+                                            FontAwesomeIcons.ticketAlt,
+                                            size: 20,
+                                          ),
+                                        ],
+                                      ),
+                                      title: Text(seminar["type"]),
+                                      subtitle:
+                                          Text(seminar["price"].toString()),
+                                    ),
+                                    Divider(color: Colors.grey),
+                                    box20,
+                                    Text("About",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.grey[800])),
+                                    box10,
+                                    Text(seminar["description"],
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey[800])),
+                                    box20,
+                                    Divider(color: Colors.grey),
+                                    box10,
+                                    Text("More like this",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.w600,
+                                            color: Colors.grey[800])),
+                                  ],
                                 ),
-                              ],
-                            ),
-                            title: Text("Saturday, July 10"),
-                            subtitle: Text("10.30 AM - 1.30 PM IST"),
-                          ),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 0),
-                            dense: true,
-                            leading: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.location_pin,
-                                  size: 20,
-                                ),
-                              ],
-                            ),
-                            title: Text("Online - Anywhere"),
-                            subtitle: Text("Google Meet"),
-                          ),
-                          ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 5, vertical: 0),
-                            dense: true,
-                            leading: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  FontAwesomeIcons.ticketAlt,
-                                  size: 20,
-                                ),
-                              ],
-                            ),
-                            title: Text("Free"),
-                            subtitle: Text("On Aurask"),
-                          ),
-                          Divider(color: Colors.grey),
-                          box20,
-                          Text("About",
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[800])),
-                          box10,
-                          Text(
-                              "Some of the world’s leading brands such as Google and Samsung have incorporated the design thinking approach and design thinking is being taught at some of the top universities in the world. It has found a place in most of the economic sectors and many firms have found new revenue streams through this very concept. But, at its core, what is Design Thinking? And why is it so popular? Join us as we demystify Design Thinking with Vinay Yadav",
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey[800])),
-                          box20,
-                          Divider(color: Colors.grey),
-                          box10,
-                          Text("More like this",
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.grey[800])),
                         ],
                       ),
                     ),

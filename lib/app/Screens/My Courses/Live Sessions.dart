@@ -5,20 +5,25 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../meta/Utility/Constants.dart';
 
 class LiveSessions extends StatelessWidget {
+  final List liveSessions;
+  LiveSessions({required this.liveSessions});
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 10,
-        padding: EdgeInsets.only(top: 8, bottom: 8),
-        itemBuilder: (context, index) {
-          return TicketView(course: "course[]");
-        });
+    return liveSessions.length == 0
+        ? Container()
+        : ListView.builder(
+            itemCount: liveSessions.length,
+            padding: EdgeInsets.only(top: 8, bottom: 8),
+            itemBuilder: (context, index) {
+              Map session = liveSessions[index]["data"];
+              return TicketView(session: session);
+            });
   }
 }
 
 class TicketView extends StatelessWidget {
-  final course;
-  TicketView({this.course});
+  final session;
+  TicketView({this.session});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -42,7 +47,7 @@ class TicketView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    "Product Evolution Live Seminar",
+                    session["name"] + " " + session["type"],
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -56,14 +61,14 @@ class TicketView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Sat, July 10",
+                        session["date"],
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        "02:30 PM",
+                        session["time"],
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
@@ -76,7 +81,7 @@ class TicketView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        "Online",
+                        session["mode"],
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
@@ -85,7 +90,7 @@ class TicketView extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            "Google Meet",
+                            session["venue"],
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[800],
@@ -160,13 +165,13 @@ class TicketView extends StatelessWidget {
                       bottomRight: Radius.circular(20))),
               child: Row(
                 children: <Widget>[
-                  Text("Vinay Yadav",
+                  Text(session["instructor"]["title"],
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: Colors.black)),
                   Expanded(
-                      child: Text("₹ 240",
+                      child: Text("₹ ${session["price"]}",
                           textAlign: TextAlign.end,
                           style: GoogleFonts.ubuntu(
                               fontSize: 18,

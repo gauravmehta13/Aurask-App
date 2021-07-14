@@ -28,9 +28,9 @@ class CourseInfo extends StatefulWidget {
 }
 
 Map selectedPrice = {};
-bool buyingCourse = false;
 
 class _CourseInfoState extends State<CourseInfo> {
+  bool buyingCourse = false;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
 
@@ -93,7 +93,7 @@ class _CourseInfoState extends State<CourseInfo> {
       print(auth.currentUser?.uid);
       print(widget.course["id"]);
       final response = await dio.post(
-          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=ORDER01&usecase=aurask&tenantUsecase=post",
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=purchaseCourse",
           data: {
             "id": auth.currentUser?.uid,
             "courseId": widget.course["id"],
@@ -110,38 +110,6 @@ class _CourseInfoState extends State<CourseInfo> {
       print(e);
       if (e.toString().contains("Already Purchased"))
         errorDialog(context, "Course Already Purchased", 10);
-    }
-  }
-
-  sendData() async {
-    setState(() {
-      loading = true;
-    });
-    var pricingType = {};
-    for (var i = 0; i < widget.course["pricing"].length; i++) {
-      if (widget.course["pricing"][i]["selected"] == true) {
-        setState(() {
-          pricingType = widget.course["pricing"][i];
-        });
-      }
-    }
-
-    var resp = await client.from('purchasedCourses').insert([
-      {
-        'userId': auth.currentUser?.uid,
-        "courseId": widget.course["id"],
-        "courseType": pricingType,
-      }
-    ]).execute();
-    print(resp.status);
-    if (resp.status == 201) {
-      setState(() {
-        loading = false;
-      });
-      displaySnackBar("Course Purchased Successfully", context);
-      Navigator.pop(context);
-    } else {
-      displaySnackBar(resp.error!.message, context);
     }
   }
 
@@ -303,13 +271,15 @@ class _CourseInfoState extends State<CourseInfo> {
                     ),
                   ),
                   InkWell(
-                    onTap: selectedPrice["id"] != 1
+                    onTap: ["Free Seminar", "Live Session"]
+                            .contains(selectedPrice["title"])
                         ? () async {
                             Navigator.push(
                                 context,
                                 FadeRoute(
                                     page: SeminarInfo(
-                                  id: "",
+                                  id: selectedPrice["id"],
+                                  forwarded: true,
                                 )));
                           }
                         : () {

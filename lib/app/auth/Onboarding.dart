@@ -81,8 +81,9 @@ class _OnboardingState extends State<Onboarding> {
         converter: (store) => store.state,
         onInit: (store) async {
           if (store.state.courses.length == 0) {
-            List courses = await getCourses();
-            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+            Map courses = await getCourses();
+            StoreProvider.of<AppState>(context)
+                .dispatch(Courses(courses["courses"]));
           }
         },
         builder: (context, state) {

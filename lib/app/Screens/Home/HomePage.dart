@@ -56,11 +56,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   divideCourses(course) {
-    for (var i = 0; i < course.length; i++) {
-      if (course[i]["type"] == "interview") {
-        interviewCourses.add(course[i]);
-      } else {
-        popularCourses.add(course[i]);
+    for (var i = 0; i < course["courses"].length; i++) {
+      if (course["courses"][i]["type"] == "interview") {
+        interviewCourses.add(course["courses"][i]);
+      } else if (course["courses"][i]["type"] == "popular") {
+        popularCourses.add(course["courses"][i]);
       }
     }
     courseLoaded = true;
@@ -73,15 +73,18 @@ class _HomePageState extends State<HomePage> {
         onInit: (store) async {
           popularCourses = [];
           interviewCourses = [];
-          List tempCourses = await sharedPrefs.read("courses");
+          Map tempCourses = await sharedPrefs.read("courses");
           if (tempCourses.length == 0) {
-            List courses = await getCourses();
+            Map courses = await getCourses();
             divideCourses(courses);
-            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+            StoreProvider.of<AppState>(context)
+                .dispatch(Courses(courses["courses"]));
           } else {
+            print(tempCourses);
             divideCourses(tempCourses);
-            List courses = await getCourses();
-            StoreProvider.of<AppState>(context).dispatch(Courses(courses));
+            Map courses = await getCourses();
+            StoreProvider.of<AppState>(context)
+                .dispatch(Courses(courses["courses"]));
           }
           courseLoaded = true;
           allCourses = store.state.courses;
