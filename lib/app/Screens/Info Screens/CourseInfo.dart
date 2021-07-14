@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +15,6 @@ import '../../../meta/Widgets/Loading.dart';
 import '../Info%20Screens/SeminarInfo.dart';
 import '../Other/CustomerReviews.dart';
 import '../Other/InstructorPage.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class CourseInfo extends StatefulWidget {
   final Map course;
@@ -90,12 +87,12 @@ class _CourseInfoState extends State<CourseInfo> {
     });
     try {
       var dio = Dio();
-      print(_auth.currentUser?.uid);
+      print(auth.currentUser?.uid);
       print(widget.course["id"]);
       final response = await dio.post(
           "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=ORDER01&usecase=aurask&tenantUsecase=post",
           data: {
-            "id": _auth.currentUser?.uid,
+            "id": auth.currentUser?.uid,
             "courseId": widget.course["id"],
           });
       print(response.data);
@@ -128,7 +125,7 @@ class _CourseInfoState extends State<CourseInfo> {
 
     var resp = await client.from('purchasedCourses').insert([
       {
-        'userId': _auth.currentUser?.uid,
+        'userId': auth.currentUser?.uid,
         "courseId": widget.course["id"],
         "courseType": pricingType,
       }
@@ -235,12 +232,29 @@ class _CourseInfoState extends State<CourseInfo> {
                                                 ? primaryColor.withOpacity(0.1)
                                                 : Colors.grey[300],
                                             maxRadius: 100,
-                                            child: Text(
-                                              "₹ ${widget.course["pricing"][index]["price"].toString()}",
-                                              style: GoogleFonts.montserrat(
-                                                  color: primaryColor,
-                                                  fontSize: 20,
-                                                  fontWeight: FontWeight.w900),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  "₹ ${widget.course["pricing"][index]["price"] + 2000}",
+                                                  style: GoogleFonts.montserrat(
+                                                      color: Colors.black54,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                      fontSize: 14,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                Text(
+                                                  "₹ ${widget.course["pricing"][index]["price"].toString()}",
+                                                  style: GoogleFonts.montserrat(
+                                                      color: primaryColor,
+                                                      fontSize: 20,
+                                                      fontWeight:
+                                                          FontWeight.w900),
+                                                ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -335,7 +349,7 @@ class _CourseInfoState extends State<CourseInfo> {
       child: Scaffold(
           bottomNavigationBar: InkWell(
             onTap: () {
-              _auth.currentUser == null
+              auth.currentUser == null
                   ? authNavigate(CourseInfo(course: widget.course), context)
                   : displayCourseChoices(context);
             },
@@ -506,7 +520,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                   size: 20, color: Colors.grey[800]!),
                               wbox10,
                               Text(
-                                "40 hours of ondemand video",
+                                "16 hours of ondemand video",
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.grey[800]),
                               )
@@ -532,7 +546,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                   size: 20, color: Colors.grey[800]!),
                               wbox10,
                               Text(
-                                "20 Assignments",
+                                "8 Assignments",
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.grey[800]),
                               )
@@ -545,7 +559,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                   size: 20, color: Colors.grey[800]!),
                               wbox10,
                               Text(
-                                "Full time Access",
+                                "Life time Access",
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.grey[800]),
                               )
@@ -567,11 +581,11 @@ class _CourseInfoState extends State<CourseInfo> {
                           box10,
                           Row(
                             children: [
-                              Icon(Icons.pause_presentation,
+                              Icon(Icons.question_answer,
                                   size: 20, color: Colors.grey[800]!),
                               wbox10,
                               Text(
-                                "Certificate of Completion",
+                                "QnA Session",
                                 style: TextStyle(
                                     fontSize: 14, color: Colors.grey[800]),
                               )
@@ -579,44 +593,6 @@ class _CourseInfoState extends State<CourseInfo> {
                           ),
                           box10,
                           Divider(),
-                          box10,
-                          Text(
-                            "What you'll Learn",
-                            style: TextStyle(
-                                fontWeight: FontWeight.w800, fontSize: 16),
-                          ),
-                          box10,
-                          ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: 5,
-                              itemBuilder: (BuildContext context, int index) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 5),
-                                  child: Row(
-                                    children: [
-                                      Icon(
-                                        Icons.done,
-                                        size: 15,
-                                      ),
-                                      wbox10,
-                                      Expanded(
-                                        child: Text(
-                                          "Lorem ipsum dolor sit amet, consectetur adipiscing elit sed do eiusmod tempor incididunt.  ",
-                                          style: TextStyle(fontSize: 13),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              }),
-                          TextButton(
-                              onPressed: () {},
-                              child: Text(
-                                "SHOW MORE",
-                                style: TextStyle(fontSize: 12),
-                              )),
                           box20,
                           Text(
                             "Description",
@@ -768,61 +744,61 @@ class _CourseInfoState extends State<CourseInfo> {
                             reviews: reviews,
                           ),
                         ])),
-                Container(
-                  color: Colors.grey[200],
-                  padding: EdgeInsets.all(10),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      box10,
-                      Text(
-                        "Frequently Asked Questions",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800, fontSize: 20),
-                      ),
-                      box20,
-                      ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          itemCount: widget.course["syllabus"].length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Container(
-                              decoration: BoxDecoration(
-                                border: Border(
-                                  bottom: BorderSide(
-                                    color: Colors.grey[300]!,
-                                  ),
-                                  top: BorderSide(
-                                    color: Colors.grey[300]!,
-                                  ),
-                                ),
-                              ),
-                              child: ExpansionTile(
-                                tilePadding:
-                                    EdgeInsets.symmetric(horizontal: 10),
-                                childrenPadding:
-                                    EdgeInsets.only(bottom: 20, left: 10),
-                                title: Text(
-                                  "Is Financial Aid Available",
-                                  style: TextStyle(
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500),
-                                ),
-                                children: <Widget>[
-                                  Row(
-                                    children: [
-                                      Text(
-                                          "We provide free seminars every friday"),
-                                    ],
-                                  )
-                                ],
-                              ),
-                            );
-                          }),
-                      box30,
-                    ],
-                  ),
-                )
+                // Container(
+                //   color: Colors.grey[200],
+                //   padding: EdgeInsets.all(10),
+                //   child: Column(
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       box10,
+                //       Text(
+                //         "Frequently Asked Questions",
+                //         style: TextStyle(
+                //             fontWeight: FontWeight.w800, fontSize: 20),
+                //       ),
+                //       box20,
+                // ListView.builder(
+                //     physics: NeverScrollableScrollPhysics(),
+                //     shrinkWrap: true,
+                //     itemCount: widget.course["syllabus"].length,
+                //     itemBuilder: (BuildContext context, int index) {
+                //       return Container(
+                //         decoration: BoxDecoration(
+                //           border: Border(
+                //             bottom: BorderSide(
+                //               color: Colors.grey[300]!,
+                //             ),
+                //             top: BorderSide(
+                //               color: Colors.grey[300]!,
+                //             ),
+                //           ),
+                //         ),
+                //         child: ExpansionTile(
+                //           tilePadding:
+                //               EdgeInsets.symmetric(horizontal: 10),
+                //           childrenPadding:
+                //               EdgeInsets.only(bottom: 20, left: 10),
+                //           title: Text(
+                //             "Is Financial Aid Available",
+                //             style: TextStyle(
+                //                 fontSize: 14.0,
+                //                 fontWeight: FontWeight.w500),
+                //           ),
+                //           children: <Widget>[
+                //             Row(
+                //               children: [
+                //                 Text(
+                //                     "We provide free seminars every friday"),
+                //               ],
+                //             )
+                //           ],
+                //         ),
+                //       );
+                //     }),
+                // box30,
+                //    ],
+                //  ),
+                //    )
               ],
             ),
           )),
