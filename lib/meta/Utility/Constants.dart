@@ -1,4 +1,7 @@
 import 'dart:math';
+import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
 import '../../core/resources/SharedPrefs.dart';
 
 import '../../app/auth/Login.dart';
@@ -10,8 +13,18 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 import 'Fade Route.dart';
+import 'package:googleapis/calendar/v3.dart' as googleAPI;
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
+final googleSignIn = GoogleSignIn(
+    // clientId:
+    //     //  !kIsWeb
+    //     //     ? '491094163637-cqtcavhfoji1tnpmo4giglh6elugujb9.apps.googleusercontent.com'
+    //     //     :
+    //     "491094163637-t71a5r3al2buos5rplo3itqb9a7nkl1h.apps.googleusercontent.com",
+    // scopes: <String>[googleAPI.CalendarApi.calendarScope],
+    );
+
+final FirebaseAuth auth = FirebaseAuth.instance;
 SharedPref sharedPrefs = SharedPref();
 
 // logEvent(String text) {
@@ -19,7 +32,7 @@ SharedPref sharedPrefs = SharedPref();
 // }
 
 authNavigate(Widget page, context) {
-  if (_auth.currentUser == null) {
+  if (auth.currentUser == null) {
     Navigator.push(context, FadeRoute(page: LoginScreen(page: page)));
   } else {
     Navigator.push(context, FadeRoute(page: page));
@@ -27,7 +40,7 @@ authNavigate(Widget page, context) {
 }
 
 checkLogin(Widget page, context) {
-  if (_auth.currentUser == null) {
+  if (auth.currentUser == null) {
     SchedulerBinding.instance!.addPostFrameCallback((_) {
       Navigator.pushReplacement(
         context,

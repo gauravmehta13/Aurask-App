@@ -17,8 +17,6 @@ import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
 import '../../../meta/Widgets/Loading.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
-
 class SpinAndWin extends StatefulWidget {
   @override
   _SpinAndWinState createState() => _SpinAndWinState();
@@ -65,7 +63,7 @@ class _SpinAndWinState extends State<SpinAndWin> {
       var dio = Dio();
       final response = await dio.post(
           'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=PAMREWARDS01&usecase=spinAndWin',
-          data: {"userId": _auth.currentUser!.uid});
+          data: {"userId": auth.currentUser!.uid});
       print(response.data);
       var map = response.data["resp"];
       // spin and win based on probability
@@ -95,7 +93,7 @@ class _SpinAndWinState extends State<SpinAndWin> {
       var dio = Dio();
       final response = await dio.post(
           'https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=PAMREWARDS01&usecase=rewardEarn&tenantUsecase=spinAndWin',
-          data: {"userId": _auth.currentUser!.uid, "coupon": reward});
+          data: {"userId": auth.currentUser!.uid, "coupon": reward});
       print(response.data);
 
       setState(() {

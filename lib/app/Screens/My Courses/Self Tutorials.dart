@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,8 +7,6 @@ import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
 import '../../../meta/Widgets/Loading.dart';
 import '../Course/CourseTabs.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class SelfTutorials extends StatefulWidget {
   @override
@@ -77,7 +74,7 @@ class _SelfTutorialsState extends State<SelfTutorials> {
                   height: MediaQuery.of(context).size.height / 2,
                   child: Loading())
               : ListView.builder(
-                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                  padding: EdgeInsets.fromLTRB(10, 0, 10, 20),
                   physics: BouncingScrollPhysics(),
                   shrinkWrap: true,
                   itemCount: filteredCourses.length,

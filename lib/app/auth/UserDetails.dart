@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import '../../core/resources/api_provider.dart';
@@ -16,7 +15,6 @@ class UserDetails extends StatefulWidget {
 
 class _UserDetailsState extends State<UserDetails> {
   bool loading = false;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
 
   List experience = [
     {
@@ -48,7 +46,7 @@ class _UserDetailsState extends State<UserDetails> {
     //     "experience": ex["level"],
     //   }
     // ]).execute();
-    await postUserDetails(_auth.currentUser?.uid, ex["level"]);
+    await postUserDetails(auth.currentUser?.uid, ex["level"]);
 
     Navigator.pushReplacement(
         context, FadeRoute(page: widget.page ?? BottomNavBar()));
@@ -70,11 +68,11 @@ class _UserDetailsState extends State<UserDetails> {
           children: [
             CircleAvatar(
               radius: 35,
-              backgroundImage: NetworkImage(_auth.currentUser?.photoURL ?? ""),
+              backgroundImage: NetworkImage(auth.currentUser?.photoURL ?? ""),
             ),
             box20,
             Text(
-              "Welcome ${_auth.currentUser?.displayName?.split(" ")[0] ?? ""}",
+              "Welcome ${auth.currentUser?.displayName?.split(" ")[0] ?? ""}",
               style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
             ),
             box20,

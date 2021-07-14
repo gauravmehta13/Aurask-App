@@ -5,7 +5,6 @@ import '../../meta/Utility/Constants.dart';
 import '../model/category.dart';
 import '../model/question.dart';
 
-final FirebaseAuth _auth = FirebaseAuth.instance;
 const String baseUrl = "https://opentdb.com/api.php";
 var dio = Dio();
 
@@ -14,7 +13,7 @@ Future<List> getMyCourses() async {
   final response = await dio.post(
       "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=ORDER01&usecase=aurask&tenantUsecase=get",
       data: {
-        "id": _auth.currentUser?.uid,
+        "id": auth.currentUser?.uid,
       });
   sharedPrefs.save("myCourses", response.data["resp"]);
   return response.data["resp"];

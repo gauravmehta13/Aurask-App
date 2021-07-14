@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/redux/actions.dart';
@@ -25,8 +24,6 @@ class Onboarding extends StatefulWidget {
 }
 
 class _OnboardingState extends State<Onboarding> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final googleSignIn = GoogleSignIn();
   bool loading = false;
 
   void initState() {
@@ -607,11 +604,11 @@ class _OnboardingState extends State<Onboarding> {
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
-        await _auth.signInWithCredential(credential).then((value) async {
+        await auth.signInWithCredential(credential).then((value) async {
           print("User is New = ${value.additionalUserInfo!.isNewUser}");
           if (value.additionalUserInfo!.isNewUser) {
-            await login(_auth.currentUser!.uid, _auth.currentUser!.email,
-                _auth.currentUser!.displayName, widget.id);
+            await login(auth.currentUser!.uid, auth.currentUser!.email,
+                auth.currentUser!.displayName, widget.id);
             Navigator.pushReplacement(
               context,
               FadeRoute(page: UserDetails()),
@@ -631,6 +628,7 @@ class _OnboardingState extends State<Onboarding> {
       setState(() {
         loading = false;
       });
+      print(e);
       displaySnackBar("Error, please try again later..!!", context);
     }
   }

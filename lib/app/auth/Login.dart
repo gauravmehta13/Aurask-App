@@ -3,7 +3,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 import '../../core/resources/api_provider.dart';
 import '../../meta/Utility/Constants.dart';
@@ -27,8 +26,6 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-  final googleSignIn = GoogleSignIn();
   bool loading = false;
 
   @override
@@ -182,11 +179,11 @@ class _LoginScreenState extends State<LoginScreen> {
           accessToken: googleAuth.accessToken,
           idToken: googleAuth.idToken,
         );
-        await _auth.signInWithCredential(credential).then((value) async {
+        await auth.signInWithCredential(credential).then((value) async {
           print("User is New = ${value.additionalUserInfo!.isNewUser}");
           if (value.additionalUserInfo!.isNewUser) {
-            await login(_auth.currentUser!.uid, _auth.currentUser!.email,
-                _auth.currentUser!.displayName, widget.id);
+            await login(auth.currentUser!.uid, auth.currentUser!.email,
+                auth.currentUser!.displayName, widget.id);
             Navigator.pushReplacement(
               context,
               FadeRoute(
@@ -209,12 +206,13 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         loading = false;
       });
+      print(e);
       displaySnackBar("Error, please try again later..!!", context);
     }
   }
 
   checkAuthentification() async {
-    _auth.authStateChanges().listen((user) {
+    auth.authStateChanges().listen((user) {
       if (user != null) {
         print(user);
         Navigator.pushReplacement(

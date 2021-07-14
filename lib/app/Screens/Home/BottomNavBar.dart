@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,8 +10,6 @@ import '../My%20Courses/MyCourses%20TabBar.dart';
 import '../Other/Premium%20Membership.dart';
 import '../Other/Profile.dart';
 import 'HomePage.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class BottomNavBar extends StatefulWidget {
   @override
@@ -43,9 +40,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   List<Widget> tabs = [
     HomePage(),
-    _auth.currentUser == null ? LoginScreen() : MyCoursesTabbar(),
+    auth.currentUser == null ? LoginScreen() : MyCoursesTabbar(),
     PremiumMembership(),
-    _auth.currentUser == null ? LoginScreen() : ProfilePage()
+    auth.currentUser == null ? LoginScreen() : ProfilePage()
   ];
 
   @override

@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -6,8 +5,6 @@ import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
 import '../../auth/Login.dart';
 import '../Gamification/ReferAndEarn.dart';
-
-final FirebaseAuth _auth = FirebaseAuth.instance;
 
 class ProfilePage extends StatelessWidget {
   final String? title;
@@ -63,7 +60,7 @@ class ProfilePage extends StatelessWidget {
         title: "Logout",
         icon: Icons.logout,
         onTap: () {
-          _auth.signOut().then((value) => Navigator.pushReplacement(
+          auth.signOut().then((value) => Navigator.pushReplacement(
                 context,
                 FadeRoute(page: LoginScreen()),
               ));
@@ -80,16 +77,16 @@ class ProfilePage extends StatelessWidget {
           ),
           CircleAvatar(
             radius: 35,
-            backgroundImage: NetworkImage(_auth.currentUser!.photoURL!),
+            backgroundImage: NetworkImage(auth.currentUser!.photoURL!),
           ),
           box20,
           Text(
-            _auth.currentUser!.displayName!,
+            auth.currentUser!.displayName!,
             style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
           ),
           box10,
           Text(
-            _auth.currentUser!.email!,
+            auth.currentUser!.email!,
             textAlign: TextAlign.center,
             style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
           ),

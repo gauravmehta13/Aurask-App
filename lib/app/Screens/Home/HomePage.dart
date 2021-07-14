@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -17,8 +16,6 @@ import '../Other/SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 
-// final FirebaseAuth _auth = FirebaseAuth.instance;
-
 List allCourse = [];
 
 class HomePage extends StatefulWidget {
@@ -27,8 +24,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
-
   List popularCourses = [];
 
   List stories = [];
@@ -130,9 +125,9 @@ class _HomePageState extends State<HomePage> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                          _auth.currentUser == null
+                                          auth.currentUser == null
                                               ? "Welcome,"
-                                              : "Hi ${_auth.currentUser?.displayName?.split(" ")[0]}",
+                                              : "Hi ${auth.currentUser?.displayName?.split(" ")[0]}",
                                           style: GoogleFonts.montserrat(
                                               fontSize: 20,
                                               fontWeight: FontWeight.w600,
