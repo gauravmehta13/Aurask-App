@@ -15,7 +15,7 @@ class _BottomButtonState extends State<BottomButton> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: widget.padding ?? EdgeInsets.fromLTRB(0, 1, 0, 0),
+        padding: widget.padding ?? EdgeInsets.zero,
         child: SizedBox(
           height: 55,
           width: double.infinity,

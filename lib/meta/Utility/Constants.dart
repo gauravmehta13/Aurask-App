@@ -237,3 +237,12 @@ warningDialog(context, text, seconds) {
     autoCloseDuration: Duration(seconds: seconds),
   );
 }
+
+infoDialog(context, text, seconds) {
+  return CoolAlert.show(
+    context: context,
+    type: CoolAlertType.info,
+    text: text,
+    autoCloseDuration: Duration(seconds: seconds),
+  );
+}

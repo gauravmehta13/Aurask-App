@@ -271,21 +271,25 @@ class _CourseInfoState extends State<CourseInfo> {
                     ),
                   ),
                   InkWell(
-                    onTap: ["Free Seminar", "Live Session"]
-                            .contains(selectedPrice["title"])
-                        ? () async {
-                            Navigator.push(
-                                context,
-                                FadeRoute(
-                                    page: SeminarInfo(
-                                  id: selectedPrice["id"],
-                                  forwarded: true,
-                                )));
-                          }
-                        : () {
-                            Navigator.pop(context);
-                            kIsWeb ? installAppDialog(context) : buyCourse();
-                          },
+                    onTap: () {
+                      Navigator.pop(context);
+                      infoDialog(context, "Coming Soon", 10);
+                    },
+                    //  ["Free Seminar", "Live Session"]
+                    //         .contains(selectedPrice["title"])
+                    //     ? () async {
+                    //         Navigator.push(
+                    //             context,
+                    //             FadeRoute(
+                    //                 page: SeminarInfo(
+                    //               id: selectedPrice["id"],
+                    //               forwarded: true,
+                    //             )));
+                    //       }
+                    //     : () {
+                    //         Navigator.pop(context);
+                    //         kIsWeb ? installAppDialog(context) : buyCourse();
+                    //       },
                     child: Card(
                       margin: EdgeInsets.zero,
                       clipBehavior: Clip.antiAlias,
