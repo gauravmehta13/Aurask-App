@@ -482,7 +482,15 @@ class _CourseInfoState extends State<CourseInfo> {
                                       ),
                                     )),
                           ),
-                          box20,
+                          Align(
+                            alignment: Alignment.centerRight,
+                            child: TextButton(
+                                onPressed: () {
+                                  displaySnackBar("Coming Soon", context);
+                                },
+                                child: Text("See More Videos")),
+                          ),
+                          box5,
                           Text(
                             "This Course Includes",
                             style: TextStyle(
