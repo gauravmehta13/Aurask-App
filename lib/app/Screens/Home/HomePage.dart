@@ -185,7 +185,6 @@ class _HomePageState extends State<HomePage> {
                                             context,
                                             FadeRoute(
                                                 page: SearchCourses(
-                                              allCourses: allCourses,
                                               keyword: query.text,
                                             )),
                                           );
@@ -202,7 +201,6 @@ class _HomePageState extends State<HomePage> {
                                         context,
                                         FadeRoute(
                                             page: SearchCourses(
-                                          allCourses: allCourses,
                                           keyword: query.text,
                                         )),
                                       );
@@ -244,10 +242,7 @@ class _HomePageState extends State<HomePage> {
                                 onTap: () {
                                   Navigator.push(
                                     context,
-                                    FadeRoute(
-                                        page: SearchCourses(
-                                      allCourses: allCourses,
-                                    )),
+                                    FadeRoute(page: SearchCourses()),
                                   );
                                 },
                                 child: Text("See all",

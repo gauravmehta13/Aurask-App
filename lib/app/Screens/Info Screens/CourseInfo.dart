@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aurask/app/Screens/Other/SearchCourses.dart';
 import 'package:chewie/chewie.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';
@@ -359,7 +360,11 @@ class _CourseInfoState extends State<CourseInfo> {
           appBar: AppBar(
             backgroundColor: primaryColor,
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(Icons.share)),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(context, FadeRoute(page: SearchCourses()));
+                  },
+                  icon: Icon(Icons.search)),
             ],
           ),
           body: SingleChildScrollView(
