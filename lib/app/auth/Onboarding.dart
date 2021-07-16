@@ -36,20 +36,6 @@ class _OnboardingState extends State<Onboarding> {
     prefs.setBool('seen', true);
   }
 
-  // getCourses() async {
-  //   final response = await client
-  //       .from('courses')
-  //       .select()
-  //       .order('inserted_at', ascending: true)
-  //       .execute();
-
-  //   var map = response.data;
-  //   print(map);
-  //   setState(() {
-  //     allCourse = map;
-  //   });
-  // }
-
   List skillsGrid = [
     {
       "title": "Gain expertise in the latest skills",
@@ -75,6 +61,55 @@ class _OnboardingState extends State<Onboarding> {
       "icon": "https://image.flaticon.com/icons/png/128/3214/3214721.png"
     },
   ];
+
+  List reviews = [
+    {
+      "img":
+          "https://lh3.googleusercontent.com/a-/AOh14Ghe4tFlInoDofkTw5ftNmFEyHDFRFiFQYJSoqfHPA=s128-c0x00000000-cc-rp-mo-ba2",
+      "name": "E Naveen",
+      "course": "Architecture Design",
+      "city": "Telangana",
+      "review":
+          "My intention was take a LSA certification in coming days and some extent the training helped me to understand about Architectural thinking"
+    },
+    {
+      "img":
+          "https://lh3.googleusercontent.com/a-/AOh14GiBrkTeSGOvjl8tlchr3ZJZpaJjc7WMjC71CzbcQw=s128-c0x00000000-cc-rp-mo",
+      "name": "Pranav Mathur",
+      "course": "Architecture Design",
+      "city": "Hyderabad",
+      "review":
+          "Trainer has good knowledge, what I observed is in some areas he is going to elaborate the content more."
+    },
+    {
+      "img":
+          "https://lh3.googleusercontent.com/a-/AOh14GixRWNL5VZozwOvpLc2XjwOt8Q3T47WKixwMf1cqA=s128-c0x00000000-cc-rp-mo",
+      "name": "Arka Dey",
+      "course": "Architecture Design",
+      "city": "Telangana",
+      "review":
+          "I would like to take LSA certification and the topics discussed were some extent it is helpful."
+    },
+    {
+      "img":
+          "https://lh3.googleusercontent.com/a/AATXAJzjfvUBiH1VeHYVGEfZnu5QLBdhu0z4AvRiv77z=s128-c0x00000000-cc-rp-mo",
+      "name": "Mahesh Vaidya",
+      "course": "Architecture Design",
+      "city": "Telangana",
+      "review":
+          "Trainer helped us to think beyond a developer. Groomed our mindsets to be a LSA."
+    },
+    {
+      "img":
+          "https://lh3.googleusercontent.com/a-/AOh14GgosVghG-pRz6KMDqlpJJ8wqEkQXudbu5Ec0vcNtw=s128-c0x00000000-cc-rp-mo-ba2",
+      "name": "Nitin Sharma",
+      "course": "Architecture Design",
+      "city": "Telangana",
+      "review":
+          "I have got fair understanding of the role of LSA and its a good start for me to complete LSA certification"
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return StoreConnector<AppState, AppState>(
@@ -311,7 +346,7 @@ class _OnboardingState extends State<Onboarding> {
                             autoPlay: true,
                           ),
                           items: List<Widget>.generate(
-                              3, (i) => buildReview("review")),
+                              reviews.length, (i) => buildReview(reviews[i])),
                         ),
                       ],
                     ),
@@ -527,19 +562,17 @@ class _OnboardingState extends State<Onboarding> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           CircleAvatar(
-              radius: 60,
-              backgroundImage: NetworkImage(
-                  "https://lh3.googleusercontent.com/a-/AOh14Ghe4tFlInoDofkTw5ftNmFEyHDFRFiFQYJSoqfHPA=s128-c0x00000000-cc-rp-mo-ba2")),
+              radius: 60, backgroundImage: NetworkImage(review["img"])),
           box10,
-          Text("E Naveen",
+          Text(review["name"],
               style: GoogleFonts.montserrat(
                   fontSize: 17, fontWeight: FontWeight.w500)),
           box5,
-          Text("Design Thinking Student",
+          Text("${review["course"]} Student",
               style: GoogleFonts.montserrat(
                   fontSize: 13, fontWeight: FontWeight.w500)),
           box5,
-          Text("Telangana",
+          Text(review["city"],
               style: GoogleFonts.montserrat(
                 fontSize: 13,
               )),
@@ -549,8 +582,7 @@ class _OnboardingState extends State<Onboarding> {
                   horizontal: MediaQuery.of(context).size.width / 3),
               height: 2,
               color: Colors.black),
-          Text(
-              "' The Knowledge I gained through design thinking course helped me change my mindset and land a job in Netflix. '",
+          Text(review["review"],
               textAlign: TextAlign.center,
               style: GoogleFonts.montserrat(
                   fontSize: 15, fontWeight: FontWeight.w400))

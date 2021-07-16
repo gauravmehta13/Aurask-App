@@ -1,3 +1,4 @@
+import 'package:aurask/app/auth/Onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -49,6 +50,6 @@ class _MyAppState extends State<MyApp> {
                 title: 'Aurask',
                 theme: themeData(context),
                 debugShowCheckedModeBanner: false,
-                home: home));
+                home: Onboarding()));
   }
 }
