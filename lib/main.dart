@@ -1,4 +1,3 @@
-import 'package:aurask/app/auth/Onboarding.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -43,13 +42,19 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return loading
-        ? Container(child: Center(child: CircularProgressIndicator()))
+        ? Container(
+            alignment: Alignment.bottomCenter,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 100),
+              child: new CircularProgressIndicator(
+                  valueColor: new AlwaysStoppedAnimation<Color>(primaryColor)),
+            ))
         : StoreProvider<AppState>(
             store: widget.store!,
             child: MaterialApp(
                 title: 'Aurask',
                 theme: themeData(context),
                 debugShowCheckedModeBanner: false,
-                home: Onboarding()));
+                home: home));
   }
 }

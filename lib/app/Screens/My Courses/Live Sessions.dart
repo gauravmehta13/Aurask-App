@@ -1,3 +1,4 @@
+import 'package:aurask/meta/Widgets/No%20Results%20Found.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -10,7 +11,9 @@ class LiveSessions extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return liveSessions.length == 0
-        ? Container()
+        ? NoResult(
+            text: "No Live Sessions Available",
+          )
         : ListView.builder(
             itemCount: liveSessions.length,
             padding: EdgeInsets.only(top: 8, bottom: 8),
