@@ -231,7 +231,6 @@ class _HomePageState extends State<HomePage> {
                           )
                         else
                           box20,
-                        box10,
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 10),
                           child: Row(

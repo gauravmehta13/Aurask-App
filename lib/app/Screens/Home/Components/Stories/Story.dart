@@ -44,7 +44,7 @@ class _GoFlexeStoriesState extends State<GoFlexeStories>
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 15),
-      height: 100,
+      height: 110,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.start,
