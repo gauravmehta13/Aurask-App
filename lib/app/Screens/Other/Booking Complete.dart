@@ -1,6 +1,9 @@
+import 'package:aurask/app/Screens/My%20Courses/MyCourses%20TabBar.dart';
+import 'package:aurask/meta/Widgets/Bottom%20Navigation%20Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/redux/app_state.dart';
@@ -19,29 +22,11 @@ class BookingComplete extends StatelessWidget {
         onInit: (store) {},
         builder: (context, state) {
           return Scaffold(
-            bottomNavigationBar: InkWell(
-              onTap: () {
-                Navigator.push(context, FadeRoute(page: BookingComplete()));
+            bottomNavigationBar: BottomButton(
+              onPressed: () {
+                Navigator.push(context, FadeRoute(page: MyCoursesTabbar()));
               },
-              child: Card(
-                margin: EdgeInsets.zero,
-                clipBehavior: Clip.antiAlias,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.0),
-                ),
-                elevation: 4,
-                child: Container(
-                    width: double.maxFinite,
-                    height: 60,
-                    color: primaryColor,
-                    child: Center(
-                      child: Text("View Your Ticket",
-                          style: GoogleFonts.montserrat(
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600)),
-                    )),
-              ),
+              text: "View Your Tickets",
             ),
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -82,12 +67,18 @@ class BookingComplete extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.grey[300],
-                          child: Icon(
-                            Icons.share,
-                            color: Colors.grey[850],
-                            size: 20,
+                        GestureDetector(
+                          onTap: () async {
+                            Share.share(
+                                "I am attending Architecture Design Live Session from Aurask, You can also join by visiting aurask.net");
+                          },
+                          child: CircleAvatar(
+                            backgroundColor: Colors.grey[300],
+                            child: Icon(
+                              Icons.share,
+                              color: Colors.grey[850],
+                              size: 20,
+                            ),
                           ),
                         ),
                         wbox30,
@@ -145,6 +136,7 @@ class BookingComplete extends StatelessWidget {
                                     child: Stack(
                                       children: [
                                         Container(
+                                            height: 200,
                                             clipBehavior: Clip.hardEdge,
                                             margin: EdgeInsets.only(right: 20),
                                             width: MediaQuery.of(context)
@@ -157,7 +149,7 @@ class BookingComplete extends StatelessWidget {
                                                     Radius.circular(15))),
                                             child: Image.network(
                                               state.courses[index]["image"],
-                                              fit: BoxFit.fill,
+                                              fit: BoxFit.cover,
                                             )),
                                         Positioned(
                                           top: 10,

@@ -164,8 +164,10 @@ class _SearchCoursesState extends State<SearchCourses> {
                                     ? Navigator.push(
                                         context,
                                         FadeRoute(
-                                            page:
-                                                SeminarInfo(seminar: element)))
+                                            page: SeminarInfo(
+                                          seminar: element,
+                                          id: element["id"],
+                                        )))
                                     : Navigator.push(
                                         context,
                                         FadeRoute(

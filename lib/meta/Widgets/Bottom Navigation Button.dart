@@ -1,11 +1,16 @@
+import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class BottomButton extends StatefulWidget {
   final String? text;
-  final EdgeInsetsGeometry? padding;
+
   final Function()? onPressed;
-  const BottomButton({Key? key, this.onPressed, this.text, this.padding})
-      : super(key: key);
+  const BottomButton({
+    Key? key,
+    this.onPressed,
+    this.text,
+  }) : super(key: key);
 
   @override
   _BottomButtonState createState() => _BottomButtonState();
@@ -14,21 +19,22 @@ class BottomButton extends StatefulWidget {
 class _BottomButtonState extends State<BottomButton> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        padding: widget.padding ?? EdgeInsets.zero,
+    return Card(
+        margin: EdgeInsets.zero,
         child: SizedBox(
-          height: 55,
+          height: 60,
           width: double.infinity,
           child: ElevatedButton(
             style: ElevatedButton.styleFrom(
-              primary: Color(0xFFf9a825), // background
-              onPrimary: Colors.black, // foreground
-            ),
+                primary: primaryColor, // background
+                onPrimary: Colors.white // foreground
+                ),
             onPressed: widget.onPressed,
-            child: Text(
-              widget.text ?? "Done",
-              style: TextStyle(color: Colors.black),
-            ),
+            child: Text(widget.text ?? "Done",
+                style: GoogleFonts.montserrat(
+                    color: Colors.white,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600)),
           ),
         ));
   }

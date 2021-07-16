@@ -27,12 +27,17 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
   bool loading = true;
 
   getTempCourses() async {
-    var tempCourses = await getMyCourses();
-    setState(() {
-      courses = tempCourses["courses"];
-      liveSessions = tempCourses["liveSessions"];
-      loading = false;
-    });
+    try {
+      var tempCourses = await getMyCourses();
+      setState(() {
+        courses = tempCourses["courses"];
+        liveSessions = tempCourses["liveSessions"];
+        loading = false;
+      });
+    } catch (e) {
+      print(e);
+      displaySnackBar("Error, Please try again later..!!!", context);
+    }
   }
 
   @override
@@ -88,7 +93,9 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
           ),
           // tab bar view here
           loading
-              ? Loading()
+              ? Container(
+                  height: MediaQuery.of(context).size.height / 1.5,
+                  child: Center(child: Loading()))
               : Expanded(
                   child: TabBarView(
                     controller: _tabController,

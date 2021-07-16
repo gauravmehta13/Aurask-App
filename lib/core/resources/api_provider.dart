@@ -70,6 +70,7 @@ Future login(id, email, name, refer) async {
         data: {
           "user": {
             "id": id,
+            "Phone": "0",
             "email": email,
             "name": name ?? "",
             "refferedBy": refer

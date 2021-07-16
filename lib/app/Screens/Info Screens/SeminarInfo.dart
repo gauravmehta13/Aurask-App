@@ -1,3 +1,4 @@
+import 'package:aurask/meta/Widgets/Bottom%20Navigation%20Button.dart';
 import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,8 @@ class SeminarInfo extends StatefulWidget {
   final Map? seminar;
   final bool forwarded;
   final id;
-  const SeminarInfo({Key? key, this.id, this.forwarded = false, this.seminar})
+  const SeminarInfo(
+      {Key? key, required this.id, this.forwarded = false, this.seminar})
       : super(key: key);
 
   @override
@@ -38,6 +40,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
 
   bool loading = true;
   Map seminar = {};
+  bool buyingCourse = false;
 
   getSession() async {
     var map = await getSeminarDetails(widget.id);
@@ -49,13 +52,12 @@ class _SeminarInfoState extends State<SeminarInfo> {
   }
 
   Future bookSession() async {
-    // setState(() {
-    //   buyingCourse = true;
-    // });
+    setState(() {
+      buyingCourse = true;
+    });
     try {
       var dio = Dio();
       print(auth.currentUser?.uid);
-      print(widget.id);
       final response = await dio.post(
           "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=bookLiveSession",
           data: {
@@ -64,15 +66,14 @@ class _SeminarInfoState extends State<SeminarInfo> {
             "liveSessionId": widget.id,
           });
       print(response.data);
-      successDialog(context, response.data["resp"], 10);
-      //  Navigator.push(context, FadeRoute(page: BookingComplete()));
-      // setState(() {
-      //   buyingCourse = false;
-      // });
+      Navigator.push(context, FadeRoute(page: BookingComplete()));
+      setState(() {
+        buyingCourse = false;
+      });
     } catch (e) {
-      // setState(() {
-      //   buyingCourse = false;
-      // });
+      setState(() {
+        buyingCourse = false;
+      });
       print(e);
       if (e.toString().contains("Already Purchased"))
         errorDialog(context, "Course Already Purchased", 10);
@@ -95,29 +96,22 @@ class _SeminarInfoState extends State<SeminarInfo> {
         builder: (context, state) {
           return SafeArea(
             child: Scaffold(
-              bottomNavigationBar: InkWell(
-                onTap: () {
-                  bookSession();
-                },
-                child: Card(
-                  margin: EdgeInsets.zero,
-                  clipBehavior: Clip.antiAlias,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8.0),
+              bottomNavigationBar: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (buyingCourse)
+                    LinearProgressIndicator(
+                        color: primaryColor, backgroundColor: Colors.black),
+                  BottomButton(
+                    onPressed: buyingCourse || loading
+                        ? null
+                        : () {
+                            if (seminar["type"] == "Free Seminar")
+                              bookSession();
+                          },
+                    text: "Book Tickets",
                   ),
-                  elevation: 4,
-                  child: Container(
-                      width: double.maxFinite,
-                      height: 60,
-                      color: primaryColor,
-                      child: Center(
-                        child: Text("Book Tickets",
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600)),
-                      )),
-                ),
+                ],
               ),
               body: SingleChildScrollView(
                 child: Column(
@@ -219,8 +213,8 @@ class _SeminarInfoState extends State<SeminarInfo> {
                                         ],
                                       ),
                                       title: Text(seminar["type"]),
-                                      subtitle:
-                                          Text(seminar["price"].toString()),
+                                      subtitle: Text(
+                                          "₹ ${seminar["price"].toString()}"),
                                     ),
                                     Divider(color: Colors.grey),
                                     box20,
@@ -248,7 +242,6 @@ class _SeminarInfoState extends State<SeminarInfo> {
                         ],
                       ),
                     ),
-                    box10,
                     Container(
                       height: 200,
                       child: ListView.builder(
@@ -275,6 +268,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
                                     child: Stack(
                                       children: [
                                         Container(
+                                            height: 200,
                                             clipBehavior: Clip.hardEdge,
                                             margin: EdgeInsets.only(right: 20),
                                             width: MediaQuery.of(context)
@@ -287,7 +281,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
                                                     Radius.circular(15))),
                                             child: Image.network(
                                               state.courses[index]["image"],
-                                              fit: BoxFit.fill,
+                                              fit: BoxFit.cover,
                                             )),
                                         Positioned(
                                           top: 10,
