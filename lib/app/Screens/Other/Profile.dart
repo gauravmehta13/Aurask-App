@@ -90,6 +90,7 @@ class ProfilePage extends StatelessWidget {
                 flex: 2,
               ),
               CircleAvatar(
+                backgroundColor: primaryColor.withOpacity(0.2),
                 radius: 35,
                 backgroundImage: NetworkImage(auth.currentUser!.photoURL!),
               ),

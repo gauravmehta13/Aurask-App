@@ -118,7 +118,7 @@ class _CouponScreenState extends State<CouponScreen> {
                 Expanded(
                   child: ListView.builder(
                       physics: BouncingScrollPhysics(),
-                      itemCount: state.coupons!.length,
+                      itemCount: state.coupons.length,
                       itemBuilder: (BuildContext context, int index) {
                         return Column(
                           children: [
@@ -149,7 +149,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                                   MainAxisAlignment
                                                       .spaceBetween,
                                               children: [
-                                                state.coupons![index]["imgUrl"]
+                                                state.coupons[index]["imgUrl"]
                                                         .toString()
                                                         .isEmpty
                                                     ? Image.asset(
@@ -157,7 +157,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                                         width: 30,
                                                       )
                                                     : Image.network(
-                                                        state.coupons![index]
+                                                        state.coupons[index]
                                                             ["imgUrl"],
                                                         width: 30,
                                                       ),
@@ -166,8 +166,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                                 ),
                                                 Expanded(
                                                   child: Text(
-                                                    state.coupons![index]
-                                                        ["cid"],
+                                                    state.coupons[index]["cid"],
                                                     style: TextStyle(
                                                         fontSize: 14,
                                                         fontWeight:
@@ -181,7 +180,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                       TextButton(
                                         onPressed: () {
                                           applyCoupon(
-                                              state.coupons![index]["cid"]);
+                                              state.coupons[index]["cid"]);
                                         },
                                         child: Text(
                                           "APPLY",
@@ -192,7 +191,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                   ),
                                   box10,
                                   Text(
-                                    " ${"GET"} ${state.coupons![index]["percent"] == "true" ? state.coupons![index]["value"] + " %" : "Rs. " + state.coupons![index]["value"]} OFF   ${state.coupons![index]["Name"]}",
+                                    " ${"GET"} ${state.coupons[index]["percent"] == "true" ? state.coupons[index]["value"] + " %" : "Rs. " + state.coupons[index]["value"]} OFF   ${state.coupons[index]["Name"]}",
                                     style: TextStyle(
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600),
@@ -201,8 +200,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                     color: Colors.grey[400],
                                   ),
                                   Text(
-                                    state.coupons![index]["description"] ??
-                                        "Use Code TRYNEW and get 10% OFF on Orders above 149.\nMaximum discount: 50.",
+                                    state.coupons[index]["description"],
                                     style: TextStyle(
                                         fontSize: 12, color: Colors.grey),
                                   )

@@ -69,6 +69,25 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 e ? onThemeChanged("Dark") : onThemeChanged("System default");
               },
             ),
+            SettingsTile(
+              title: 'Reset Theme',
+              leading: Icon(
+                Icons.restore_from_trash,
+                color: Color(0xFF00a9b6),
+              ),
+              onPressed: (context) {
+                setState(() async {
+                  primaryColor = Color(0xFF00a9b6);
+                  prefs = await SharedPreferences.getInstance();
+                  prefs.setInt("color", primaryColor.value);
+                  themeNotifier.setThemeMode(ThemeMode.light);
+                  Navigator.pushReplacement(
+                    context,
+                    FadeRoute(page: BottomNavBar()),
+                  );
+                });
+              },
+            ),
           ],
         ),
         SettingsSection(

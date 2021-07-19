@@ -329,7 +329,7 @@ class _PaymentPageState extends State<PaymentPage> {
             onPressed: () async {
               if (totalAmount == 0) {
                 purchaseCourse();
-              } else if (kIsWeb) {
+              } else if (!kIsWeb) {
                 installAppDialog(context);
               } else {
                 startTransaction();
