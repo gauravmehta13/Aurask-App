@@ -86,35 +86,6 @@ class _CourseInfoState extends State<CourseInfo> {
 
   bool loading = false;
 
-  Future buyCourse() async {
-    setState(() {
-      buyingCourse = true;
-    });
-    try {
-      var dio = Dio();
-      print(auth.currentUser?.uid);
-      print(widget.course["id"]);
-      final response = await dio.post(
-          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=purchaseCourse",
-          data: {
-            "id": auth.currentUser?.uid,
-            "courseId": widget.course["id"],
-          });
-      print(response.data);
-      successDialog(context, response.data["resp"], 10);
-      setState(() {
-        buyingCourse = false;
-      });
-    } catch (e) {
-      setState(() {
-        buyingCourse = false;
-      });
-      print(e);
-      if (e.toString().contains("Already Purchased"))
-        errorDialog(context, "Course Already Purchased", 10);
-    }
-  }
-
   setInitialPrice() {
     for (var i = 0; i < widget.course["pricing"].length; i++) {
       if (widget.course["pricing"][i]["selected"] == true) {

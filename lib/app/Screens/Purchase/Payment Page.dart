@@ -1,3 +1,4 @@
+import 'package:aurask/app/Screens/Purchase/Booking%20Complete.dart';
 import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
@@ -44,37 +45,43 @@ class _PaymentPageState extends State<PaymentPage> {
 
   ///
   ///////////////////////////////////
-
   void initState() {
     super.initState();
     _controllerCenter =
         ConfettiController(duration: const Duration(milliseconds: 500));
     totalAmount = widget.price;
     tempAmount = widget.price;
-    getMid();
   }
 
-  getMid() async {
+  Future buyCourse() async {
+    setState(() {
+      loading = true;
+    });
     try {
+      var dio = Dio();
+      print(auth.currentUser?.uid);
+      print(widget.course["id"]);
       final response = await dio.post(
-          "https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=$mid&orderId=ORDERID_98765",
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=purchaseCourse",
           data: {
-            "body": {
-              "requestType": "Payment",
-              "mid": mid,
-              "websiteName": "WEBSTAGING",
-              "orderId": "ORDERID_98765",
-              "txnAmount": {"value": totalAmount, "currency": "INR"},
-              "userInfo": {"custId": "CUST_001"},
-              "callbackUrl": "https://merchant.com/callback"
-            },
-            "head": {"signature": "{signature}"}
+            "id": auth.currentUser?.uid,
+            "courseId": widget.course["id"],
           });
       print(response.data);
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BookingComplete()),
+      );
+      setState(() {
+        loading = false;
+      });
     } catch (e) {
+      setState(() {
+        loading = false;
+      });
       print(e);
-
-      displaySnackBar(e.toString(), context);
+      if (e.toString().contains("Already Purchased"))
+        errorDialog(context, "Course Already Purchased", 10);
     }
   }
 

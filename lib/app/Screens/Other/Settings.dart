@@ -15,7 +15,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Settings')),
+      appBar: AppBar(
+        title: Text('Settings'),
+        backgroundColor: primaryColor,
+      ),
       body: Theme(
           data: ThemeData(platform: TargetPlatform.iOS),
           child: buildSettingsList()),
@@ -167,10 +170,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
         ColorPickerType.wheel: true,
       },
       //  customColorSwatchesAndNames: colorsNameMap,
-    ).showPickerDialog(
+    )
+        .showPickerDialog(
       context,
       constraints:
           const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
-    );
+    )
+        .then((value) {
+      setState(() {});
+      return true;
+    });
   }
 }

@@ -81,8 +81,9 @@ displaySnackBar(text, ctx) {
 
 themeData(context) {
   return ThemeData(
-    appBarTheme:
-        Theme.of(context).appBarTheme.copyWith(brightness: Brightness.light),
+    appBarTheme: Theme.of(context)
+        .appBarTheme
+        .copyWith(brightness: Brightness.light, backgroundColor: primaryColor),
     textTheme: GoogleFonts.montserratTextTheme(
       Theme.of(context).textTheme,
     ),

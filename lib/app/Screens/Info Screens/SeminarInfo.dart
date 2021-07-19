@@ -1,6 +1,7 @@
 import 'package:aurask/app/Screens/Purchase/Payment%20Page.dart';
 import 'package:aurask/meta/Widgets/Bottom%20Navigation%20Button.dart';
 import 'package:aurask/meta/Widgets/Loading.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -141,8 +142,13 @@ class _SeminarInfoState extends State<SeminarInfo> {
                                   width: double.maxFinite,
                                   height:
                                       MediaQuery.of(context).size.height / 3,
-                                  child: Image.network(
-                                    seminar["image"],
+                                  child: CachedNetworkImage(
+                                    imageUrl: seminar["image"],
+                                    placeholder: (context, url) => Container(
+                                      color: Colors.grey[300],
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
