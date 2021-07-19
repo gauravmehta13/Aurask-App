@@ -1,8 +1,8 @@
-import 'package:aurask/app/Screens/Purchase/Booking%20Complete.dart';
-import 'package:aurask/core/redux/actions.dart';
-import 'package:aurask/core/redux/app_state.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
+import 'Booking%20Complete.dart';
+import '../../../core/redux/actions.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';

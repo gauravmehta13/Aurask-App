@@ -1,4 +1,4 @@
-import 'package:aurask/meta/Widgets/No%20Results%20Found.dart';
+import '../../../meta/Widgets/No%20Results%20Found.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -1,8 +1,8 @@
-import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:flutter/material.dart';
 
+import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Widgets/Loading.dart';
 import '../My%20Courses/Live%20Sessions.dart';
 import '../My%20Courses/Self%20Tutorials.dart';
 

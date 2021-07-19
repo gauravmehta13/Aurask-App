@@ -1,6 +1,6 @@
-import 'package:aurask/app/Screens/Purchase/Payment%20Page.dart';
-import 'package:aurask/meta/Widgets/Bottom%20Navigation%20Button.dart';
-import 'package:aurask/meta/Widgets/Loading.dart';
+import '../Purchase/Payment%20Page.dart';
+import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
+import '../../../meta/Widgets/Loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';

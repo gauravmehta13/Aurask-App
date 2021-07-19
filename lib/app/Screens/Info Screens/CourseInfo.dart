@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:aurask/app/Screens/Other/SearchCourses.dart';
-import 'package:aurask/app/Screens/Purchase/Payment%20Page.dart';
+import '../Other/SearchCourses.dart';
+import '../Purchase/Payment%20Page.dart';
 import 'package:chewie/chewie.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';

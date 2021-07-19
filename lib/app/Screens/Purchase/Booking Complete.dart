@@ -1,5 +1,5 @@
-import 'package:aurask/app/Screens/My%20Courses/MyCourses%20TabBar.dart';
-import 'package:aurask/meta/Widgets/Bottom%20Navigation%20Button.dart';
+import '../My%20Courses/MyCourses%20TabBar.dart';
+import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';

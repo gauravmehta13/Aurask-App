@@ -1,5 +1,5 @@
-import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
-import 'package:aurask/core/redux/app_state.dart';
+import '../Info%20Screens/SeminarInfo.dart';
+import '../../../core/redux/app_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_redux/flutter_redux.dart';

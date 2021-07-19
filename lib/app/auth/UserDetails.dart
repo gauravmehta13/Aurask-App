@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/resources/api_provider.dart';
 import '../../meta/Utility/Constants.dart';
 import '../../meta/Utility/Fade%20Route.dart';
 import '../../meta/Widgets/Loading.dart';

@@ -1,9 +1,9 @@
-import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
-import 'package:aurask/app/auth/Login.dart';
-import 'package:aurask/app/auth/Onboarding.dart';
-import 'package:aurask/core/resources/theme/theme_notifier.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
+import '../Home/BottomNavBar.dart';
+import '../../auth/Login.dart';
+import '../../auth/Onboarding.dart';
+import '../../../core/resources/theme/theme_notifier.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

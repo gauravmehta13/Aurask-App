@@ -1,5 +1,5 @@
-import 'package:aurask/core/redux/app_state.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../meta/Utility/Constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';

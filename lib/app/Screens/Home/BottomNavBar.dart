@@ -7,8 +7,8 @@ import '../../../meta/Utility/Fade%20Route.dart';
 import '../../auth/Login.dart';
 import '../../auth/Onboarding.dart';
 import '../My%20Courses/MyCourses%20TabBar.dart';
-import '../Purchase/Premium Membership.dart';
 import '../Other/Profile.dart';
+import '../Purchase/Premium Membership.dart';
 import 'HomePage.dart';
 
 class BottomNavBar extends StatefulWidget {
