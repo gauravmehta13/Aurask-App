@@ -50,12 +50,27 @@ class _PaymentPageState extends State<PaymentPage> {
 
   ///
   ///////////////////////////////////
+  ///
+  ///
+
+  getTxnToken() async {
+    final resp = await dio.post(
+        "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/payment-handler",
+        data: {
+          "gateway": "paytm",
+          "userId": auth.currentUser?.uid,
+          "amount": widget.price
+        });
+    print(resp);
+  }
+
   void initState() {
     super.initState();
     _controllerCenter =
         ConfettiController(duration: const Duration(milliseconds: 500));
     totalAmount = widget.price;
     tempAmount = widget.price;
+    getTxnToken();
   }
 
   Future bookSeminar() async {
