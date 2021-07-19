@@ -203,7 +203,7 @@ installAppDialog(context) {
       context: context,
       type: CoolAlertType.info,
       title: "Sorry",
-      text: 'Currently we are only accepting payments from app.',
+      text: 'Currently we are only accepting payments from Android App.',
       autoCloseDuration: Duration(seconds: 10),
       confirmBtnText: "Download App",
       onConfirmBtnTap: () async {

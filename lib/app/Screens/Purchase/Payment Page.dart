@@ -2,8 +2,11 @@ import 'package:aurask/app/Screens/Purchase/Booking%20Complete.dart';
 import 'package:aurask/core/redux/actions.dart';
 import 'package:aurask/core/redux/app_state.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
+import 'package:aurask/meta/Utility/Fade%20Route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -53,6 +56,41 @@ class _PaymentPageState extends State<PaymentPage> {
     tempAmount = widget.price;
   }
 
+  Future bookSeminar() async {
+    setState(() {
+      loading = true;
+    });
+    try {
+      var dio = Dio();
+      print(auth.currentUser?.uid);
+      final response = await dio.post(
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=bookLiveSession",
+          data: {
+            "id": auth.currentUser?.uid,
+            "email": auth.currentUser?.email,
+            "liveSessionId": widget.course["id"],
+          });
+      print(response.data);
+      Navigator.push(
+          context,
+          FadeRoute(
+              page: BookingComplete(
+                  name: widget.course["name"], type: widget.type)));
+      setState(() {
+        loading = false;
+      });
+    } catch (e) {
+      setState(() {
+        loading = false;
+      });
+      print(e);
+      if (e.toString().contains("Already Purchased"))
+        errorDialog(context, "Course Already Purchased", 10);
+      else
+        errorDialog(context, "Please Try Again after some time", 10);
+    }
+  }
+
   Future buyCourse() async {
     setState(() {
       loading = true;
@@ -70,7 +108,11 @@ class _PaymentPageState extends State<PaymentPage> {
       print(response.data);
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => BookingComplete()),
+        MaterialPageRoute(
+            builder: (context) => BookingComplete(
+                  name: widget.course["Name"],
+                  type: widget.type,
+                )),
       );
       setState(() {
         loading = false;
@@ -83,6 +125,12 @@ class _PaymentPageState extends State<PaymentPage> {
       if (e.toString().contains("Already Purchased"))
         errorDialog(context, "Course Already Purchased", 10);
     }
+  }
+
+  purchaseCourse() {
+    ["Free Seminar", "Live Session"].contains(widget.type)
+        ? bookSeminar()
+        : buyCourse();
   }
 
   getRewards(Map data) async {
@@ -117,12 +165,17 @@ class _PaymentPageState extends State<PaymentPage> {
               child: Row(
                 children: [
                   Container(
-                      height: 50,
-                      width: 70,
-                      child: Image.network(
-                        widget.course["image"],
-                        fit: BoxFit.cover,
-                      )),
+                    height: 50,
+                    width: 70,
+                    child: CachedNetworkImage(
+                      imageUrl: widget.course["image"],
+                      placeholder: (context, url) => Container(
+                        color: Colors.grey[300],
+                      ),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   wbox20,
                   Expanded(
                     child: Text(
@@ -272,7 +325,13 @@ class _PaymentPageState extends State<PaymentPage> {
               onPrimary: Colors.white, // foreground
             ),
             onPressed: () async {
-              startTransaction();
+              if (totalAmount == 0) {
+                purchaseCourse();
+              } else if (kIsWeb) {
+                installAppDialog(context);
+              } else {
+                startTransaction();
+              }
             },
             child: loading == true
                 ? Center(
@@ -285,17 +344,29 @@ class _PaymentPageState extends State<PaymentPage> {
                   )
                 : Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: Row(
-                      children: [
-                        Text(
-                          "₹ $totalAmount",
-                        ),
-                        Spacer(),
-                        Text(
-                          "Complete Payment",
-                        ),
-                      ],
-                    ),
+                    child: totalAmount == 0
+                        ? Row(
+                            children: [
+                              Text(
+                                "Free",
+                              ),
+                              Spacer(),
+                              Text(
+                                "Book Now",
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                "₹ $totalAmount ",
+                              ),
+                              Spacer(),
+                              Text(
+                                "Complete Payment",
+                              ),
+                            ],
+                          ),
                   ),
           ),
         ),

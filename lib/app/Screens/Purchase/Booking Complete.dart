@@ -13,7 +13,11 @@ import '../Home/BottomNavBar.dart';
 import '../Info%20Screens/CourseInfo.dart';
 
 class BookingComplete extends StatelessWidget {
-  const BookingComplete({Key? key}) : super(key: key);
+  final String? name;
+  final String type;
+  final String? link;
+  const BookingComplete({Key? key, this.name, this.link, required this.type})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +73,10 @@ class BookingComplete extends StatelessWidget {
                       children: [
                         GestureDetector(
                           onTap: () async {
-                            Share.share(
-                                "I am attending Architecture Design Live Session from Aurask, You can also join by visiting aurask.net");
+                            Share.share("I am attending ${[
+                              "Free Seminar",
+                              "Live Session"
+                            ].contains(name) ? name ?? "" + " " + type : name} from Aurask, You can also join by visiting aurask.net");
                           },
                           child: CircleAvatar(
                             backgroundColor: Colors.grey[300],

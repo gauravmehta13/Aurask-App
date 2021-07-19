@@ -52,46 +52,13 @@ class _SeminarInfoState extends State<SeminarInfo> {
   }
 
   Future bookLiveSession() async {
-    kIsWeb
-        ? installAppDialog(context)
-        : Navigator.push(
-            context,
-            FadeRoute(
-                page: PaymentPage(
-                    type: seminar["type"],
-                    course: seminar,
-                    price: int.parse(seminar["price"].toString()))));
-  }
-
-  Future bookFreeSeminar() async {
-    setState(() {
-      buyingCourse = true;
-    });
-    try {
-      var dio = Dio();
-      print(auth.currentUser?.uid);
-      final response = await dio.post(
-          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=bookLiveSession",
-          data: {
-            "id": auth.currentUser?.uid,
-            "email": auth.currentUser?.email,
-            "liveSessionId": widget.id,
-          });
-      print(response.data);
-      Navigator.push(context, FadeRoute(page: BookingComplete()));
-      setState(() {
-        buyingCourse = false;
-      });
-    } catch (e) {
-      setState(() {
-        buyingCourse = false;
-      });
-      print(e);
-      if (e.toString().contains("Already Purchased"))
-        errorDialog(context, "Course Already Purchased", 10);
-      else
-        errorDialog(context, "Please Try Again after some time", 10);
-    }
+    Navigator.push(
+        context,
+        FadeRoute(
+            page: PaymentPage(
+                type: seminar["type"],
+                course: seminar,
+                price: int.parse(seminar["price"].toString()))));
   }
 
   @override
@@ -118,10 +85,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
                     onPressed: buyingCourse
                         ? null
                         : () {
-                            if (seminar["type"] == "Free Seminar")
-                              bookFreeSeminar();
-                            if (seminar["type"] == "Live Session")
-                              bookLiveSession();
+                            bookLiveSession();
                           },
                     text: "Book Tickets",
                   ),
