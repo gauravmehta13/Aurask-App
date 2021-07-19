@@ -20,6 +20,7 @@ import '../../../meta/Widgets/Loading.dart';
 import '../Info%20Screens/SeminarInfo.dart';
 import '../Other/CustomerReviews.dart';
 import '../Other/InstructorPage.dart';
+import 'ExtraVideos.dart';
 
 class CourseInfo extends StatefulWidget {
   final Map course;
@@ -497,7 +498,14 @@ class _CourseInfoState extends State<CourseInfo> {
                             alignment: Alignment.centerRight,
                             child: TextButton(
                                 onPressed: () {
-                                  displaySnackBar("Coming Soon", context);
+                                  Navigator.push(
+                                      context,
+                                      FadeRoute(
+                                          page: ExtraVideos(videos: [
+                                        "jCqeDolIsiY",
+                                        "_REF8QRoAbE",
+                                        "x45qNF6S_wk&t"
+                                      ])));
                                 },
                                 child: Text("See More Videos")),
                           ),
