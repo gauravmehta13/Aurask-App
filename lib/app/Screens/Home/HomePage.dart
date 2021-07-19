@@ -104,17 +104,7 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         Container(
                           decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              begin: Alignment.topRight,
-                              end: Alignment.bottomLeft,
-                              stops: [0.1, 0.5, 0.7, 0.9],
-                              colors: [
-                                Color(0xFF00A9B8),
-                                Color(0xFF00A9B8),
-                                Color(0xFF00A9B8),
-                                Color(0xFF1CB2C3)
-                              ],
-                            ),
+                            color: primaryColor,
                             borderRadius: BorderRadius.only(
                                 bottomRight: Radius.circular(25),
                                 bottomLeft: Radius.circular(25)),
