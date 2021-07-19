@@ -27,8 +27,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-
   Noti noti = AppNoti();
   late bool seen;
   bool loading = false;
