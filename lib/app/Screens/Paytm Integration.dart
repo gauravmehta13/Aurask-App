@@ -11,7 +11,7 @@ class Paytm extends StatefulWidget {
 }
 
 class _PaytmState extends State<Paytm> {
-  String mid = "", orderId = "", amount = "", txnToken = "";
+  String mid = "lziDdZ71034278533888", orderId = "", amount = "", txnToken = "";
   String result = "";
   bool isStaging = false;
   bool isApiCallInprogress = false;
@@ -66,8 +66,7 @@ class _PaytmState extends State<Paytm> {
                 ),
                 Container(
                   margin: EdgeInsets.all(16),
-                  // ignore: deprecated_member_use
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     onPressed: isApiCallInprogress
                         ? null
                         : () {

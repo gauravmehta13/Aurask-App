@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aurask/app/Screens/Other/SearchCourses.dart';
+import 'package:aurask/app/Screens/Purchase/Payment%20Page.dart';
 import 'package:chewie/chewie.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:dio/dio.dart';
@@ -272,25 +273,31 @@ class _CourseInfoState extends State<CourseInfo> {
                     ),
                   ),
                   InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                      infoDialog(context, "Coming Soon", 10);
-                    },
-                    //  ["Free Seminar", "Live Session"]
-                    //         .contains(selectedPrice["title"])
-                    //     ? () async {
-                    //         Navigator.push(
-                    //             context,
-                    //             FadeRoute(
-                    //                 page: SeminarInfo(
-                    //               id: selectedPrice["id"],
-                    //               forwarded: true,
-                    //             )));
-                    //       }
-                    //     : () {
-                    //         Navigator.pop(context);
-                    //         kIsWeb ? installAppDialog(context) : buyCourse();
-                    //       },
+                    onTap: ["Free Seminar", "Live Session"]
+                            .contains(selectedPrice["title"])
+                        ? () async {
+                            Navigator.push(
+                                context,
+                                FadeRoute(
+                                    page: SeminarInfo(
+                                  id: selectedPrice["id"],
+                                  forwarded: true,
+                                )));
+                          }
+                        : () {
+                            Navigator.pop(context);
+                            kIsWeb
+                                ? installAppDialog(context)
+                                : Navigator.push(
+                                    context,
+                                    FadeRoute(
+                                        page: PaymentPage(
+                                            type: selectedPrice["title"],
+                                            course: widget.course,
+                                            price: int.parse(
+                                                selectedPrice["price"]
+                                                    .toString()))));
+                          },
                     child: Card(
                       margin: EdgeInsets.zero,
                       clipBehavior: Clip.antiAlias,

@@ -7,3 +7,8 @@ class Seminars {
   final List<dynamic> payload;
   Seminars(this.payload);
 }
+
+class Coupons {
+  final List<dynamic> payload;
+  Coupons(this.payload);
+}

@@ -8,6 +8,8 @@ AppState reducer(AppState prevState, dynamic action) {
     newState.courses = action.payload;
   } else if (action is Seminars) {
     newState.seminars = action.payload;
+  } else if (action is Coupons) {
+    newState.coupons = action.payload;
   }
 
   return newState;

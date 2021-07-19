@@ -11,7 +11,7 @@ import '../../../core/redux/app_state.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
-import '../Other/Booking Complete.dart';
+import '../Purchase/Booking Complete.dart';
 import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {

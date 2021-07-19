@@ -1,0 +1,315 @@
+import 'package:aurask/core/redux/actions.dart';
+import 'package:aurask/core/redux/app_state.dart';
+import 'package:aurask/meta/Utility/Constants.dart';
+import 'package:confetti/confetti.dart';
+import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'Coupon Screen.dart';
+
+class PaymentPage extends StatefulWidget {
+  final Map course;
+  final int price;
+  final String type;
+
+  const PaymentPage(
+      {Key? key, required this.course, required this.price, required this.type})
+      : super(key: key);
+
+  @override
+  _PaymentPageState createState() => _PaymentPageState();
+}
+
+class _PaymentPageState extends State<PaymentPage> {
+  Map coupon = {};
+  bool loading = false;
+  bool couponApplied = false;
+  late ConfettiController _controllerCenter;
+  int totalAmount = 0;
+  int tempAmount = 0;
+  var dio = Dio();
+
+  void initState() {
+    super.initState();
+    _controllerCenter =
+        ConfettiController(duration: const Duration(milliseconds: 500));
+    totalAmount = widget.price;
+    tempAmount = widget.price;
+  }
+
+  getRewards(Map data) async {
+    try {
+      final response = await dio.post(
+          "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=COUPONS01&tenantUsecase=getCoupons&usecase=getCoupons",
+          data: data);
+      print(response.data);
+      var map = response.data["resp"];
+      StoreProvider.of<AppState>(context).dispatch(Coupons(map));
+      setState(() {});
+    } catch (e) {
+      print(e);
+      setState(() {});
+      displaySnackBar("Error in generating Coupon", context);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(),
+      body: SingleChildScrollView(
+          padding: EdgeInsets.all(15),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text("Order Details",
+                style: GoogleFonts.montserrat(
+                    fontSize: 25, fontWeight: FontWeight.w600)),
+            box30,
+            Container(
+              child: Row(
+                children: [
+                  Container(
+                      height: 50,
+                      width: 70,
+                      child: Image.network(
+                        widget.course["image"],
+                        fit: BoxFit.cover,
+                      )),
+                  wbox20,
+                  Expanded(
+                    child: Text(widget.course["name"],
+                        style: GoogleFonts.montserrat(
+                            fontSize: 17, fontWeight: FontWeight.w600)),
+                  )
+                ],
+              ),
+            ),
+            box20,
+            Divider(height: 20, thickness: 1, color: Colors.black54),
+            Text("Summary",
+                style: GoogleFonts.montserrat(
+                    fontSize: 20, fontWeight: FontWeight.w600)),
+            box20,
+            Container(
+              child: Column(
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        "Basic Charges",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      Spacer(),
+                      Text(
+                        "₹ ${widget.price}",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                    ],
+                  ),
+                  box10,
+                  if (!couponApplied)
+                    InkWell(
+                      onTap: () async {
+                        final Map result = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CouponScreen(
+                                    amount: "tempAmount",
+                                    coupons: "state.coupons",
+                                  )),
+                        );
+                        if (result.length != 0) {
+                          _controllerCenter.play();
+                          showCouponApplied(context, result);
+                          setState(() {
+                            // totalAmount = result["price"];
+                            coupon = result;
+                            couponApplied = true;
+                          });
+                        }
+
+                        print(result);
+                      },
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(10),
+                        child: Row(
+                          children: [
+                            Image.network(
+                                "https://image.flaticon.com/icons/png/128/726/726476.png",
+                                height: 18),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Text("Apply Coupon"),
+                            Spacer(),
+                            Icon(Icons.arrow_forward_ios)
+                          ],
+                        ),
+                        color: Colors.grey[300],
+                      ),
+                    )
+                  else if (couponApplied)
+                    InkWell(
+                      onTap: () {
+                        setState(() {
+                          couponApplied = false;
+                          totalAmount = tempAmount;
+                          coupon = {};
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Icon(Icons.close),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Coupon Applied",
+                                style: TextStyle(
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey),
+                              ),
+                              Text(
+                                coupon["Name"],
+                                style: TextStyle(fontSize: 15),
+                              ),
+                            ],
+                          ),
+                          Spacer(),
+                          if (coupon["internalCoupon"] == "true")
+                            Text(
+                              "- ₹ ${coupon["value"]}",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                        ],
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            Divider(height: 40, thickness: 1, color: Colors.black54),
+            Row(
+              children: [
+                Text(
+                  "Order Total",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+                Spacer(),
+                Text(
+                  "₹ $totalAmount",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                ),
+              ],
+            )
+          ])),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: SizedBox(
+          height: 60,
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: primaryColor, // background
+              onPrimary: Colors.white, // foreground
+            ),
+            onPressed: () async {},
+            child: loading == true
+                ? Center(
+                    child: LinearProgressIndicator(
+                      backgroundColor: Color(0xFF3f51b5),
+                      valueColor: AlwaysStoppedAnimation(
+                        Color(0xFFf9a825),
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Row(
+                      children: [
+                        Text(
+                          "₹ $totalAmount",
+                        ),
+                        Spacer(),
+                        Text(
+                          "Complete Payment",
+                        ),
+                      ],
+                    ),
+                  ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+Future<void> showCouponApplied(ctx, Map coupon) async {
+  print(coupon);
+  return showDialog(
+      context: ctx,
+      builder: (BuildContext context) {
+        return Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: Stack(
+              children: <Widget>[
+                Container(
+                  width: double.maxFinite,
+                  padding:
+                      EdgeInsets.only(left: 20, top: 65, right: 20, bottom: 20),
+                  margin: EdgeInsets.only(top: 45),
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(5),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text(
+                        "${coupon["cid"].toString()} Applied",
+                        style: TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.w600),
+                      ),
+                      box10,
+                      Text(
+                        "₹ ${coupon["value"]}",
+                        style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w900, fontSize: 20),
+                      ),
+                      box5,
+                      Text("savings with this coupon"),
+                      box20,
+                      TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text("YAY!"))
+                    ],
+                  ),
+                ),
+                Positioned(
+                  left: 20,
+                  right: 20,
+                  child: CircleAvatar(
+                    backgroundColor: Colors.transparent,
+                    radius: 45,
+                    child: ClipRRect(
+                        borderRadius: BorderRadius.all(Radius.circular(45)),
+                        child: Image.asset("assets/discount.png")),
+                  ),
+                ),
+              ],
+            ));
+      });
+}
