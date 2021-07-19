@@ -60,6 +60,7 @@ dependencies:
   settings_ui: ^1.0.0
   flex_color_picker: ^2.1.2
   youtube_player_flutter: ^8.0.0
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:

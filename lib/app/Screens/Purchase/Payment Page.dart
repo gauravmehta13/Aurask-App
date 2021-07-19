@@ -39,12 +39,14 @@ class _PaymentPageState extends State<PaymentPage> {
 
   ////////////////////////////////
   ///
-  String mid = "lziDdZ71034278533888", orderId = "", txnToken = "ABCD";
-  String result = "";
+  String mid = "lziDdZ71034278533888",
+      orderId = "",
+      txnToken = "9501786200754fa18cb97afc06e693781626683190864",
+      result = "";
   bool isStaging = true;
   bool isApiCallInprogress = false;
   String callbackUrl = "https://securegw-stage.paytm.in/";
-  bool restrictAppInvoke = false;
+  bool restrictAppInvoke = true;
 
   ///
   ///////////////////////////////////
@@ -392,18 +394,20 @@ class _PaymentPageState extends State<PaymentPage> {
       var response = AllInOneSdk.startTransaction(
           mid,
           // orderId,
-          "sdkwejfkwefjwenfk",
+          "ORDERID_98765",
           totalAmount.toString(),
           txnToken,
           callbackUrl,
           isStaging,
           restrictAppInvoke);
       response.then((value) {
+        print("no error");
         print(value);
         setState(() {
           result = value.toString();
         });
       }).catchError((onError) {
+        print("error");
         print(onError.toString());
         if (onError is PlatformException) {
           setState(() {
@@ -416,6 +420,7 @@ class _PaymentPageState extends State<PaymentPage> {
         }
       });
     } catch (err) {
+      print("errorC");
       result = err.toString();
     }
     print(result);

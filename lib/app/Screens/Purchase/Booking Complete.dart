@@ -28,7 +28,14 @@ class BookingComplete extends StatelessWidget {
           return Scaffold(
             bottomNavigationBar: BottomButton(
               onPressed: () {
-                Navigator.push(context, FadeRoute(page: MyCoursesTabbar()));
+                Navigator.push(
+                    context,
+                    FadeRoute(
+                        page: MyCoursesTabbar(
+                      index: ["Free Seminar", "Live Session"].contains(type)
+                          ? 1
+                          : 0,
+                    )));
               },
               text: "View Your Tickets",
             ),

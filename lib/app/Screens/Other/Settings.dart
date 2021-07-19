@@ -1,10 +1,13 @@
 import 'package:aurask/app/auth/Login.dart';
 import 'package:aurask/app/auth/Onboarding.dart';
+import 'package:aurask/core/resources/theme/theme_notifier.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override
@@ -12,8 +15,13 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  var isDarkTheme;
+  late SharedPreferences prefs;
+  late ThemeNotifier themeNotifier;
   @override
   Widget build(BuildContext context) {
+    isDarkTheme = Theme.of(context).brightness == Brightness.dark;
+    themeNotifier = Provider.of<ThemeNotifier>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),
@@ -55,9 +63,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 Icons.dark_mode,
               ),
               enabled: false,
-              switchValue: false,
+              switchValue: isDarkTheme,
               onToggle: (e) {
-                {}
+                e ? onThemeChanged("Dark") : onThemeChanged("System default");
               },
             ),
           ],
@@ -128,10 +136,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
     );
   }
 
+  void onThemeChanged(String value) async {
+    var prefs = await SharedPreferences.getInstance();
+    if (value == "System default") {
+      themeNotifier.setThemeMode(ThemeMode.system);
+    } else if (value == "Dark") {
+      themeNotifier.setThemeMode(ThemeMode.dark);
+    } else {
+      themeNotifier.setThemeMode(ThemeMode.light);
+    }
+    prefs.setString("Theme", value);
+  }
+
   Future<bool> colorPickerDialog() async {
     return ColorPicker(
       color: primaryColor,
-      onColorChanged: (Color color) => setState(() => primaryColor = color),
+      onColorChanged: (Color color) async {
+        prefs = await SharedPreferences.getInstance();
+        setState(() async {
+          prefs.setInt("color", color.value);
+          primaryColor = color;
+        });
+      },
       width: 40,
       height: 40,
       borderRadius: 4,

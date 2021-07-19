@@ -7,6 +7,8 @@ import '../My%20Courses/Live%20Sessions.dart';
 import '../My%20Courses/Self%20Tutorials.dart';
 
 class MyCoursesTabbar extends StatefulWidget {
+  final int? index;
+  MyCoursesTabbar({this.index});
   @override
   _MyCoursesTabbarState createState() => _MyCoursesTabbarState();
 }
@@ -17,7 +19,8 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController =
+        TabController(length: 2, initialIndex: widget.index ?? 0, vsync: this);
     super.initState();
     getTempCourses();
   }
