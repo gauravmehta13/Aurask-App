@@ -57,6 +57,8 @@ dependencies:
   whatsapp_unilink: ^2.0.0
   youtube_player_iframe: ^2.1.0
   cool_alert: ^1.1.0
+  settings_ui: ^1.0.0
+  flex_color_picker: ^2.1.2
 
 dev_dependencies:
   flutter_test:

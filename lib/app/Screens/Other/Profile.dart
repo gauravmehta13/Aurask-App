@@ -5,6 +5,7 @@ import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
 import '../../auth/Login.dart';
 import '../Gamification/ReferAndEarn.dart';
+import 'Settings.dart';
 
 class ProfilePage extends StatelessWidget {
   final String? title;
@@ -67,73 +68,86 @@ class ProfilePage extends StatelessWidget {
         },
       )
     ];
-    return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.width,
-      child: Column(
-        children: [
-          Spacer(
-            flex: 2,
-          ),
-          CircleAvatar(
-            radius: 35,
-            backgroundImage: NetworkImage(auth.currentUser!.photoURL!),
-          ),
-          box20,
-          Text(
-            auth.currentUser!.displayName!,
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-          ),
-          box10,
-          Text(
-            auth.currentUser!.email!,
-            textAlign: TextAlign.center,
-            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
-          ),
-          Spacer(),
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
+    return Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          actions: [
+            IconButton(
+                icon: Icon(Icons.settings, color: Colors.black),
+                onPressed: () {
+                  Navigator.push(context, FadeRoute(page: SettingsScreen()));
+                })
+          ],
+        ),
+        extendBodyBehindAppBar: true,
+        body: Container(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Column(
+            children: [
+              Spacer(
+                flex: 2,
               ),
-              elevation: 4,
-              child: new ListView.separated(
-                separatorBuilder: (context, index) => Divider(),
-                padding: EdgeInsets.symmetric(vertical: 10),
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: categories.length,
-                itemBuilder: (BuildContext context, int i) {
-                  return ListTile(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 30, vertical: 1),
-                    dense: true,
-                    onTap: categories[i].onTap,
-                    leading: CircleAvatar(
-                      backgroundColor: primaryColor,
-                      radius: 20,
-                      child: Icon(categories[i].icon, color: Colors.white),
-                    ),
-                    title: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        categories[i].title!,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    trailing: Icon(Icons.arrow_forward_ios),
-                  );
-                },
+              CircleAvatar(
+                radius: 35,
+                backgroundImage: NetworkImage(auth.currentUser!.photoURL!),
               ),
-            ),
+              box20,
+              Text(
+                auth.currentUser!.displayName!,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+              ),
+              box10,
+              Text(
+                auth.currentUser!.email!,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontWeight: FontWeight.w400, fontSize: 14),
+              ),
+              Spacer(),
+              Container(
+                padding: EdgeInsets.all(15),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 4,
+                  child: new ListView.separated(
+                    separatorBuilder: (context, index) => Divider(),
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    physics: NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: categories.length,
+                    itemBuilder: (BuildContext context, int i) {
+                      return ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 30, vertical: 1),
+                        dense: true,
+                        onTap: categories[i].onTap,
+                        leading: CircleAvatar(
+                          backgroundColor: primaryColor,
+                          radius: 20,
+                          child: Icon(categories[i].icon, color: Colors.white),
+                        ),
+                        title: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            categories[i].title!,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 15, fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                        trailing: Icon(Icons.arrow_forward_ios),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Spacer(),
+            ],
           ),
-          Spacer(),
-        ],
-      ),
-    );
+        ));
   }
 
   navigateTo(page, context) {

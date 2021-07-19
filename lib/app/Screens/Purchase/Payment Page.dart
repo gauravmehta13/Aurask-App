@@ -4,8 +4,10 @@ import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 
 import 'Coupon Screen.dart';
 
@@ -31,12 +33,49 @@ class _PaymentPageState extends State<PaymentPage> {
   int tempAmount = 0;
   var dio = Dio();
 
+  ////////////////////////////////
+  ///
+  String mid = "lziDdZ71034278533888", orderId = "", txnToken = "ABCD";
+  String result = "";
+  bool isStaging = true;
+  bool isApiCallInprogress = false;
+  String callbackUrl = "https://securegw-stage.paytm.in/";
+  bool restrictAppInvoke = false;
+
+  ///
+  ///////////////////////////////////
+
   void initState() {
     super.initState();
     _controllerCenter =
         ConfettiController(duration: const Duration(milliseconds: 500));
     totalAmount = widget.price;
     tempAmount = widget.price;
+    getMid();
+  }
+
+  getMid() async {
+    try {
+      final response = await dio.post(
+          "https://securegw-stage.paytm.in/theia/api/v1/initiateTransaction?mid=$mid&orderId=ORDERID_98765",
+          data: {
+            "body": {
+              "requestType": "Payment",
+              "mid": mid,
+              "websiteName": "WEBSTAGING",
+              "orderId": "ORDERID_98765",
+              "txnAmount": {"value": totalAmount, "currency": "INR"},
+              "userInfo": {"custId": "CUST_001"},
+              "callbackUrl": "https://merchant.com/callback"
+            },
+            "head": {"signature": "{signature}"}
+          });
+      print(response.data);
+    } catch (e) {
+      print(e);
+
+      displaySnackBar(e.toString(), context);
+    }
   }
 
   getRewards(Map data) async {
@@ -79,7 +118,13 @@ class _PaymentPageState extends State<PaymentPage> {
                       )),
                   wbox20,
                   Expanded(
-                    child: Text(widget.course["name"],
+                    child: Text(
+                        ["Free Seminar", "Live Session"]
+                                .contains(widget.course["type"])
+                            ? widget.course["name"] +
+                                " " +
+                                widget.course["type"]
+                            : widget.course["name"],
                         style: GoogleFonts.montserrat(
                             fontSize: 17, fontWeight: FontWeight.w600)),
                   )
@@ -219,7 +264,9 @@ class _PaymentPageState extends State<PaymentPage> {
               primary: primaryColor, // background
               onPrimary: Colors.white, // foreground
             ),
-            onPressed: () async {},
+            onPressed: () async {
+              startTransaction();
+            },
             child: loading == true
                 ? Center(
                     child: LinearProgressIndicator(
@@ -247,6 +294,53 @@ class _PaymentPageState extends State<PaymentPage> {
         ),
       ),
     );
+  }
+
+  Future<void> startTransaction() async {
+    if (txnToken.isEmpty) {
+      return;
+    }
+    var sendMap = <String, dynamic>{
+      "mid": mid,
+      "orderId": orderId,
+      "amount": totalAmount,
+      "txnToken": txnToken,
+      "callbackUrl": callbackUrl,
+      "isStaging": isStaging,
+      "restrictAppInvoke": restrictAppInvoke
+    };
+    print(sendMap);
+    try {
+      var response = AllInOneSdk.startTransaction(
+          mid,
+          // orderId,
+          "sdkwejfkwefjwenfk",
+          totalAmount.toString(),
+          txnToken,
+          callbackUrl,
+          isStaging,
+          restrictAppInvoke);
+      response.then((value) {
+        print(value);
+        setState(() {
+          result = value.toString();
+        });
+      }).catchError((onError) {
+        print(onError.toString());
+        if (onError is PlatformException) {
+          setState(() {
+            result = onError.message! + " \n  " + onError.details.toString();
+          });
+        } else {
+          setState(() {
+            result = onError.toString();
+          });
+        }
+      });
+    } catch (err) {
+      result = err.toString();
+    }
+    print(result);
   }
 }
 

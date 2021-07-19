@@ -50,6 +50,7 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: primaryColor,
         title: Text(
           'My Courses',
         ),

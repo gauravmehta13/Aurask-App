@@ -29,12 +29,11 @@ class CourseInfo extends StatefulWidget {
   _CourseInfoState createState() => _CourseInfoState();
 }
 
-Map selectedPrice = {};
-
 class _CourseInfoState extends State<CourseInfo> {
   bool buyingCourse = false;
   late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
+  Map selectedPrice = {};
 
   @override
   void initState() {
