@@ -1,3 +1,4 @@
+import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
 import 'package:aurask/app/auth/Login.dart';
 import 'package:aurask/app/auth/Onboarding.dart';
 import 'package:aurask/core/resources/theme/theme_notifier.dart';
@@ -151,10 +152,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Future<bool> colorPickerDialog() async {
     return ColorPicker(
       color: primaryColor,
-      onColorChanged: (Color color) async {
-        prefs = await SharedPreferences.getInstance();
-        setState(() async {
-          prefs.setInt("color", color.value);
+      onColorChanged: (Color color) {
+        setState(() {
           primaryColor = color;
         });
       },
@@ -202,9 +201,17 @@ class _SettingsScreenState extends State<SettingsScreen> {
       constraints:
           const BoxConstraints(minHeight: 480, minWidth: 300, maxWidth: 320),
     )
-        .then((value) {
-      setState(() {});
-      return true;
+        .then((value) async {
+      if (value) {
+        prefs = await SharedPreferences.getInstance();
+        prefs.setInt("color", primaryColor.value);
+        themeNotifier.setThemeMode(ThemeMode.light);
+        Navigator.pushReplacement(
+          context,
+          FadeRoute(page: BottomNavBar()),
+        );
+      }
+      return value;
     });
   }
 }

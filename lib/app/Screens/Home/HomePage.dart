@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           return Scaffold(
             body: AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle.light
-                  .copyWith(statusBarColor: primaryColor),
+                  .copyWith(statusBarColor: Theme.of(context).primaryColor),
               child: SafeArea(
                 child: SingleChildScrollView(
                   child: Container(
