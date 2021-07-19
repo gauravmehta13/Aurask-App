@@ -112,7 +112,7 @@ class _PaymentPageState extends State<PaymentPage> {
         context,
         MaterialPageRoute(
             builder: (context) => BookingComplete(
-                  name: widget.course["Name"],
+                  name: widget.course["name"],
                   type: widget.type,
                 )),
       );
@@ -329,7 +329,7 @@ class _PaymentPageState extends State<PaymentPage> {
             onPressed: () async {
               if (totalAmount == 0) {
                 purchaseCourse();
-              } else if (!kIsWeb) {
+              } else if (kIsWeb) {
                 installAppDialog(context);
               } else {
                 startTransaction();
@@ -351,10 +351,14 @@ class _PaymentPageState extends State<PaymentPage> {
                             children: [
                               Text(
                                 "Free",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 15),
                               ),
                               Spacer(),
                               Text(
                                 "Book Now",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 15),
                               ),
                             ],
                           )
