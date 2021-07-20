@@ -17,19 +17,27 @@ class CustomerReviews extends StatelessWidget {
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                "Student feedback",
-                style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 18,
-                    color: Colors.black87.withOpacity(0.8)),
-              ),
-              Text(
-                "What students are saying about our courses",
-                style: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 13,
-                    color: Colors.grey),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Student feedback",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18,
+                          color: Colors.black87.withOpacity(0.8)),
+                    ),
+                    Text(
+                      "What students are saying about our courses",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 13,
+                          color: Colors.grey),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
@@ -39,6 +47,7 @@ class CustomerReviews extends StatelessWidget {
             child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,
+                padding: EdgeInsets.only(left: 15),
                 itemCount: reviews.length,
                 itemBuilder: (BuildContext context, int index) {
                   return reviews[index].text.isEmpty
