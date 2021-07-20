@@ -120,6 +120,7 @@ class _PaymentPageState extends State<PaymentPage> {
           "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=purchaseCourse",
           data: {
             "id": auth.currentUser?.uid,
+            "email": auth.currentUser?.email,
             "courseId": widget.course["id"],
           });
       print(response.data);
