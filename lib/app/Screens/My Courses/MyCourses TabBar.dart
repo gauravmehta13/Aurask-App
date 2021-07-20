@@ -85,13 +85,13 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
               tabs: [
                 // first tab [you can add an icon using the icon property]
                 Tab(
-                  text: 'Courses',
+                  text: 'Live Sessions',
+                ),
+                Tab(
+                  text: 'Self Tutorials',
                 ),
 
                 // second tab [you can add an icon using the icon property]
-                Tab(
-                  text: 'Live Sessions',
-                ),
               ],
             ),
           ),
@@ -104,15 +104,12 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
                   child: TabBarView(
                     controller: _tabController,
                     children: [
-                      // first tab bar view widget
+                      LiveSessions(
+                        liveSessions: liveSessions,
+                      ),
                       SelfTutorials(
                         courses: courses,
                       ),
-
-                      // second tab bar view widget
-                      LiveSessions(
-                        liveSessions: liveSessions,
-                      )
                     ],
                   ),
                 ),
