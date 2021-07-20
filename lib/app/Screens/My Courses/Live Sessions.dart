@@ -16,7 +16,7 @@ class LiveSessions extends StatelessWidget {
           )
         : ListView.builder(
             itemCount: liveSessions.length,
-            padding: EdgeInsets.only(top: 8, bottom: 8),
+            padding: EdgeInsets.only(top: 0, bottom: 8),
             itemBuilder: (context, index) {
               Map session = liveSessions[index]["data"];
               return TicketView(session: session);
@@ -35,7 +35,7 @@ class TicketView extends StatelessWidget {
             "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20210226T033000/20210226T040000&ctz=Asia/Calcutta&location&text=Blawsome:+A+Crystal+Alchemy+Healing+Meditation&details=Parth+Pitroda");
       },
       child: Padding(
-        padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+        padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 8),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[

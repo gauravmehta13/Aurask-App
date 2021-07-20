@@ -64,7 +64,7 @@ class _MyAppState extends State<MyApp> {
     return StoreProvider<AppState>(
       store: widget.store!,
       child: MaterialApp(
-          title: 'Freeflix',
+          title: 'Aurask',
           debugShowCheckedModeBanner: false,
           theme: AppTheme().lightTheme,
           darkTheme: AppTheme().darkTheme,
