@@ -25,7 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   void initState() {
     super.initState();
     checkFirstSeen();
-    checkForUpdate();
+    // checkForUpdate();
   }
 
   Future<void> checkForUpdate() async {
@@ -34,6 +34,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
         _updateInfo = info;
       });
 
+      // InAppUpdate.performImmediateUpdate()
+      //                      .catchError((e) => showSnack(e.toString()));
+
       InAppUpdate.startFlexibleUpdate().then((_) {
         setState(() {
           _flexibleUpdateAvailable = true;
@@ -41,6 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
         InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {});
       }).catchError((e) {});
     }).catchError((e) {
+      print(e);
       displaySnackBar(e.toString(), context);
     });
   }
