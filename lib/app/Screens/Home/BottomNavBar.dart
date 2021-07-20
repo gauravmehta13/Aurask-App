@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:in_app_update/in_app_update.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../meta/Utility/Constants.dart';
@@ -17,10 +18,31 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
+  AppUpdateInfo? _updateInfo;
+  bool _flexibleUpdateAvailable = false;
+
   @override
   void initState() {
     super.initState();
     checkFirstSeen();
+    checkForUpdate();
+  }
+
+  Future<void> checkForUpdate() async {
+    InAppUpdate.checkForUpdate().then((info) {
+      setState(() {
+        _updateInfo = info;
+      });
+
+      InAppUpdate.startFlexibleUpdate().then((_) {
+        setState(() {
+          _flexibleUpdateAvailable = true;
+        });
+        InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {});
+      }).catchError((e) {});
+    }).catchError((e) {
+      displaySnackBar(e.toString(), context);
+    });
   }
 
   checkFirstSeen() async {
