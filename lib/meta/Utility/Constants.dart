@@ -140,8 +140,8 @@ textfieldDecoration(label, hint) {
 
 launchWhatsApp() async {
   final link = WhatsAppUnilink(
-    phoneNumber: '+918209145057',
-    text: "Hey! I'm inquiring about the services provided by Goflexe",
+    phoneNumber: '+917995572853',
+    text: "Hey! I'm inquiring about the courses provided by Aurask",
   );
   await launch('$link');
 }
