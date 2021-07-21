@@ -1,11 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'app/Screens/Home/BottomNavBar.dart';
+import 'core/Routing/router.dart';
 import 'core/notifications/importNoti.dart';
 import 'core/notifications/notis/ab/abNoti.dart';
 import 'core/redux/app_state.dart';
@@ -14,6 +16,7 @@ import 'core/resources/theme/app_theme.dart';
 import 'core/resources/theme/theme_notifier.dart';
 import 'meta/Utility/Constants.dart';
 
+String home = "/";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   final _initialState = AppState(courses: [], seminars: [], coupons: []);
@@ -25,6 +28,8 @@ Future<void> main() async {
     runApp(
       ChangeNotifierProvider<ThemeNotifier>(
         create: (BuildContext context) {
+          var seen = (value.getBool('seen') ?? false);
+          home = seen ? "/" : "/welcome";
           String? theme = value.getString("Theme");
           primaryColor = Color(value.getInt('color') ?? primaryColor.value);
           if (theme == null || theme == "" || theme == "Light") {
@@ -34,7 +39,7 @@ Future<void> main() async {
           return ThemeNotifier(
               theme == "Dark" ? ThemeMode.dark : ThemeMode.light);
         },
-        child: MyApp(store: _store),
+        child: ModularApp(module: AppModule(), child: MyApp(store: _store)),
       ),
     );
   });
@@ -50,8 +55,6 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Noti noti = AppNoti();
   late bool seen;
-
-  Widget home = BottomNavBar();
   @override
   void initState() {
     super.initState();
@@ -64,12 +67,13 @@ class _MyAppState extends State<MyApp> {
     return StoreProvider<AppState>(
       store: widget.store!,
       child: MaterialApp(
-          title: 'Aurask',
-          debugShowCheckedModeBanner: false,
-          theme: AppTheme().lightTheme,
-          darkTheme: AppTheme().darkTheme,
-          themeMode: themeNotifier.getThemeMode(),
-          home: home),
+        title: 'Aurask',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme().lightTheme,
+        darkTheme: AppTheme().darkTheme,
+        themeMode: themeNotifier.getThemeMode(),
+        initialRoute: home,
+      ).modular(),
     );
   }
 }
