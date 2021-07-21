@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import '../../../../meta/Utility/Constants.dart';
 
-class CourseOverview extends StatelessWidget {
+class SessionOverview extends StatelessWidget {
   final course;
-  const CourseOverview({Key? key, required this.course}) : super(key: key);
+  const SessionOverview({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

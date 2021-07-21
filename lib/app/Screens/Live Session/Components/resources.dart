@@ -3,9 +3,9 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../meta/Utility/Constants.dart';
 
-class CourseResources extends StatelessWidget {
+class SessionResources extends StatelessWidget {
   final course;
-  const CourseResources({Key? key, required this.course}) : super(key: key);
+  const SessionResources({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

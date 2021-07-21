@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-class CourseGrades extends StatelessWidget {
+class SessionGrades extends StatelessWidget {
   final course;
-  const CourseGrades({Key? key, required this.course}) : super(key: key);
+  const SessionGrades({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -7,15 +7,15 @@ import 'Components/info.dart';
 import 'Components/overview.dart';
 import 'Components/resources.dart';
 
-class CourseTabs extends StatefulWidget {
+class SessionTabs extends StatefulWidget {
   final Map course;
-  const CourseTabs({Key? key, required this.course}) : super(key: key);
+  const SessionTabs({Key? key, required this.course}) : super(key: key);
 
   @override
-  _CourseTabsState createState() => _CourseTabsState();
+  _SessionTabsState createState() => _SessionTabsState();
 }
 
-class _CourseTabsState extends State<CourseTabs> {
+class _SessionTabsState extends State<SessionTabs> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -49,19 +49,19 @@ class _CourseTabsState extends State<CourseTabs> {
         ),
         body: TabBarView(
           children: [
-            CourseOverview(
+            SessionOverview(
               course: widget.course,
             ),
-            CourseGrades(
+            SessionGrades(
               course: widget.course,
             ),
             Forum(
               course: widget.course,
             ),
-            CourseResources(
+            SessionResources(
               course: widget.course,
             ),
-            CourseInfo(
+            SessionInfo(
               course: widget.course,
             )
           ],

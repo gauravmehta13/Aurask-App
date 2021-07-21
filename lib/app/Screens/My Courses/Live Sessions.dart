@@ -1,3 +1,6 @@
+import 'package:aurask/app/Screens/Live%20Session/SessionTabs.dart';
+import 'package:aurask/meta/Utility/Fade%20Route.dart';
+
 import '../../../meta/Widgets/No%20Results%20Found.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,8 +34,14 @@ class TicketView extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        await launch(
-            "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20210226T033000/20210226T040000&ctz=Asia/Calcutta&location&text=Blawsome:+A+Crystal+Alchemy+Healing+Meditation&details=Parth+Pitroda");
+        Navigator.push(
+            context,
+            FadeRoute(
+                page: SessionTabs(
+              course: session,
+            )));
+        // await launch(
+        //     "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20210226T033000/20210226T040000&ctz=Asia/Calcutta&location&text=Blawsome:+A+Crystal+Alchemy+Healing+Meditation&details=Parth+Pitroda");
       },
       child: Padding(
         padding: EdgeInsets.only(left: 16, right: 16, top: 0, bottom: 8),

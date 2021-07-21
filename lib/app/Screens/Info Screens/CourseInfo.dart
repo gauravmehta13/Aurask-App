@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aurask/meta/Widgets/WhatsappFab.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -776,7 +777,8 @@ class _CourseInfoState extends State<CourseInfo> {
                 reviews: reviews,
               ),
             ]),
-          )),
+          ),
+          floatingActionButton: WhatsappFAB()),
     );
   }
 }

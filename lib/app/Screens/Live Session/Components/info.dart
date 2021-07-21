@@ -4,9 +4,9 @@ import '../../../../meta/Utility/Constants.dart';
 import '../../../../meta/Utility/Fade%20Route.dart';
 import '../../Other/InstructorPage.dart';
 
-class CourseInfo extends StatelessWidget {
+class SessionInfo extends StatelessWidget {
   final course;
-  const CourseInfo({Key? key, required this.course}) : super(key: key);
+  const SessionInfo({Key? key, required this.course}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
