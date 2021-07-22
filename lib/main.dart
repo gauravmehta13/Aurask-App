@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 import 'package:redux/redux.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'app/Screens/Home/BottomNavBar.dart';
 import 'core/Routing/router.dart';
 import 'core/notifications/importNoti.dart';
 import 'core/notifications/notis/ab/abNoti.dart';

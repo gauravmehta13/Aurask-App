@@ -1,4 +1,8 @@
+import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
+import 'package:aurask/meta/Utility/responsive.dart';
 import 'package:aurask/meta/Widgets/WhatsappFab.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +21,7 @@ import '../Info%20Screens/CourseInfo.dart';
 import '../Other/SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
+import 'Components/courses.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -25,13 +30,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List popularCourses = [];
-
   List stories = [];
-
   List interviewCourses = [];
-
+  List freeSessions = [];
+  List paidSessions = [];
   List allCourses = [];
-
   bool courseLoaded = false;
   TextEditingController query = TextEditingController();
 
@@ -63,6 +66,14 @@ class _HomePageState extends State<HomePage> {
         popularCourses.add(course["courses"][i]);
       }
     }
+    for (var i = 0; i < course["sessions"].length; i++) {
+      if (course["sessions"][i]["type"] == "Live Session") {
+        freeSessions.add(course["sessions"][i]);
+      } else if (course["sessions"][i]["type"] == "Free Seminar") {
+        paidSessions.add(course["sessions"][i]);
+      }
+    }
+    print(freeSessions.length);
     courseLoaded = true;
   }
 
@@ -108,10 +119,10 @@ class _HomePageState extends State<HomePage> {
                             decoration: BoxDecoration(
                               color: primaryColor,
                               borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(25),
-                                  bottomLeft: Radius.circular(25)),
+                                  bottomRight: Radius.circular(15),
+                                  bottomLeft: Radius.circular(15)),
                             ),
-                            padding: EdgeInsets.fromLTRB(20, 20, 20, 20),
+                            padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
                             child: Column(
                               children: [
                                 Row(
@@ -141,7 +152,7 @@ class _HomePageState extends State<HomePage> {
                                             color: Colors.white))
                                   ],
                                 ),
-                                box20,
+                                box10,
                                 Row(
                                   children: [
                                     Expanded(
@@ -220,309 +231,98 @@ class _HomePageState extends State<HomePage> {
                               stories: stories,
                             )
                           else
-                            box20,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Popular Courses 🔥",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600)),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      FadeRoute(page: SearchCourses()),
-                                    );
-                                  },
-                                  child: Text("See all",
-                                      style: GoogleFonts.montserrat(
-                                          decoration: TextDecoration.underline,
-                                          color: primaryColor,
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w600)),
-                                ),
-                              ],
+                            box10,
+                          CarouselSlider(
+                            options: CarouselOptions(
+                              height: 200,
+                              aspectRatio: 16 / 9,
+                              viewportFraction:
+                                  Responsive.isDesktop(context) ? 0.5 : 1,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              reverse: false,
+                              autoPlay: true,
+                              autoPlayInterval: Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
                             ),
-                          ),
-                          box20,
-                          !courseLoaded
-                              ? Loading()
-                              : Column(
-                                  children: [
-                                    Container(
-                                      height: 200,
-                                      child: ListView.builder(
-                                          physics: BouncingScrollPhysics(),
-                                          padding: EdgeInsets.symmetric(
-                                              horizontal: 10),
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.horizontal,
-                                          itemCount: popularCourses.length,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return InkWell(
-                                              onTap: () {
-                                                Navigator.push(
-                                                  context,
-                                                  FadeRoute(
-                                                      page: CourseInfo(
-                                                    course:
-                                                        popularCourses[index],
-                                                  )),
-                                                );
-                                              },
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child: Stack(
-                                                      children: [
-                                                        Container(
-                                                            clipBehavior:
-                                                                Clip.hardEdge,
-                                                            margin:
-                                                                EdgeInsets.only(
-                                                                    right: 20),
-                                                            width: MediaQuery.of(
-                                                                        context)
-                                                                    .size
-                                                                    .width /
-                                                                1.5,
-                                                            decoration: BoxDecoration(
-                                                                color:
-                                                                    primaryColor,
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            15))),
-                                                            child:
-                                                                Image.network(
-                                                              popularCourses[
-                                                                      index]
-                                                                  ["image"],
-                                                              fit: BoxFit.cover,
-                                                            )),
-                                                        Positioned(
-                                                          top: 10,
-                                                          left: 10,
-                                                          child: Container(
-                                                            decoration: BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                borderRadius: BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            7))),
-                                                            padding: EdgeInsets
-                                                                .symmetric(
-                                                                    vertical: 5,
-                                                                    horizontal:
-                                                                        7),
-                                                            child: Text(
-                                                              "⭐ ${popularCourses[index]["rating"]}",
-                                                              style: GoogleFonts.montserrat(
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Color(
-                                                                      0xFFf09ea3)),
-                                                            ),
-                                                          ),
-                                                        )
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            8.0),
-                                                    child: Text(
-                                                        popularCourses[index]
-                                                            ["name"],
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        const EdgeInsets.only(
-                                                            left: 8),
-                                                    child: Row(children: [
-                                                      Icon(
-                                                        Icons.person,
-                                                        color: Colors.grey[400],
-                                                        size: 14,
-                                                      ),
-                                                      SizedBox(
-                                                        width: 8,
-                                                      ),
-                                                      Text("Vinay Yadav",
-                                                          style: TextStyle(
-                                                            color: Colors
-                                                                .grey[600],
-                                                            fontSize: 14,
-                                                          )),
-                                                      SizedBox(
-                                                        width: 20,
-                                                      ),
-                                                      Container(
-                                                        decoration: BoxDecoration(
-                                                            color: Color(
-                                                                    0xFFf09ea3)
-                                                                .withOpacity(
-                                                                    0.3),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            15))),
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                vertical: 3,
-                                                                horizontal: 7),
-                                                        child: Text(
-                                                          "Best Seller",
-                                                          style: GoogleFonts
-                                                              .montserrat(
-                                                                  fontSize: 10,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                  color: Color(
-                                                                      0xFFd88e93)),
-                                                        ),
-                                                      ),
-                                                    ]),
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          }),
-                                    ),
-                                  ],
-                                ),
-                          box30,
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text("Interview Courses",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w600)),
-                              ],
-                            ),
-                          ),
-                          box20,
-                          !courseLoaded
-                              ? Loading()
-                              : ListView.builder(
-                                  padding: EdgeInsets.symmetric(horizontal: 10),
-                                  physics: NeverScrollableScrollPhysics(),
-                                  shrinkWrap: true,
-                                  itemCount: interviewCourses.length,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                            context,
-                                            FadeRoute(
-                                                page: CourseInfo(
-                                                    course: interviewCourses[
-                                                        index])));
-                                      },
-                                      child: Container(
+                            items: paidSessions.map((session) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        FadeRoute(
+                                            page: SeminarInfo(
+                                          id: session["id"],
+                                          seminar: session,
+                                        )),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(5),
+                                      child: Card(
                                         clipBehavior: Clip.hardEdge,
-                                        margin: EdgeInsets.only(bottom: 16),
-                                        width: double.maxFinite,
-                                        decoration: BoxDecoration(
-                                            border: Border.all(
-                                                color: Colors.grey[300]!),
-                                            borderRadius: BorderRadius.all(
-                                                Radius.circular(15))),
-                                        child: Row(
+                                        child: Stack(
                                           children: [
                                             Container(
-                                              width: 90,
-                                              height: 100,
-                                              child: Image.network(
-                                                interviewCourses[index]
-                                                    ["image"],
-                                                fit: BoxFit.fitHeight,
+                                              height: 200,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              child: CachedNetworkImage(
+                                                imageUrl: session["image"],
+                                                fit: BoxFit.cover,
+                                                placeholder: (context, url) =>
+                                                    Container(
+                                                  width: double.maxFinite,
+                                                  color: Colors.grey,
+                                                ),
+                                                errorWidget:
+                                                    (context, url, error) =>
+                                                        Icon(Icons.error),
                                               ),
                                             ),
-                                            SizedBox(
-                                              width: 15,
+                                            Container(
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              color:
+                                                  Colors.black.withOpacity(0.4),
                                             ),
-                                            Expanded(
-                                              child: Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Text(
-                                                      interviewCourses[index]
-                                                          ["name"],
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w700)),
-                                                  SizedBox(
-                                                    height: 8,
-                                                  ),
-                                                  RatingBar.builder(
-                                                    ignoreGestures: true,
-                                                    initialRating: 4.3,
-                                                    minRating: 1,
-                                                    direction: Axis.horizontal,
-                                                    itemSize: 15,
-                                                    allowHalfRating: true,
-                                                    itemCount: 5,
-                                                    itemPadding:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal: 1.0),
-                                                    itemBuilder: (context, _) =>
-                                                        Icon(
-                                                      Icons.star,
-                                                      color: Colors.amber,
-                                                    ),
-                                                    onRatingUpdate:
-                                                        (double value) {},
-                                                  ),
-                                                  SizedBox(
-                                                    height: 8,
-                                                  ),
-                                                  Text(
-                                                      "Get trained for comapnies like google , amazon , netflix etc.",
-                                                      maxLines: 2,
-                                                      style: TextStyle(
-                                                        fontSize: 12,
-                                                        color: Colors.grey[600],
-                                                      )),
-                                                ],
+                                            Positioned(
+                                              bottom: 15,
+                                              left: 15,
+                                              child: Text(
+                                                session["name"],
+                                                style: GoogleFonts.montserrat(
+                                                    color: Colors.white,
+                                                    fontSize: 15,
+                                                    fontWeight:
+                                                        FontWeight.bold),
                                               ),
-                                            ),
-                                            SizedBox(
-                                              width: 20,
                                             ),
                                           ],
                                         ),
                                       ),
-                                    );
-                                  }),
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
+                          ),
+                          box10,
+                          if (popularCourses.length != 0)
+                            buildPopularCourses(popularCourses, context),
+                          box20,
+                          if (interviewCourses.length != 0)
+                            buildInterviewCourses(interviewCourses, context),
+                          upcomingFreeSessions(freeSessions),
+                          box20,
                           buildSpinAndWin(context),
                           buildReferAndEarn(context)
                         ],
@@ -533,5 +333,137 @@ class _HomePageState extends State<HomePage> {
               ),
               floatingActionButton: WhatsappFAB());
         });
+  }
+
+  Widget upcomingFreeSessions(sessions) {
+    print(sessions.length);
+    return Column(
+      children: [
+        box10,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("Upcoming Free Sessions",
+                  style: GoogleFonts.montserrat(
+                      fontSize: 17, fontWeight: FontWeight.w600)),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    FadeRoute(page: SearchCourses()),
+                  );
+                },
+                child: Text("See all",
+                    style: GoogleFonts.montserrat(
+                        decoration: TextDecoration.underline,
+                        color: primaryColor,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600)),
+              ),
+            ],
+          ),
+        ),
+        box10,
+        Column(
+          children: [
+            Container(
+              height: 200,
+              child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 6,
+                  itemBuilder: (BuildContext context, int index) {
+                    var session = sessions[index];
+                    return InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          FadeRoute(
+                              page: SeminarInfo(
+                            id: sessions[index]["id"],
+                            seminar: sessions[index],
+                          )),
+                        );
+                      },
+                      child: Container(
+                        height: 200,
+                        width: MediaQuery.of(context).size.width / 1.5,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Expanded(
+                              child: Stack(
+                                children: [
+                                  Container(
+                                      height: 200,
+                                      clipBehavior: Clip.hardEdge,
+                                      margin: EdgeInsets.only(right: 20),
+                                      width: MediaQuery.of(context).size.width /
+                                          1.5,
+                                      decoration: BoxDecoration(
+                                          color: primaryColor,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(15)),
+                                          border: Border.all(
+                                            color: primaryColor,
+                                          )),
+                                      child: Image.network(
+                                        session["image"] ?? "",
+                                        fit: BoxFit.cover,
+                                      )),
+                                  Positioned(
+                                    top: 10,
+                                    left: 10,
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: Colors.white,
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(7))),
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: 5, horizontal: 7),
+                                      child: Text(
+                                        "⭐ ${session["rating"] ?? ""}",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w600,
+                                            color: Color(0xFFf09ea3)),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                  session["name"] + " " + session["type"],
+                                  style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w600)),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 8),
+                              child: Row(children: [
+                                Text(session["date"] ?? "",
+                                    style: TextStyle(
+                                      color: Colors.grey[600],
+                                      fontSize: 14,
+                                    )),
+                              ]),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ],
+        ),
+      ],
+    );
   }
 }
