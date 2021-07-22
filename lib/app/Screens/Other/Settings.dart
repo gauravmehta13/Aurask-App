@@ -1,3 +1,5 @@
+import 'package:aurask/app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
+
 import '../Home/BottomNavBar.dart';
 import '../../auth/Login.dart';
 import '../../auth/Onboarding.dart';
@@ -81,7 +83,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   prefs = await SharedPreferences.getInstance();
                   prefs.setInt("color", primaryColor.value);
                   themeNotifier.setThemeMode(ThemeMode.light);
-                  Navigator.pushReplacement(
+                  Navigator.push(
                     context,
                     FadeRoute(page: BottomNavBar()),
                   );
@@ -97,9 +99,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
               title: 'Sign out',
               leading: Icon(Icons.exit_to_app),
               onPressed: (e) {
-                auth.signOut().then((value) => Navigator.pushReplacement(
+                auth.signOut().then((value) => Navigator.push(
                       context,
-                      FadeRoute(page: LoginScreen()),
+                      FadeRoute(page: BottomNavBar()),
                     ));
               },
             ),
@@ -130,13 +132,39 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile(
-                title: 'Contact Us', leading: Icon(Icons.contact_mail)),
+                onPressed: (e) {
+                  Navigator.push(
+                    context,
+                    FadeRoute(page: BottomNavBar()),
+                  );
+                },
+                title: 'Contact Us',
+                leading: Icon(Icons.contact_mail)),
             SettingsTile(
-                title: 'Terms of Service', leading: Icon(Icons.description)),
+                onPressed: (e) {
+                  Navigator.push(
+                    context,
+                    FadeRoute(page: TermsAndConditions()),
+                  );
+                },
+                title: 'Terms of Service',
+                leading: Icon(Icons.description)),
             SettingsTile(
+                onPressed: (e) {
+                  Navigator.push(
+                    context,
+                    FadeRoute(page: BottomNavBar()),
+                  );
+                },
                 title: 'Refund and Cancellation policy',
                 leading: Icon(Icons.cancel_schedule_send)),
             SettingsTile(
+                onPressed: (e) {
+                  Navigator.push(
+                    context,
+                    FadeRoute(page: TermsAndConditions()),
+                  );
+                },
                 title: 'Privacy Policy',
                 leading: Icon(Icons.collections_bookmark)),
           ],
