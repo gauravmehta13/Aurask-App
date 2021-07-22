@@ -1,3 +1,4 @@
+import 'package:aurask/app/Screens/Other/Misc/Privacy%20Policy.dart';
 import 'package:aurask/app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
 
 import '../Home/BottomNavBar.dart';
@@ -133,10 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile(
                 onPressed: (e) {
-                  Navigator.push(
-                    context,
-                    FadeRoute(page: BottomNavBar()),
-                  );
+                  launchWhatsApp();
                 },
                 title: 'Contact Us',
                 leading: Icon(Icons.contact_mail)),
@@ -153,16 +151,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onPressed: (e) {
                   Navigator.push(
                     context,
-                    FadeRoute(page: BottomNavBar()),
-                  );
-                },
-                title: 'Refund and Cancellation policy',
-                leading: Icon(Icons.cancel_schedule_send)),
-            SettingsTile(
-                onPressed: (e) {
-                  Navigator.push(
-                    context,
-                    FadeRoute(page: TermsAndConditions()),
+                    FadeRoute(page: PrivacyPolicy()),
                   );
                 },
                 title: 'Privacy Policy',

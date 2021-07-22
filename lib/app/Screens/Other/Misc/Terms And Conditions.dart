@@ -299,4 +299,4 @@ class TermsAndConditions extends StatelessWidget {
   ];
 }
 
-//?https://www.Aurask.com/terms/
+//?https://www.scaler.com/terms/
