@@ -642,12 +642,12 @@ class _OnboardingState extends State<Onboarding> {
           if (value.additionalUserInfo!.isNewUser) {
             await login(auth.currentUser!.uid, auth.currentUser!.email,
                 auth.currentUser!.displayName, widget.id);
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               FadeRoute(page: UserDetails()),
             );
           } else {
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               FadeRoute(page: BottomNavBar()),
             );

@@ -48,8 +48,7 @@ class _UserDetailsState extends State<UserDetails> {
 
     //await postUserDetails(auth.currentUser?.uid, ex["level"]);
 
-    Navigator.pushReplacement(
-        context, FadeRoute(page: widget.page ?? BottomNavBar()));
+    Navigator.push(context, FadeRoute(page: widget.page ?? BottomNavBar()));
     setState(() {
       loading = false;
     });

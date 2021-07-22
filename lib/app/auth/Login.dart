@@ -31,6 +31,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void initState() {
     super.initState();
+    // this.checkAuthentification();
   }
 
   int _current = 0;
@@ -184,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value.additionalUserInfo!.isNewUser) {
             await login(auth.currentUser!.uid, auth.currentUser!.email,
                 auth.currentUser!.displayName, widget.id);
-            Navigator.pushReplacement(
+            Navigator.push(
               context,
               FadeRoute(
                   page: UserDetails(
@@ -192,7 +193,8 @@ class _LoginScreenState extends State<LoginScreen> {
               )),
             );
           } else {
-            Navigator.pushReplacement(
+            Navigator.pop(context);
+            Navigator.push(
               context,
               FadeRoute(page: widget.page ?? BottomNavBar()),
             );
@@ -212,11 +214,16 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   checkAuthentification() async {
-    auth.authStateChanges().listen((user) {
-      if (user != null) {
-        print(user);
-        Navigator.pushReplacement(
-            context, MaterialPageRoute(builder: (context) => HomePage()));
+    final subscription = FirebaseAuth.instance.idTokenChanges().listen(null);
+    subscription.onData((event) async {
+      if (event != null) {
+        print("No User");
+        Navigator.pushReplacementNamed(context, "/");
+        subscription.cancel();
+      } else {
+        print(" NoUser");
+        await Future.delayed(Duration(seconds: 2));
+        subscription.cancel();
       }
     });
   }

@@ -1,4 +1,5 @@
-import 'package:aurask/app/Screens/Course/Components/info.dart';
+import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
+import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
 import 'package:aurask/app/Screens/Other/SearchCourses.dart';
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:aurask/meta/Utility/Fade%20Route.dart';
@@ -239,6 +240,136 @@ Widget buildInterviewCourses(course, context) {
               ),
             );
           }),
+    ],
+  );
+}
+
+Widget upcomingFreeSessions(sessions, context) {
+  print(sessions.length);
+  return Column(
+    children: [
+      box10,
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text("Upcoming Free Sessions",
+                style: GoogleFonts.montserrat(
+                    fontSize: 17, fontWeight: FontWeight.w600)),
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  FadeRoute(page: SearchCourses()),
+                );
+              },
+              child: Text("See all",
+                  style: GoogleFonts.montserrat(
+                      decoration: TextDecoration.underline,
+                      color: primaryColor,
+                      fontSize: 13,
+                      fontWeight: FontWeight.w600)),
+            ),
+          ],
+        ),
+      ),
+      box10,
+      Column(
+        children: [
+          Container(
+            height: 200,
+            child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: 6,
+                itemBuilder: (BuildContext context, int index) {
+                  var session = sessions[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        FadeRoute(
+                            page: SeminarInfo(
+                          id: sessions[index]["id"],
+                          seminar: sessions[index],
+                        )),
+                      );
+                    },
+                    child: Container(
+                      height: 200,
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Stack(
+                              children: [
+                                Container(
+                                    height: 200,
+                                    clipBehavior: Clip.hardEdge,
+                                    margin: EdgeInsets.only(right: 20),
+                                    width:
+                                        MediaQuery.of(context).size.width / 1.5,
+                                    decoration: BoxDecoration(
+                                        color: primaryColor,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15)),
+                                        border: Border.all(
+                                          color: primaryColor,
+                                        )),
+                                    child: Image.network(
+                                      session["image"] ?? "",
+                                      fit: BoxFit.cover,
+                                    )),
+                                Positioned(
+                                  top: 10,
+                                  left: 10,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(7))),
+                                    padding: EdgeInsets.symmetric(
+                                        vertical: 5, horizontal: 7),
+                                    child: Text(
+                                      "⭐ ${session["rating"] ?? ""}",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFFf09ea3)),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(session["name"] + " " + session["type"],
+                                style: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.w600)),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 8),
+                            child: Row(children: [
+                              Text(session["date"] ?? "",
+                                  style: TextStyle(
+                                    color: Colors.grey[600],
+                                    fontSize: 14,
+                                  )),
+                            ]),
+                          )
+                        ],
+                      ),
+                    ),
+                  );
+                }),
+          ),
+        ],
+      ),
     ],
   );
 }

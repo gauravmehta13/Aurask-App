@@ -1,3 +1,4 @@
+import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -61,9 +62,9 @@ class ProfilePage extends StatelessWidget {
         title: "Logout",
         icon: Icons.logout,
         onTap: () {
-          auth.signOut().then((value) => Navigator.pushReplacement(
+          auth.signOut().then((value) => Navigator.push(
                 context,
-                FadeRoute(page: LoginScreen()),
+                FadeRoute(page: BottomNavBar()),
               ));
         },
       )

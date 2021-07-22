@@ -54,13 +54,20 @@ class _SeminarInfoState extends State<SeminarInfo> {
   }
 
   Future bookLiveSession() async {
-    Navigator.push(
-        context,
-        FadeRoute(
-            page: PaymentPage(
-                type: seminar["type"],
-                course: seminar,
-                price: int.parse(seminar["price"].toString()))));
+    auth.currentUser == null
+        ? authNavigate(
+            SeminarInfo(
+              seminar: seminar,
+              id: seminar["id"],
+            ),
+            context)
+        : Navigator.push(
+            context,
+            FadeRoute(
+                page: PaymentPage(
+                    type: seminar["type"],
+                    course: seminar,
+                    price: int.parse(seminar["price"].toString()))));
   }
 
   @override

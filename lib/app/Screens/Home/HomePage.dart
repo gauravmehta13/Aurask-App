@@ -1,14 +1,13 @@
 import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
 import 'package:aurask/meta/Utility/responsive.dart';
+import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:aurask/meta/Widgets/WhatsappFab.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/redux/actions.dart';
@@ -16,8 +15,6 @@ import '../../../core/redux/app_state.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
-import '../../../meta/Widgets/Loading.dart';
-import '../Info%20Screens/CourseInfo.dart';
 import '../Other/SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
@@ -232,96 +229,107 @@ class _HomePageState extends State<HomePage> {
                             )
                           else
                             box10,
-                          CarouselSlider(
-                            options: CarouselOptions(
-                              height: 200,
-                              aspectRatio: 16 / 9,
-                              viewportFraction:
-                                  Responsive.isDesktop(context) ? 0.5 : 1,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              reverse: false,
-                              autoPlay: true,
-                              autoPlayInterval: Duration(seconds: 3),
-                              autoPlayAnimationDuration:
-                                  Duration(milliseconds: 800),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              enlargeCenterPage: true,
-                              scrollDirection: Axis.horizontal,
-                            ),
-                            items: paidSessions.map((session) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        FadeRoute(
-                                            page: SeminarInfo(
-                                          id: session["id"],
-                                          seminar: session,
-                                        )),
-                                      );
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(5),
-                                      child: Card(
-                                        clipBehavior: Clip.hardEdge,
-                                        child: Stack(
-                                          children: [
-                                            Container(
-                                              height: 200,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child: CachedNetworkImage(
-                                                imageUrl: session["image"],
-                                                fit: BoxFit.cover,
-                                                placeholder: (context, url) =>
-                                                    Container(
-                                                  width: double.maxFinite,
-                                                  color: Colors.grey,
-                                                ),
-                                                errorWidget:
-                                                    (context, url, error) =>
-                                                        Icon(Icons.error),
+                          !courseLoaded
+                              ? Container(
+                                  height: 400, child: Center(child: Loading()))
+                              : CarouselSlider(
+                                  options: CarouselOptions(
+                                    height: 200,
+                                    aspectRatio: 16 / 9,
+                                    viewportFraction:
+                                        Responsive.isDesktop(context) ? 0.5 : 1,
+                                    initialPage: 0,
+                                    enableInfiniteScroll: true,
+                                    reverse: false,
+                                    autoPlay: true,
+                                    autoPlayInterval: Duration(seconds: 3),
+                                    autoPlayAnimationDuration:
+                                        Duration(milliseconds: 800),
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    enlargeCenterPage: true,
+                                    scrollDirection: Axis.horizontal,
+                                  ),
+                                  items: paidSessions.map((session) {
+                                    return Builder(
+                                      builder: (BuildContext context) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              FadeRoute(
+                                                  page: SeminarInfo(
+                                                id: session["id"],
+                                                seminar: session,
+                                              )),
+                                            );
+                                          },
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(5),
+                                            child: Card(
+                                              clipBehavior: Clip.hardEdge,
+                                              child: Stack(
+                                                children: [
+                                                  Container(
+                                                    height: 200,
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    child: CachedNetworkImage(
+                                                      imageUrl:
+                                                          session["image"],
+                                                      fit: BoxFit.cover,
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              Container(
+                                                        width: double.maxFinite,
+                                                        color: Colors.grey[300],
+                                                      ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          Icon(Icons.error),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width:
+                                                        MediaQuery.of(context)
+                                                            .size
+                                                            .width,
+                                                    color: Colors.black
+                                                        .withOpacity(0.4),
+                                                  ),
+                                                  Positioned(
+                                                    bottom: 15,
+                                                    left: 15,
+                                                    child: Text(
+                                                      session["name"],
+                                                      style: GoogleFonts
+                                                          .montserrat(
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 15,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
                                             ),
-                                            Container(
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              color:
-                                                  Colors.black.withOpacity(0.4),
-                                            ),
-                                            Positioned(
-                                              bottom: 15,
-                                              left: 15,
-                                              child: Text(
-                                                session["name"],
-                                                style: GoogleFonts.montserrat(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                },
-                              );
-                            }).toList(),
-                          ),
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  }).toList(),
+                                ),
                           box10,
                           if (popularCourses.length != 0)
                             buildPopularCourses(popularCourses, context),
                           box20,
                           if (interviewCourses.length != 0)
                             buildInterviewCourses(interviewCourses, context),
-                          upcomingFreeSessions(freeSessions),
+                          if (freeSessions.length != 0)
+                            upcomingFreeSessions(freeSessions, context),
                           box20,
                           buildSpinAndWin(context),
                           buildReferAndEarn(context)
@@ -333,137 +341,5 @@ class _HomePageState extends State<HomePage> {
               ),
               floatingActionButton: WhatsappFAB());
         });
-  }
-
-  Widget upcomingFreeSessions(sessions) {
-    print(sessions.length);
-    return Column(
-      children: [
-        box10,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text("Upcoming Free Sessions",
-                  style: GoogleFonts.montserrat(
-                      fontSize: 17, fontWeight: FontWeight.w600)),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    FadeRoute(page: SearchCourses()),
-                  );
-                },
-                child: Text("See all",
-                    style: GoogleFonts.montserrat(
-                        decoration: TextDecoration.underline,
-                        color: primaryColor,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600)),
-              ),
-            ],
-          ),
-        ),
-        box10,
-        Column(
-          children: [
-            Container(
-              height: 200,
-              child: ListView.builder(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 6,
-                  itemBuilder: (BuildContext context, int index) {
-                    var session = sessions[index];
-                    return InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          FadeRoute(
-                              page: SeminarInfo(
-                            id: sessions[index]["id"],
-                            seminar: sessions[index],
-                          )),
-                        );
-                      },
-                      child: Container(
-                        height: 200,
-                        width: MediaQuery.of(context).size.width / 1.5,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(
-                              child: Stack(
-                                children: [
-                                  Container(
-                                      height: 200,
-                                      clipBehavior: Clip.hardEdge,
-                                      margin: EdgeInsets.only(right: 20),
-                                      width: MediaQuery.of(context).size.width /
-                                          1.5,
-                                      decoration: BoxDecoration(
-                                          color: primaryColor,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(15)),
-                                          border: Border.all(
-                                            color: primaryColor,
-                                          )),
-                                      child: Image.network(
-                                        session["image"] ?? "",
-                                        fit: BoxFit.cover,
-                                      )),
-                                  Positioned(
-                                    top: 10,
-                                    left: 10,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.all(
-                                              Radius.circular(7))),
-                                      padding: EdgeInsets.symmetric(
-                                          vertical: 5, horizontal: 7),
-                                      child: Text(
-                                        "⭐ ${session["rating"] ?? ""}",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600,
-                                            color: Color(0xFFf09ea3)),
-                                      ),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  session["name"] + " " + session["type"],
-                                  style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600)),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 8),
-                              child: Row(children: [
-                                Text(session["date"] ?? "",
-                                    style: TextStyle(
-                                      color: Colors.grey[600],
-                                      fontSize: 14,
-                                    )),
-                              ]),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }),
-            ),
-          ],
-        ),
-      ],
-    );
   }
 }
