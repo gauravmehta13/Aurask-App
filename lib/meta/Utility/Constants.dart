@@ -205,7 +205,6 @@ installAppDialog(context) {
       type: CoolAlertType.info,
       title: "Sorry",
       text: 'Currently we are only accepting payments from Android App.',
-      autoCloseDuration: Duration(seconds: 10),
       confirmBtnText: "Download App",
       onConfirmBtnTap: () async {
         await launch(
@@ -213,38 +212,34 @@ installAppDialog(context) {
       });
 }
 
-errorDialog(context, text, seconds) {
+errorDialog(context, text) {
   return CoolAlert.show(
     context: context,
     type: CoolAlertType.error,
     text: text,
-    autoCloseDuration: Duration(seconds: seconds),
   );
 }
 
-successDialog(context, text, seconds) {
+successDialog(context, text) {
   return CoolAlert.show(
     context: context,
     type: CoolAlertType.success,
     text: text,
-    autoCloseDuration: Duration(seconds: seconds),
   );
 }
 
-warningDialog(context, text, seconds) {
+warningDialog(context, text) {
   return CoolAlert.show(
     context: context,
     type: CoolAlertType.warning,
     text: text,
-    autoCloseDuration: Duration(seconds: seconds),
   );
 }
 
-infoDialog(context, text, seconds) {
+infoDialog(context, text) {
   return CoolAlert.show(
     context: context,
     type: CoolAlertType.info,
     text: text,
-    autoCloseDuration: Duration(seconds: seconds),
   );
 }

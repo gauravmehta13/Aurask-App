@@ -37,23 +37,16 @@ class _PaymentPageState extends State<PaymentPage> {
   int tempAmount = 0;
   var dio = Dio();
 
-  ////////////////////////////////
-  ///
-  String mid = "lziDdZ71034278533888",
-      orderId = "",
-      txnToken = "9501786200754fa18cb97afc06e693781626683190864",
-      result = "";
+  String mid = "lziDdZ71034278533888", orderId = "", txnToken = "", result = "";
   bool isStaging = true;
   bool isApiCallInprogress = false;
   String callbackUrl = "https://securegw-stage.paytm.in/";
-  bool restrictAppInvoke = true;
-
-  ///
-  ///////////////////////////////////
-  ///
-  ///
+  bool restrictAppInvoke = false;
 
   getTxnToken() async {
+    setState(() {
+      loading = true;
+    });
     final resp = await dio.post(
         "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/payment-handler",
         data: {
@@ -62,6 +55,12 @@ class _PaymentPageState extends State<PaymentPage> {
           "amount": widget.price
         });
     print(resp);
+    setState(() {
+      txnToken = resp.data["resp"]["txnToken"];
+      orderId = resp.data["resp"]["orderId"];
+      loading = false;
+    });
+    startTransaction();
   }
 
   void initState() {
@@ -70,7 +69,7 @@ class _PaymentPageState extends State<PaymentPage> {
         ConfettiController(duration: const Duration(milliseconds: 500));
     totalAmount = widget.price;
     tempAmount = widget.price;
-    getTxnToken();
+    // getTxnToken();
   }
 
   Future bookSeminar() async {
@@ -102,9 +101,9 @@ class _PaymentPageState extends State<PaymentPage> {
       });
       print(e);
       if (e.toString().contains("Already Purchased"))
-        errorDialog(context, "Course Already Purchased", 10);
+        errorDialog(context, "Course Already Purchased");
       else
-        errorDialog(context, "Please Try Again after some time", 10);
+        errorDialog(context, "Please Try Again after some time");
     }
   }
 
@@ -141,7 +140,7 @@ class _PaymentPageState extends State<PaymentPage> {
       });
       print(e);
       if (e.toString().contains("Already Purchased"))
-        errorDialog(context, "Course Already Purchased", 10);
+        errorDialog(context, "Course Already Purchased");
     }
   }
 
@@ -332,66 +331,74 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             )
           ])),
-      bottomNavigationBar: Container(
-        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        child: SizedBox(
-          height: 60,
-          width: double.infinity,
-          child: ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              primary: primaryColor, // background
-              onPrimary: Colors.white, // foreground
-            ),
-            onPressed: () async {
-              if (totalAmount == 0) {
-                purchaseCourse();
-              } else if (kIsWeb) {
-                installAppDialog(context);
-              } else {
-                startTransaction();
-              }
-            },
-            child: loading == true
-                ? Center(
-                    child: LinearProgressIndicator(
-                      backgroundColor: Color(0xFF3f51b5),
-                      valueColor: AlwaysStoppedAnimation(
-                        Color(0xFFf9a825),
-                      ),
-                    ),
-                  )
-                : Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10),
-                    child: totalAmount == 0
-                        ? Row(
-                            children: [
-                              Text(
-                                "Free",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 15),
-                              ),
-                              Spacer(),
-                              Text(
-                                "Book Now",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 15),
-                              ),
-                            ],
-                          )
-                        : Row(
-                            children: [
-                              Text(
-                                "₹ $totalAmount ",
-                              ),
-                              Spacer(),
-                              Text(
-                                "Complete Payment",
-                              ),
-                            ],
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (loading) LinearProgressIndicator(),
+          Container(
+            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+            child: SizedBox(
+              height: 60,
+              width: double.infinity,
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  primary: primaryColor, // background
+                  onPrimary: Colors.white, // foreground
+                ),
+                onPressed: () async {
+                  if (totalAmount == 0) {
+                    purchaseCourse();
+                  } else if (kIsWeb) {
+                    installAppDialog(context);
+                  } else {
+                    getTxnToken();
+                  }
+                },
+                child: loading == true
+                    ? Center(
+                        child: LinearProgressIndicator(
+                          backgroundColor: Color(0xFF3f51b5),
+                          valueColor: AlwaysStoppedAnimation(
+                            Color(0xFFf9a825),
                           ),
-                  ),
+                        ),
+                      )
+                    : Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: totalAmount == 0
+                            ? Row(
+                                children: [
+                                  Text(
+                                    "Free",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15),
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    "Book Now",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 15),
+                                  ),
+                                ],
+                              )
+                            : Row(
+                                children: [
+                                  Text(
+                                    "₹ $totalAmount ",
+                                  ),
+                                  Spacer(),
+                                  Text(
+                                    "Complete Payment",
+                                  ),
+                                ],
+                              ),
+                      ),
+              ),
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
@@ -400,6 +407,7 @@ class _PaymentPageState extends State<PaymentPage> {
     if (txnToken.isEmpty) {
       return;
     }
+    print(auth.currentUser!.uid);
     var sendMap = <String, dynamic>{
       "mid": mid,
       "orderId": orderId,
@@ -413,8 +421,7 @@ class _PaymentPageState extends State<PaymentPage> {
     try {
       var response = AllInOneSdk.startTransaction(
           mid,
-          // orderId,
-          "ORDERID_98765",
+          orderId,
           totalAmount.toString(),
           txnToken,
           callbackUrl,
@@ -422,13 +429,16 @@ class _PaymentPageState extends State<PaymentPage> {
           restrictAppInvoke);
       response.then((value) {
         print("no error");
-        print(value);
+        print(value!);
+        if (value["STATUS"] == "TXN_SUCCESS") {
+          successDialog(context, "Course Purchased Sucessfully");
+        }
         setState(() {
           result = value.toString();
         });
       }).catchError((onError) {
+        errorDialog(context, onError.message!);
         print("error");
-        print(onError.toString());
         if (onError is PlatformException) {
           setState(() {
             result = onError.message! + " \n  " + onError.details.toString();
