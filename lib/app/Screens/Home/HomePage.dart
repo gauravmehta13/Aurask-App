@@ -180,13 +180,8 @@ class _HomePageState extends State<HomePage> {
                                                   right: 15),
                                               hintText: "Search for a Course"),
                                           onFieldSubmitted: (e) {
-                                            Navigator.push(
-                                              context,
-                                              FadeRoute(
-                                                  page: SearchCourses(
-                                                keyword: query.text,
-                                              )),
-                                            );
+                                            Modular.to.pushNamed(
+                                                '/search/${query.text}');
                                           },
                                         ),
                                       ),
@@ -196,13 +191,8 @@ class _HomePageState extends State<HomePage> {
                                     ),
                                     InkWell(
                                       onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          FadeRoute(
-                                              page: SearchCourses(
-                                            keyword: query.text,
-                                          )),
-                                        );
+                                        Modular.to
+                                            .pushNamed('/search/${query.text}');
                                       },
                                       child: Container(
                                         height: 48,

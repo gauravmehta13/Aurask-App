@@ -3,6 +3,7 @@ import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
 import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
 import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
 import 'package:aurask/app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
+import 'package:aurask/app/Screens/Other/SearchCourses.dart';
 import 'package:aurask/app/Screens/Purchase/Booking%20Complete.dart';
 import 'package:aurask/app/auth/Onboarding.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -44,6 +45,16 @@ class AppModule extends Module {
         child: (_, args) => BookingComplete(
               data: args.data,
             )),
+    ChildRoute(
+      '/search',
+      child: (_, args) => SearchCourses(),
+    ),
+    ChildRoute(
+      '/search/:keyword',
+      child: (_, args) => SearchCourses(
+        keyword: args.params['keyword'],
+      ),
+    ),
   ];
 }
 

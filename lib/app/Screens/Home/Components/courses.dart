@@ -22,10 +22,7 @@ Widget buildPopularCourses(popularCourses, context) {
                     fontSize: 17, fontWeight: FontWeight.w600)),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  FadeRoute(page: SearchCourses()),
-                );
+                Modular.to.pushNamed('/search');
               },
               child: Text("See all",
                   style: GoogleFonts.montserrat(
@@ -260,10 +257,7 @@ Widget upcomingLiveSessions(sessions, context) {
                     fontSize: 17, fontWeight: FontWeight.w600)),
             InkWell(
               onTap: () {
-                Navigator.push(
-                  context,
-                  FadeRoute(page: SearchCourses()),
-                );
+                Modular.to.pushNamed('/search');
               },
               child: Text("See all",
                   style: GoogleFonts.montserrat(

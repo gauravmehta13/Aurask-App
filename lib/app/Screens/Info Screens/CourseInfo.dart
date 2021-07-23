@@ -33,7 +33,7 @@ class CourseInfo extends StatefulWidget {
 
 class _CourseInfoState extends State<CourseInfo> {
   bool buyingCourse = false;
-  late VideoPlayerController videoPlayerController;
+  //late VideoPlayerController videoPlayerController;
   late ChewieController chewieController;
   Map selectedPrice = {};
   List<YoutubePlayerController> controller = [];
@@ -71,42 +71,42 @@ class _CourseInfoState extends State<CourseInfo> {
     setState(() {});
   }
 
-  Future<void> initializeVideoPlayer() async {
-    videoPlayerController =
-        VideoPlayerController.network(widget.course["videoUrl"]);
-    await Future.wait([videoPlayerController.initialize()]);
-    chewieController = ChewieController(
-      // additionalOptions: (context) {
-      //   return <OptionItem>[
-      //     OptionItem(
-      //       onTap: () => debugPrint('My option works!'),
-      //       iconData: Icons.chat,
-      //       title: 'My localized title',
-      //     ),
-      //     OptionItem(
-      //       onTap: () => debugPrint('Another option working!'),
-      //       iconData: Icons.chat,
-      //       title: 'Another localized title',
-      //     ),
-      //   ];
-      // },
-      // fullScreenByDefault: true,
-      // placeholder: Image(
-      //   image: NetworkImage(widget.course["image"]),
-      // ),
-      videoPlayerController: videoPlayerController,
-      autoPlay: false,
-      looping: false,
-      aspectRatio: 16 / 10,
-      autoInitialize: true,
-    );
-    setState(() {});
-  }
+  // Future<void> initializeVideoPlayer() async {
+  //   videoPlayerController =
+  //       VideoPlayerController.network(widget.course["videoUrl"]);
+  //   await Future.wait([videoPlayerController.initialize()]);
+  //   chewieController = ChewieController(
+  //     // additionalOptions: (context) {
+  //     //   return <OptionItem>[
+  //     //     OptionItem(
+  //     //       onTap: () => debugPrint('My option works!'),
+  //     //       iconData: Icons.chat,
+  //     //       title: 'My localized title',
+  //     //     ),
+  //     //     OptionItem(
+  //     //       onTap: () => debugPrint('Another option working!'),
+  //     //       iconData: Icons.chat,
+  //     //       title: 'Another localized title',
+  //     //     ),
+  //     //   ];
+  //     // },
+  //     // fullScreenByDefault: true,
+  //     // placeholder: Image(
+  //     //   image: NetworkImage(widget.course["image"]),
+  //     // ),
+  //     // videoPlayerController: videoPlayerController,
+  //     // autoPlay: false,
+  //     // looping: false,
+  //     // aspectRatio: 16 / 10,
+  //     // autoInitialize: true,
+  //   );
+  //   setState(() {});
+  // }
 
   @override
   void dispose() {
     super.dispose();
-    videoPlayerController.dispose();
+    // videoPlayerController.dispose();
     chewieController.dispose();
   }
 
@@ -273,7 +273,16 @@ class _CourseInfoState extends State<CourseInfo> {
                     onTap: ["Free Seminar", "Live Session"]
                             .contains(selectedPrice["title"])
                         ? () async {
-                            Modular.to.pushNamed(
+                            //     : Navigator.push(
+                            //         context,
+                            //         FadeRoute(
+                            //             page: PaymentPage(
+                            //                 type: selectedPrice["title"],
+                            //                 course: widget.course,
+                            //                 price: int.parse(
+                            //                     selectedPrice["price"]
+                            //                         .toString()))));
+                            Modular.to.pushReplacementNamed(
                                 '/liveSession/${selectedPrice["id"]}');
                           }
                         : () {
@@ -366,9 +375,9 @@ class _CourseInfoState extends State<CourseInfo> {
             actions: [
               IconButton(
                   onPressed: () {
-                    Navigator.push(context, FadeRoute(page: SearchCourses()));
+                    displaySnackBar("Coming Soon", context);
                   },
-                  icon: Icon(Icons.search)),
+                  icon: Icon(Icons.share)),
             ],
           ),
           body: SingleChildScrollView(
