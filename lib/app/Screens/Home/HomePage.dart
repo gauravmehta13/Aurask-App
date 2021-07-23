@@ -271,6 +271,19 @@ class _HomePageState extends State<HomePage> {
                                                 children: [
                                                   Container(
                                                     height: 200,
+                                                    decoration: BoxDecoration(
+                                                        gradient:
+                                                            LinearGradient(
+                                                                begin: Alignment
+                                                                    .bottomLeft,
+                                                                end: Alignment
+                                                                    .topRight,
+                                                                colors: [
+                                                          Colors.red,
+                                                          Colors.yellow,
+                                                          Colors.blue,
+                                                          Colors.purple
+                                                        ])),
                                                     width:
                                                         MediaQuery.of(context)
                                                             .size
@@ -283,7 +296,7 @@ class _HomePageState extends State<HomePage> {
                                                           (context, url) =>
                                                               Container(
                                                         width: double.maxFinite,
-                                                        color: Colors.grey[300],
+                                                        color: Colors.grey[200],
                                                       ),
                                                       errorWidget: (context,
                                                               url, error) =>
@@ -295,22 +308,69 @@ class _HomePageState extends State<HomePage> {
                                                         MediaQuery.of(context)
                                                             .size
                                                             .width,
-                                                    color: Colors.black
-                                                        .withOpacity(0.4),
+                                                    decoration: BoxDecoration(
+                                                        gradient: LinearGradient(
+                                                            begin: Alignment
+                                                                .topCenter,
+                                                            end: Alignment
+                                                                .bottomCenter,
+                                                            colors: [
+                                                          Colors.black
+                                                              .withOpacity(0),
+                                                          // Colors.black
+                                                          //     .withOpacity(0.4),
+                                                          // Colors.black
+                                                          //     .withOpacity(0.6),
+                                                          Colors.black
+                                                              .withOpacity(0.8),
+                                                        ])),
                                                   ),
                                                   Positioned(
                                                     bottom: 15,
                                                     left: 15,
-                                                    child: Text(
-                                                      session["name"],
-                                                      style: GoogleFonts
-                                                          .montserrat(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 15,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold),
+                                                    child: Column(
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          "Upcoming Session",
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                        ),
+                                                        box10,
+                                                        Row(
+                                                          children: [
+                                                            Text(
+                                                              session["name"],
+                                                              style: GoogleFonts.montserrat(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 13,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                            wbox10,
+                                                            Text(
+                                                              session["date"],
+                                                              style: GoogleFonts.montserrat(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 12,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
                                                     ),
                                                   ),
                                                 ],

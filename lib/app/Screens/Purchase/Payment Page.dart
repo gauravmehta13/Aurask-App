@@ -37,11 +37,15 @@ class _PaymentPageState extends State<PaymentPage> {
   int tempAmount = 0;
   var dio = Dio();
 
-  String mid = "lziDdZ71034278533888", orderId = "", txnToken = "", result = "";
-  bool isStaging = true;
+  String mid = "lziDdZ71034278533888";
+  String productionMid = "QdSUOS80610481329332",
+      orderId = "",
+      txnToken = "",
+      result = "";
+  bool isStaging = false;
   bool isApiCallInprogress = false;
-  String callbackUrl = "https://securegw-stage.paytm.in/";
-  bool restrictAppInvoke = false;
+  String callbackUrl = "https://securegw.paytm.in/";
+  bool restrictAppInvoke = true;
 
   getTxnToken() async {
     setState(() {
@@ -331,74 +335,66 @@ class _PaymentPageState extends State<PaymentPage> {
               ],
             )
           ])),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (loading) LinearProgressIndicator(),
-          Container(
-            padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-            child: SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  primary: primaryColor, // background
-                  onPrimary: Colors.white, // foreground
-                ),
-                onPressed: () async {
-                  if (totalAmount == 0) {
-                    purchaseCourse();
-                  } else if (kIsWeb) {
-                    installAppDialog(context);
-                  } else {
-                    getTxnToken();
-                  }
-                },
-                child: loading == true
-                    ? Center(
-                        child: LinearProgressIndicator(
-                          backgroundColor: Color(0xFF3f51b5),
-                          valueColor: AlwaysStoppedAnimation(
-                            Color(0xFFf9a825),
-                          ),
-                        ),
-                      )
-                    : Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: totalAmount == 0
-                            ? Row(
-                                children: [
-                                  Text(
-                                    "Free",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15),
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    "Book Now",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 15),
-                                  ),
-                                ],
-                              )
-                            : Row(
-                                children: [
-                                  Text(
-                                    "₹ $totalAmount ",
-                                  ),
-                                  Spacer(),
-                                  Text(
-                                    "Complete Payment",
-                                  ),
-                                ],
-                              ),
-                      ),
-              ),
+      bottomNavigationBar: Container(
+        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        child: SizedBox(
+          height: 60,
+          width: double.infinity,
+          child: ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              primary: primaryColor, // background
+              onPrimary: Colors.white, // foreground
             ),
+            onPressed: () async {
+              if (totalAmount == 0) {
+                purchaseCourse();
+              } else if (kIsWeb) {
+                installAppDialog(context);
+              } else {
+                getTxnToken();
+              }
+            },
+            child: loading
+                ? Center(
+                    child: LinearProgressIndicator(
+                      backgroundColor: Colors.white,
+                      valueColor: AlwaysStoppedAnimation(
+                        primaryColor,
+                      ),
+                    ),
+                  )
+                : Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: totalAmount == 0
+                        ? Row(
+                            children: [
+                              Text(
+                                "Free",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 15),
+                              ),
+                              Spacer(),
+                              Text(
+                                "Book Now",
+                                style: TextStyle(
+                                    fontWeight: FontWeight.w600, fontSize: 15),
+                              ),
+                            ],
+                          )
+                        : Row(
+                            children: [
+                              Text(
+                                "₹ $totalAmount ",
+                              ),
+                              Spacer(),
+                              Text(
+                                "Complete Payment",
+                              ),
+                            ],
+                          ),
+                  ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -420,7 +416,8 @@ class _PaymentPageState extends State<PaymentPage> {
     print(sendMap);
     try {
       var response = AllInOneSdk.startTransaction(
-          mid,
+          //  mid,
+          productionMid,
           orderId,
           totalAmount.toString(),
           txnToken,
@@ -437,7 +434,7 @@ class _PaymentPageState extends State<PaymentPage> {
           result = value.toString();
         });
       }).catchError((onError) {
-        errorDialog(context, onError.message!);
+        errorDialog(context, onError.details.toString());
         print("error");
         if (onError is PlatformException) {
           setState(() {
@@ -453,7 +450,7 @@ class _PaymentPageState extends State<PaymentPage> {
       print("errorC");
       result = err.toString();
     }
-    print(result);
+    print("result is $result");
   }
 }
 

@@ -15,6 +15,16 @@ import 'core/resources/theme/app_theme.dart';
 import 'core/resources/theme/theme_notifier.dart';
 import 'meta/Utility/Constants.dart';
 
+//TODO: Add share course button with course image from app
+//TODO: Add About Us Page and Contact Us Page
+//TODO: Add Proper images on HomePage Carousel
+//TODO: Add Gamification features
+//TODO: Give Aurask Money and users can purchase courses from this money too
+
+//? Vinay Sir
+//TODO: Add Curated Videos from Instructor on Some Topics
+//TODO: Add proper syllabus for Free Session and Live Session
+
 String home = "/";
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
