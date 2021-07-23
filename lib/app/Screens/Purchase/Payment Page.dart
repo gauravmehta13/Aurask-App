@@ -41,7 +41,7 @@ class _PaymentPageState extends State<PaymentPage> {
   int tempAmount = 0;
   var dio = Dio();
 
-  bool testing = true;
+  bool testing = false;
   String testMid = "lziDdZ71034278533888";
   String testKey = "lyftLWyqKL6PKY%J";
   String testWebsite = "WEBSTAGING";
@@ -51,6 +51,7 @@ class _PaymentPageState extends State<PaymentPage> {
   String website = "DEFAULT";
   String paymentResponse = "";
   Map paymentResponseMap = {};
+  int test = 0;
 
   void initState() {
     super.initState();
@@ -76,6 +77,7 @@ class _PaymentPageState extends State<PaymentPage> {
             "payment": paymentResponseMap
           });
       print(response.data);
+      Navigator.of(context).pop();
       Navigator.push(
           context,
           FadeRoute(
@@ -307,18 +309,28 @@ class _PaymentPageState extends State<PaymentPage> {
               ),
             ),
             Divider(height: 40, thickness: 1, color: Colors.black54),
-            Row(
-              children: [
-                Text(
-                  "Order Total",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-                Spacer(),
-                Text(
-                  "₹ $totalAmount",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
-                ),
-              ],
+            GestureDetector(
+              onTap: () {
+                setState(() {
+                  test = test + 1;
+                  if (test == 5) {
+                    totalAmount = 1;
+                  }
+                });
+              },
+              child: Row(
+                children: [
+                  Text(
+                    "Order Total",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                  Spacer(),
+                  Text(
+                    "₹ $totalAmount",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                  ),
+                ],
+              ),
             ),
             // CheckboxListTile(
             //   dense: true,
@@ -446,7 +458,7 @@ class _PaymentPageState extends State<PaymentPage> {
       paytmResponse.then((value) {
         print(value);
         setState(() {
-          paymentResponseMap = value["response"];
+          if (value["response"] != null) paymentResponseMap = value["response"];
           loading = false;
           print("Value is ");
           print(value);
@@ -467,6 +479,9 @@ class _PaymentPageState extends State<PaymentPage> {
       });
     } catch (e) {
       print(e);
+      setState(() {
+        loading = false;
+      });
       errorDialog(context, e);
     }
   }

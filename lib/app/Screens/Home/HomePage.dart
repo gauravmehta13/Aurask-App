@@ -70,7 +70,6 @@ class _HomePageState extends State<HomePage> {
         freeSessions.add(course["sessions"][i]);
       }
     }
-    print(freeSessions.length);
     courseLoaded = true;
   }
 

@@ -33,8 +33,8 @@ class BookingComplete extends StatelessWidget {
                     FadeRoute(
                         page: MyCoursesTabbar(
                       index: ["Free Seminar", "Live Session"].contains(type)
-                          ? 1
-                          : 0,
+                          ? 0
+                          : 1,
                     )));
               },
               text: "View Your Tickets",
