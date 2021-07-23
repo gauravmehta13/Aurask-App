@@ -22,8 +22,9 @@ import '../Other/InstructorPage.dart';
 import 'ExtraVideos.dart';
 
 class CourseInfo extends StatefulWidget {
-  final Map course;
-  const CourseInfo({Key? key, required this.course}) : super(key: key);
+  final id;
+  final course;
+  const CourseInfo({Key? key, this.course, this.id}) : super(key: key);
 
   @override
   _CourseInfoState createState() => _CourseInfoState();

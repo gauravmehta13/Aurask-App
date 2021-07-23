@@ -1,5 +1,6 @@
 import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class TermsAndConditions extends StatelessWidget {
@@ -7,94 +8,102 @@ class TermsAndConditions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        brightness: Brightness.light,
-        centerTitle: true,
-        title: Text(
-          "Terms & Conditions",
-          style:
-              GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 16),
+    return WillPopScope(
+      onWillPop: () async {
+        await Modular.to.pushReplacementNamed('/');
+        return true;
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          brightness: Brightness.light,
+          centerTitle: true,
+          title: Text(
+            "Terms & Conditions",
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600, fontSize: 16),
+          ),
         ),
-      ),
-      body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            box10,
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                "These Terms of Service (the “ToS”) applies with respect to the usage of the Platform (defined hereinafter) and the services offered by Aurask Software Services Private Limited and Aurask Technologies Pvt Ltd (“Aurask”, “Aurask”, “we”, or “us”), a Limited Liability Partnership formed and incorporated under the Limited Liability Partnership Act, 2008 and having its registered office at EB - 02 B, Chamber Offices, Common Utility, Town Center, Amanora, Pune – 411028. Aurask conducts its business under the brand titled “Aurask”, which is owned and operated by Aurask. In these ToS, the term “Aurask” shall mean Aurask. These Terms of Service shall mutatis mutandis apply to mobile apps, WhatsApp groups, Facebook groups, Instagram pages, Facebook pages, email/SMS/phone communications and other communication forums/media hosted by Aurask, which shall be deemed to be part of the Platform (defined hereinafter). Your usage of the Aurask Services (defined hereinafter) is subject to your explicit acceptance of these ToS. The terms contained in our privacy policy available at (“PrivacyPolicy”), or any other policy of Aurask related to the Aurask Services are incorporated into these ToS by this reference. Your acceptance of the same will irrevocably and unconditionally bind you to comply with and abide by all the obligations and conditions stipulated herein (unless otherwise explicitly made optional). After your initial confirmation/consent, you will be assumed to continue consenting to these ToS until you explicitly withdraw your consent by notifying Aurask of the same in writing. If an executed agreement exists between You and Aurask in relation to the Aurask Services, any deviations from these ToS shall only apply when explicitly agreed in writing between the parties to such an agreement. IF YOU DO NOT AGREE TO BE BOUND BY ALL CONDITIONS/CLAUSES CAPTURED IN THESE TOS, PLEASE DO NOT USE THE PLATFORM OR SERVICES.",
-                textAlign: TextAlign.center,
-                style: GoogleFonts.montserrat(
-                    fontWeight: FontWeight.w400, fontSize: 13),
+        body: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              box10,
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  "These Terms of Service (the “ToS”) applies with respect to the usage of the Platform (defined hereinafter) and the services offered by Aurask Software Services Private Limited and Aurask Technologies Pvt Ltd (“Aurask”, “Aurask”, “we”, or “us”), a Limited Liability Partnership formed and incorporated under the Limited Liability Partnership Act, 2008 and having its registered office at EB - 02 B, Chamber Offices, Common Utility, Town Center, Amanora, Pune – 411028. Aurask conducts its business under the brand titled “Aurask”, which is owned and operated by Aurask. In these ToS, the term “Aurask” shall mean Aurask. These Terms of Service shall mutatis mutandis apply to mobile apps, WhatsApp groups, Facebook groups, Instagram pages, Facebook pages, email/SMS/phone communications and other communication forums/media hosted by Aurask, which shall be deemed to be part of the Platform (defined hereinafter). Your usage of the Aurask Services (defined hereinafter) is subject to your explicit acceptance of these ToS. The terms contained in our privacy policy available at (“PrivacyPolicy”), or any other policy of Aurask related to the Aurask Services are incorporated into these ToS by this reference. Your acceptance of the same will irrevocably and unconditionally bind you to comply with and abide by all the obligations and conditions stipulated herein (unless otherwise explicitly made optional). After your initial confirmation/consent, you will be assumed to continue consenting to these ToS until you explicitly withdraw your consent by notifying Aurask of the same in writing. If an executed agreement exists between You and Aurask in relation to the Aurask Services, any deviations from these ToS shall only apply when explicitly agreed in writing between the parties to such an agreement. IF YOU DO NOT AGREE TO BE BOUND BY ALL CONDITIONS/CLAUSES CAPTURED IN THESE TOS, PLEASE DO NOT USE THE PLATFORM OR SERVICES.",
+                  textAlign: TextAlign.center,
+                  style: GoogleFonts.montserrat(
+                      fontWeight: FontWeight.w400, fontSize: 13),
+                ),
               ),
-            ),
-            ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                itemCount: tnc.length,
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tnc[index]["title"],
-                          style: GoogleFonts.montserrat(
-                              fontWeight: FontWeight.w600, fontSize: 16),
-                        ),
-                        box5,
-                        Text(
-                          tnc[index]["subtitle"],
-                          style: TextStyle(fontSize: 12, color: Colors.black87),
-                        ),
-                        if (tnc[index]["points"].length != 0)
-                          ListView.builder(
-                              padding: EdgeInsets.symmetric(horizontal: 10),
-                              itemCount: tnc[index]["points"].length,
-                              physics: NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int i) {
-                                return Padding(
-                                  padding:
-                                      const EdgeInsets.symmetric(vertical: 8),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "${(i + 1).toString()} .  ",
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            fontWeight: FontWeight.w600),
-                                      ),
-                                      Expanded(
-                                          child: Text(
-                                        tnc[index]["points"][i],
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black87),
-                                      ))
-                                    ],
-                                  ),
-                                );
-                              }),
-                        box5,
-                        Text(
-                          tnc[index]["bottom"],
-                          style: TextStyle(fontSize: 12, color: Colors.black87),
-                        ),
-                        Divider(
-                          color: Colors.grey,
-                          height: 30,
-                        )
-                      ]);
-                }),
-            Divider(),
-          ])),
+              ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  itemCount: tnc.length,
+                  physics: NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (BuildContext context, int index) {
+                    return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tnc[index]["title"],
+                            style: GoogleFonts.montserrat(
+                                fontWeight: FontWeight.w600, fontSize: 16),
+                          ),
+                          box5,
+                          Text(
+                            tnc[index]["subtitle"],
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.black87),
+                          ),
+                          if (tnc[index]["points"].length != 0)
+                            ListView.builder(
+                                padding: EdgeInsets.symmetric(horizontal: 10),
+                                itemCount: tnc[index]["points"].length,
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (BuildContext context, int i) {
+                                  return Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Row(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "${(i + 1).toString()} .  ",
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              fontWeight: FontWeight.w600),
+                                        ),
+                                        Expanded(
+                                            child: Text(
+                                          tnc[index]["points"][i],
+                                          style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.black87),
+                                        ))
+                                      ],
+                                    ),
+                                  );
+                                }),
+                          box5,
+                          Text(
+                            tnc[index]["bottom"],
+                            style:
+                                TextStyle(fontSize: 12, color: Colors.black87),
+                          ),
+                          Divider(
+                            color: Colors.grey,
+                            height: 30,
+                          )
+                        ]);
+                  }),
+              Divider(),
+            ])),
+      ),
     );
   }
 

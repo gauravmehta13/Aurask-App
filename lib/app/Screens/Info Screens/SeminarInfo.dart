@@ -16,15 +16,13 @@ import '../../../core/redux/app_state.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
-import '../Purchase/Booking Complete.dart';
 import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {
   final Map? seminar;
   final bool forwarded;
   final id;
-  const SeminarInfo(
-      {Key? key, required this.id, this.forwarded = false, this.seminar})
+  const SeminarInfo({Key? key, this.id, this.forwarded = false, this.seminar})
       : super(key: key);
 
   @override

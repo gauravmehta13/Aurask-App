@@ -61,7 +61,7 @@ class _CourseTabsState extends State<CourseTabs> {
             CourseResources(
               course: widget.course,
             ),
-            CourseInfo(
+            CourseInfoTab(
               course: widget.course,
             )
           ],

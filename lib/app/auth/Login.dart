@@ -185,13 +185,9 @@ class _LoginScreenState extends State<LoginScreen> {
           if (value.additionalUserInfo!.isNewUser) {
             await login(auth.currentUser!.uid, auth.currentUser!.email,
                 auth.currentUser!.displayName, widget.id);
-            Navigator.push(
-              context,
-              FadeRoute(
-                  page: UserDetails(
-                page: widget.page,
-              )),
-            );
+          }
+          if (widget.page == null) {
+            Navigator.pushReplacementNamed(context, "/");
           } else {
             Navigator.pop(context);
             Navigator.push(
@@ -199,6 +195,7 @@ class _LoginScreenState extends State<LoginScreen> {
               FadeRoute(page: widget.page ?? BottomNavBar()),
             );
           }
+
           setState(() {
             loading = false;
           });

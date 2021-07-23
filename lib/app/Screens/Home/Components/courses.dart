@@ -5,6 +5,7 @@ import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -48,13 +49,15 @@ Widget buildPopularCourses(popularCourses, context) {
             itemBuilder: (BuildContext context, int index) {
               return InkWell(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    FadeRoute(
-                        page: CourseInfo(
-                      course: popularCourses[index],
-                    )),
-                  );
+                  Modular.to
+                      .pushNamed('/course', arguments: popularCourses[index]);
+                  // Navigator.push(
+                  //   context,
+                  //   FadeRoute(
+                  //       page: CourseInfo(
+                  //     course: popularCourses[index],
+                  //   )),
+                  // );
                 },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -170,8 +173,7 @@ Widget buildInterviewCourses(course, context) {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.push(context,
-                    FadeRoute(page: CourseInfo(course: course[index])));
+                Modular.to.pushNamed('/course', arguments: course[index]);
               },
               child: Container(
                 clipBehavior: Clip.hardEdge,

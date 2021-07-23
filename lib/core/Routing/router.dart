@@ -1,4 +1,7 @@
+import 'package:aurask/app/Screens/Course/Components/info.dart';
 import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
+import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
+import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
 import 'package:aurask/app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
 import 'package:aurask/app/Screens/Purchase/Booking%20Complete.dart';
 import 'package:aurask/app/auth/Onboarding.dart';
@@ -12,6 +15,26 @@ class AppModule extends Module {
   final List<ModularRoute> routes = [
     ChildRoute('/', child: (_, args) => BottomNavBar()),
     ChildRoute('/tnc', child: (_, args) => TermsAndConditions()),
+    ChildRoute(
+      '/course',
+      child: (_, args) => CourseInfo(course: args.data),
+    ),
+    ChildRoute(
+      '/liveSession',
+      child: (_, args) => SeminarInfo(seminar: args.data),
+    ),
+    ChildRoute(
+      '/liveSession/:id',
+      child: (_, args) => SeminarInfo(
+        id: args.params['id'],
+      ),
+    ),
+    ChildRoute(
+      '/course/:id',
+      child: (_, args) => CourseInfo(
+        id: args.params['id'],
+      ),
+    ),
     ChildRoute('/invite/:id',
         child: (_, args) => Onboarding(
               id: args.data,
