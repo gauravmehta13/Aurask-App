@@ -22,7 +22,9 @@ class AppModule extends Module {
     ),
     ChildRoute(
       '/liveSession',
-      child: (_, args) => SeminarInfo(seminar: args.data),
+      child: (_, args) => SeminarInfo(
+        seminar: args.data,
+      ),
     ),
     ChildRoute(
       '/liveSession/:id',

@@ -1,3 +1,5 @@
+import 'package:flutter_modular/flutter_modular.dart';
+
 import '../Info%20Screens/SeminarInfo.dart';
 import '../../../core/redux/app_state.dart';
 import 'package:flutter/material.dart';
@@ -161,17 +163,10 @@ class _SearchCoursesState extends State<SearchCourses> {
                               onTap: () {
                                 ["Live Session", "Free Seminar"]
                                         .contains(element["type"])
-                                    ? Navigator.push(
-                                        context,
-                                        FadeRoute(
-                                            page: SeminarInfo(
-                                          seminar: element,
-                                          id: element["id"],
-                                        )))
-                                    : Navigator.push(
-                                        context,
-                                        FadeRoute(
-                                            page: CourseInfo(course: element)));
+                                    ? Modular.to.pushNamed('/liveSession',
+                                        arguments: element)
+                                    : Modular.to.pushNamed('/course',
+                                        arguments: element);
                               },
                               child: Container(
                                 clipBehavior: Clip.hardEdge,
