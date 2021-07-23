@@ -7,6 +7,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -252,14 +253,16 @@ class _HomePageState extends State<HomePage> {
                                       builder: (BuildContext context) {
                                         return GestureDetector(
                                           onTap: () {
-                                            Navigator.push(
-                                              context,
-                                              FadeRoute(
-                                                  page: SeminarInfo(
-                                                id: session["id"],
-                                                seminar: session,
-                                              )),
-                                            );
+                                            Modular.to.pushNamed('/liveSession',
+                                                arguments: session);
+                                            // Navigator.push(
+                                            //   context,
+                                            //   FadeRoute(
+                                            //       page: SeminarInfo(
+                                            //     id: session["id"],
+                                            //     seminar: ,
+                                            //   )),
+                                            // );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),

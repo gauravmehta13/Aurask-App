@@ -82,7 +82,8 @@ class _PaymentPageState extends State<PaymentPage> {
           context,
           FadeRoute(
               page: BookingComplete(
-                  name: widget.course["name"], type: widget.type)));
+            data: widget.course,
+          )));
       setState(() {
         loading = false;
       });
@@ -117,11 +118,7 @@ class _PaymentPageState extends State<PaymentPage> {
       print(response.data);
       Navigator.push(
         context,
-        MaterialPageRoute(
-            builder: (context) => BookingComplete(
-                  name: widget.course["name"],
-                  type: widget.type,
-                )),
+        MaterialPageRoute(builder: (context) => BookingComplete()),
       );
       setState(() {
         loading = false;

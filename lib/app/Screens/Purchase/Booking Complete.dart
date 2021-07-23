@@ -13,11 +13,9 @@ import '../Home/BottomNavBar.dart';
 import '../Info%20Screens/CourseInfo.dart';
 
 class BookingComplete extends StatelessWidget {
-  final String? name;
-  final String type;
-  final String? link;
-  const BookingComplete({Key? key, this.name, this.link, required this.type})
-      : super(key: key);
+  final data;
+
+  const BookingComplete({Key? key, this.data}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -28,14 +26,7 @@ class BookingComplete extends StatelessWidget {
           return Scaffold(
             bottomNavigationBar: BottomButton(
               onPressed: () {
-                Navigator.push(
-                    context,
-                    FadeRoute(
-                        page: MyCoursesTabbar(
-                      index: ["Free Seminar", "Live Session"].contains(type)
-                          ? 0
-                          : 1,
-                    )));
+                Navigator.push(context, FadeRoute(page: MyCoursesTabbar()));
               },
               text: "View Your Tickets",
             ),
@@ -83,7 +74,7 @@ class BookingComplete extends StatelessWidget {
                             Share.share("I am attending ${[
                               "Free Seminar",
                               "Live Session"
-                            ].contains(name) ? name ?? "" + " " + type : name} from Aurask, You can also join by visiting aurask.net");
+                            ].contains(data["name"]) ? data["name"] ?? "" + " " + data["type"] : data["name"]} from Aurask, You can also join by visiting aurask.net");
                           },
                           child: CircleAvatar(
                             backgroundColor: Colors.grey[300],

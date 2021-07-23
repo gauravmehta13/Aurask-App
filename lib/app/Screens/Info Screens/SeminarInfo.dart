@@ -20,10 +20,8 @@ import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {
   final Map? seminar;
-  final bool forwarded;
   final id;
-  const SeminarInfo({Key? key, this.id, this.forwarded = false, this.seminar})
-      : super(key: key);
+  const SeminarInfo({Key? key, this.id, this.seminar}) : super(key: key);
 
   @override
   _SeminarInfoState createState() => _SeminarInfoState();
@@ -33,7 +31,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
   @override
   void initState() {
     super.initState();
-    if (widget.forwarded)
+    if (widget.id != null)
       getSession();
     else {
       seminar = widget.seminar!;

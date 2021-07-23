@@ -37,12 +37,12 @@ class AppModule extends Module {
     ),
     ChildRoute('/invite/:id',
         child: (_, args) => Onboarding(
-              id: args.data,
+              id: args.params['id'],
             )),
     ChildRoute('/welcome', child: (_, args) => Onboarding()),
     ChildRoute('/success',
         child: (_, args) => BookingComplete(
-              type: args.data,
+              data: args.data,
             )),
   ];
 }

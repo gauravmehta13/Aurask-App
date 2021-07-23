@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:aurask/meta/Widgets/WhatsappFab.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../Other/SearchCourses.dart';
@@ -38,6 +39,7 @@ class _CourseInfoState extends State<CourseInfo> {
   List<YoutubePlayerController> controller = [];
   int _current = 0;
   final CarouselController carouselController = CarouselController();
+  final visibleKey = new GlobalKey();
 
   @override
   void initState() {
@@ -271,13 +273,8 @@ class _CourseInfoState extends State<CourseInfo> {
                     onTap: ["Free Seminar", "Live Session"]
                             .contains(selectedPrice["title"])
                         ? () async {
-                            Navigator.push(
-                                context,
-                                FadeRoute(
-                                    page: SeminarInfo(
-                                  id: selectedPrice["id"],
-                                  forwarded: true,
-                                )));
+                            Modular.to.pushNamed(
+                                '/liveSession/${selectedPrice["id"]}');
                           }
                         : () {
                             comingSoon(context);
@@ -328,9 +325,13 @@ class _CourseInfoState extends State<CourseInfo> {
       child: Scaffold(
           bottomNavigationBar: InkWell(
             onTap: () {
-              auth.currentUser == null
-                  ? authNavigate(CourseInfo(course: widget.course), context)
-                  : displayCourseChoices(context);
+              if (auth.currentUser == null)
+                authNavigate(CourseInfo(course: widget.course), context);
+              else {
+                Scrollable.ensureVisible(visibleKey.currentContext!,
+                    duration: Duration(seconds: 1));
+                displayCourseChoices(context);
+              }
             },
             child: Card(
               margin: EdgeInsets.zero,
@@ -542,6 +543,7 @@ class _CourseInfoState extends State<CourseInfo> {
 
               box10,
               Padding(
+                key: visibleKey,
                 padding: const EdgeInsets.all(15),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

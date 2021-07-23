@@ -290,14 +290,16 @@ Widget upcomingLiveSessions(sessions, context) {
                   var session = sessions[index];
                   return InkWell(
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        FadeRoute(
-                            page: SeminarInfo(
-                          id: sessions[index]["id"],
-                          seminar: sessions[index],
-                        )),
-                      );
+                      Modular.to.pushNamed('/liveSession',
+                          arguments: sessions[index]);
+                      // Navigator.push(
+                      //   context,
+                      //   FadeRoute(
+                      //       page: SeminarInfo(
+
+                      //     seminar: sessions[index],
+                      //   )),
+                      // );
                     },
                     child: Container(
                       height: 200,
