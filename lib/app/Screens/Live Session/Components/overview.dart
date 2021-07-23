@@ -49,16 +49,31 @@ class SessionOverview extends StatelessWidget {
                           leading: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                  decoration: BoxDecoration(
-                                      border: Border.all(color: Colors.black),
-                                      shape: BoxShape.circle),
-                                  padding: EdgeInsets.all(3),
-                                  child: Icon(
-                                    Icons.play_arrow,
-                                    color: primaryColor,
-                                    size: 17,
-                                  )),
+                              if (x["content"][i]
+                                  .toString()
+                                  .contains("Discuss"))
+                                Icon(
+                                  Icons.chat,
+                                  color: primaryColor,
+                                )
+                              else if (x["content"][i]
+                                  .toString()
+                                  .contains("Practice"))
+                                Icon(
+                                  Icons.quiz,
+                                  color: primaryColor,
+                                )
+                              else
+                                Container(
+                                    decoration: BoxDecoration(
+                                        border: Border.all(color: Colors.black),
+                                        shape: BoxShape.circle),
+                                    padding: EdgeInsets.all(3),
+                                    child: Icon(
+                                      Icons.play_arrow,
+                                      color: primaryColor,
+                                      size: 17,
+                                    )),
                             ],
                           ),
                           title: Text(
@@ -67,23 +82,85 @@ class SessionOverview extends StatelessWidget {
                           ),
                           subtitle: Row(
                             children: [
-                              Text(
-                                "Video",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8),
-                                child: CircleAvatar(
-                                  radius: 2,
-                                  backgroundColor: Colors.grey,
-                                ),
-                              ),
-                              Text(
-                                "${Random().nextInt(100)} min",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12),
-                              ),
+                              if (x["content"][i]
+                                  .toString()
+                                  .contains("Discuss"))
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Forum",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      child: CircleAvatar(
+                                        radius: 2,
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${Random().nextInt(100)} min",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                )
+                              else if (x["content"][i]
+                                  .toString()
+                                  .contains("Practice"))
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Quiz",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      child: CircleAvatar(
+                                        radius: 2,
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${Random().nextInt(100)} min",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                )
+                              else
+                                Row(
+                                  children: [
+                                    Text(
+                                      "Video",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
+                                    ),
+                                    Padding(
+                                      padding:
+                                          EdgeInsets.symmetric(horizontal: 8),
+                                      child: CircleAvatar(
+                                        radius: 2,
+                                        backgroundColor: Colors.grey,
+                                      ),
+                                    ),
+                                    Text(
+                                      "${Random().nextInt(100)} min",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 12),
+                                    ),
+                                  ],
+                                )
                             ],
                           ),
                         );

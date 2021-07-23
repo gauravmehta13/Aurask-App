@@ -17,6 +17,15 @@ class SessionTabs extends StatefulWidget {
 
 class _SessionTabsState extends State<SessionTabs> {
   @override
+  void initState() {
+    super.initState();
+    for (var i = 0; i < widget.course["syllabus"].length; i++) {
+      List newContent = ["Practice Exercise", "Discussion Forums"];
+      widget.course["syllabus"][i]["content"].addAll(newContent);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,

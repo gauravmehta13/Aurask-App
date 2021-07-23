@@ -1,5 +1,4 @@
 import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
-import 'package:aurask/app/Screens/Purchase/NewPaytm.dart';
 import 'package:aurask/meta/Utility/responsive.dart';
 import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:aurask/meta/Widgets/WhatsappFab.dart';
@@ -66,9 +65,9 @@ class _HomePageState extends State<HomePage> {
     }
     for (var i = 0; i < course["sessions"].length; i++) {
       if (course["sessions"][i]["type"] == "Live Session") {
-        freeSessions.add(course["sessions"][i]);
-      } else if (course["sessions"][i]["type"] == "Free Seminar") {
         paidSessions.add(course["sessions"][i]);
+      } else if (course["sessions"][i]["type"] == "Free Seminar") {
+        freeSessions.add(course["sessions"][i]);
       }
     }
     print(freeSessions.length);
@@ -184,15 +183,11 @@ class _HomePageState extends State<HomePage> {
                                           onFieldSubmitted: (e) {
                                             Navigator.push(
                                               context,
-                                              FadeRoute(page: NewPaytm()),
+                                              FadeRoute(
+                                                  page: SearchCourses(
+                                                keyword: query.text,
+                                              )),
                                             );
-                                            // Navigator.push(
-                                            //   context,
-                                            //   FadeRoute(
-                                            //       page: SearchCourses(
-                                            //     keyword: query.text,
-                                            //   )),
-                                            // );
                                           },
                                         ),
                                       ),
@@ -247,14 +242,14 @@ class _HomePageState extends State<HomePage> {
                                     enableInfiniteScroll: true,
                                     reverse: false,
                                     autoPlay: true,
-                                    autoPlayInterval: Duration(seconds: 3),
+                                    autoPlayInterval: Duration(seconds: 5),
                                     autoPlayAnimationDuration:
                                         Duration(milliseconds: 800),
                                     autoPlayCurve: Curves.fastOutSlowIn,
                                     enlargeCenterPage: true,
                                     scrollDirection: Axis.horizontal,
                                   ),
-                                  items: paidSessions.map((session) {
+                                  items: freeSessions.map((session) {
                                     return Builder(
                                       builder: (BuildContext context) {
                                         return GestureDetector(
@@ -308,31 +303,38 @@ class _HomePageState extends State<HomePage> {
                                                           Icon(Icons.error),
                                                     ),
                                                   ),
-                                                  Container(
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    decoration: BoxDecoration(
-                                                        gradient: LinearGradient(
-                                                            begin: Alignment
-                                                                .topCenter,
-                                                            end: Alignment
-                                                                .bottomCenter,
-                                                            colors: [
-                                                          Colors.black
-                                                              .withOpacity(0),
-                                                          // Colors.black
-                                                          //     .withOpacity(0.4),
-                                                          // Colors.black
-                                                          //     .withOpacity(0.6),
-                                                          Colors.black
-                                                              .withOpacity(0.8),
-                                                        ])),
+                                                  Banner(
+                                                    message: "FREE",
+                                                    color: Color(0xFFEB102F),
+                                                    location:
+                                                        BannerLocation.topEnd,
+                                                    child: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      decoration: BoxDecoration(
+                                                          gradient: LinearGradient(
+                                                              begin: Alignment
+                                                                  .topCenter,
+                                                              end: Alignment
+                                                                  .bottomCenter,
+                                                              colors: [
+                                                            Colors.black
+                                                                .withOpacity(0),
+                                                            // Colors.black
+                                                            //     .withOpacity(0.4),
+                                                            // Colors.black
+                                                            //     .withOpacity(0.6),
+                                                            Colors.black
+                                                                .withOpacity(
+                                                                    0.8),
+                                                          ])),
+                                                    ),
                                                   ),
                                                   Positioned(
-                                                    bottom: 15,
-                                                    left: 15,
+                                                    bottom: 10,
+                                                    left: 10,
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -347,32 +349,37 @@ class _HomePageState extends State<HomePage> {
                                                                   fontSize: 12,
                                                                   fontWeight:
                                                                       FontWeight
-                                                                          .bold),
+                                                                          .w500),
+                                                        ),
+                                                        box5,
+                                                        Text(
+                                                          session["date"],
+                                                          style: GoogleFonts
+                                                              .montserrat(
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontSize: 11,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500),
                                                         ),
                                                         box10,
                                                         Row(
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
                                                           children: [
                                                             Text(
                                                               session["name"],
                                                               style: GoogleFonts.montserrat(
                                                                   color: Colors
                                                                       .white,
-                                                                  fontSize: 13,
+                                                                  fontSize: 14,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .bold),
                                                             ),
                                                             wbox10,
-                                                            Text(
-                                                              session["date"],
-                                                              style: GoogleFonts.montserrat(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  fontSize: 12,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
                                                           ],
                                                         ),
                                                       ],
@@ -394,7 +401,7 @@ class _HomePageState extends State<HomePage> {
                           if (interviewCourses.length != 0)
                             buildInterviewCourses(interviewCourses, context),
                           if (freeSessions.length != 0)
-                            upcomingFreeSessions(freeSessions, context),
+                            upcomingLiveSessions(paidSessions, context),
                           box20,
                           buildSpinAndWin(context),
                           buildReferAndEarn(context)

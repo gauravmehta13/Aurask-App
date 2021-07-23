@@ -244,7 +244,7 @@ Widget buildInterviewCourses(course, context) {
   );
 }
 
-Widget upcomingFreeSessions(sessions, context) {
+Widget upcomingLiveSessions(sessions, context) {
   print(sessions.length);
   return Column(
     children: [
@@ -254,7 +254,7 @@ Widget upcomingFreeSessions(sessions, context) {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Upcoming Free Sessions",
+            Text("Upcoming Live Sessions",
                 style: GoogleFonts.montserrat(
                     fontSize: 17, fontWeight: FontWeight.w600)),
             InkWell(

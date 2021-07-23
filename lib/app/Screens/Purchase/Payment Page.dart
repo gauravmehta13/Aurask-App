@@ -50,6 +50,7 @@ class _PaymentPageState extends State<PaymentPage> {
   String merchantKey = "NoxrQy3YCMHna_ts";
   String website = "DEFAULT";
   String paymentResponse = "";
+  Map paymentResponseMap = {};
 
   void initState() {
     super.initState();
@@ -72,6 +73,7 @@ class _PaymentPageState extends State<PaymentPage> {
             "id": auth.currentUser?.uid,
             "email": auth.currentUser?.email,
             "liveSessionId": widget.course["id"],
+            "payment": paymentResponseMap
           });
       print(response.data);
       Navigator.push(
@@ -108,6 +110,7 @@ class _PaymentPageState extends State<PaymentPage> {
             "id": auth.currentUser?.uid,
             "email": auth.currentUser?.email,
             "courseId": widget.course["id"],
+            "payment": paymentResponseMap
           });
       print(response.data);
       Navigator.push(
@@ -348,7 +351,7 @@ class _PaymentPageState extends State<PaymentPage> {
               } else if (kIsWeb) {
                 installAppDialog(context);
               } else {
-                generateTxnToken(2);
+                generateTxnToken(0);
               }
             },
             child: loading
@@ -437,21 +440,19 @@ class _PaymentPageState extends State<PaymentPage> {
         paymentResponse = txnToken;
       });
 
-      var paytmResponse = testing
-          ? Paytm.payWithPaytm(testMid, orderId, txnToken,
-              totalAmount.toString(), callBackUrl, testing)
-          : Paytm.payWithPaytm(mid, orderId, txnToken, totalAmount.toString(),
-              callBackUrl, testing);
+      var paytmResponse = Paytm.payWithPaytm(testing ? testMid : mid, orderId,
+          txnToken, totalAmount.toString(), callBackUrl, testing);
 
       paytmResponse.then((value) {
         print(value);
         setState(() {
+          paymentResponseMap = value["response"];
           loading = false;
           print("Value is ");
           print(value);
           if (value["response"]?["STATUS"] != null &&
               value["response"]["STATUS"] == "TXN_SUCCESS") {
-            successDialog(context, "Course Purchased Sucessfully");
+            purchaseCourse();
           } else if (value['error']) {
             errorDialog(context, value['errorMessage']);
             paymentResponse = value['errorMessage'];
