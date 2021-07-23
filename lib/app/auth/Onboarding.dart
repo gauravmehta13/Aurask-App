@@ -498,10 +498,7 @@ class _OnboardingState extends State<Onboarding> {
                           children: [
                             TextButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    FadeRoute(page: HomePage()),
-                                  );
+                                  Navigator.pushReplacementNamed(context, "/");
                                 },
                                 child: Text(
                                   "Explore All Courses",
@@ -642,16 +639,8 @@ class _OnboardingState extends State<Onboarding> {
           if (value.additionalUserInfo!.isNewUser) {
             await login(auth.currentUser!.uid, auth.currentUser!.email,
                 auth.currentUser!.displayName, widget.id);
-            Navigator.push(
-              context,
-              FadeRoute(page: UserDetails()),
-            );
-          } else {
-            Navigator.push(
-              context,
-              FadeRoute(page: BottomNavBar()),
-            );
           }
+          Navigator.pushReplacementNamed(context, "/");
           setState(() {
             loading = false;
           });

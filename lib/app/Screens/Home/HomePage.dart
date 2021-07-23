@@ -80,7 +80,7 @@ class _HomePageState extends State<HomePage> {
         onInit: (store) async {
           popularCourses = [];
           interviewCourses = [];
-          Map tempCourses = await sharedPrefs.read("courses");
+          Map tempCourses = await sharedPrefs.readMap("courses");
           if (tempCourses.length == 0) {
             Map courses = await getCourses();
             divideCourses(courses);
@@ -89,7 +89,6 @@ class _HomePageState extends State<HomePage> {
             StoreProvider.of<AppState>(context)
                 .dispatch(Seminars(courses["sessions"]));
           } else {
-            print(tempCourses);
             divideCourses(tempCourses);
             Map courses = await getCourses();
             StoreProvider.of<AppState>(context)

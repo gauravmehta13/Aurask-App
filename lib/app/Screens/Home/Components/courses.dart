@@ -245,7 +245,6 @@ Widget buildInterviewCourses(course, context) {
 }
 
 Widget upcomingLiveSessions(sessions, context) {
-  print(sessions.length);
   return Column(
     children: [
       box10,
