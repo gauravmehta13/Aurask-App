@@ -1,4 +1,5 @@
 import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
+import 'package:aurask/app/Screens/Purchase/NewPaytm.dart';
 import 'package:aurask/meta/Utility/responsive.dart';
 import 'package:aurask/meta/Widgets/Loading.dart';
 import 'package:aurask/meta/Widgets/WhatsappFab.dart';
@@ -183,11 +184,15 @@ class _HomePageState extends State<HomePage> {
                                           onFieldSubmitted: (e) {
                                             Navigator.push(
                                               context,
-                                              FadeRoute(
-                                                  page: SearchCourses(
-                                                keyword: query.text,
-                                              )),
+                                              FadeRoute(page: NewPaytm()),
                                             );
+                                            // Navigator.push(
+                                            //   context,
+                                            //   FadeRoute(
+                                            //       page: SearchCourses(
+                                            //     keyword: query.text,
+                                            //   )),
+                                            // );
                                           },
                                         ),
                                       ),

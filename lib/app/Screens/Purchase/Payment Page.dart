@@ -1,3 +1,9 @@
+import 'dart:convert';
+
+import 'package:paytm/paytm.dart';
+
+import 'package:http/http.dart' as http;
+
 import 'Booking%20Complete.dart';
 import '../../../core/redux/actions.dart';
 import '../../../core/redux/app_state.dart';
@@ -8,10 +14,8 @@ import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:paytm_allinonesdk/paytm_allinonesdk.dart';
 
 import 'Coupon Screen.dart';
 
@@ -37,35 +41,15 @@ class _PaymentPageState extends State<PaymentPage> {
   int tempAmount = 0;
   var dio = Dio();
 
-  String mid = "lziDdZ71034278533888";
-  String productionMid = "QdSUOS80610481329332",
-      orderId = "",
-      txnToken = "",
-      result = "";
-  bool isStaging = false;
-  bool isApiCallInprogress = false;
-  String callbackUrl = "https://securegw.paytm.in/";
-  bool restrictAppInvoke = true;
+  bool testing = true;
+  String testMid = "lziDdZ71034278533888";
+  String testKey = "lyftLWyqKL6PKY%J";
+  String testWebsite = "WEBSTAGING";
 
-  getTxnToken() async {
-    setState(() {
-      loading = true;
-    });
-    final resp = await dio.post(
-        "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/payment-handler",
-        data: {
-          "gateway": "paytm",
-          "userId": auth.currentUser?.uid,
-          "amount": widget.price
-        });
-    print(resp);
-    setState(() {
-      txnToken = resp.data["resp"]["txnToken"];
-      orderId = resp.data["resp"]["orderId"];
-      loading = false;
-    });
-    startTransaction();
-  }
+  String mid = "QdSUOS80610481329332";
+  String merchantKey = "NoxrQy3YCMHna_ts";
+  String website = "DEFAULT";
+  String paymentResponse = "";
 
   void initState() {
     super.initState();
@@ -73,7 +57,6 @@ class _PaymentPageState extends State<PaymentPage> {
         ConfettiController(duration: const Duration(milliseconds: 500));
     totalAmount = widget.price;
     tempAmount = widget.price;
-    // getTxnToken();
   }
 
   Future bookSeminar() async {
@@ -333,7 +316,21 @@ class _PaymentPageState extends State<PaymentPage> {
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 ),
               ],
-            )
+            ),
+            // CheckboxListTile(
+            //   dense: true,
+            //   title: const Text('Testing'),
+            //   subtitle: const Text("Phone : 77777 77777 \nOTP : 489871"),
+            //   secondary: const Icon(Icons.code),
+            //   autofocus: false,
+            //   selected: testing,
+            //   value: testing,
+            //   onChanged: (bool? value) {
+            //     setState(() {
+            //       testing = value!;
+            //     });
+            //   },
+            // ),
           ])),
       bottomNavigationBar: Container(
         padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
@@ -351,7 +348,7 @@ class _PaymentPageState extends State<PaymentPage> {
               } else if (kIsWeb) {
                 installAppDialog(context);
               } else {
-                getTxnToken();
+                generateTxnToken(2);
               }
             },
             child: loading
@@ -399,58 +396,78 @@ class _PaymentPageState extends State<PaymentPage> {
     );
   }
 
-  Future<void> startTransaction() async {
-    if (txnToken.isEmpty) {
-      return;
-    }
-    print(auth.currentUser!.uid);
-    var sendMap = <String, dynamic>{
-      "mid": mid,
+  void generateTxnToken(int mode) async {
+    setState(() {
+      loading = true;
+    });
+    String orderId = DateTime.now().millisecondsSinceEpoch.toString();
+
+    String callBackUrl = (testing
+            ? 'https://securegw-stage.paytm.in'
+            : 'https://securegw.paytm.in') +
+        '/theia/paytmCallback?ORDER_ID=' +
+        orderId;
+
+    //Host the Server Side Code on your Server and use your URL here. The following URL may or may not work. Because hosted on free server.
+    //Server Side code url: https://github.com/mrdishant/Paytm-Plugin-Server
+    var url = 'https://paytmpaymentsaurask.herokuapp.com/generateTxnToken';
+
+    var body = json.encode({
+      "mid": testing ? testMid : mid,
+      "key_secret": testing ? testKey : merchantKey,
+      "website": testing ? testWebsite : website,
       "orderId": orderId,
-      "amount": totalAmount,
-      "txnToken": txnToken,
-      "callbackUrl": callbackUrl,
-      "isStaging": isStaging,
-      "restrictAppInvoke": restrictAppInvoke
-    };
-    print(sendMap);
+      "amount": totalAmount.toString(),
+      "callbackUrl": callBackUrl,
+      "custId": auth.currentUser!.uid,
+      "mode": mode.toString(),
+      "testing": testing ? 0 : 1
+    });
+
     try {
-      var response = AllInOneSdk.startTransaction(
-          //  mid,
-          productionMid,
-          orderId,
-          totalAmount.toString(),
-          txnToken,
-          callbackUrl,
-          isStaging,
-          restrictAppInvoke);
-      response.then((value) {
-        print("no error");
-        print(value!);
-        if (value["STATUS"] == "TXN_SUCCESS") {
-          successDialog(context, "Course Purchased Sucessfully");
-        }
-        setState(() {
-          result = value.toString();
-        });
-      }).catchError((onError) {
-        errorDialog(context, onError.details.toString());
-        print("error");
-        if (onError is PlatformException) {
-          setState(() {
-            result = onError.message! + " \n  " + onError.details.toString();
-          });
-        } else {
-          setState(() {
-            result = onError.toString();
-          });
-        }
+      final response = await http.post(
+        Uri.parse(url),
+        body: body,
+        headers: {'Content-type': "application/json"},
+      );
+      print("Response is");
+      print(response.body);
+      String txnToken = response.body;
+      setState(() {
+        paymentResponse = txnToken;
       });
-    } catch (err) {
-      print("errorC");
-      result = err.toString();
+
+      var paytmResponse = testing
+          ? Paytm.payWithPaytm(testMid, orderId, txnToken,
+              totalAmount.toString(), callBackUrl, testing)
+          : Paytm.payWithPaytm(mid, orderId, txnToken, totalAmount.toString(),
+              callBackUrl, testing);
+
+      paytmResponse.then((value) {
+        print(value);
+        setState(() {
+          loading = false;
+          print("Value is ");
+          print(value);
+          if (value["response"]?["STATUS"] != null &&
+              value["response"]["STATUS"] == "TXN_SUCCESS") {
+            successDialog(context, "Course Purchased Sucessfully");
+          } else if (value['error']) {
+            errorDialog(context, value['errorMessage']);
+            paymentResponse = value['errorMessage'];
+          } else {
+            errorDialog(context, value['errorMessage']);
+            if (value['response'] != null) {
+              paymentResponse = value['response']['STATUS'];
+            }
+          }
+          paymentResponse += "\n" + value.toString();
+        });
+      });
+    } catch (e) {
+      print(e);
+      errorDialog(context, e);
     }
-    print("result is $result");
   }
 }
 
