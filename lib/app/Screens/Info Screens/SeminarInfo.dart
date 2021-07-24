@@ -1,10 +1,4 @@
-import 'package:aurask/meta/Widgets/WhatsappFab.dart';
-
-import '../Purchase/Payment%20Page.dart';
-import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
-import '../../../meta/Widgets/Loading.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -16,6 +10,10 @@ import '../../../core/redux/app_state.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
+import '../../../meta/Widgets/Loading.dart';
+import '../../../meta/Widgets/WhatsappFab.dart';
+import '../Purchase/Payment%20Page.dart';
 import 'CourseInfo.dart';
 
 class SeminarInfo extends StatefulWidget {

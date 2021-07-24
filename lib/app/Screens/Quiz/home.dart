@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/model/category.dart';
@@ -78,12 +77,10 @@ class QuizHome extends StatelessWidget {
         children: <Widget>[
           if (category.icon != null) Icon(category.icon),
           if (category.icon != null) SizedBox(height: 5.0),
-          AutoSizeText(
+          Text(
             category.name,
-            minFontSize: 10.0,
             textAlign: TextAlign.center,
             maxLines: 3,
-            wrapWords: false,
           ),
         ],
       ),

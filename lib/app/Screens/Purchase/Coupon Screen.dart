@@ -1,9 +1,10 @@
-import '../../../core/redux/app_state.dart';
-import '../../../meta/Utility/Constants.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../core/redux/app_state.dart';
+import '../../../meta/Utility/Constants.dart';
 
 class CouponScreen extends StatefulWidget {
   final amount;

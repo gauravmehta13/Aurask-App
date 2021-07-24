@@ -1,5 +1,3 @@
-import '../My%20Courses/MyCourses%20TabBar.dart';
-import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,8 +7,10 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/redux/app_state.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/Bottom%20Navigation%20Button.dart';
 import '../Home/BottomNavBar.dart';
 import '../Info%20Screens/CourseInfo.dart';
+import '../My%20Courses/MyCourses%20TabBar.dart';
 
 class BookingComplete extends StatelessWidget {
   final data;

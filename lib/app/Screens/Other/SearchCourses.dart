@@ -1,19 +1,14 @@
-import 'package:flutter_modular/flutter_modular.dart';
-
-import '../Info%20Screens/SeminarInfo.dart';
-import '../../../core/redux/app_state.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:grouped_list/grouped_list.dart';
 
-import '../../../core/model/supabase%20Manager.dart';
+import '../../../core/redux/app_state.dart';
 import '../../../meta/Utility/Constants.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
 import '../../../meta/Widgets/Loading.dart';
 import '../../../meta/Widgets/No%20Results%20Found.dart';
-import '../Info Screens/CourseInfo.dart';
 
 class SearchCourses extends StatefulWidget {
   final String keyword;

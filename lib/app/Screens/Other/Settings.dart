@@ -1,17 +1,16 @@
-import 'package:aurask/app/Screens/Other/Misc/Privacy%20Policy.dart';
-import 'package:aurask/app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
-
-import '../Home/BottomNavBar.dart';
-import '../../auth/Login.dart';
-import '../../auth/Onboarding.dart';
-import '../../../core/resources/theme/theme_notifier.dart';
-import '../../../meta/Utility/Constants.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/resources/theme/theme_notifier.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../auth/Onboarding.dart';
+import '../Home/BottomNavBar.dart';
+import 'Misc/Privacy%20Policy.dart';
+import 'Misc/Terms%20And%20Conditions.dart';
 
 class SettingsScreen extends StatefulWidget {
   @override

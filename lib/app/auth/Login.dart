@@ -8,8 +8,6 @@ import '../../core/resources/api_provider.dart';
 import '../../meta/Utility/Constants.dart';
 import '../../meta/Utility/Fade%20Route.dart';
 import '../Screens/Home/BottomNavBar.dart';
-import '../Screens/Home/HomePage.dart';
-import 'UserDetails.dart';
 
 final List<String> topText = [
   "Learn the most In-Demand skills for Free",

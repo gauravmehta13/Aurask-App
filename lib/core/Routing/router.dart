@@ -1,12 +1,12 @@
-import 'package:aurask/app/Screens/Course/Components/info.dart';
-import 'package:aurask/app/Screens/Home/BottomNavBar.dart';
-import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
-import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
-import 'package:aurask/app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
-import 'package:aurask/app/Screens/Other/SearchCourses.dart';
-import 'package:aurask/app/Screens/Purchase/Booking%20Complete.dart';
-import 'package:aurask/app/auth/Onboarding.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+
+import '../../app/Screens/Home/BottomNavBar.dart';
+import '../../app/Screens/Info%20Screens/CourseInfo.dart';
+import '../../app/Screens/Info%20Screens/SeminarInfo.dart';
+import '../../app/Screens/Other/Misc/Terms%20And%20Conditions.dart';
+import '../../app/Screens/Other/SearchCourses.dart';
+import '../../app/Screens/Purchase/Booking%20Complete.dart';
+import '../../app/auth/Onboarding.dart';
 
 class AppModule extends Module {
   // Provide a list of dependencies to inject into your project

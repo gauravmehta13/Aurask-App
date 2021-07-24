@@ -1,14 +1,5 @@
 import 'dart:convert';
 
-import 'package:paytm/paytm.dart';
-
-import 'package:http/http.dart' as http;
-
-import 'Booking%20Complete.dart';
-import '../../../core/redux/actions.dart';
-import '../../../core/redux/app_state.dart';
-import '../../../meta/Utility/Constants.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:confetti/confetti.dart';
 import 'package:dio/dio.dart';
@@ -16,7 +7,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:http/http.dart' as http;
+import 'package:paytm/paytm.dart';
 
+import '../../../core/redux/actions.dart';
+import '../../../core/redux/app_state.dart';
+import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import 'Booking%20Complete.dart';
 import 'Coupon Screen.dart';
 
 class PaymentPage extends StatefulWidget {

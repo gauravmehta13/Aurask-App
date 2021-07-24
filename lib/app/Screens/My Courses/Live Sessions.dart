@@ -1,12 +1,10 @@
-import 'package:aurask/app/Screens/Live%20Session/SessionTabs.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
-
-import '../../../meta/Widgets/No%20Results%20Found.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import '../../../meta/Utility/Constants.dart';
+import '../../../meta/Utility/Fade%20Route.dart';
+import '../../../meta/Widgets/No%20Results%20Found.dart';
+import '../Live%20Session/SessionTabs.dart';
 
 class LiveSessions extends StatelessWidget {
   final List liveSessions;

@@ -1,13 +1,10 @@
-import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
-import 'package:aurask/app/Screens/Info%20Screens/CourseInfo.dart';
-import 'package:aurask/app/Screens/Other/SearchCourses.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../../../../meta/Utility/Constants.dart';
 
 Widget buildPopularCourses(popularCourses, context) {
   return Column(

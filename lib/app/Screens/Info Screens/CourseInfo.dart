@@ -1,26 +1,21 @@
 import 'dart:convert';
 
-import 'package:aurask/meta/Widgets/WhatsappFab.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter_modular/flutter_modular.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
-
-import '../Other/SearchCourses.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:video_player/video_player.dart';
+import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../../core/model/reviews%20Model.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
 import '../../../meta/Widgets/Loading.dart';
-import '../Info%20Screens/SeminarInfo.dart';
+import '../../../meta/Widgets/WhatsappFab.dart';
 import '../Other/CustomerReviews.dart';
 import '../Other/InstructorPage.dart';
-import 'ExtraVideos.dart';
 
 class CourseInfo extends StatefulWidget {
   final id;
