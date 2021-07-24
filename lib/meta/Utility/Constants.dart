@@ -208,7 +208,7 @@ installAppDialog(context) {
       confirmBtnText: "Download App",
       onConfirmBtnTap: () async {
         await launch(
-            "https://play.google.com/store/apps/details?id=com.goflexepartner.lite");
+            "https://play.google.com/store/apps/details?id=com.aurask");
       });
 }
 

@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "491094163637-1sv457f0m5f4613kpvamvlm5s8oo7pcv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.aurask",
+            "certificate_hash": "da3268a2cf1268f482a6afc49d59dce72cde2e36"
+          }
+        },
+        {
           "client_id": "491094163637-cqtcavhfoji1tnpmo4giglh6elugujb9.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
