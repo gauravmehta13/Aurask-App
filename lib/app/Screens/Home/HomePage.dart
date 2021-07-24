@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_update/in_app_update.dart';
 
 import '../../../core/redux/actions.dart';
 import '../../../core/redux/app_state.dart';

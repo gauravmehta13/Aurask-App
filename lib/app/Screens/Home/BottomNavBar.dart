@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:native_updater/native_updater.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../meta/Utility/Constants.dart';
@@ -19,34 +20,39 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   AppUpdateInfo? _updateInfo;
+
+  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
+
   bool _flexibleUpdateAvailable = false;
 
   @override
   void initState() {
     super.initState();
     checkFirstSeen();
-    // checkForUpdate();
+    checkForUpdate();
   }
 
   Future<void> checkForUpdate() async {
-    InAppUpdate.checkForUpdate().then((info) {
+    await InAppUpdate.checkForUpdate().then((info) {
       setState(() {
         _updateInfo = info;
       });
-
-      // InAppUpdate.performImmediateUpdate()
-      //                      .catchError((e) => showSnack(e.toString()));
-
-      InAppUpdate.startFlexibleUpdate().then((_) {
-        setState(() {
-          _flexibleUpdateAvailable = true;
-        });
-        InAppUpdate.completeFlexibleUpdate().then((_) {}).catchError((e) {});
-      }).catchError((e) {});
+      print(info);
     }).catchError((e) {
-      print(e);
-      displaySnackBar(e.toString(), context);
+      showSnack(e.toString());
     });
+    print(_updateInfo?.updateAvailability);
+    _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
+        ? InAppUpdate.performImmediateUpdate()
+            .catchError((e) => showSnack(e.toString()))
+        : print("Update Not Available");
+  }
+
+  void showSnack(String text) {
+    if (_scaffoldKey.currentContext != null) {
+      ScaffoldMessenger.of(_scaffoldKey.currentContext!)
+          .showSnackBar(SnackBar(content: Text(text)));
+    }
   }
 
   checkFirstSeen() async {

@@ -64,6 +64,7 @@ dependencies:
   in_app_update: ^2.0.0
   flutter_modular: ^3.3.1
   paytm: ^3.0.0
+  native_updater: ^0.1.0
 
 dev_dependencies:
   flutter_test:
