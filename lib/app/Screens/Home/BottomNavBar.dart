@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:native_updater/native_updater.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../meta/Utility/Constants.dart';
