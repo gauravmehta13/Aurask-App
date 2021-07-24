@@ -20,10 +20,6 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   AppUpdateInfo? _updateInfo;
 
-  GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-
-  bool _flexibleUpdateAvailable = false;
-
   @override
   void initState() {
     super.initState();
@@ -38,20 +34,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
       });
       print(info);
     }).catchError((e) {
-      showSnack(e.toString());
+      displaySnackBar(e.toString(), context);
     });
     print(_updateInfo?.updateAvailability);
     _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
         ? InAppUpdate.performImmediateUpdate()
-            .catchError((e) => showSnack(e.toString()))
+            .catchError((e) => displaySnackBar(e.toString(), context))
         : print("Update Not Available");
-  }
-
-  void showSnack(String text) {
-    if (_scaffoldKey.currentContext != null) {
-      ScaffoldMessenger.of(_scaffoldKey.currentContext!)
-          .showSnackBar(SnackBar(content: Text(text)));
-    }
   }
 
   checkFirstSeen() async {
