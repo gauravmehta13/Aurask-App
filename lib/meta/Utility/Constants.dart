@@ -46,7 +46,9 @@ SharedPref sharedPrefs = SharedPref();
 // }
 
 authNavigate(Widget page, context) {
-  AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
+  AuthenticationProvider user =
+      Provider.of<AuthenticationProvider>(context, listen: false);
+
   if (user.firebaseAuth.currentUser == null) {
     Navigator.push(context, FadeRoute(page: LoginScreen(page: page)));
   } else {
@@ -55,7 +57,8 @@ authNavigate(Widget page, context) {
 }
 
 checkLogin(Widget page, context) {
-  AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
+  AuthenticationProvider user =
+      Provider.of<AuthenticationProvider>(context, listen: false);
   if (user.firebaseAuth.currentUser == null) {
     SchedulerBinding.instance!.addPostFrameCallback((_) {
       Navigator.pushReplacement(
