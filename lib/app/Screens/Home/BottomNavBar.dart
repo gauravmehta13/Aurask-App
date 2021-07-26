@@ -22,7 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) checkForUpdate();
+    if (!kIsWeb && Platform.isAndroid) checkForUpdate();
   }
 
   Future<void> checkForUpdate() async {

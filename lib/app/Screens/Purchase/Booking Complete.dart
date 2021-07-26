@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,7 +31,7 @@ class _BookingCompleteState extends State<BookingComplete> {
   @override
   void initState() {
     super.initState();
-    if (Platform.isAndroid) _inAppReview.requestReview();
+    if (!kIsWeb && Platform.isAndroid) _inAppReview.requestReview();
   }
 
   @override
