@@ -32,8 +32,9 @@ class ContactUs extends StatelessWidget {
                       children: [
                         Container(
                           margin: EdgeInsets.symmetric(
-                              horizontal: 40, vertical: 30),
+                              horizontal: 20, vertical: 30),
                           child: Card(
+                            elevation: 9,
                             child: Container(
                               padding: EdgeInsets.all(15),
                               width: double.maxFinite,

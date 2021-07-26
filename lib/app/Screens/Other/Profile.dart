@@ -1,5 +1,7 @@
+import 'package:aurask/app/Screens/Other/Misc/Contact%20Us.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
@@ -40,14 +42,15 @@ class ProfilePage extends StatelessWidget {
         title: "Support",
         icon: Icons.support_agent,
         onTap: () {
-          comingSoon(context);
+          Navigator.push(context, FadeRoute(page: ContactUs()));
         },
       ),
       ProfilePage(
         title: "Feedback",
         icon: Icons.feedback,
-        onTap: () {
-          comingSoon(context);
+        onTap: () async {
+          await launch(
+              "https://play.google.com/store/apps/details?id=com.aurask");
         },
       ),
       ProfilePage(

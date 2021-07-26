@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:aurask/core/resources/api_provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
@@ -39,10 +40,10 @@ class _CourseInfoState extends State<CourseInfo> {
   @override
   void initState() {
     super.initState();
-    if (widget.id == null)
-      course = widget.course;
-    else {
+    if (widget.id != null) {
       getCourse();
+    } else {
+      course = widget.course;
     }
     setInitialPrice();
     loadJson();
@@ -52,7 +53,18 @@ class _CourseInfoState extends State<CourseInfo> {
     //initializeVideoPlayer();
   }
 
-  getCourse() {}
+  getCourse() async {
+    print(course["id"]);
+    setState(() {
+      loading = true;
+    });
+    var map = await getCourseDetails(course["id"]);
+    print(map);
+    setState(() {
+      course = map;
+      loading = false;
+    });
+  }
 
   initialiseVideos(List videos) {
     print(videos);
@@ -287,468 +299,485 @@ class _CourseInfoState extends State<CourseInfo> {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(platform: TargetPlatform.android),
-      child: Scaffold(
-          bottomNavigationBar: InkWell(
-            onTap: () {
-              if (auth.currentUser == null)
-                authNavigate(CourseInfo(course: course), context);
-              else {
-                Scrollable.ensureVisible(visibleKey.currentContext!,
-                    duration: Duration(seconds: 1));
-                displayCourseChoices(context);
-              }
-            },
-            child: Card(
-              margin: EdgeInsets.zero,
-              clipBehavior: Clip.antiAlias,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(0),
+      child: loading
+          ? Scaffold(body: Loading())
+          : Scaffold(
+              bottomNavigationBar: InkWell(
+                onTap: () {
+                  if (auth.currentUser == null)
+                    authNavigate(CourseInfo(course: course), context);
+                  else {
+                    Scrollable.ensureVisible(visibleKey.currentContext!,
+                        duration: Duration(seconds: 1));
+                    displayCourseChoices(context);
+                  }
+                },
+                child: Card(
+                  margin: EdgeInsets.zero,
+                  clipBehavior: Clip.antiAlias,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
+                  ),
+                  elevation: 4,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      if (buyingCourse)
+                        LinearProgressIndicator(
+                            color: primaryColor, backgroundColor: Colors.black),
+                      Container(
+                          width: double.maxFinite,
+                          height: 60,
+                          color: primaryColor,
+                          child: Center(
+                            child: Text("Join Course",
+                                style: GoogleFonts.montserrat(
+                                    color: Colors.white,
+                                    fontSize: 17,
+                                    fontWeight: FontWeight.w600)),
+                          )),
+                    ],
+                  ),
+                ),
               ),
-              elevation: 4,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  if (buyingCourse)
-                    LinearProgressIndicator(
-                        color: primaryColor, backgroundColor: Colors.black),
-                  Container(
-                      width: double.maxFinite,
-                      height: 60,
-                      color: primaryColor,
-                      child: Center(
-                        child: Text("Join Course",
-                            style: GoogleFonts.montserrat(
-                                color: Colors.white,
-                                fontSize: 17,
-                                fontWeight: FontWeight.w600)),
-                      )),
+              appBar: AppBar(
+                backgroundColor: primaryColor,
+                actions: [
+                  IconButton(
+                      onPressed: () async {
+                        String text = "Join this course";
+                        !kIsWeb
+                            ? await shareCourse(course["image"], text)
+                            : await share(text);
+                      },
+                      icon: Icon(Icons.share)),
                 ],
               ),
-            ),
-          ),
-          appBar: AppBar(
-            backgroundColor: primaryColor,
-            actions: [
-              IconButton(
-                  onPressed: () async {
-                    String text = "Join this course";
-                    !kIsWeb
-                        ? await shareCourse(course["image"], text)
-                        : await share(text);
-                  },
-                  icon: Icon(Icons.share)),
-            ],
-          ),
-          body: SingleChildScrollView(
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Padding(
-                padding: const EdgeInsets.all(15),
+              body: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(course["name"],
-                        style: GoogleFonts.montserrat(
-                            fontSize: 25, fontWeight: FontWeight.w600)),
-                    box10,
-                    Text(course["overview"]),
-                    box20,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(15),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "4.7",
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 15, fontWeight: FontWeight.w600),
+                            Text(course["name"],
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 25, fontWeight: FontWeight.w600)),
+                            box10,
+                            Text(course["overview"]),
+                            box20,
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "4.7",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    SizedBox(
+                                      width: 10,
+                                    ),
+                                    RatingBar.builder(
+                                      ignoreGestures: true,
+                                      initialRating: 4.3,
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      itemSize: 15,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 1.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      onRatingUpdate: (double value) {},
+                                    ),
+                                  ],
+                                ),
+                                box5,
+                                Text(
+                                  "( 78 Ratings) 120 students",
+                                  style: TextStyle(
+                                    color: Colors.grey[700],
+                                    fontSize: 13,
+                                  ),
+                                )
+                              ],
                             ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            RatingBar.builder(
-                              ignoreGestures: true,
-                              initialRating: 4.3,
-                              minRating: 1,
-                              direction: Axis.horizontal,
-                              itemSize: 15,
-                              allowHalfRating: true,
-                              itemCount: 5,
-                              itemPadding:
-                                  EdgeInsets.symmetric(horizontal: 1.0),
-                              itemBuilder: (context, _) => Icon(
-                                Icons.star,
-                                color: Colors.amber,
+                            box20,
+                            Container(
+                              child: Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.update,
+                                          size: 15, color: Colors.grey[800]!),
+                                      wbox5,
+                                      Text(
+                                        "Last Updated Mar 2021",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.grey[800]),
+                                      )
+                                    ],
+                                  ),
+                                  box10,
+                                  Row(
+                                    children: [
+                                      Icon(Icons.language,
+                                          size: 15, color: Colors.grey[800]!),
+                                      wbox5,
+                                      Text(
+                                        "English",
+                                        style: TextStyle(
+                                            fontSize: 13,
+                                            color: Colors.grey[800]),
+                                      )
+                                    ],
+                                  ),
+                                  box10,
+                                ],
                               ),
-                              onRatingUpdate: (double value) {},
                             ),
                           ],
                         ),
-                        box5,
-                        Text(
-                          "( 78 Ratings) 120 students",
-                          style: TextStyle(
-                            color: Colors.grey[700],
-                            fontSize: 13,
-                          ),
-                        )
-                      ],
-                    ),
-                    box20,
-                    Container(
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              Icon(Icons.update,
-                                  size: 15, color: Colors.grey[800]!),
-                              wbox5,
-                              Text(
-                                "Last Updated Mar 2021",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.grey[800]),
-                              )
-                            ],
-                          ),
-                          box10,
-                          Row(
-                            children: [
-                              Icon(Icons.language,
-                                  size: 15, color: Colors.grey[800]!),
-                              wbox5,
-                              Text(
-                                "English",
-                                style: TextStyle(
-                                    fontSize: 13, color: Colors.grey[800]),
-                              )
-                            ],
-                          ),
-                          box10,
-                        ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
 
-              CarouselSlider(
-                carouselController: carouselController,
-                options: CarouselOptions(
-                    aspectRatio: 16 / 9,
-                    viewportFraction: 0.95,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: false,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(milliseconds: 800),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    enlargeCenterPage: true,
-                    scrollDirection: Axis.horizontal,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                      });
-                    }),
-                items: controller.map((i) {
-                  return Builder(
-                    builder: (BuildContext context) {
-                      return YoutubePlayerIFrame(
-                        gestureRecognizers: {},
-                        controller: i,
-                      );
-                    },
-                  );
-                }).toList(),
-              ),
-              box10,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: controller.asMap().entries.map((entry) {
-                  return GestureDetector(
-                    onTap: () => carouselController.animateToPage(entry.key),
-                    child: Container(
-                      width: 10.0,
-                      height: 10.0,
-                      margin:
-                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: primaryColor
-                              .withOpacity(_current == entry.key ? 0.9 : 0.1)),
-                    ),
-                  );
-                }).toList(),
-              ),
-              // Container(
-              //   height: 250,
-              //   width: double.maxFinite,
-              //   clipBehavior: Clip.hardEdge,
-              //   decoration: BoxDecoration(
-              //       color: Colors.transparent,
-              //       borderRadius:
-              //           BorderRadius.all(Radius.circular(5))),
-              //   child: videoPlayerController.value.isInitialized &&
-              //           chewieController.videoPlayerController.value
-              //               .isInitialized
-              //       ? Chewie(
-              //           controller: chewieController,
-              //         )
-              //       : Container(
-              //           decoration: BoxDecoration(
-              //             image: new DecorationImage(
-              //               image: new NetworkImage(
-              //                   course["image"]),
-              //               fit: BoxFit.cover,
-              //             ),
-              //           ),
-              //           child: Center(
-              //             child: CircularProgressIndicator(
-              //               color: primaryColor.withOpacity(0.5),
-              //             ),
-              //           )),
-              // ),
-
-              box10,
-              Padding(
-                key: visibleKey,
-                padding: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "This Course Includes",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
-                    ),
-                    box10,
-                    Row(
-                      children: [
-                        Icon(Icons.videocam,
-                            size: 20, color: Colors.grey[800]!),
-                        wbox10,
-                        Text(
-                          "16 hours of ondemand video",
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[800]),
-                        )
-                      ],
-                    ),
-                    box10,
-                    Row(
-                      children: [
-                        Icon(Icons.light, size: 20, color: Colors.grey[800]!),
-                        wbox10,
-                        Text(
-                          "Support Files",
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[800]),
-                        )
-                      ],
-                    ),
-                    box10,
-                    Row(
-                      children: [
-                        Icon(Icons.assignment,
-                            size: 20, color: Colors.grey[800]!),
-                        wbox10,
-                        Text(
-                          "8 Assignments",
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[800]),
-                        )
-                      ],
-                    ),
-                    box10,
-                    Row(
-                      children: [
-                        Icon(Icons.info_outline,
-                            size: 20, color: Colors.grey[800]!),
-                        wbox10,
-                        Text(
-                          "Life time Access",
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[800]),
-                        )
-                      ],
-                    ),
-                    box10,
-                    Row(
-                      children: [
-                        Icon(Icons.phone_outlined,
-                            size: 20, color: Colors.grey[800]!),
-                        wbox10,
-                        Text(
-                          "Access on Mobile and Web",
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[800]),
-                        )
-                      ],
-                    ),
-                    box10,
-                    Row(
-                      children: [
-                        Icon(Icons.question_answer,
-                            size: 20, color: Colors.grey[800]!),
-                        wbox10,
-                        Text(
-                          "QnA Session",
-                          style:
-                              TextStyle(fontSize: 14, color: Colors.grey[800]),
-                        )
-                      ],
-                    ),
-                    box10,
-                    Divider(),
-                    box20,
-                    Text(
-                      "Description",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-                    ),
-                    box10,
-                    Text(course["description"]),
-                    box30,
-                    Text(
-                      "Course Content",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-                    ),
-                    box20,
-                    ListView.builder(
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemCount: course["syllabus"].length,
-                        itemBuilder: (BuildContext context, int index) {
-                          var x = course["syllabus"][index];
-                          return Container(
-                            decoration: BoxDecoration(
-                              border: Border(
-                                bottom: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                                top: BorderSide(
-                                  color: Colors.grey[300]!,
-                                ),
-                              ),
-                            ),
-                            child: ExpansionTile(
-                              tilePadding: EdgeInsets.all(0),
-                              childrenPadding:
-                                  EdgeInsets.only(left: 70, bottom: 20),
-                              title: Row(
-                                children: [
-                                  Text(
-                                    "Session ${x["session"]}",
-                                    style: TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.grey[800]),
-                                  ),
-                                  wbox20,
-                                  Text(
-                                    x["title"],
-                                    style: TextStyle(
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ],
-                              ),
-                              children: <Widget>[
-                                ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: x["content"].length,
-                                    itemBuilder: (BuildContext context, int i) {
-                                      return Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          CircleAvatar(
-                                            radius: 2,
-                                          ),
-                                          wbox10,
-                                          Expanded(
-                                            child: Text(
-                                              x["content"][i],
-                                              style: TextStyle(fontSize: 13),
-                                            ),
-                                          )
-                                        ],
-                                      );
-                                    }),
-                              ],
+                      CarouselSlider(
+                        carouselController: carouselController,
+                        options: CarouselOptions(
+                            aspectRatio: 16 / 9,
+                            viewportFraction: 0.95,
+                            initialPage: 0,
+                            enableInfiniteScroll: true,
+                            reverse: false,
+                            autoPlay: false,
+                            autoPlayInterval: Duration(seconds: 3),
+                            autoPlayAnimationDuration:
+                                Duration(milliseconds: 800),
+                            autoPlayCurve: Curves.fastOutSlowIn,
+                            enlargeCenterPage: true,
+                            scrollDirection: Axis.horizontal,
+                            onPageChanged: (index, reason) {
+                              setState(() {
+                                _current = index;
+                              });
+                            }),
+                        items: controller.map((i) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return YoutubePlayerIFrame(
+                                gestureRecognizers: {},
+                                controller: i,
+                              );
+                            },
+                          );
+                        }).toList(),
+                      ),
+                      box10,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: controller.asMap().entries.map((entry) {
+                          return GestureDetector(
+                            onTap: () =>
+                                carouselController.animateToPage(entry.key),
+                            child: Container(
+                              width: 10.0,
+                              height: 10.0,
+                              margin: EdgeInsets.symmetric(
+                                  vertical: 8.0, horizontal: 4.0),
+                              decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: primaryColor.withOpacity(
+                                      _current == entry.key ? 0.9 : 0.1)),
                             ),
                           );
-                        }),
-                    box30,
-                    InkWell(
-                      child: Container(
+                        }).toList(),
+                      ),
+                      // Container(
+                      //   height: 250,
+                      //   width: double.maxFinite,
+                      //   clipBehavior: Clip.hardEdge,
+                      //   decoration: BoxDecoration(
+                      //       color: Colors.transparent,
+                      //       borderRadius:
+                      //           BorderRadius.all(Radius.circular(5))),
+                      //   child: videoPlayerController.value.isInitialized &&
+                      //           chewieController.videoPlayerController.value
+                      //               .isInitialized
+                      //       ? Chewie(
+                      //           controller: chewieController,
+                      //         )
+                      //       : Container(
+                      //           decoration: BoxDecoration(
+                      //             image: new DecorationImage(
+                      //               image: new NetworkImage(
+                      //                   course["image"]),
+                      //               fit: BoxFit.cover,
+                      //             ),
+                      //           ),
+                      //           child: Center(
+                      //             child: CircularProgressIndicator(
+                      //               color: primaryColor.withOpacity(0.5),
+                      //             ),
+                      //           )),
+                      // ),
+
+                      box10,
+                      Padding(
+                        key: visibleKey,
+                        padding: const EdgeInsets.all(15),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Instructors",
+                              "This Course Includes",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800, fontSize: 16),
+                            ),
+                            box10,
+                            Row(
+                              children: [
+                                Icon(Icons.videocam,
+                                    size: 20, color: Colors.grey[800]!),
+                                wbox10,
+                                Text(
+                                  "16 hours of ondemand video",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                )
+                              ],
+                            ),
+                            box10,
+                            Row(
+                              children: [
+                                Icon(Icons.light,
+                                    size: 20, color: Colors.grey[800]!),
+                                wbox10,
+                                Text(
+                                  "Support Files",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                )
+                              ],
+                            ),
+                            box10,
+                            Row(
+                              children: [
+                                Icon(Icons.assignment,
+                                    size: 20, color: Colors.grey[800]!),
+                                wbox10,
+                                Text(
+                                  "8 Assignments",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                )
+                              ],
+                            ),
+                            box10,
+                            Row(
+                              children: [
+                                Icon(Icons.info_outline,
+                                    size: 20, color: Colors.grey[800]!),
+                                wbox10,
+                                Text(
+                                  "Life time Access",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                )
+                              ],
+                            ),
+                            box10,
+                            Row(
+                              children: [
+                                Icon(Icons.phone_outlined,
+                                    size: 20, color: Colors.grey[800]!),
+                                wbox10,
+                                Text(
+                                  "Access on Mobile and Web",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                )
+                              ],
+                            ),
+                            box10,
+                            Row(
+                              children: [
+                                Icon(Icons.question_answer,
+                                    size: 20, color: Colors.grey[800]!),
+                                wbox10,
+                                Text(
+                                  "QnA Session",
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.grey[800]),
+                                )
+                              ],
+                            ),
+                            box10,
+                            Divider(),
+                            box20,
+                            Text(
+                              "Description",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w800, fontSize: 20),
+                            ),
+                            box10,
+                            Text(course["description"]),
+                            box30,
+                            Text(
+                              "Course Content",
                               style: TextStyle(
                                   fontWeight: FontWeight.w800, fontSize: 20),
                             ),
                             box20,
-                            InkWell(
-                              onTap: () {
-                                Navigator.push(context,
-                                    FadeRoute(page: InstructorProfile()));
-                              },
-                              child: Row(
-                                children: [
-                                  CircleAvatar(
-                                    radius: 30,
-                                    backgroundColor: Colors.grey[300],
-                                    backgroundImage: NetworkImage(
-                                        course["instructor"]["imgUrl"]),
-                                  ),
-                                  wbox20,
-                                  Expanded(
-                                    flex: 10,
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          course["instructor"]["title"],
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.w600),
+                            ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: course["syllabus"].length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  var x = course["syllabus"][index];
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      border: Border(
+                                        bottom: BorderSide(
+                                          color: Colors.grey[300]!,
                                         ),
-                                        box5,
-                                        Text(
-                                          course["instructor"]["subtitle"],
-                                          style: TextStyle(
-                                              fontSize: 12,
-                                              color: Colors.grey[800]),
+                                        top: BorderSide(
+                                          color: Colors.grey[300]!,
                                         ),
+                                      ),
+                                    ),
+                                    child: ExpansionTile(
+                                      tilePadding: EdgeInsets.all(0),
+                                      childrenPadding:
+                                          EdgeInsets.only(left: 70, bottom: 20),
+                                      title: Row(
+                                        children: [
+                                          Text(
+                                            "Session ${x["session"]}",
+                                            style: TextStyle(
+                                                fontSize: 13,
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.grey[800]),
+                                          ),
+                                          wbox20,
+                                          Text(
+                                            x["title"],
+                                            style: TextStyle(
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w500),
+                                          ),
+                                        ],
+                                      ),
+                                      children: <Widget>[
+                                        ListView.builder(
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: x["content"].length,
+                                            itemBuilder:
+                                                (BuildContext context, int i) {
+                                              return Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  CircleAvatar(
+                                                    radius: 2,
+                                                  ),
+                                                  wbox10,
+                                                  Expanded(
+                                                    child: Text(
+                                                      x["content"][i],
+                                                      style: TextStyle(
+                                                          fontSize: 13),
+                                                    ),
+                                                  )
+                                                ],
+                                              );
+                                            }),
                                       ],
                                     ),
-                                  ),
-                                  Spacer(),
-                                  Icon(Icons.arrow_forward_ios)
-                                ],
+                                  );
+                                }),
+                            box30,
+                            InkWell(
+                              child: Container(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Instructors",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w800,
+                                          fontSize: 20),
+                                    ),
+                                    box20,
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                            context,
+                                            FadeRoute(
+                                                page: InstructorProfile()));
+                                      },
+                                      child: Row(
+                                        children: [
+                                          CircleAvatar(
+                                            radius: 30,
+                                            backgroundColor: Colors.grey[300],
+                                            backgroundImage: NetworkImage(
+                                                course["instructor"]["imgUrl"]),
+                                          ),
+                                          wbox20,
+                                          Expanded(
+                                            flex: 10,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  course["instructor"]["title"],
+                                                  style: TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                                box5,
+                                                Text(
+                                                  course["instructor"]
+                                                      ["subtitle"],
+                                                  style: TextStyle(
+                                                      fontSize: 12,
+                                                      color: Colors.grey[800]),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Icon(Icons.arrow_forward_ios)
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            )
+                            ),
+                            box10,
+                            Divider(),
+                            box10,
                           ],
                         ),
                       ),
-                    ),
-                    box10,
-                    Divider(),
-                    box10,
-                  ],
-                ),
+                      CustomerReviews(
+                        reviews: reviews,
+                      ),
+                    ]),
               ),
-              CustomerReviews(
-                reviews: reviews,
-              ),
-            ]),
-          ),
-          floatingActionButton: WhatsappFAB()),
+              floatingActionButton: WhatsappFAB()),
     );
   }
 }

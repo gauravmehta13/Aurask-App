@@ -17,6 +17,16 @@ Future<Map> getSeminarDetails(id) async {
   return response.data["resp"];
 }
 
+Future<Map> getCourseDetails(id) async {
+  var dio = Dio();
+  final response = await dio.post(
+      "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=course&tenantUsecase=getCourse",
+      data: {
+        "id": id,
+      });
+  return response.data["resp"];
+}
+
 Future<Map> getMyCourses() async {
   print("getting My Courses....");
   var dio = Dio();
