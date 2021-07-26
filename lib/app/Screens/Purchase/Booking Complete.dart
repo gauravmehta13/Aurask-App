@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:in_app_review/in_app_review.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -12,10 +13,23 @@ import '../Home/BottomNavBar.dart';
 import '../Info%20Screens/CourseInfo.dart';
 import '../My%20Courses/MyCourses%20TabBar.dart';
 
-class BookingComplete extends StatelessWidget {
+class BookingComplete extends StatefulWidget {
   final data;
 
-  const BookingComplete({Key? key, this.data}) : super(key: key);
+  BookingComplete({Key? key, this.data}) : super(key: key);
+
+  @override
+  _BookingCompleteState createState() => _BookingCompleteState();
+}
+
+class _BookingCompleteState extends State<BookingComplete> {
+  final InAppReview _inAppReview = InAppReview.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _inAppReview.requestReview();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +88,7 @@ class BookingComplete extends StatelessWidget {
                             Share.share("I am attending ${[
                               "Free Seminar",
                               "Live Session"
-                            ].contains(data["name"]) ? data["name"] ?? "" + " " + data["type"] : data["name"]} from Aurask, You can also join by visiting aurask.net");
+                            ].contains(widget.data["name"]) ? widget.data["name"] ?? "" + " " + widget.data["type"] : widget.data["name"]} from Aurask, You can also join by visiting aurask.net");
                           },
                           child: CircleAvatar(
                             backgroundColor: Colors.grey[300],
