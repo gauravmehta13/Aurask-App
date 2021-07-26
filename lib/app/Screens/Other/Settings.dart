@@ -1,3 +1,4 @@
+import 'package:aurask/app/Screens/Other/Misc/Contact%20Us.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -133,7 +134,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             ),
             SettingsTile(
                 onPressed: (e) {
-                  launchWhatsApp();
+                  Navigator.push(context, FadeRoute(page: ContactUs()));
                 },
                 title: 'Contact Us',
                 leading: Icon(Icons.contact_mail)),
