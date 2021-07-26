@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
 import '../../../core/model/reviews%20Model.dart';
@@ -28,18 +29,21 @@ class CourseInfo extends StatefulWidget {
 
 class _CourseInfoState extends State<CourseInfo> {
   bool buyingCourse = false;
-  //late VideoPlayerController videoPlayerController;
-  late ChewieController chewieController;
   Map selectedPrice = {};
   List<YoutubePlayerController> controller = [];
   int _current = 0;
   final CarouselController carouselController = CarouselController();
   final visibleKey = new GlobalKey();
+  Map course = {};
 
   @override
   void initState() {
     super.initState();
-    print(widget.course);
+    if (widget.id == null)
+      course = widget.course;
+    else {
+      getCourse();
+    }
     setInitialPrice();
     loadJson();
     initialiseVideos(
@@ -47,6 +51,8 @@ class _CourseInfoState extends State<CourseInfo> {
     //?Using YT player instead of chewie
     //initializeVideoPlayer();
   }
+
+  getCourse() {}
 
   initialiseVideos(List videos) {
     print(videos);
@@ -66,51 +72,12 @@ class _CourseInfoState extends State<CourseInfo> {
     setState(() {});
   }
 
-  // Future<void> initializeVideoPlayer() async {
-  //   videoPlayerController =
-  //       VideoPlayerController.network(widget.course["videoUrl"]);
-  //   await Future.wait([videoPlayerController.initialize()]);
-  //   chewieController = ChewieController(
-  //     // additionalOptions: (context) {
-  //     //   return <OptionItem>[
-  //     //     OptionItem(
-  //     //       onTap: () => debugPrint('My option works!'),
-  //     //       iconData: Icons.chat,
-  //     //       title: 'My localized title',
-  //     //     ),
-  //     //     OptionItem(
-  //     //       onTap: () => debugPrint('Another option working!'),
-  //     //       iconData: Icons.chat,
-  //     //       title: 'Another localized title',
-  //     //     ),
-  //     //   ];
-  //     // },
-  //     // fullScreenByDefault: true,
-  //     // placeholder: Image(
-  //     //   image: NetworkImage(widget.course["image"]),
-  //     // ),
-  //     // videoPlayerController: videoPlayerController,
-  //     // autoPlay: false,
-  //     // looping: false,
-  //     // aspectRatio: 16 / 10,
-  //     // autoInitialize: true,
-  //   );
-  //   setState(() {});
-  // }
-
-  @override
-  void dispose() {
-    super.dispose();
-    // videoPlayerController.dispose();
-    chewieController.dispose();
-  }
-
   bool loading = false;
 
   setInitialPrice() {
-    for (var i = 0; i < widget.course["pricing"].length; i++) {
-      if (widget.course["pricing"][i]["selected"] == true) {
-        selectedPrice = widget.course["pricing"][i];
+    for (var i = 0; i < course["pricing"].length; i++) {
+      if (course["pricing"][i]["selected"] == true) {
+        selectedPrice = course["pricing"][i];
       }
     }
   }
@@ -120,7 +87,6 @@ class _CourseInfoState extends State<CourseInfo> {
   loadJson() async {
     String data =
         await DefaultAssetBundle.of(context).loadString("assets/reviews.json");
-
     setState(() {
       reviews =
           (json.decode(data) as List).map((d) => Reviews.fromJson(d)).toList();
@@ -147,7 +113,7 @@ class _CourseInfoState extends State<CourseInfo> {
                       : GridView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
-                          itemCount: widget.course["pricing"].length,
+                          itemCount: course["pricing"].length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   childAspectRatio: 0.6, crossAxisCount: 3),
@@ -156,15 +122,12 @@ class _CourseInfoState extends State<CourseInfo> {
                               onTap: () {
                                 setState(() {
                                   for (var i = 0;
-                                      i < widget.course["pricing"].length;
+                                      i < course["pricing"].length;
                                       i++) {
-                                    widget.course["pricing"][i]["selected"] =
-                                        false;
+                                    course["pricing"][i]["selected"] = false;
                                   }
-                                  widget.course["pricing"][index]["selected"] =
-                                      true;
-                                  selectedPrice =
-                                      widget.course["pricing"][index];
+                                  course["pricing"][index]["selected"] = true;
+                                  selectedPrice = course["pricing"][index];
                                 });
                               },
                               child: Card(
@@ -173,8 +136,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: Container(
-                                  color: widget.course["pricing"][index]
-                                              ["selected"] ==
+                                  color: course["pricing"][index]["selected"] ==
                                           true
                                       ? primaryColor
                                       : Colors.grey[300],
@@ -202,7 +164,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                                   MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  "₹ ${widget.course["pricing"][index]["price"] + 2000}",
+                                                  "₹ ${course["pricing"][index]["price"] + 2000}",
                                                   style: GoogleFonts.montserrat(
                                                       color: Colors.black54,
                                                       decoration: TextDecoration
@@ -212,7 +174,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                                           FontWeight.w600),
                                                 ),
                                                 Text(
-                                                  "₹ ${widget.course["pricing"][index]["price"].toString()}",
+                                                  "₹ ${course["pricing"][index]["price"].toString()}",
                                                   style: GoogleFonts.montserrat(
                                                       color: primaryColor,
                                                       fontSize: 20,
@@ -225,19 +187,18 @@ class _CourseInfoState extends State<CourseInfo> {
                                         ),
                                       ),
                                       Text(
-                                        widget.course["pricing"][index]
-                                            ["title"],
+                                        course["pricing"][index]["title"],
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.montserrat(
-                                            color: widget.course["pricing"]
-                                                        [index]["selected"] ==
+                                            color: course["pricing"][index]
+                                                        ["selected"] ==
                                                     true
                                                 ? Colors.white
                                                 : Colors.black,
                                             fontSize: 20,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      if (widget.course["pricing"][index]
+                                      if (course["pricing"][index]
                                               ["selected"] ==
                                           true)
                                         Icon(Icons.keyboard_arrow_down,
@@ -273,7 +234,7 @@ class _CourseInfoState extends State<CourseInfo> {
                             //         FadeRoute(
                             //             page: PaymentPage(
                             //                 type: selectedPrice["title"],
-                            //                 course: widget.course,
+                            //                 course: course,
                             //                 price: int.parse(
                             //                     selectedPrice["price"]
                             //                         .toString()))));
@@ -290,7 +251,7 @@ class _CourseInfoState extends State<CourseInfo> {
                             //         FadeRoute(
                             //             page: PaymentPage(
                             //                 type: selectedPrice["title"],
-                            //                 course: widget.course,
+                            //                 course: course,
                             //                 price: int.parse(
                             //                     selectedPrice["price"]
                             //                         .toString()))));
@@ -330,7 +291,7 @@ class _CourseInfoState extends State<CourseInfo> {
           bottomNavigationBar: InkWell(
             onTap: () {
               if (auth.currentUser == null)
-                authNavigate(CourseInfo(course: widget.course), context);
+                authNavigate(CourseInfo(course: course), context);
               else {
                 Scrollable.ensureVisible(visibleKey.currentContext!,
                     duration: Duration(seconds: 1));
@@ -369,8 +330,11 @@ class _CourseInfoState extends State<CourseInfo> {
             backgroundColor: primaryColor,
             actions: [
               IconButton(
-                  onPressed: () {
-                    displaySnackBar("Coming Soon", context);
+                  onPressed: () async {
+                    String text = "Join this course";
+                    !kIsWeb
+                        ? await shareCourse(course["image"], text)
+                        : await share(text);
                   },
                   icon: Icon(Icons.share)),
             ],
@@ -383,11 +347,11 @@ class _CourseInfoState extends State<CourseInfo> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(widget.course["name"],
+                    Text(course["name"],
                         style: GoogleFonts.montserrat(
                             fontSize: 25, fontWeight: FontWeight.w600)),
                     box10,
-                    Text(widget.course["overview"]),
+                    Text(course["overview"]),
                     box20,
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -534,7 +498,7 @@ class _CourseInfoState extends State<CourseInfo> {
               //           decoration: BoxDecoration(
               //             image: new DecorationImage(
               //               image: new NetworkImage(
-              //                   widget.course["image"]),
+              //                   course["image"]),
               //               fit: BoxFit.cover,
               //             ),
               //           ),
@@ -643,7 +607,7 @@ class _CourseInfoState extends State<CourseInfo> {
                           TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
                     ),
                     box10,
-                    Text(widget.course["description"]),
+                    Text(course["description"]),
                     box30,
                     Text(
                       "Course Content",
@@ -654,9 +618,9 @@ class _CourseInfoState extends State<CourseInfo> {
                     ListView.builder(
                         physics: NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
-                        itemCount: widget.course["syllabus"].length,
+                        itemCount: course["syllabus"].length,
                         itemBuilder: (BuildContext context, int index) {
-                          var x = widget.course["syllabus"][index];
+                          var x = course["syllabus"][index];
                           return Container(
                             decoration: BoxDecoration(
                               border: Border(
@@ -740,7 +704,7 @@ class _CourseInfoState extends State<CourseInfo> {
                                     radius: 30,
                                     backgroundColor: Colors.grey[300],
                                     backgroundImage: NetworkImage(
-                                        widget.course["instructor"]["imgUrl"]),
+                                        course["instructor"]["imgUrl"]),
                                   ),
                                   wbox20,
                                   Expanded(
@@ -750,14 +714,13 @@ class _CourseInfoState extends State<CourseInfo> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          widget.course["instructor"]["title"],
+                                          course["instructor"]["title"],
                                           style: TextStyle(
                                               fontWeight: FontWeight.w600),
                                         ),
                                         box5,
                                         Text(
-                                          widget.course["instructor"]
-                                              ["subtitle"],
+                                          course["instructor"]["subtitle"],
                                           style: TextStyle(
                                               fontSize: 12,
                                               color: Colors.grey[800]),

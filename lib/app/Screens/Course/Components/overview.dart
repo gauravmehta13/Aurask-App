@@ -8,6 +8,39 @@ class CourseOverview extends StatelessWidget {
   final course;
   const CourseOverview({Key? key, required this.course}) : super(key: key);
 
+  // late VideoPlayerController videoPlayerController;
+  // Future<void> initializeVideoPlayer() async {
+  //   videoPlayerController =
+  //       VideoPlayerController.network(widget.course["videoUrl"]);
+  //   await Future.wait([videoPlayerController.initialize()]);
+  //   chewieController = ChewieController(
+  //     additionalOptions: (context) {
+  //       return <OptionItem>[
+  //         OptionItem(
+  //           onTap: () => debugPrint('My option works!'),
+  //           iconData: Icons.chat,
+  //           title: 'My localized title',
+  //         ),
+  //         OptionItem(
+  //           onTap: () => debugPrint('Another option working!'),
+  //           iconData: Icons.chat,
+  //           title: 'Another localized title',
+  //         ),
+  //       ];
+  //     },
+  //     fullScreenByDefault: true,
+  //     placeholder: Image(
+  //       image: NetworkImage(widget.course["image"]),
+  //     ),
+  //     videoPlayerController: videoPlayerController,
+  //     autoPlay: false,
+  //     looping: false,
+  //     aspectRatio: 16 / 10,
+  //     autoInitialize: true,
+  //   );
+  //   setState(() {});
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Container(

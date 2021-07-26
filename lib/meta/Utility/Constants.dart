@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:cool_alert/cool_alert.dart';
@@ -7,12 +8,24 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 
 import '../../app/auth/Login.dart';
 import '../../core/resources/SharedPrefs.dart';
 import 'Fade Route.dart';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
+
+shareCourse(String url, String txt) async {
+  File img = await urlToFile(url);
+  Share.shareFiles([img.path], text: txt);
+}
+
+share(String text) {
+  Share.share(text);
+}
 
 final googleSignIn = GoogleSignIn(
     // clientId:
@@ -75,30 +88,6 @@ displaySnackBar(text, ctx) {
     SnackBar(
       content: Text(text),
       duration: Duration(seconds: 2),
-    ),
-  );
-}
-
-themeData(context) {
-  return ThemeData(
-    appBarTheme: Theme.of(context)
-        .appBarTheme
-        .copyWith(brightness: Brightness.light, backgroundColor: primaryColor),
-    textTheme: GoogleFonts.montserratTextTheme(
-      Theme.of(context).textTheme,
-    ),
-    selectedRowColor: primaryColor,
-    primaryColor: primaryColor,
-    accentColor: primaryColor,
-    backgroundColor: primaryColor,
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        primary: primaryColor, // background
-        onPrimary: Colors.white, // foreground
-      ),
-    ),
-    buttonTheme: ButtonThemeData(
-      buttonColor: primaryColor,
     ),
   );
 }
@@ -242,4 +231,22 @@ infoDialog(context, text) {
     type: CoolAlertType.info,
     text: text,
   );
+}
+
+Future<File> urlToFile(String imageUrl) async {
+// generate random number.
+  var rng = new Random();
+// get temporary directory of device.
+  Directory tempDir = await getTemporaryDirectory();
+// get temporary path from temporary directory.
+  String tempPath = tempDir.path;
+// create a new file in temporary path with random file name.
+  File file = new File('$tempPath' + (rng.nextInt(100)).toString() + '.png');
+// call http.get method and pass imageUrl into it to get response.
+  http.Response response = await http.get(Uri.parse(imageUrl));
+// write bodyBytes received in response to file.
+  await file.writeAsBytes(response.bodyBytes);
+// now return the file which is created with random name in
+// temporary directory and image bytes from response is written to // that file.
+  return file;
 }

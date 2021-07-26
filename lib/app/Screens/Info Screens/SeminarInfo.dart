@@ -26,6 +26,7 @@ class SeminarInfo extends StatefulWidget {
 }
 
 class _SeminarInfoState extends State<SeminarInfo> {
+  bool sharing = false;
   @override
   void initState() {
     super.initState();
@@ -130,7 +131,33 @@ class _SeminarInfoState extends State<SeminarInfo> {
                                           backgroundColor: primaryColor,
                                           child: Icon(Icons.arrow_back)),
                                     ),
-                                  )
+                                  ),
+                                  Positioned(
+                                    top: 15,
+                                    right: 10,
+                                    child: GestureDetector(
+                                      onTap: () async {
+                                        String text = "Join this course";
+                                        setState(() {
+                                          sharing = true;
+                                        });
+                                        !kIsWeb
+                                            ? await shareCourse(
+                                                seminar["image"], text)
+                                            : await share(text);
+                                        setState(() {
+                                          sharing = false;
+                                        });
+                                      },
+                                      child: CircleAvatar(
+                                          backgroundColor: primaryColor,
+                                          child: sharing
+                                              ? CircularProgressIndicator(
+                                                  color: Colors.white,
+                                                )
+                                              : Icon(Icons.share)),
+                                    ),
+                                  ),
                                 ],
                               ),
                             ),
