@@ -52,7 +52,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               },
             ),
             SettingsTile(
-              title: 'Change App Theme',
+              title: 'Change Theme',
               leading: Icon(
                 Icons.colorize,
                 color: primaryColor,
