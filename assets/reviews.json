@@ -1,52 +1,88 @@
 [
     {
-      "author_name": "Manoj Kumar",
+      "author_name": "Uday Nimmakuri",
       "author_url": "https://www.google.com/maps/contrib/116971326920326126291/reviews",
       "language": "en",
       "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14Ghe4tFlInoDofkTw5ftNmFEyHDFRFiFQYJSoqfHPA=s128-c0x00000000-cc-rp-mo-ba2",
       "rating": 5,
       "relative_time_description": "5 months ago",
-      "text": "Learnt a lot about the design process. A really great course and really well explained.",
+      "text": "Vinay is very very Patient. He tried answering all questions. First 2 weeks more questions were asked. I felt like of we have limited questions, those would have been answered automatically in further sessions and we could have done more in terms of topics/hands on in  first 2 weeks.",
       "time": 1608200698
     },
     {
-      "author_name": "Pranav Mathur",
+      "author_name": "Krishna Prasanth Malla",
       "author_url": "https://www.google.com/maps/contrib/117452751502769943283/reviews",
       "language": "en",
       "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14GiBrkTeSGOvjl8tlchr3ZJZpaJjc7WMjC71CzbcQw=s128-c0x00000000-cc-rp-mo",
       "rating": 5,
       "relative_time_description": "6 months ago",
-      "text": "This course really helps me to focus my product development journey. The author explains the process very clearly. Highly recommended",
+      "text": "Your strength is your patience to listen and answer the repetitive questions.",
       "time": 1604746277
     },
     {
-      "author_name": "Arka Dey",
+      "author_name": "Pavan",
       "author_url": "https://www.google.com/maps/contrib/117826144716407201075/reviews",
       "language": "en",
       "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14GixRWNL5VZozwOvpLc2XjwOt8Q3T47WKixwMf1cqA=s128-c0x00000000-cc-rp-mo",
       "rating": 5,
       "relative_time_description": "1 month ago",
-      "text": "Good content and lessons. Recommended if you’re new to design sprint or need to simplify your product vision and goals.",
+      "text": "Strengths - Subject expertise, the way questions are handled, willing to spend more time beyond schedule to explain or clarify doubts",
       "time": 1595289475
     },
     {
-      "author_name": "Mahesh Vaidya",
+      "author_name": "Sreekanth Kurakula",
       "author_url": "https://www.google.com/maps/contrib/114104973877747443050/reviews",
       "language": "en",
       "profile_photo_url": "https://lh3.googleusercontent.com/a/AATXAJzjfvUBiH1VeHYVGEfZnu5QLBdhu0z4AvRiv77z=s128-c0x00000000-cc-rp-mo",
       "rating": 5,
       "relative_time_description": "6 months ago",
-      "text": "This course is easy to understand and breaks down the whole process to something so simple. It gives people like me the confidence to design my own app.",
+      "text": "A very good trainer who always give priority to answering queries and hands on. Very passionate facilitator who always kept us focused",
       "time": 1605063010
     },
     {
-      "author_name": "Nitin Sharma",
+      "author_name": "Manikanta Chamarthi",
       "author_url": "https://www.google.com/maps/contrib/114791401619083218858/reviews",
       "language": "en",
       "profile_photo_url": "https://lh3.googleusercontent.com/a-/AOh14GgosVghG-pRz6KMDqlpJJ8wqEkQXudbu5Ec0vcNtw=s128-c0x00000000-cc-rp-mo-ba2",
       "rating": 5,
       "relative_time_description": "3 months ago",
-      "text": "If you’re stuck on your idea for a software, web, or app, this is a good course to learn what to do next.",
+      "text": "Vinay has explained each concept very precisely and helped to understand PEGA even does not have prior experience.",
+      "time": 1505754200
+    }, {
+      "author_name": "Ramesh Marisetty",
+      "author_url": "https://www.google.com/maps/contrib/114791401619083218858/reviews",
+      "language": "en",
+      "profile_photo_url": "",
+      "rating": 5,
+      "relative_time_description": "3 months ago",
+      "text": "Strengths are have lot of patience to answer silly question as well. ",
+      "time": 1505754200
+    },{
+      "author_name": "Krupa Daniel Gadde",
+      "author_url": "https://www.google.com/maps/contrib/114791401619083218858/reviews",
+      "language": "en",
+      "profile_photo_url": "",
+      "rating": 5,
+      "relative_time_description": "3 months ago",
+      "text": "Facilitation is good, it will help candidates if we have more practice sessions ",
+      "time": 1505754200
+    },{
+      "author_name": "Sharath Kumar Yadav mandadi",
+      "author_url": "https://www.google.com/maps/contrib/114791401619083218858/reviews",
+      "language": "en",
+      "profile_photo_url": "",
+      "rating": 5,
+      "relative_time_description": "3 months ago",
+      "text": "Making every one involved and getting hands on experience , also inculcating the confidence to the trainees, explaining the queries is the greatest strength .I would say deriving to conclusion early of something we are not able to identify in PEGA as embedded or expected  , which earlier it used to be present , can give a little negative impression on the strong PEGA knowledge you are holding .",
+      "time": 1505754200
+    },{
+      "author_name": "shailender tonangi",
+      "author_url": "https://www.google.com/maps/contrib/114791401619083218858/reviews",
+      "language": "en",
+      "profile_photo_url": "",
+      "rating": 5,
+      "relative_time_description": "3 months ago",
+      "text": "Knowledge on the pega and concepts on the pega,training skills,no weakness i could check",
       "time": 1505754200
     }
   ]
