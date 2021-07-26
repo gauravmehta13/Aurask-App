@@ -1,4 +1,5 @@
 import 'package:aurask/app/Screens/Other/Misc/Contact%20Us.dart';
+import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     themeNotifier = Provider.of<ThemeNotifier>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Settings'),

@@ -1,3 +1,5 @@
+import 'package:aurask/core/resources/login_Provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -82,16 +84,27 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
-    return StoreProvider<AppState>(
-      store: widget.store!,
-      child: MaterialApp(
-        title: 'Aurask',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme().lightTheme,
-        darkTheme: AppTheme().darkTheme,
-        themeMode: themeNotifier.getThemeMode(),
-        initialRoute: home,
-      ).modular(),
+    return MultiProvider(
+      providers: [
+        Provider<AuthenticationProvider>(
+          create: (_) => AuthenticationProvider(FirebaseAuth.instance),
+        ),
+        // StreamProvider(
+        //   create: (context) => context.read<AuthenticationProvider>().authState,
+        //   initialData: FirebaseAuth.instance,
+        // )
+      ],
+      child: StoreProvider<AppState>(
+        store: widget.store!,
+        child: MaterialApp(
+          title: 'Aurask',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme().lightTheme,
+          darkTheme: AppTheme().darkTheme,
+          themeMode: themeNotifier.getThemeMode(),
+          initialRoute: home,
+        ).modular(),
+      ),
     );
   }
 }

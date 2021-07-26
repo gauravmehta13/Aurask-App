@@ -1,9 +1,11 @@
+import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/redux/actions.dart';
 import '../../../core/redux/app_state.dart';
@@ -48,25 +50,26 @@ class _SeminarInfoState extends State<SeminarInfo> {
     });
   }
 
-  Future bookLiveSession() async {
-    auth.currentUser == null
-        ? authNavigate(
-            SeminarInfo(
-              seminar: seminar,
-              id: seminar["id"],
-            ),
-            context)
-        : Navigator.push(
-            context,
-            FadeRoute(
-                page: PaymentPage(
-                    type: seminar["type"],
-                    course: seminar,
-                    price: int.parse(seminar["price"].toString()))));
-  }
-
   @override
   Widget build(BuildContext context) {
+    AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
+    Future bookLiveSession() async {
+      user.firebaseAuth.currentUser == null
+          ? authNavigate(
+              SeminarInfo(
+                seminar: seminar,
+                id: seminar["id"],
+              ),
+              context)
+          : Navigator.push(
+              context,
+              FadeRoute(
+                  page: PaymentPage(
+                      type: seminar["type"],
+                      course: seminar,
+                      price: int.parse(seminar["price"].toString()))));
+    }
+
     return StoreConnector<AppState, AppState>(
         converter: (store) => store.state,
         onInit: (store) async {

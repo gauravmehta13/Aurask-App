@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:math';
 
+import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:cool_alert/cool_alert.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
@@ -44,7 +46,8 @@ SharedPref sharedPrefs = SharedPref();
 // }
 
 authNavigate(Widget page, context) {
-  if (auth.currentUser == null) {
+  AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
+  if (user.firebaseAuth.currentUser == null) {
     Navigator.push(context, FadeRoute(page: LoginScreen(page: page)));
   } else {
     Navigator.push(context, FadeRoute(page: page));
@@ -52,7 +55,8 @@ authNavigate(Widget page, context) {
 }
 
 checkLogin(Widget page, context) {
-  if (auth.currentUser == null) {
+  AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
+  if (user.firebaseAuth.currentUser == null) {
     SchedulerBinding.instance!.addPostFrameCallback((_) {
       Navigator.pushReplacement(
         context,

@@ -1,7 +1,9 @@
+import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_update/in_app_update.dart';
+import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
 import '../../../meta/Utility/Constants.dart';
@@ -43,15 +45,16 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   int currentTabIndex = 0;
 
-  List<Widget> tabs = [
-    HomePage(),
-    auth.currentUser == null ? LoginScreen() : MyCoursesTabbar(),
-    PremiumMembership(),
-    auth.currentUser == null ? LoginScreen() : ProfilePage()
-  ];
-
   @override
   Widget build(BuildContext context) {
+    AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
+    List<Widget> tabs = [
+      HomePage(),
+      user.firebaseAuth.currentUser == null ? LoginScreen() : MyCoursesTabbar(),
+      PremiumMembership(),
+      user.firebaseAuth.currentUser == null ? LoginScreen() : ProfilePage()
+    ];
+
     return Scaffold(
       body: tabs[currentTabIndex],
       bottomNavigationBar: BottomNavigationBar(

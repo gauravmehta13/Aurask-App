@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:aurask/core/resources/api_provider.dart';
+import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
@@ -45,7 +47,7 @@ class _CourseInfoState extends State<CourseInfo> {
       getCourse();
     } else {
       course = widget.course;
-      setInitialPrice();
+      setInitialPrice(widget.course);
     }
 
     loadJson();
@@ -66,7 +68,7 @@ class _CourseInfoState extends State<CourseInfo> {
       course = map;
       loading = false;
     });
-    setInitialPrice();
+    setInitialPrice(map);
   }
 
   initialiseVideos(List videos) {
@@ -89,12 +91,15 @@ class _CourseInfoState extends State<CourseInfo> {
 
   bool loading = false;
 
-  setInitialPrice() {
-    for (var i = 0; i < course["pricing"].length; i++) {
-      if (course["pricing"][i]["selected"] == true) {
-        selectedPrice = course["pricing"][i];
+  setInitialPrice(map) {
+    for (var i = 0; i < map["pricing"].length; i++) {
+      if (map["pricing"][i]["selected"] == true) {
+        selectedPrice = map["pricing"][i];
       }
     }
+    setState(() {
+      selectedPrice = selectedPrice;
+    });
   }
 
   List<Reviews> reviews = [];
@@ -300,6 +305,7 @@ class _CourseInfoState extends State<CourseInfo> {
 
   @override
   Widget build(BuildContext context) {
+    AuthenticationProvider user = Provider.of<AuthenticationProvider>(context);
     return Theme(
       data: ThemeData(platform: TargetPlatform.android),
       child: loading
@@ -307,7 +313,7 @@ class _CourseInfoState extends State<CourseInfo> {
           : Scaffold(
               bottomNavigationBar: InkWell(
                 onTap: () {
-                  if (auth.currentUser == null)
+                  if (user.firebaseAuth.currentUser == null)
                     authNavigate(CourseInfo(course: course), context);
                   else {
                     Scrollable.ensureVisible(visibleKey.currentContext!,
