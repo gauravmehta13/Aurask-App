@@ -40,12 +40,14 @@ class _CourseInfoState extends State<CourseInfo> {
   @override
   void initState() {
     super.initState();
+    print(widget.id);
     if (widget.id != null) {
       getCourse();
     } else {
       course = widget.course;
+      setInitialPrice();
     }
-    setInitialPrice();
+
     loadJson();
     initialiseVideos(
         ["jCqeDolIsiY", "_REF8QRoAbE", "t3B7HHivDnY", "x45qNF6S_wk"]);
@@ -54,16 +56,17 @@ class _CourseInfoState extends State<CourseInfo> {
   }
 
   getCourse() async {
-    print(course["id"]);
+    print(widget.id);
     setState(() {
       loading = true;
     });
-    var map = await getCourseDetails(course["id"]);
+    var map = await getCourseDetails(widget.id);
     print(map);
     setState(() {
       course = map;
       loading = false;
     });
+    setInitialPrice();
   }
 
   initialiseVideos(List videos) {

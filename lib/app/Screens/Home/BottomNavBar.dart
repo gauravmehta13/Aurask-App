@@ -1,12 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_update/in_app_update.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:io' show Platform;
 
 import '../../../meta/Utility/Constants.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
 import '../../auth/Login.dart';
-import '../../auth/Onboarding.dart';
 import '../My%20Courses/MyCourses%20TabBar.dart';
 import '../Other/Profile.dart';
 import '../Purchase/Premium Membership.dart';
@@ -23,8 +22,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   @override
   void initState() {
     super.initState();
-    checkFirstSeen();
-    checkForUpdate();
+    if (Platform.isAndroid) checkForUpdate();
   }
 
   Future<void> checkForUpdate() async {
@@ -41,19 +39,6 @@ class _BottomNavBarState extends State<BottomNavBar> {
         ? InAppUpdate.performImmediateUpdate()
             .catchError((e) => displaySnackBar(e.toString(), context))
         : print("Update Not Available");
-  }
-
-  checkFirstSeen() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      var seen = (prefs.getBool('seen') ?? false);
-      if (!seen) {
-        Navigator.push(
-          context,
-          FadeRoute(page: Onboarding()),
-        );
-      }
-    });
   }
 
   int currentTabIndex = 0;
