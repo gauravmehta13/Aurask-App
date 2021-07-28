@@ -33,13 +33,12 @@ class _BottomNavBarState extends State<BottomNavBar> {
         _updateInfo = info;
       });
       print(info);
-    }).catchError((e) {
-      displaySnackBar(e.toString(), context);
     });
     print(_updateInfo?.updateAvailability);
     _updateInfo?.updateAvailability == UpdateAvailability.updateAvailable
-        ? InAppUpdate.performImmediateUpdate()
-            .catchError((e) => displaySnackBar(e.toString(), context))
+        ? InAppUpdate.performImmediateUpdate().catchError((e) {
+            print(e);
+          })
         : print("Update Not Available");
   }
 
