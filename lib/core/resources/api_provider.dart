@@ -71,7 +71,7 @@ Future postUserDetails(id, experience) async {
   }
 }
 
-Future login(id, email, name, refer) async {
+Future login(id, email, name, refer, img) async {
   try {
     var dio = Dio();
     final response = await dio.post(
@@ -80,6 +80,7 @@ Future login(id, email, name, refer) async {
           "user": {
             "id": id,
             "Phone": "0",
+            "img": img,
             "email": email,
             "name": name ?? "",
             "refferedBy": refer

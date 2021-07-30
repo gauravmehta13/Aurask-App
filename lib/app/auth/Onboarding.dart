@@ -638,7 +638,7 @@ class _OnboardingState extends State<Onboarding> {
           print("User is New = ${value.additionalUserInfo!.isNewUser}");
           if (value.additionalUserInfo!.isNewUser) {
             await login(auth.currentUser!.uid, auth.currentUser!.email,
-                auth.currentUser!.displayName, widget.id);
+                auth.currentUser!.displayName, widget.id,auth.currentUser!.photoURL);
           }
           Navigator.pushReplacementNamed(context, "/");
           setState(() {

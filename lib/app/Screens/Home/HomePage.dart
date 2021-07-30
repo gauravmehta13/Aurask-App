@@ -246,14 +246,6 @@ class _HomePageState extends State<HomePage> {
                                           onTap: () {
                                             Modular.to.pushNamed('/liveSession',
                                                 arguments: session);
-                                            // Navigator.push(
-                                            //   context,
-                                            //   FadeRoute(
-                                            //       page: SeminarInfo(
-                                            //     id: session["id"],
-                                            //     seminar: ,
-                                            //   )),
-                                            // );
                                           },
                                           child: Padding(
                                             padding: const EdgeInsets.all(5),

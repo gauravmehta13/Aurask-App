@@ -181,8 +181,12 @@ class _LoginScreenState extends State<LoginScreen> {
         await auth.signInWithCredential(credential).then((value) async {
           print("User is New = ${value.additionalUserInfo!.isNewUser}");
           if (value.additionalUserInfo!.isNewUser) {
-            await login(auth.currentUser!.uid, auth.currentUser!.email,
-                auth.currentUser!.displayName, widget.id);
+            await login(
+                auth.currentUser!.uid,
+                auth.currentUser!.email,
+                auth.currentUser!.displayName,
+                widget.id,
+                auth.currentUser!.photoURL);
           }
           if (widget.page == null) {
             Navigator.pushReplacementNamed(context, "/");
