@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/model/category.dart';
 import 'quiz_options.dart';
@@ -8,7 +9,12 @@ class QuizHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Quiz'),
+          centerTitle: true,
+          title: Text(
+            'Quiz',
+            style: GoogleFonts.montserrat(
+                fontWeight: FontWeight.w600, fontSize: 17),
+          ),
           elevation: 0,
         ),
         body: Stack(
@@ -28,12 +34,14 @@ class QuizHome extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16.0, vertical: 8.0),
-                    child: Text(
-                      "Select a category to start the quiz",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0),
+                    child: Center(
+                      child: Text(
+                        "Select a category to start the quiz",
+                        style: GoogleFonts.montserrat(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16.0),
+                      ),
                     ),
                   ),
                 ),
@@ -68,7 +76,7 @@ class QuizHome extends StatelessWidget {
       highlightElevation: 1.0,
       onPressed: () => _categoryPressed(context, category),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5),
       ),
       color: Colors.grey.shade800,
       textColor: Colors.white70,
@@ -77,11 +85,10 @@ class QuizHome extends StatelessWidget {
         children: <Widget>[
           if (category.icon != null) Icon(category.icon),
           if (category.icon != null) SizedBox(height: 5.0),
-          Text(
-            category.name,
-            textAlign: TextAlign.center,
-            maxLines: 3,
-          ),
+          Text(category.name,
+              textAlign: TextAlign.center,
+              maxLines: 3,
+              style: GoogleFonts.montserrat(fontSize: 13)),
         ],
       ),
     );
@@ -90,6 +97,12 @@ class QuizHome extends StatelessWidget {
   _categoryPressed(BuildContext context, Category category) {
     showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          top: Radius.circular(20),
+        ),
+      ),
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       builder: (sheetContext) => BottomSheet(
         builder: (_) => QuizOptionsDialog(
           category: category,
