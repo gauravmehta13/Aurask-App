@@ -17,6 +17,7 @@ import '../../../meta/Utility/Constants.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 import 'Components/courses.dart';
+import 'Components/home init.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -37,6 +38,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     if (stories.length == 0) getStories();
+    showDailyAtTime();
   }
 
   getStories() async {
@@ -383,8 +385,9 @@ class _HomePageState extends State<HomePage> {
                           if (freeSessions.length != 0)
                             upcomingLiveSessions(paidSessions, context),
                           box20,
+                          buildQuiz(context),
+                          buildReferAndEarn(context),
                           buildSpinAndWin(context),
-                          buildReferAndEarn(context)
                         ],
                       ),
                     ),

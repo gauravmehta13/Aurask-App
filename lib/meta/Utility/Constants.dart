@@ -264,3 +264,12 @@ Future<File> urlToFile(String imageUrl) async {
 // temporary directory and image bytes from response is written to // that file.
   return file;
 }
+
+Future<String> urlToFilePath(String url, String fileName) async {
+  final Directory directory = await getApplicationDocumentsDirectory();
+  final String filePath = '${directory.path}/$fileName';
+  final http.Response response = await http.get(Uri.parse(url));
+  final File file = File(filePath);
+  await file.writeAsBytes(response.bodyBytes);
+  return filePath;
+}

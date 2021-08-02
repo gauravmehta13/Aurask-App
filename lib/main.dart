@@ -30,7 +30,7 @@ import 'meta/Utility/Constants.dart';
 //? Done: Add share course button with course image from app
 //? Done: Add About Us Page and Contact Us Page
 //? Done: Add Gamification features
-//? Done: Give Aurask Money and users can purchase courses from this money too
+//? Done: Users can purchase courses from Aurask money too
 
 //? Vinay Sir
 //TODO: Add Curated Videos from Instructor on Some Topics( like scalar)
