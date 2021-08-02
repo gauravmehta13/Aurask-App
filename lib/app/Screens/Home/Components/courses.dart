@@ -33,7 +33,7 @@ Widget buildPopularCourses(popularCourses, context) {
       ),
       box10,
       Container(
-        height: 200,
+        height: 180,
         child: ListView.builder(
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.only(left: 10),
@@ -270,7 +270,7 @@ Widget upcomingLiveSessions(sessions, context) {
       Column(
         children: [
           Container(
-            height: 200,
+            height: 180,
             child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -293,7 +293,7 @@ Widget upcomingLiveSessions(sessions, context) {
                       // );
                     },
                     child: Container(
-                      height: 200,
+                      height: 180,
                       width: MediaQuery.of(context).size.width / 1.5,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -302,7 +302,7 @@ Widget upcomingLiveSessions(sessions, context) {
                             child: Stack(
                               children: [
                                 Container(
-                                    height: 200,
+                                    height: 170,
                                     clipBehavior: Clip.hardEdge,
                                     margin: EdgeInsets.only(right: 20),
                                     width:

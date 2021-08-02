@@ -26,11 +26,11 @@ import 'meta/Utility/Constants.dart';
 //TODO: Adding Email in GoFlexe Order process as well
 
 //! Frontend
+//TODO: Add Proper images on HomePage Carousel
 //? Done: Add share course button with course image from app
 //? Done: Add About Us Page and Contact Us Page
-//TODO: Add Proper images on HomePage Carousel
-//?Done: Add Gamification features
-//?Dome: Give Aurask Money and users can purchase courses from this money too
+//? Done: Add Gamification features
+//? Done: Give Aurask Money and users can purchase courses from this money too
 
 //? Vinay Sir
 //TODO: Add Curated Videos from Instructor on Some Topics( like scalar)

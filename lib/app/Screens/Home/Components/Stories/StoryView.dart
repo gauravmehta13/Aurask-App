@@ -42,9 +42,7 @@ class StoryPage extends StatelessWidget {
                     imageUrl: story,
                     fit: BoxFit.contain,
                     colorBlendMode: BlendMode.modulate,
-                    placeholder: (context, url) => Loading(
-                      color: secondaryColor,
-                    ),
+                    placeholder: (context, url) => Loading(),
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),

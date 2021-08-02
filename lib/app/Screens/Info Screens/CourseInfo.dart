@@ -96,7 +96,8 @@ class _CourseInfoState extends State<CourseInfo> {
         controller.add(YoutubePlayerController(
           initialVideoId: videos[i],
           flags: YoutubePlayerFlags(
-            autoPlay: true,
+            disableDragSeek: true,
+            autoPlay: false,
           ),
         ));
       }
