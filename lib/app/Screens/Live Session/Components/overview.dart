@@ -8,7 +8,9 @@ import '../../../../meta/Utility/Constants.dart';
 
 class SessionOverview extends StatelessWidget {
   final course;
-  const SessionOverview({Key? key, required this.course}) : super(key: key);
+  final ValueChanged<int> tab;
+  const SessionOverview({Key? key, required this.course, required this.tab})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +53,9 @@ class SessionOverview extends StatelessWidget {
                             isQuiz(x["content"][i])
                                 ? Navigator.push(
                                     context, FadeRoute(page: QuizHome()))
-                                : displaySnackBar("Coming Soon", context);
+                                : isDiscussion(x["content"][i])
+                                    ? tab(2)
+                                    : displaySnackBar("Coming Soon", context);
                           },
                           leading: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

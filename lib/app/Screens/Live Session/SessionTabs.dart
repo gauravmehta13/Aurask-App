@@ -15,20 +15,31 @@ class SessionTabs extends StatefulWidget {
   _SessionTabsState createState() => _SessionTabsState();
 }
 
-class _SessionTabsState extends State<SessionTabs> {
+class _SessionTabsState extends State<SessionTabs>
+    with SingleTickerProviderStateMixin {
+  void _update(int count) {
+    _tabController.animateTo(count);
+  }
+
   @override
   void initState() {
     super.initState();
+
+    _tabController = new TabController(vsync: this, length: 5);
     for (var i = 0; i < widget.course["syllabus"].length; i++) {
       List newContent = ["Practice Exercise", "Discussion Forums"];
       widget.course["syllabus"][i]["content"].addAll(newContent);
     }
   }
 
+  int initialIndex = 0;
+  late TabController _tabController;
+
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 5,
+      initialIndex: initialIndex,
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.course["name"]),
@@ -38,7 +49,7 @@ class _SessionTabsState extends State<SessionTabs> {
             //   IconButton(icon: Icon(Icons.search), onPressed: () {}),
             IconButton(icon: Icon(Icons.more_vert), onPressed: () {}),
           ],
-          bottom: TabBar(isScrollable: true, tabs: [
+          bottom: TabBar(controller: _tabController, isScrollable: true, tabs: [
             Tab(
               text: "Overview",
             ),
@@ -57,9 +68,11 @@ class _SessionTabsState extends State<SessionTabs> {
           ]),
         ),
         body: TabBarView(
+          controller: _tabController,
           children: [
             SessionOverview(
               course: widget.course,
+              tab: _update,
             ),
             SessionGrades(
               course: widget.course,
