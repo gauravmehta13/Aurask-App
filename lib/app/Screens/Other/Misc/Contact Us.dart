@@ -1,19 +1,13 @@
-import 'package:aurask/core/resources/login_Provider.dart';
 import '../../../../meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class ContactUs extends StatelessWidget {
-  ContactUs({Key? key}) : super(key: key);
-
   String? email = auth.currentUser!.email;
-
   var subject = TextEditingController();
   var body = TextEditingController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,25 +105,37 @@ class ContactUs extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await launch(
+                                  "https://www.facebook.com/auraskacademy/");
+                            },
                             icon: Icon(
                               FontAwesomeIcons.facebook,
                               color: Color(0xFF4267B2),
                             )),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await launch(
+                                  "https://www.instagram.com/aurask.academy/");
+                            },
                             icon: Icon(
                               FontAwesomeIcons.instagram,
                               color: Color(0xFFfb3958),
                             )),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await launch(
+                                  "https://www.linkedin.com/company/aurask-academy/");
+                            },
                             icon: Icon(
                               FontAwesomeIcons.linkedin,
                               color: Color(0xFF0077b5),
                             )),
                         IconButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await launch(
+                                  "https://www.youtube.com/channel/UCoCLrgqPW4hUkoiflYbt8cw");
+                            },
                             icon: Icon(
                               FontAwesomeIcons.youtube,
                               color: Color(0xFFFF0000),

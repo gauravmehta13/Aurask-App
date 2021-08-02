@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
+import 'package:aurask/app/Screens/My%20Courses/Live%20Sessions.dart';
 import 'package:aurask/core/resources/api_provider.dart';
 import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -53,8 +55,9 @@ class _CourseInfoState extends State<CourseInfo> {
     }
 
     loadJson();
-    initialiseVideos(
-        ["jCqeDolIsiY", "_REF8QRoAbE", "t3B7HHivDnY", "x45qNF6S_wk"]);
+    if (kReleaseMode)
+      initialiseVideos(
+          ["jCqeDolIsiY", "_REF8QRoAbE", "t3B7HHivDnY", "x45qNF6S_wk"]);
     //?Using YT player instead of chewie
     //initializeVideoPlayer();
   }
@@ -261,17 +264,14 @@ class _CourseInfoState extends State<CourseInfo> {
                     onTap: ["Free Seminar", "Live Session"]
                             .contains(selectedPrice["title"])
                         ? () async {
-                            //     : Navigator.push(
-                            //         context,
-                            //         FadeRoute(
-                            //             page: PaymentPage(
-                            //                 type: selectedPrice["title"],
-                            //                 course: course,
-                            //                 price: int.parse(
-                            //                     selectedPrice["price"]
-                            //                         .toString()))));
-                            Modular.to.pushReplacementNamed(
-                                '/liveSession/${selectedPrice["id"]}');
+                            Navigator.push(
+                                context,
+                                FadeRoute(
+                                    page: SeminarInfo(
+                                  id: selectedPrice["id"],
+                                )));
+                            // Modular.to.pushReplacementNamed(
+                            //     '/liveSession/${selectedPrice["id"]}');
                           }
                         : () {
                             comingSoon(context);

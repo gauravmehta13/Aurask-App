@@ -17,7 +17,7 @@ import 'core/resources/theme/app_theme.dart';
 import 'core/resources/theme/theme_notifier.dart';
 import 'meta/Utility/Constants.dart';
 
-//TODO: Backend
+//! Backend
 //TODO: Meet Scheduling Lambda
 //TODO: Changes in Payment API and purchase course API
 //TODO: User profile API (will show aurask money and rewards)
@@ -25,12 +25,12 @@ import 'meta/Utility/Constants.dart';
 //TODO: Changing Email from 269mehta to Aurask
 //TODO: Adding Email in GoFlexe Order process as well
 
-//TODO: Frontend
+//! Frontend
 //? Done: Add share course button with course image from app
 //? Done: Add About Us Page and Contact Us Page
 //TODO: Add Proper images on HomePage Carousel
-//TODO: Add Gamification features
-//TODO: Give Aurask Money and users can purchase courses from this money too
+//?Done: Add Gamification features
+//?Dome: Give Aurask Money and users can purchase courses from this money too
 
 //? Vinay Sir
 //TODO: Add Curated Videos from Instructor on Some Topics( like scalar)
@@ -89,7 +89,6 @@ class _MyAppState extends State<MyApp> {
         Provider<AuthenticationProvider>(
           create: (_) => AuthenticationProvider(FirebaseAuth.instance),
         ),
-       
       ],
       child: StoreProvider<AppState>(
         store: widget.store!,
