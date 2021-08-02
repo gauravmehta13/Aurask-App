@@ -1,4 +1,3 @@
-import '../Info%20Screens/SeminarInfo.dart';
 import '../../../meta/Utility/responsive.dart';
 import '../../../meta/Widgets/Loading.dart';
 import '../../../meta/Widgets/WhatsappFab.dart';
@@ -10,14 +9,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:in_app_update/in_app_update.dart';
 
 import '../../../core/redux/actions.dart';
 import '../../../core/redux/app_state.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
-import '../../../meta/Utility/Fade%20Route.dart';
-import '../Other/SearchCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 import 'Components/courses.dart';
