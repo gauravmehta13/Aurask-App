@@ -102,7 +102,7 @@ class QuizFinishedPage extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     color: Colors.white,
-                    child: Text("Goto Home"),
+                    child: Text("Done"),
                     onPressed: () => Navigator.pop(context),
                   ),
                   MaterialButton(

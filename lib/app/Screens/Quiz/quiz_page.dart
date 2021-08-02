@@ -19,7 +19,7 @@ class QuizPage extends StatefulWidget {
 }
 
 class _QuizPageState extends State<QuizPage> {
-  final TextStyle _questionStyle = TextStyle(
+  final TextStyle _questionStyle = GoogleFonts.montserrat(
       fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white);
 
   int _currentIndex = 0;
@@ -38,7 +38,11 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Text(widget.category!.name),
+        title: Text(widget.category!.name,
+            style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600,
+              fontSize: 18.0,
+            )),
         elevation: 0,
       ),
       body: Stack(
@@ -82,7 +86,7 @@ class _QuizPageState extends State<QuizPage> {
                             title: Text(
                               HtmlUnescape().convert("$option"),
                               style: MediaQuery.of(context).size.width > 800
-                                  ? TextStyle(fontSize: 30.0)
+                                  ? GoogleFonts.montserrat(fontSize: 30.0)
                                   : null,
                             ),
                             groupValue: _answers[_currentIndex],

@@ -16,7 +16,11 @@ class CheckAnswersPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Check Answers'),
+        title: Text(
+          'Check Answers',
+          style: GoogleFonts.montserrat(
+              fontWeight: FontWeight.w600, fontSize: 17.0),
+        ),
         elevation: 0,
       ),
       body: Stack(
