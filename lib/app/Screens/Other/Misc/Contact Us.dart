@@ -1,5 +1,5 @@
 import 'package:aurask/core/resources/login_Provider.dart';
-import 'package:aurask/meta/Utility/Constants.dart';
+import '../../../../meta/Utility/Constants.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';

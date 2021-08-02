@@ -11,8 +11,9 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:youtube_player_iframe/youtube_player_iframe.dart';
 
+import 'package:youtube_player_iframe/youtube_player_iframe.dart' as web;
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../core/model/reviews%20Model.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
@@ -33,6 +34,7 @@ class CourseInfo extends StatefulWidget {
 class _CourseInfoState extends State<CourseInfo> {
   bool buyingCourse = false;
   Map selectedPrice = {};
+  List<web.YoutubePlayerController> webcontroller = [];
   List<YoutubePlayerController> controller = [];
   int _current = 0;
   final CarouselController carouselController = CarouselController();
@@ -72,19 +74,29 @@ class _CourseInfoState extends State<CourseInfo> {
   }
 
   initialiseVideos(List videos) {
-    print(videos);
-    for (var i = 0; i < videos.length; i++) {
-      controller.add(YoutubePlayerController(
-        initialVideoId: videos[i],
-        params: YoutubePlayerParams(
-          showVideoAnnotations: false,
-          desktopMode: kIsWeb,
-          autoPlay: false,
-          strictRelatedVideos: true,
-          showControls: true,
-          showFullscreenButton: false,
-        ),
-      ));
+    if (kIsWeb)
+      for (var i = 0; i < videos.length; i++) {
+        webcontroller.add(web.YoutubePlayerController(
+          initialVideoId: videos[i],
+          params: web.YoutubePlayerParams(
+            showVideoAnnotations: false,
+            desktopMode: kIsWeb,
+            autoPlay: false,
+            strictRelatedVideos: true,
+            showControls: true,
+            showFullscreenButton: false,
+          ),
+        ));
+      }
+    else {
+      for (var i = 0; i < videos.length; i++) {
+        controller.add(YoutubePlayerController(
+          initialVideoId: videos[i],
+          flags: YoutubePlayerFlags(
+            autoPlay: true,
+          ),
+        ));
+      }
     }
     setState(() {});
   }
@@ -459,36 +471,45 @@ class _CourseInfoState extends State<CourseInfo> {
                       ),
 
                       CarouselSlider(
-                        carouselController: carouselController,
-                        options: CarouselOptions(
-                            aspectRatio: 16 / 9,
-                            viewportFraction: 0.95,
-                            initialPage: 0,
-                            enableInfiniteScroll: true,
-                            reverse: false,
-                            autoPlay: false,
-                            autoPlayInterval: Duration(seconds: 3),
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enlargeCenterPage: true,
-                            scrollDirection: Axis.horizontal,
-                            onPageChanged: (index, reason) {
-                              setState(() {
-                                _current = index;
-                              });
-                            }),
-                        items: controller.map((i) {
-                          return Builder(
-                            builder: (BuildContext context) {
-                              return YoutubePlayerIFrame(
-                                gestureRecognizers: {},
-                                controller: i,
-                              );
-                            },
-                          );
-                        }).toList(),
-                      ),
+                          carouselController: carouselController,
+                          options: CarouselOptions(
+                              aspectRatio: 16 / 9,
+                              viewportFraction: 0.95,
+                              initialPage: 0,
+                              enableInfiniteScroll: true,
+                              reverse: false,
+                              autoPlay: false,
+                              autoPlayInterval: Duration(seconds: 3),
+                              autoPlayAnimationDuration:
+                                  Duration(milliseconds: 800),
+                              autoPlayCurve: Curves.fastOutSlowIn,
+                              enlargeCenterPage: true,
+                              scrollDirection: Axis.horizontal,
+                              onPageChanged: (index, reason) {
+                                setState(() {
+                                  _current = index;
+                                });
+                              }),
+                          items: kIsWeb
+                              ? webcontroller.map((i) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return web.YoutubePlayerIFrame(
+                                        gestureRecognizers: {},
+                                        controller: i,
+                                      );
+                                    },
+                                  );
+                                }).toList()
+                              : controller.map((i) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return YoutubePlayer(
+                                        controller: i,
+                                      );
+                                    },
+                                  );
+                                }).toList()),
                       box10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,

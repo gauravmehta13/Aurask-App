@@ -171,6 +171,13 @@ Color primaryColor = Color(0xFF00a9b6);
 
 const Color secondaryColor = Color(0xFFf9a825);
 
+Widget auraskCoin(double height) {
+  return Image.network(
+    "https://image.flaticon.com/icons/png/128/432/432630.png",
+    height: height,
+  );
+}
+
 Path drawStar(Size size) {
   // Method to convert degree to radians
   double degToRad(double deg) => deg * (pi / 180.0);

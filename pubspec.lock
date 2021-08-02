@@ -299,14 +299,14 @@ packages:
       name: flutter_local_notifications
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "6.0.0"
+    version: "8.0.0"
   flutter_local_notifications_platform_interface:
     dependency: transitive
     description:
       name: flutter_local_notifications_platform_interface
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.0.0"
+    version: "4.0.1"
   flutter_modular:
     dependency: "direct main"
     description:
@@ -582,7 +582,7 @@ packages:
       name: permission_handler
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "8.1.4+1"
+    version: "8.1.4+2"
   permission_handler_platform_interface:
     dependency: transitive
     description:
@@ -1015,13 +1015,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.0"
+  youtube_player_flutter:
+    dependency: "direct main"
+    description:
+      name: youtube_player_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "8.0.0"
   youtube_player_iframe:
     dependency: "direct main"
     description:
       name: youtube_player_iframe
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.1.0"
+    version: "2.2.1"
 sdks:
   dart: ">=2.13.0 <3.0.0"
   flutter: ">=2.2.0"

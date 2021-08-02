@@ -24,7 +24,7 @@ dependencies:
   flex_color_picker: ^2.1.2
   flutter_automation: ^2.0.0
   flutter_fortune_wheel: ^1.1.0
-  flutter_local_notifications: ^6.0.0
+  flutter_local_notifications: ^8.0.0
   flutter_modular: ^3.3.1
   flutter_native_splash: ^1.2.0
   flutter_rating_bar: ^4.0.0
@@ -39,7 +39,7 @@ dependencies:
   intl: ^0.17.0
   path_provider: ^2.0.2
   paytm: ^3.0.0
-  permission_handler: ^8.1.4+1
+  permission_handler: ^8.1.4+2
   provider: ^5.0.0
   rating_dialog: ^2.0.1
   redux: ^5.0.0
@@ -52,8 +52,9 @@ dependencies:
   video_player: ^2.1.12
   webview_flutter: ^2.0.10
   whatsapp_unilink: ^2.0.0
-  youtube_player_iframe: ^2.1.0
+  youtube_player_iframe: ^2.2.1
   in_app_review: ^2.0.2
+  youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
   flutter_test:

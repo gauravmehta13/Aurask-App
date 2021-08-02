@@ -26,8 +26,8 @@ import 'meta/Utility/Constants.dart';
 //TODO: Adding Email in GoFlexe Order process as well
 
 //TODO: Frontend
-//TODO: Add share course button with course image from app
-//TODO: Add About Us Page and Contact Us Page
+//? Done: Add share course button with course image from app
+//? Done: Add About Us Page and Contact Us Page
 //TODO: Add Proper images on HomePage Carousel
 //TODO: Add Gamification features
 //TODO: Give Aurask Money and users can purchase courses from this money too
@@ -89,10 +89,7 @@ class _MyAppState extends State<MyApp> {
         Provider<AuthenticationProvider>(
           create: (_) => AuthenticationProvider(FirebaseAuth.instance),
         ),
-        // StreamProvider(
-        //   create: (context) => context.read<AuthenticationProvider>().authState,
-        //   initialData: FirebaseAuth.instance,
-        // )
+       
       ],
       child: StoreProvider<AppState>(
         store: widget.store!,

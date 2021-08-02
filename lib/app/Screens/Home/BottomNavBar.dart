@@ -1,11 +1,12 @@
-import 'package:aurask/core/resources/login_Provider.dart';
+import 'dart:io' show Platform;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:in_app_update/in_app_update.dart';
 import 'package:provider/provider.dart';
-import 'dart:io' show Platform;
 
+import '../../../core/resources/login_Provider.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../auth/Login.dart';
 import '../My%20Courses/MyCourses%20TabBar.dart';
