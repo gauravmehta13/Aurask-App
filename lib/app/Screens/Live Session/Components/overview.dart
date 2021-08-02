@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:aurask/app/Screens/Quiz/home.dart';
+import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../meta/Utility/Constants.dart';
@@ -45,20 +47,21 @@ class SessionOverview extends StatelessWidget {
                       itemCount: x["content"].length,
                       itemBuilder: (BuildContext context, int i) {
                         return ListTile(
-                          onTap: () {},
+                          onTap: () {
+                            isQuiz(x["content"][i])
+                                ? Navigator.push(
+                                    context, FadeRoute(page: QuizHome()))
+                                : displaySnackBar("Coming Soon", context);
+                          },
                           leading: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (x["content"][i]
-                                  .toString()
-                                  .contains("Discuss"))
+                              if (isDiscussion(x["content"][i]))
                                 Icon(
                                   Icons.chat,
                                   color: primaryColor,
                                 )
-                              else if (x["content"][i]
-                                  .toString()
-                                  .contains("Practice"))
+                              else if (isQuiz(x["content"][i]))
                                 Icon(
                                   Icons.quiz,
                                   color: primaryColor,
@@ -82,9 +85,7 @@ class SessionOverview extends StatelessWidget {
                           ),
                           subtitle: Row(
                             children: [
-                              if (x["content"][i]
-                                  .toString()
-                                  .contains("Discuss"))
+                              if (isDiscussion(x["content"][i]))
                                 Row(
                                   children: [
                                     Text(
@@ -109,9 +110,7 @@ class SessionOverview extends StatelessWidget {
                                     ),
                                   ],
                                 )
-                              else if (x["content"][i]
-                                  .toString()
-                                  .contains("Practice"))
+                              else if (isQuiz(x["content"][i]))
                                 Row(
                                   children: [
                                     Text(
@@ -170,5 +169,26 @@ class SessionOverview extends StatelessWidget {
             );
           }),
     );
+  }
+
+  bool isVideo(text) {
+    if (text.toString().contains("Video"))
+      return true;
+    else
+      return false;
+  }
+
+  bool isQuiz(text) {
+    if (text.toString().contains("Practice"))
+      return true;
+    else
+      return false;
+  }
+
+  bool isDiscussion(text) {
+    if (text.toString().contains("Discussion"))
+      return true;
+    else
+      return false;
   }
 }

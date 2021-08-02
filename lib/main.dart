@@ -84,6 +84,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final themeNotifier = Provider.of<ThemeNotifier>(context);
+
+    //! Works with modular
+    //  Navigator.of(context)
+    //         .popUntil(ModalRoute.withName(Navigator.defaultRouteName));
     return MultiProvider(
       providers: [
         Provider<AuthenticationProvider>(

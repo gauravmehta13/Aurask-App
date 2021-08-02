@@ -1,4 +1,6 @@
+import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/model/question.dart';
 import 'check_answers.dart';
@@ -17,16 +19,20 @@ class QuizFinishedPage extends StatelessWidget {
     this.answers.forEach((index, value) {
       if (this.questions[index].correctAnswer == value) correct++;
     });
-    final TextStyle titleStyle = TextStyle(
+    final TextStyle titleStyle = GoogleFonts.montserrat(
         color: Colors.black87, fontSize: 16.0, fontWeight: FontWeight.w500);
-    final TextStyle trailingStyle = TextStyle(
+    final TextStyle trailingStyle = GoogleFonts.montserrat(
         color: Theme.of(context).primaryColor,
         fontSize: 20.0,
         fontWeight: FontWeight.bold);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Result'),
+        title: Text(
+          'Result',
+          style:
+              GoogleFonts.montserrat(fontWeight: FontWeight.w600, fontSize: 17),
+        ),
         elevation: 0,
       ),
       body: Container(
@@ -57,7 +63,8 @@ class QuizFinishedPage extends StatelessWidget {
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(16.0),
                   title: Text("Score", style: titleStyle),
-                  trailing: Text("${correct / questions.length * 100}%",
+                  trailing: Text(
+                      "${(correct / questions.length * 100).round()}%",
                       style: trailingStyle),
                 ),
               ),
@@ -68,7 +75,7 @@ class QuizFinishedPage extends StatelessWidget {
                 child: ListTile(
                   contentPadding: const EdgeInsets.all(16.0),
                   title: Text("Correct Answers", style: titleStyle),
-                  trailing: Text("$correct/${questions.length}",
+                  trailing: Text("$correct / ${questions.length}",
                       style: trailingStyle),
                 ),
               ),
@@ -80,7 +87,7 @@ class QuizFinishedPage extends StatelessWidget {
                   contentPadding: const EdgeInsets.all(16.0),
                   title: Text("Incorrect Answers", style: titleStyle),
                   trailing: Text(
-                      "${questions.length - correct}/${questions.length}",
+                      "${questions.length - correct} / ${questions.length}",
                       style: trailingStyle),
                 ),
               ),
@@ -94,7 +101,7 @@ class QuizFinishedPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    color: Theme.of(context).accentColor.withOpacity(0.8),
+                    color: Colors.white,
                     child: Text("Goto Home"),
                     onPressed: () => Navigator.pop(context),
                   ),
@@ -104,14 +111,14 @@ class QuizFinishedPage extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10.0),
                     ),
-                    color: Theme.of(context).primaryColor,
+                    color: Colors.white,
                     child: Text("Check Answers"),
                     onPressed: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (_) => CheckAnswersPage(
-                                questions: questions,
-                                answers: answers,
-                              )));
+                      Navigator.of(context).push(FadeRoute(
+                          page: CheckAnswersPage(
+                        questions: questions,
+                        answers: answers,
+                      )));
                     },
                   ),
                 ],

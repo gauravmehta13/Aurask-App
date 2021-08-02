@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:html_unescape/html_unescape.dart';
 
 import '../../../core/model/question.dart';
@@ -42,8 +43,7 @@ class CheckAnswersPage extends StatelessWidget {
       return ElevatedButton(
         child: Text("Done"),
         onPressed: () {
-          Navigator.of(context)
-              .popUntil(ModalRoute.withName(Navigator.defaultRouteName));
+          Navigator.pop(context);
         },
       );
     }
@@ -57,7 +57,7 @@ class CheckAnswersPage extends StatelessWidget {
           children: <Widget>[
             Text(
               HtmlUnescape().convert(question.question ?? ""),
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                   color: Colors.black,
                   fontWeight: FontWeight.w500,
                   fontSize: 16.0),
@@ -65,7 +65,7 @@ class CheckAnswersPage extends StatelessWidget {
             SizedBox(height: 5.0),
             Text(
               HtmlUnescape().convert("${answers[index]}"),
-              style: TextStyle(
+              style: GoogleFonts.montserrat(
                   color: correct ? Colors.green : Colors.red,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold),
@@ -79,9 +79,10 @@ class CheckAnswersPage extends StatelessWidget {
                       TextSpan(
                           text: HtmlUnescape()
                               .convert(question.correctAnswer ?? ""),
-                          style: TextStyle(fontWeight: FontWeight.w500))
+                          style: GoogleFonts.montserrat(
+                              fontWeight: FontWeight.w500))
                     ]),
-                    style: TextStyle(fontSize: 16.0),
+                    style: GoogleFonts.montserrat(fontSize: 16.0),
                   )
           ],
         ),

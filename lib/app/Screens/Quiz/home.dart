@@ -8,7 +8,7 @@ class QuizHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('OpenTrivia'),
+          title: Text('Quiz'),
           elevation: 0,
         ),
         body: Stack(
