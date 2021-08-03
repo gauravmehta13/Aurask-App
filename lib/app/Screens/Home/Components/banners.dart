@@ -9,7 +9,7 @@ import '../../Gamification/Spin%20And%20Win.dart';
 Widget buildQuiz(context, int hour) {
   return InkWell(
     onTap: () {
-      if (hour > 18) {
+      if (hour < 18) {
         displaySnackBar("Come Back at 6PM", context);
         return;
       }

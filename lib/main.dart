@@ -1,6 +1,7 @@
 import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -75,10 +76,83 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Noti noti = AppNoti();
   late bool seen;
+
+  late String _linkMessage;
+  bool _isCreatingLink = false;
+  String _testString =
+      "To test: long press link and then copy and click from a non-browser "
+      "app. Make sure this isn't being tested on iOS simulator and iOS xcode "
+      "is properly setup. Look at firebase_dynamic_links/README.md for more "
+      "details.";
+
   @override
   void initState() {
     super.initState();
     Future(noti.init);
+    initDynamicLinks();
+    createDynamicLink(true);
+  }
+
+  void initDynamicLinks() async {
+    final PendingDynamicLinkData? data =
+        await FirebaseDynamicLinks.instance.getInitialLink();
+
+    final Uri? deepLink = data?.link;
+    if (data != null) {
+      Navigator.pushNamed(context, "/tnc");
+    }
+    print(deepLink);
+    print("deepLink");
+
+    FirebaseDynamicLinks.instance.onLink(
+        onSuccess: (PendingDynamicLinkData? dynamicLink) async {
+      final Uri? deepLink = dynamicLink?.link;
+
+      if (deepLink != null) {
+        Navigator.pushNamed(context, "/tnc");
+        Navigator.pushNamed(context, deepLink.path);
+      }
+      print(deepLink);
+      print("deepLink");
+    }, onError: (OnLinkErrorException e) async {
+      print('onLinkError');
+      print(e.message);
+    });
+  }
+
+  Future<void> createDynamicLink(bool short) async {
+    setState(() {
+      _isCreatingLink = true;
+    });
+
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+      uriPrefix: 'https://flutterdevs.page.link',
+      link: Uri.parse('https://www.google.com'),
+      androidParameters: AndroidParameters(
+        packageName: 'io.flutter.plugins.firebasedynamiclinksexample',
+        minimumVersion: 0,
+      ),
+      dynamicLinkParametersOptions: DynamicLinkParametersOptions(
+        shortDynamicLinkPathLength: ShortDynamicLinkPathLength.short,
+      ),
+      iosParameters: IosParameters(
+        bundleId: 'com.google.FirebaseCppDynamicLinksTestApp.dev',
+        minimumVersion: '0',
+      ),
+    );
+
+    Uri url;
+    if (short) {
+      final ShortDynamicLink shortLink = await parameters.buildShortLink();
+      url = shortLink.shortUrl;
+    } else {
+      url = await parameters.buildUrl();
+    }
+
+    setState(() {
+      _linkMessage = url.toString();
+      _isCreatingLink = false;
+    });
   }
 
   @override
