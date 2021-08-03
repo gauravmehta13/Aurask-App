@@ -1,3 +1,5 @@
+import 'package:flutter/foundation.dart';
+
 import '../../../meta/Utility/responsive.dart';
 import '../../../meta/Widgets/Loading.dart';
 import '../../../meta/Widgets/WhatsappFab.dart';
@@ -39,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     if (stories.length == 0) getStories();
-    showDailyAtTime();
+    if (!kIsWeb) showDailyAtTime();
   }
 
   getStories() async {
