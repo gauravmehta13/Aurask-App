@@ -12,7 +12,7 @@ Future<void> showDailyAtTime() async {
 
   List dates = List.generate(30, (index) => index);
   final String imgPath = await urlToFilePath(
-      'https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2021/img/Mobile_Traffic_/XCM_Manual_1309542_1578842_IN_in_mobile_traffic_dppage_in_en_3681577_1500x487_en_IN.jpg',
+      'https://raw.githubusercontent.com/gauravmehta13/Aurask-App/master/assets/quizAndWin.jpg',
       'img');
   final String largeIconPath = await urlToFilePath(
       'https://raw.githubusercontent.com/gauravmehta13/Aurask-App/master/android/app/src/main/res/mipmap-hdpi/ic_launcher.png',
@@ -37,12 +37,18 @@ scheduleNotification(int id, iconPath, imgPath) async {
           styleInformation: bigPictureStyleInformation);
   final NotificationDetails platformChannelSpecifics =
       NotificationDetails(android: androidPlatformChannelSpecifics);
-
+  var today = tz.TZDateTime.now(tz.local);
   await flutterLocalNotificationsPlugin.zonedSchedule(
       id,
       'Quiz And Win Live Now',
       'Answer the Questions and win exciting prizes',
-      tz.TZDateTime.now(tz.local).add(Duration(minutes: id)),
+      tz.TZDateTime.local(
+        today.year,
+        today.month,
+        today.day,
+        18,
+        00,
+      ).add(Duration(days: id)),
       platformChannelSpecifics,
       payload: "Quiz",
       androidAllowWhileIdle: true,
