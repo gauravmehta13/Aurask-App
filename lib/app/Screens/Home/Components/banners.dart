@@ -6,9 +6,13 @@ import '../../../../meta/Utility/Constants.dart';
 import '../../Gamification/ReferAndEarn.dart';
 import '../../Gamification/Spin%20And%20Win.dart';
 
-Widget buildQuiz(context) {
+Widget buildQuiz(context, int hour) {
   return InkWell(
     onTap: () {
+      if (hour < 18) {
+        displaySnackBar("Come Back at 6PM", context);
+        return;
+      }
       authNavigate(QuizHome(), context);
     },
     child: Container(
@@ -60,7 +64,7 @@ Widget buildQuiz(context) {
                     ),
                     box10,
                     Text(
-                      "Answer the questions and win exciting prizes everyday",
+                      "Answer the questions and win exciting prizes Every Night",
                       style: GoogleFonts.montserrat(
                         fontWeight: FontWeight.w600,
                         color: Colors.white70,
@@ -85,7 +89,7 @@ Widget buildQuiz(context) {
                   ),
                   padding: EdgeInsets.all(3),
                   child: Text(
-                    "Daily 6 PM - 2 AM",
+                    "Daily 6 PM - 12 AM",
                     style: TextStyle(fontWeight: FontWeight.w600, fontSize: 12),
                   )))
         ],

@@ -31,7 +31,7 @@ class AppNoti implements Noti {
           await openAppSettings();
         }
         AndroidInitializationSettings initSettingsAndroid =
-            AndroidInitializationSettings('mipmap/ic_launcher');
+            AndroidInitializationSettings('drawable/ic_stat_ic_notification');
         IOSInitializationSettings initSettingsIOS = IOSInitializationSettings(
           requestSoundPermission: true,
           requestBadgePermission: true,

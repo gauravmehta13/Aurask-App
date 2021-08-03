@@ -11,18 +11,21 @@ Future<void> showDailyAtTime() async {
   tz.setLocalLocation(tz.getLocation("Asia/Kolkata"));
 
   List dates = List.generate(30, (index) => index);
-  final String largeIconPath = await urlToFilePath(
+  final String imgPath = await urlToFilePath(
       'https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2021/img/Mobile_Traffic_/XCM_Manual_1309542_1578842_IN_in_mobile_traffic_dppage_in_en_3681577_1500x487_en_IN.jpg',
+      'img');
+  final String largeIconPath = await urlToFilePath(
+      'https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_icon_146074.png',
       'largeIcon');
 
   dates.forEach((id) async {
-    await scheduleNotification(id, largeIconPath);
+    await scheduleNotification(id, largeIconPath, imgPath);
   });
 }
 
-scheduleNotification(int id, iconPath) async {
+scheduleNotification(int id, iconPath, imgPath) async {
   final BigPictureStyleInformation bigPictureStyleInformation =
-      BigPictureStyleInformation(FilePathAndroidBitmap(iconPath),
+      BigPictureStyleInformation(FilePathAndroidBitmap(imgPath),
           largeIcon: FilePathAndroidBitmap(iconPath),
           contentTitle: 'Quiz And Win Live Now',
           htmlFormatContentTitle: true,

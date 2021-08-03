@@ -33,6 +33,7 @@ class _HomePageState extends State<HomePage> {
   List allCourses = [];
   bool courseLoaded = false;
   TextEditingController query = TextEditingController();
+  var today = DateTime.now();
 
   @override
   void initState() {
@@ -385,7 +386,7 @@ class _HomePageState extends State<HomePage> {
                           if (freeSessions.length != 0)
                             upcomingLiveSessions(paidSessions, context),
                           box20,
-                          buildQuiz(context),
+                          buildQuiz(context, today.hour),
                           buildReferAndEarn(context),
                           buildSpinAndWin(context),
                         ],
