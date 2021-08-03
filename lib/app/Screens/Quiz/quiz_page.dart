@@ -86,6 +86,11 @@ class _QuizPageState extends State<QuizPage> {
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
                       ...options.map((option) => RadioListTile<String>(
+                            activeColor:
+                                widget.questions[_currentIndex].correctAnswer ==
+                                        option
+                                    ? primaryColor
+                                    : primaryColor,
                             title: Text(
                               HtmlUnescape().convert("$option"),
                               style: MediaQuery.of(context).size.width > 800
@@ -98,6 +103,7 @@ class _QuizPageState extends State<QuizPage> {
                               setState(() {
                                 _answers[_currentIndex] = option;
                               });
+                              // _nextSubmit();
                             },
                           )),
                     ],
