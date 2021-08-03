@@ -1,8 +1,10 @@
 import 'dart:io';
 
+import 'package:aurask/meta/Utility/Constants.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 import 'ab/abNoti.dart';
@@ -41,7 +43,15 @@ class AppNoti implements Noti {
           android: initSettingsAndroid,
           iOS: initSettingsIOS,
         );
-        flutterLocalNotificationsPlugin.initialize(initSettings);
+        flutterLocalNotificationsPlugin.initialize(initSettings,
+            onSelectNotification: (String? payload) async {
+          if (payload != null) {
+            print('notification payload: $payload');
+          }
+          if (payload!.contains("Quiz")) {
+            Modular.to.pushNamed("/playAndWin");
+          }
+        });
         detail = NotificationDetails(android: android, iOS: ios);
         await flutterLocalNotificationsPlugin
             .resolvePlatformSpecificImplementation<

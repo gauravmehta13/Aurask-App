@@ -15,7 +15,7 @@ Future<void> showDailyAtTime() async {
       'https://images-eu.ssl-images-amazon.com/images/G/31/IN-hq/2021/img/Mobile_Traffic_/XCM_Manual_1309542_1578842_IN_in_mobile_traffic_dppage_in_en_3681577_1500x487_en_IN.jpg',
       'img');
   final String largeIconPath = await urlToFilePath(
-      'https://cdn.icon-icons.com/icons2/2407/PNG/512/aws_icon_146074.png',
+      'https://raw.githubusercontent.com/gauravmehta13/Aurask-App/master/android/app/src/main/res/mipmap-hdpi/ic_launcher.png',
       'largeIcon');
 
   dates.forEach((id) async {
@@ -44,6 +44,7 @@ scheduleNotification(int id, iconPath, imgPath) async {
       'Answer the Questions and win exciting prizes',
       tz.TZDateTime.now(tz.local).add(Duration(minutes: id)),
       platformChannelSpecifics,
+      payload: "Quiz",
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime);

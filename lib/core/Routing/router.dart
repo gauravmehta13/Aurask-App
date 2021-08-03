@@ -1,3 +1,4 @@
+import 'package:aurask/app/Screens/Quiz/home.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../app/Screens/Home/BottomNavBar.dart';
@@ -57,6 +58,7 @@ class AppModule extends Module {
         keyword: args.params['keyword'],
       ),
     ),
+    ChildRoute('/playAndWin', child: (_, args) => QuizHome()),
   ];
 }
 
