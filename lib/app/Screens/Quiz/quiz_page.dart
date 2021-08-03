@@ -10,8 +10,10 @@ import 'quiz_finished.dart';
 class QuizPage extends StatefulWidget {
   final List<Question> questions;
   final Category? category;
+  final bool isTest;
 
-  const QuizPage({Key? key, required this.questions, this.category})
+  const QuizPage(
+      {Key? key, required this.questions, this.category, this.isTest = false})
       : super(key: key);
 
   @override
@@ -38,7 +40,8 @@ class _QuizPageState extends State<QuizPage> {
     return Scaffold(
       key: _key,
       appBar: AppBar(
-        title: Text(widget.category!.name,
+        centerTitle: widget.isTest,
+        title: Text(widget.isTest ? "Quiz" : widget.category!.name,
             style: GoogleFonts.montserrat(
               fontWeight: FontWeight.w600,
               fontSize: 18.0,
@@ -150,7 +153,10 @@ class _QuizPageState extends State<QuizPage> {
     } else {
       Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (_) => QuizFinishedPage(
-              questions: widget.questions, answers: _answers)));
+                questions: widget.questions,
+                answers: _answers,
+                isTest: widget.isTest,
+              )));
     }
   }
 }

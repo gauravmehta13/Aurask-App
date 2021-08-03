@@ -367,7 +367,8 @@ class _CourseInfoState extends State<CourseInfo> {
                 actions: [
                   IconButton(
                       onPressed: () async {
-                        String text = "Join this course";
+                        String text =
+                            "Join this course at https://aurask.net/#/course/${course["id"]}";
                         !kIsWeb
                             ? await shareCourse(course["image"], text)
                             : await share(text);

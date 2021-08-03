@@ -21,6 +21,7 @@ Future<void> showDailyAtTime() async {
   dates.forEach((id) async {
     await scheduleNotification(id, largeIconPath, imgPath);
   });
+  print("Notifications Scheduled Successfully");
 }
 
 scheduleNotification(int id, iconPath, imgPath) async {

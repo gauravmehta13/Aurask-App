@@ -8,9 +8,14 @@ import 'check_answers.dart';
 class QuizFinishedPage extends StatelessWidget {
   late final List<Question> questions;
   late final Map<int, dynamic> answers;
+  final isTest;
 
   late final int correctAnswers;
-  QuizFinishedPage({Key? key, required this.questions, required this.answers})
+  QuizFinishedPage(
+      {Key? key,
+      required this.questions,
+      required this.answers,
+      this.isTest = false})
       : super(key: key);
 
   @override

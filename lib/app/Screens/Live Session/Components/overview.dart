@@ -1,16 +1,42 @@
+import 'dart:io';
 import 'dart:math';
 
+import 'package:aurask/app/Screens/Quiz/error.dart';
 import 'package:aurask/app/Screens/Quiz/home.dart';
+import 'package:aurask/app/Screens/Quiz/quiz_page.dart';
+import 'package:aurask/core/model/category.dart';
+import 'package:aurask/core/model/question.dart';
+import 'package:aurask/core/resources/api_provider.dart';
 import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../../../meta/Utility/Constants.dart';
 
-class SessionOverview extends StatelessWidget {
+class SessionOverview extends StatefulWidget {
   final course;
   final ValueChanged<int> tab;
   const SessionOverview({Key? key, required this.course, required this.tab})
       : super(key: key);
+
+  @override
+  _SessionOverviewState createState() => _SessionOverviewState();
+}
+
+class _SessionOverviewState extends State<SessionOverview> {
+  final Category category =
+      Category(18, "Computer", icon: FontAwesomeIcons.laptopCode);
+
+  startQuiz() async {
+    List<Question> questions = await getQuestions(category, 10, "");
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (_) => QuizPage(
+                  questions: questions,
+                  isTest: true,
+                )));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +44,9 @@ class SessionOverview extends StatelessWidget {
       child: ListView.builder(
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
-          itemCount: course["syllabus"].length,
+          itemCount: widget.course["syllabus"].length,
           itemBuilder: (BuildContext context, int index) {
-            var x = course["syllabus"][index];
+            var x = widget.course["syllabus"][index];
             return Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -51,10 +77,9 @@ class SessionOverview extends StatelessWidget {
                         return ListTile(
                           onTap: () {
                             isQuiz(x["content"][i])
-                                ? Navigator.push(
-                                    context, FadeRoute(page: QuizHome()))
+                                ? startQuiz()
                                 : isDiscussion(x["content"][i])
-                                    ? tab(2)
+                                    ? widget.tab(2)
                                     : displaySnackBar("Coming Soon", context);
                           },
                           leading: Column(
