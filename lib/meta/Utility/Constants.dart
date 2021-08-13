@@ -9,6 +9,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -213,6 +214,42 @@ installAppDialog(context) {
         await launch(
             "https://play.google.com/store/apps/details?id=com.aurask");
       });
+}
+
+toInt(data) {
+  return int.parse(data.toString());
+}
+
+getTimeRange(a, b, [bool substring = true]) {
+  if (substring) {
+    return utcTo12HourFormat(a.toString().substring(11, 16)) +
+        " - " +
+        utcTo12HourFormat(b.toString().substring(11, 16));
+  } else {
+    return utcTo12HourFormat(a.toString()) +
+        " - " +
+        utcTo12HourFormat(b.toString());
+  }
+}
+
+String getDateInFormat(data) {
+  if (data == "") {
+    return "NA";
+  }
+  var tempDate = data.toString().substring(0, 10).split("-");
+  var date =
+      DateTime(toInt(tempDate[0]), toInt(tempDate[1]), toInt(tempDate[2]));
+  return formatter.format(date);
+}
+
+final DateFormat formatter = DateFormat('EEEE, MMM d  ');
+String utcTo12HourFormat(String bigTime) {
+  DateTime tempDate = DateFormat("hh:mm").parse(bigTime);
+  var dateFormat = DateFormat("h:mm a"); // you can change the format here
+  var utcDate = dateFormat.format(tempDate); // pass the UTC time here
+  var localDate = dateFormat.parse(utcDate, false).toLocal().toString();
+  String createdDate = dateFormat.format(DateTime.parse(localDate));
+  return createdDate;
 }
 
 errorDialog(context, text) {

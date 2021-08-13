@@ -16,6 +16,7 @@ import '../../../core/redux/actions.dart';
 import '../../../core/redux/app_state.dart';
 import '../../../core/resources/api_provider.dart';
 import '../../../meta/Utility/Constants.dart';
+import 'Components/PegaCourses.dart';
 import 'Components/Stories/Story.dart';
 import 'Components/banners.dart';
 import 'Components/courses.dart';
@@ -28,6 +29,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List popularCourses = [];
+  List pegaCourses = [];
   List stories = [];
   List interviewCourses = [];
   List freeSessions = [];
@@ -67,7 +69,9 @@ class _HomePageState extends State<HomePage> {
       }
     }
     for (var i = 0; i < course["sessions"].length; i++) {
-      if (course["sessions"][i]["type"] == "Live Session") {
+      if (course["sessions"][i]["genre"] == "Pega BPM") {
+        pegaCourses.add(course["sessions"][i]);
+      } else if (course["sessions"][i]["type"] == "Live Session") {
         paidSessions.add(course["sessions"][i]);
       } else if (course["sessions"][i]["type"] == "Free Seminar") {
         freeSessions.add(course["sessions"][i]);
@@ -338,7 +342,15 @@ class _HomePageState extends State<HomePage> {
                                                         ),
                                                         box5,
                                                         Text(
-                                                          session["date"],
+                                                          getDateInFormat(session[
+                                                                          "meetData"]
+                                                                      .length >
+                                                                  0
+                                                              ? session[
+                                                                      "meetData"]
+                                                                  [
+                                                                  0]["startTime"]
+                                                              : ""),
                                                           style: GoogleFonts
                                                               .montserrat(
                                                                   color: Colors
@@ -382,6 +394,8 @@ class _HomePageState extends State<HomePage> {
                           box10,
                           if (popularCourses.length != 0)
                             buildPopularCourses(popularCourses, context),
+                          box20,
+                          PegaCourses(courses: pegaCourses),
                           box20,
                           if (interviewCourses.length != 0)
                             buildInterviewCourses(interviewCourses, context),

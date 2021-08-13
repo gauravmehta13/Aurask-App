@@ -279,6 +279,7 @@ Widget upcomingLiveSessions(sessions, context) {
                 itemCount: 6,
                 itemBuilder: (BuildContext context, int index) {
                   var session = sessions[index];
+
                   return InkWell(
                     onTap: () {
                       Modular.to.pushNamed('/liveSession',
@@ -349,7 +350,10 @@ Widget upcomingLiveSessions(sessions, context) {
                           Padding(
                             padding: const EdgeInsets.only(left: 8),
                             child: Row(children: [
-                              Text(session["date"] ?? "",
+                              Text(
+                                  getDateInFormat(session["meetData"].length > 0
+                                      ? session["meetData"][0]["startTime"]
+                                      : ""),
                                   style: TextStyle(
                                     color: Colors.grey[600],
                                     fontSize: 14,

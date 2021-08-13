@@ -192,8 +192,21 @@ class _SeminarInfoState extends State<SeminarInfo> {
                                             ),
                                           ],
                                         ),
-                                        title: Text(seminar["date"]),
-                                        subtitle: Text(seminar["time"]),
+                                        title: Text(
+                                          getDateInFormat(
+                                              seminar["meetData"].length > 0
+                                                  ? seminar["meetData"][0]
+                                                      ["startTime"]
+                                                  : ""),
+                                        ),
+                                        subtitle: Text(
+                                            seminar["meetData"].length > 0
+                                                ? getTimeRange(
+                                                    seminar["meetData"][0]
+                                                        ["startTime"],
+                                                    seminar["meetData"][0]
+                                                        ["endTime"])
+                                                : "Timings Not Available"),
                                       ),
                                       ListTile(
                                         contentPadding: EdgeInsets.symmetric(
