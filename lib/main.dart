@@ -109,7 +109,6 @@ class _MyAppState extends State<MyApp> {
       final Uri? deepLink = dynamicLink?.link;
 
       if (deepLink != null) {
-        //Navigator.pushNamed(context, "/tnc");
         Navigator.pushNamed(context, deepLink.path);
       }
       print(deepLink);
