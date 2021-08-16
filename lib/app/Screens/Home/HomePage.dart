@@ -77,7 +77,9 @@ class _HomePageState extends State<HomePage> {
         freeSessions.add(course["sessions"][i]);
       }
     }
-    courseLoaded = true;
+    setState(() {
+      courseLoaded = true;
+    });
   }
 
   @override
@@ -87,17 +89,27 @@ class _HomePageState extends State<HomePage> {
         onInit: (store) async {
           popularCourses = [];
           interviewCourses = [];
-          Map tempCourses = await sharedPrefs.readMap("courses");
-          if (tempCourses.length == 0) {
+          try {
+            Map tempCourses = await sharedPrefs.readMap("courses");
+            if (tempCourses.length == 0) {
+              Map courses = await getCourses();
+              divideCourses(courses);
+              StoreProvider.of<AppState>(context)
+                  .dispatch(Courses(courses["courses"]));
+              StoreProvider.of<AppState>(context)
+                  .dispatch(Seminars(courses["sessions"]));
+            } else {
+              divideCourses(tempCourses);
+              Map courses = await getCourses();
+              StoreProvider.of<AppState>(context)
+                  .dispatch(Courses(courses["courses"]));
+              StoreProvider.of<AppState>(context)
+                  .dispatch(Seminars(courses["sessions"]));
+            }
+          } catch (e) {
+            print(e);
             Map courses = await getCourses();
             divideCourses(courses);
-            StoreProvider.of<AppState>(context)
-                .dispatch(Courses(courses["courses"]));
-            StoreProvider.of<AppState>(context)
-                .dispatch(Seminars(courses["sessions"]));
-          } else {
-            divideCourses(tempCourses);
-            Map courses = await getCourses();
             StoreProvider.of<AppState>(context)
                 .dispatch(Courses(courses["courses"]));
             StoreProvider.of<AppState>(context)

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <!--
+  <head>
+    <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
 
@@ -11,91 +11,95 @@
     For more details:
     * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
   -->
-  <base href="/">
+    <base href="/" />
 
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
 
-  <meta name="google-signin-client_id" content="491094163637-t71a5r3al2buos5rplo3itqb9a7nkl1h.apps.googleusercontent.com">
+    <meta
+      name="google-signin-client_id"
+      content="491094163637-t71a5r3al2buos5rplo3itqb9a7nkl1h.apps.googleusercontent.com"
+    />
 
-  <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="aurask">
-  
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+    <!-- iOS meta tags & icons -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="aurask" />
 
-  <title>Aurask</title>
-  <meta name="description" content="​At Aurask, we believe that everyone deserves to learn. Whether it’s honing an existing skill or diving into something new, our experts can help you acquire the knowledge you’re looking for. Our course selection is varied and unique to fit all needs and skill levels be it CRT or corporate training. Browse our site to learn more and get in touch.">
-  <link rel="manifest" href="manifest.json">
-  <!-- <link rel="stylesheet" type="text/css" href="splash/style.css"> -->
-  <link rel="stylesheet" href="loader.css">
-</head>
-<body>
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
 
-  <div id="loader">
-    <h1 id="loader-title">Aurask is Initializing</h1>
-    <div class="lds-dual-ring"></div>
-</div>
-  <!-- This script installs service_worker.js to provide PWA functionality to
+    <title>Aurask</title>
+    <meta
+      name="description"
+      content="​At Aurask, we believe that everyone deserves to learn. Whether it’s honing an existing skill or diving into something new, our experts can help you acquire the knowledge you’re looking for. Our course selection is varied and unique to fit all needs and skill levels be it CRT or corporate training. Browse our site to learn more and get in touch."
+    />
+    <link rel="manifest" href="manifest.json" />
+    <!-- <link rel="stylesheet" type="text/css" href="splash/style.css"> -->
+    <link rel="stylesheet" href="loader.css" />
+  </head>
+  <body>
+    <div id="loader">
+      <h1 id="loader-title">Aurask is Initializing</h1>
+      <div class="lds-dual-ring"></div>
+    </div>
+    <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
 
-       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 
-       <!-- TODO: Add SDKs for Firebase products that you want to use
+    <!-- TODO: Add SDKs for Firebase products that you want to use
             https://firebase.google.com/docs/web/setup#available-libraries -->
-       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
-       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
-       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
-       <!-- <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script> -->
-       
-       <script>
-         // Your web app's Firebase configuration
-         // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-         const firebaseConfig = {
-  apiKey: "AIzaSyDUqJPl8f00UuBUViRoPQ4FQzBQLYipQME",
-  authDomain: "aurask-ca6bb.firebaseapp.com",
-  projectId: "aurask-ca6bb",
-  storageBucket: "aurask-ca6bb.appspot.com",
-  messagingSenderId: "491094163637",
-  appId: "1:491094163637:web:3ad248f8504680fb363efc",
-  measurementId: "G-0SGCK0SSZC"
-};
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-messaging.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-auth.js"></script>
+    <!-- <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script> -->
 
-         // Initialize Firebase
-         firebase.initializeApp(firebaseConfig);
-         firebase.analytics();
-       </script>
-  <script>
-    var serviceWorkerVersion = null;
-    var scriptLoaded = false;
-    function loadMainDartJs() {
-      if (scriptLoaded) {
-        return;
+    <script>
+      // Your web app's Firebase configuration
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: "AIzaSyDUqJPl8f00UuBUViRoPQ4FQzBQLYipQME",
+        authDomain: "aurask-ca6bb.firebaseapp.com",
+        projectId: "aurask-ca6bb",
+        storageBucket: "aurask-ca6bb.appspot.com",
+        messagingSenderId: "491094163637",
+        appId: "1:491094163637:web:3ad248f8504680fb363efc",
+        measurementId: "G-0SGCK0SSZC",
+      };
+
+      // Initialize Firebase
+      firebase.initializeApp(firebaseConfig);
+      firebase.analytics();
+    </script>
+    <script>
+      var serviceWorkerVersion = null;
+      var scriptLoaded = false;
+      function loadMainDartJs() {
+        if (scriptLoaded) {
+          return;
+        }
+        scriptLoaded = true;
+        var scriptTag = document.createElement("script");
+        scriptTag.src = "main.dart.js";
+        scriptTag.type = "application/javascript";
+        document.body.append(scriptTag);
       }
-      scriptLoaded = true;
-      var scriptTag = document.createElement('script');
-      scriptTag.src = 'main.dart.js';
-      scriptTag.type = 'application/javascript';
-      document.body.append(scriptTag);
-    }
 
-    if ('serviceWorker' in navigator) {
-      // Service workers are supported. Use them.
-      window.addEventListener('load', function () {
-        // Wait for registration to finish before dropping the <script> tag.
-        // Otherwise, the browser will load the script multiple times,
-        // potentially different versions.
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
-        navigator.serviceWorker.register(serviceWorkerUrl)
-          .then((reg) => {
-            navigator.serviceWorker.register('firebase-messaging-sw.js');
+      if ("serviceWorker" in navigator) {
+        // Service workers are supported. Use them.
+        window.addEventListener("load", function () {
+          // Wait for registration to finish before dropping the <script> tag.
+          // Otherwise, the browser will load the script multiple times,
+          // potentially different versions.
+          var serviceWorkerUrl =
+            "flutter_service_worker.js?v=" + serviceWorkerVersion;
+          navigator.serviceWorker.register(serviceWorkerUrl).then((reg) => {
+            navigator.serviceWorker.register("firebase-messaging-sw.js");
             function waitForActivation(serviceWorker) {
-              serviceWorker.addEventListener('statechange', () => {
-                if (serviceWorker.state == 'activated') {
-                  console.log('Installed new service worker.');
+              serviceWorker.addEventListener("statechange", () => {
+                if (serviceWorker.state == "activated") {
+                  console.log("Installed new service worker.");
                   loadMainDartJs();
                 }
               });
@@ -107,31 +111,31 @@
             } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
               // When the app updates the serviceWorkerVersion changes, so we
               // need to ask the service worker to update.
-              console.log('New service worker available.');
+              console.log("New service worker available.");
               reg.update();
               waitForActivation(reg.installing);
             } else {
               // Existing service worker is still good.
-              console.log('Loading app from service worker.');
+              console.log("Loading app from service worker.");
               loadMainDartJs();
             }
           });
 
-        // If service worker doesn't succeed in a reasonable amount of time,
-        // fallback to plaint <script> tag.
-        setTimeout(() => {
-          if (!scriptLoaded) {
-            console.warn(
-              'Failed to load app from service worker. Falling back to plain <script> tag.',
-            );
-            loadMainDartJs();
-          }
-        }, 4000);
-      });
-    } else {
-      // Service workers not supported. Just drop the <script> tag.
-      loadMainDartJs();
-    }
-  </script>
-</body>
+          // If service worker doesn't succeed in a reasonable amount of time,
+          // fallback to plaint <script> tag.
+          setTimeout(() => {
+            if (!scriptLoaded) {
+              console.warn(
+                "Failed to load app from service worker. Falling back to plain <script> tag."
+              );
+              loadMainDartJs();
+            }
+          }, 4000);
+        });
+      } else {
+        // Service workers not supported. Just drop the <script> tag.
+        loadMainDartJs();
+      }
+    </script>
+  </body>
 </html>
