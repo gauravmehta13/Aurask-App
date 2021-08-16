@@ -271,39 +271,41 @@ class _HomePageState extends State<HomePage> {
                                               child: Stack(
                                                 children: [
                                                   Container(
-                                                    height: 200,
-                                                    decoration: BoxDecoration(
-                                                        gradient:
-                                                            LinearGradient(
-                                                                begin: Alignment
-                                                                    .bottomLeft,
-                                                                end: Alignment
-                                                                    .topRight,
-                                                                colors: [
-                                                          Colors.red,
-                                                          Colors.yellow,
-                                                          Colors.blue,
-                                                          Colors.purple
-                                                        ])),
-                                                    width:
-                                                        MediaQuery.of(context)
-                                                            .size
-                                                            .width,
-                                                    child: CachedNetworkImage(
-                                                      imageUrl:
+                                                      height: 200,
+                                                      decoration: BoxDecoration(
+                                                          gradient: LinearGradient(
+                                                              begin: Alignment
+                                                                  .bottomLeft,
+                                                              end: Alignment
+                                                                  .topRight,
+                                                              colors: [
+                                                            Colors.red,
+                                                            Colors.yellow,
+                                                            Colors.blue,
+                                                            Colors.purple
+                                                          ])),
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      child: Image.network(
                                                           session["image"],
-                                                      fit: BoxFit.cover,
-                                                      placeholder:
-                                                          (context, url) =>
-                                                              Container(
-                                                        width: double.maxFinite,
-                                                        color: Colors.grey[200],
+                                                          fit: BoxFit.cover)
+                                                      //  CachedNetworkImage(
+                                                      //   imageUrl:
+                                                      //       session["image"],
+                                                      //   fit: BoxFit.cover,
+                                                      //   placeholder:
+                                                      //       (context, url) =>
+                                                      //           Container(
+                                                      //     width: double.maxFinite,
+                                                      //     color: Colors.grey[200],
+                                                      //   ),
+                                                      //   errorWidget: (context,
+                                                      //           url, error) =>
+                                                      //       Icon(Icons.error),
+                                                      // ),
                                                       ),
-                                                      errorWidget: (context,
-                                                              url, error) =>
-                                                          Icon(Icons.error),
-                                                    ),
-                                                  ),
                                                   Banner(
                                                     message: "FREE",
                                                     color: Color(0xFFEB102F),
@@ -407,7 +409,8 @@ class _HomePageState extends State<HomePage> {
                           if (popularCourses.length != 0)
                             buildPopularCourses(popularCourses, context),
                           box20,
-                          PegaCourses(courses: pegaCourses),
+                          if (pegaCourses.length != 0)
+                            PegaCourses(courses: pegaCourses),
                           box20,
                           if (interviewCourses.length != 0)
                             buildInterviewCourses(interviewCourses, context),

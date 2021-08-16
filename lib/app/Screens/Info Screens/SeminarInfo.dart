@@ -110,19 +110,24 @@ class _SeminarInfoState extends State<SeminarInfo> {
                               child: Stack(
                                 children: [
                                   Container(
-                                    width: double.maxFinite,
-                                    height:
-                                        MediaQuery.of(context).size.height / 3,
-                                    child: CachedNetworkImage(
-                                      imageUrl: seminar["image"],
-                                      placeholder: (context, url) => Container(
-                                        color: Colors.grey[300],
+                                      width: double.maxFinite,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              3,
+                                      child: Image.network(
+                                        seminar["image"],
+                                        fit: BoxFit.cover,
+                                      )
+                                      //  CachedNetworkImage(
+                                      //   imageUrl: seminar["image"],
+                                      //   placeholder: (context, url) => Container(
+                                      //     color: Colors.grey[300],
+                                      //   ),
+                                      //   errorWidget: (context, url, error) =>
+                                      //       Icon(Icons.error),
+                                      //   fit: BoxFit.cover,
+                                      // ),
                                       ),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
                                   Positioned(
                                     top: 15,
                                     left: 10,

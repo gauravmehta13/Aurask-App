@@ -4,6 +4,7 @@ import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_redux/flutter_redux.dart';
@@ -83,7 +84,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     super.initState();
 
-    if (Platform.isAndroid) {
+    if (!kIsWeb) {
       Future(noti.init);
       //  initDynamicLinks();
     }
