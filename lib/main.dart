@@ -22,12 +22,11 @@ import 'core/resources/theme/theme_notifier.dart';
 import 'meta/Utility/Constants.dart';
 
 //! Backend
-//TODO: Meet Scheduling Lambda
+//? Done: Meet Scheduling Lambda
 //TODO: Changes in Payment API and purchase course API
 //TODO: User profile API (will show aurask money and rewards)
 //TODO: Proper template for Email sent to users after purchase
 //TODO: Changing Email from 269mehta to Aurask
-//TODO: Adding Email in GoFlexe Order process as well
 
 //! Frontend
 //TODO: Add Proper images on HomePage Carousel
