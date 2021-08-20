@@ -33,7 +33,7 @@ class AppNoti implements Noti {
           await openAppSettings();
         }
         AndroidInitializationSettings initSettingsAndroid =
-            AndroidInitializationSettings('drawable/ic_stat_ic_notification');
+            AndroidInitializationSettings('noti');
         IOSInitializationSettings initSettingsIOS = IOSInitializationSettings(
           requestSoundPermission: true,
           requestBadgePermission: true,
@@ -74,7 +74,8 @@ class AppNoti implements Noti {
         print("INIT r : ${r ?? 'r'}");
         String? token = await FirebaseMessaging.instance.getToken();
         print("token : ${token ?? 'token NULL!'}");
-        // await FirebaseMessaging.instance.subscribeToTopic('Test');
+        await FirebaseMessaging.instance.subscribeToTopic('all');
+
         if (Platform.isIOS) {
           await FirebaseMessaging.instance
               .setForegroundNotificationPresentationOptions(
@@ -87,6 +88,7 @@ class AppNoti implements Noti {
           RemoteNotification? notification = message.notification;
           AndroidNotification? android = message.notification?.android;
           if (notification != null && android != null) {
+            print("Notification Recieved");
             flutterLocalNotificationsPlugin.show(notification.hashCode,
                 notification.title, notification.body, detail);
           }

@@ -82,11 +82,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-
-    if (!kIsWeb) {
-      Future(noti.init);
-      //  initDynamicLinks();
-    }
+    Future(noti.init);
   }
 
   void initDynamicLinks() async {
