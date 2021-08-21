@@ -41,7 +41,6 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.aurask"
         minSdkVersion 21
         targetSdkVersion 30
@@ -60,8 +59,6 @@ apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
     buildTypes {
               
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.release
         }
     }
@@ -72,6 +69,10 @@ flutter {
 }
 
 dependencies {
+    implementation('com.paytm.appinvokesdk:appinvokesdk:1.5.4'){
+    exclude group: "com.squareup.okhttp3", module: 'okhttp3'
+    }
+    implementation "com.squareup.okhttp3:okhttp:4.8.0"
     implementation platform('com.google.firebase:firebase-bom:28.2.0')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-auth'
