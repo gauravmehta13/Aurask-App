@@ -54,7 +54,6 @@ dependencies:
   whatsapp_unilink: ^2.0.0
   youtube_player_iframe: ^2.2.2
   in_app_review: ^2.0.2
-  youtube_player_flutter: ^8.0.0
 
 dev_dependencies:
   flutter_test:

@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import 'package:youtube_player_iframe/youtube_player_iframe.dart' as web;
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import '../../../core/model/reviews%20Model.dart';
 import '../../../meta/Utility/Constants.dart';
 import '../../../meta/Utility/Fade%20Route.dart';
@@ -37,7 +36,6 @@ class _CourseInfoState extends State<CourseInfo> {
   bool buyingCourse = false;
   Map selectedPrice = {};
   List<web.YoutubePlayerController> webcontroller = [];
-  List<YoutubePlayerController> controller = [];
   int _current = 0;
   final CarouselController carouselController = CarouselController();
   final visibleKey = new GlobalKey();
@@ -55,9 +53,9 @@ class _CourseInfoState extends State<CourseInfo> {
     }
 
     loadJson();
-    if (kReleaseMode)
-      initialiseVideos(
-          ["jCqeDolIsiY", "_REF8QRoAbE", "t3B7HHivDnY", "x45qNF6S_wk"]);
+
+    initialiseVideos(
+        ["jCqeDolIsiY", "_REF8QRoAbE", "t3B7HHivDnY", "x45qNF6S_wk"]);
     //?Using YT player instead of chewie
     //initializeVideoPlayer();
   }
@@ -77,31 +75,20 @@ class _CourseInfoState extends State<CourseInfo> {
   }
 
   initialiseVideos(List videos) {
-    if (kIsWeb)
-      for (var i = 0; i < videos.length; i++) {
-        webcontroller.add(web.YoutubePlayerController(
-          initialVideoId: videos[i],
-          params: web.YoutubePlayerParams(
-            showVideoAnnotations: false,
-            desktopMode: kIsWeb,
-            autoPlay: false,
-            strictRelatedVideos: true,
-            showControls: true,
-            showFullscreenButton: false,
-          ),
-        ));
-      }
-    else {
-      for (var i = 0; i < videos.length; i++) {
-        controller.add(YoutubePlayerController(
-          initialVideoId: videos[i],
-          flags: YoutubePlayerFlags(
-            disableDragSeek: true,
-            autoPlay: false,
-          ),
-        ));
-      }
+    for (var i = 0; i < videos.length; i++) {
+      webcontroller.add(web.YoutubePlayerController(
+        initialVideoId: videos[i],
+        params: web.YoutubePlayerParams(
+          showVideoAnnotations: false,
+          desktopMode: kIsWeb,
+          autoPlay: false,
+          strictRelatedVideos: true,
+          showControls: true,
+          showFullscreenButton: false,
+        ),
+      ));
     }
+
     setState(() {});
   }
 
@@ -492,30 +479,21 @@ class _CourseInfoState extends State<CourseInfo> {
                                   _current = index;
                                 });
                               }),
-                          items: kIsWeb
-                              ? webcontroller.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return web.YoutubePlayerIFrame(
-                                        gestureRecognizers: {},
-                                        controller: i,
-                                      );
-                                    },
-                                  );
-                                }).toList()
-                              : controller.map((i) {
-                                  return Builder(
-                                    builder: (BuildContext context) {
-                                      return YoutubePlayer(
-                                        controller: i,
-                                      );
-                                    },
-                                  );
-                                }).toList()),
+                          items: webcontroller.map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return web.YoutubePlayerIFrame(
+                                  gestureRecognizers: {},
+                                  controller: i,
+                                );
+                              },
+                            );
+                          }).toList()),
+
                       box10,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: controller.asMap().entries.map((entry) {
+                        children: webcontroller.asMap().entries.map((entry) {
                           return GestureDetector(
                             onTap: () =>
                                 carouselController.animateToPage(entry.key),
