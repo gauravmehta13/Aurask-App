@@ -234,7 +234,7 @@ getTimeRange(a, b, [bool substring = true]) {
 
 String getDateInFormat(data) {
   if (data == "") {
-    return "NA";
+    return "Not Available";
   }
   var tempDate = data.toString().substring(0, 10).split("-");
   var date =
