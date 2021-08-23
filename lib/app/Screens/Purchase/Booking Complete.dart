@@ -31,7 +31,10 @@ class _BookingCompleteState extends State<BookingComplete> {
   @override
   void initState() {
     super.initState();
-    if (!kIsWeb && Platform.isAndroid) _inAppReview.requestReview();
+    if (!kIsWeb && Platform.isAndroid)
+      Future.delayed(const Duration(seconds: 5), () {
+        _inAppReview.requestReview();
+      });
   }
 
   @override
