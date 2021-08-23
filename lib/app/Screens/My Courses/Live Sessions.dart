@@ -19,7 +19,7 @@ class LiveSessions extends StatelessWidget {
             itemCount: liveSessions.length,
             padding: EdgeInsets.only(top: 0, bottom: 8),
             itemBuilder: (context, index) {
-              Map session = liveSessions[index]["data"];
+              Map session = liveSessions[index];
               return TicketView(session: session);
             });
   }
@@ -28,8 +28,11 @@ class LiveSessions extends StatelessWidget {
 class TicketView extends StatelessWidget {
   final session;
   TicketView({this.session});
+
   @override
   Widget build(BuildContext context) {
+    final meetData = session["meetData"];
+    final data = session["data"];
     return GestureDetector(
       onTap: () async {
         Navigator.push(
@@ -57,7 +60,7 @@ class TicketView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    session["name"] + " " + session["type"],
+                    data["name"] + " " + data["type"],
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
@@ -71,14 +74,15 @@ class TicketView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        session["date"],
+                        getDateInFormat(meetData["startTime"]),
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
                             fontWeight: FontWeight.w600),
                       ),
                       Text(
-                        session["time"],
+                        getTimeRange(
+                            meetData["startTime"], meetData["endTime"]),
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
@@ -91,7 +95,7 @@ class TicketView extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Text(
-                        session["mode"],
+                        data["mode"],
                         style: TextStyle(
                             fontSize: 14,
                             color: Colors.grey[800],
@@ -100,7 +104,7 @@ class TicketView extends StatelessWidget {
                       Row(
                         children: <Widget>[
                           Text(
-                            session["venue"],
+                            data["venue"],
                             style: TextStyle(
                                 fontSize: 14,
                                 color: Colors.grey[800],
@@ -175,13 +179,13 @@ class TicketView extends StatelessWidget {
                       bottomRight: Radius.circular(20))),
               child: Row(
                 children: <Widget>[
-                  Text(session["instructor"]["title"],
+                  Text(data["instructor"]["title"],
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                           color: Colors.black)),
                   Expanded(
-                      child: Text("₹ ${session["price"]}",
+                      child: Text("₹ ${data["price"]}",
                           textAlign: TextAlign.end,
                           style: GoogleFonts.ubuntu(
                               fontSize: 18,

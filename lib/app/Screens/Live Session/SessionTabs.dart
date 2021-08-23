@@ -21,14 +21,16 @@ class _SessionTabsState extends State<SessionTabs>
     _tabController.animateTo(count);
   }
 
+  Map data = {};
+
   @override
   void initState() {
     super.initState();
-
+    data = widget.course["data"];
     _tabController = new TabController(vsync: this, length: 5);
-    for (var i = 0; i < widget.course["syllabus"].length; i++) {
+    for (var i = 0; i < data["syllabus"].length; i++) {
       List newContent = ["Practice Exercise", "Discussion Forums"];
-      widget.course["syllabus"][i]["content"].addAll(newContent);
+      data["syllabus"][i]["content"].addAll(newContent);
     }
   }
 
@@ -42,7 +44,7 @@ class _SessionTabsState extends State<SessionTabs>
       initialIndex: initialIndex,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(widget.course["name"]),
+          title: Text(data["name"]),
           backgroundColor: primaryColor,
           //  leading: IconButton(icon: Icon(Icons.menu), onPressed: () {}),
           actions: <Widget>[
@@ -71,20 +73,20 @@ class _SessionTabsState extends State<SessionTabs>
           controller: _tabController,
           children: [
             SessionOverview(
-              course: widget.course,
+              course: data,
               tab: _update,
             ),
             SessionGrades(
-              course: widget.course,
+              course: data,
             ),
             Forum(
-              course: widget.course,
+              course: data,
             ),
             SessionResources(
-              course: widget.course,
+              course: data,
             ),
             SessionInfo(
-              course: widget.course,
+              course: data,
             )
           ],
         ),

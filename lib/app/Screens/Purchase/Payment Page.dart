@@ -60,20 +60,30 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 
   Future bookSeminar() async {
+    if (widget.course["meetData"].length == 0) {
+      displaySnackBar("No Dates Available", context);
+      return;
+    }
     setState(() {
       loading = true;
     });
+    Map data = {
+      "id": auth.currentUser?.uid,
+      "data": {
+        "liveSessionId": widget.course["id"],
+        "meetData": widget.course["meetData"][0],
+        "date": DateTime.now().toString()
+      }
+    };
+    if (paymentResponseMap.length != 0) {
+      data["data"]["payment"] = paymentResponseMap;
+    }
     try {
       var dio = Dio();
       print(auth.currentUser?.uid);
       final response = await dio.post(
           "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=bookLiveSession",
-          data: {
-            "id": auth.currentUser?.uid,
-            "email": auth.currentUser?.email,
-            "liveSessionId": widget.course["id"],
-            "payment": paymentResponseMap
-          });
+          data: data);
       print(response.data);
       Navigator.of(context).pop();
       Navigator.push(
@@ -90,8 +100,8 @@ class _PaymentPageState extends State<PaymentPage> {
         loading = false;
       });
       print(e);
-      if (e.toString().contains("Already Purchased"))
-        errorDialog(context, "Course Already Purchased");
+      if (e.toString().contains("already purchased"))
+        errorDialog(context, "Session Already Purchased");
       else
         errorDialog(context, "Please Try Again after some time");
     }
@@ -103,16 +113,19 @@ class _PaymentPageState extends State<PaymentPage> {
     });
     try {
       var dio = Dio();
-      print(auth.currentUser?.uid);
-      print(widget.course["id"]);
+      Map data = {
+        "id": auth.currentUser?.uid,
+        "data": {
+          "courseId": widget.course["id"],
+          "date": DateTime.now().toString()
+        }
+      };
+      if (paymentResponseMap.length != 0) {
+        data["data"]["payment"] = paymentResponseMap;
+      }
       final response = await dio.post(
           "https://t2v0d33au7.execute-api.ap-south-1.amazonaws.com/Staging01/customerorder?tenantSet_id=AURASK01&usecase=aurask&tenantUsecase=purchaseCourse",
-          data: {
-            "id": auth.currentUser?.uid,
-            "email": auth.currentUser?.email,
-            "courseId": widget.course["id"],
-            "payment": paymentResponseMap
-          });
+          data: data);
       print(response.data);
       Navigator.push(
         context,
@@ -126,7 +139,7 @@ class _PaymentPageState extends State<PaymentPage> {
         loading = false;
       });
       print(e);
-      if (e.toString().contains("Already Purchased"))
+      if (e.toString().contains("already purchased"))
         errorDialog(context, "Course Already Purchased");
     }
   }
@@ -213,7 +226,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       Spacer(),
                       Text(
                         "₹ ${widget.price}",
-                        style: TextStyle(fontSize: 15),
+                        style: GoogleFonts.ubuntu(fontSize: 15),
                       ),
                     ],
                   ),
@@ -295,7 +308,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           if (coupon["internalCoupon"] == "true")
                             Text(
                               "- ₹ ${coupon["value"]}",
-                              style: TextStyle(fontSize: 15),
+                              style: GoogleFonts.ubuntu(fontSize: 15),
                             ),
                         ],
                       ),
@@ -322,7 +335,8 @@ class _PaymentPageState extends State<PaymentPage> {
                   Spacer(),
                   Text(
                     "₹ $totalAmount",
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    style: GoogleFonts.ubuntu(
+                        fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),

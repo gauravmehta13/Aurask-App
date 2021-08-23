@@ -37,6 +37,7 @@ class _MyCoursesTabbarState extends State<MyCoursesTabbar>
         liveSessions = tempCourses["liveSessions"];
         loading = false;
       });
+      print(liveSessions);
     } catch (e) {
       print(e);
       displaySnackBar("Error, Please try again later..!!!", context);
