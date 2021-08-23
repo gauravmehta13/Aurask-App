@@ -23,18 +23,10 @@ class _SessionTabsState extends State<SessionTabs>
     _tabController.animateTo(count);
   }
 
-  Map data = {};
-
   @override
   void initState() {
     super.initState();
     _tabController = new TabController(vsync: this, length: 5);
-
-    data = json.decode(json.encode(widget.course["data"]));
-    for (var i = 0; i < data["syllabus"].length; i++) {
-      List newContent = ["Practice Exercise", "Discussion Forums"];
-      data["syllabus"][i]["content"].addAll(newContent);
-    }
   }
 
   int initialIndex = 0;
@@ -42,6 +34,7 @@ class _SessionTabsState extends State<SessionTabs>
 
   @override
   Widget build(BuildContext context) {
+    final data = widget.course["data"];
     return DefaultTabController(
       length: 5,
       initialIndex: initialIndex,
@@ -76,20 +69,20 @@ class _SessionTabsState extends State<SessionTabs>
           controller: _tabController,
           children: [
             SessionOverview(
-              course: data,
+              course: widget.course,
               tab: _update,
             ),
             SessionGrades(
-              course: data,
+              course: widget.course,
             ),
             Forum(
-              course: data,
+              course: widget.course,
             ),
             SessionResources(
-              course: data,
+              course: widget.course,
             ),
             SessionInfo(
-              course: data,
+              course: widget.course,
             )
           ],
         ),

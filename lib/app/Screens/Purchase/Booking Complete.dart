@@ -105,8 +105,9 @@ class _BookingCompleteState extends State<BookingComplete> {
                         wbox30,
                         GestureDetector(
                           onTap: () async {
-                            await launch(
-                                "https://calendar.google.com/calendar/u/0/r/eventedit?dates=20210226T033000/20210226T040000&ctz=Asia/Calcutta&location&text=Blawsome:+A+Crystal+Alchemy+Healing+Meditation&details=Parth+Pitroda");
+                            if (widget.data["meetData"].length != 0)
+                              await launch(
+                                  widget.data["meetData"][0]["eventLink"]);
                           },
                           child: CircleAvatar(
                             backgroundColor: Colors.grey[300],

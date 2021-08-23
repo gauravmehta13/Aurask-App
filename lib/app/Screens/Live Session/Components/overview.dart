@@ -1,15 +1,11 @@
-import 'dart:io';
 import 'dart:math';
-
-import 'package:aurask/app/Screens/Quiz/error.dart';
-import 'package:aurask/app/Screens/Quiz/home.dart';
 import 'package:aurask/app/Screens/Quiz/quiz_page.dart';
 import 'package:aurask/core/model/category.dart';
 import 'package:aurask/core/model/question.dart';
 import 'package:aurask/core/resources/api_provider.dart';
-import 'package:aurask/meta/Utility/Fade%20Route.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../meta/Utility/Constants.dart';
 
@@ -24,6 +20,15 @@ class SessionOverview extends StatefulWidget {
 }
 
 class _SessionOverviewState extends State<SessionOverview> {
+  @override
+  void initState() {
+    super.initState();
+    for (var i = 0; i < widget.course["data"]["syllabus"].length; i++) {
+      List newContent = ["Practice Exercise", "Discussion Forums"];
+      widget.course["data"]["syllabus"][i]["content"].addAll(newContent);
+    }
+  }
+
   final Category category =
       Category(18, "Computer", icon: FontAwesomeIcons.laptopCode);
 
@@ -40,13 +45,15 @@ class _SessionOverviewState extends State<SessionOverview> {
 
   @override
   Widget build(BuildContext context) {
+    final data = widget.course["data"];
+    print(widget.course["meetData"]);
     return Container(
       child: ListView.builder(
           physics: BouncingScrollPhysics(),
           shrinkWrap: true,
-          itemCount: widget.course["syllabus"].length,
+          itemCount: data["syllabus"].length,
           itemBuilder: (BuildContext context, int index) {
-            var x = widget.course["syllabus"][index];
+            var x = data["syllabus"][index];
             return Container(
               decoration: BoxDecoration(
                 border: Border(
@@ -75,12 +82,13 @@ class _SessionOverviewState extends State<SessionOverview> {
                       itemCount: x["content"].length,
                       itemBuilder: (BuildContext context, int i) {
                         return ListTile(
-                          onTap: () {
+                          onTap: () async {
                             isQuiz(x["content"][i])
                                 ? startQuiz()
                                 : isDiscussion(x["content"][i])
                                     ? widget.tab(2)
-                                    : displaySnackBar("Coming Soon", context);
+                                    : await launch(
+                                        widget.course["meetData"]["meetLink"]);
                           },
                           leading: Column(
                             mainAxisAlignment: MainAxisAlignment.center,

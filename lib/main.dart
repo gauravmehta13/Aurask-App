@@ -56,6 +56,7 @@ Future<void> main() async {
             value.setString("Theme", "Light");
             return ThemeNotifier(ThemeMode.light);
           }
+
           return ThemeNotifier(
               theme == "Dark" ? ThemeMode.dark : ThemeMode.light);
         },
@@ -91,7 +92,6 @@ class _MyAppState extends State<MyApp> {
       Navigator.pushNamed(context, "/tnc");
     }
     print(deepLink);
-    print("deepLink");
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData? dynamicLink) async {
       final Uri? deepLink = dynamicLink?.link;

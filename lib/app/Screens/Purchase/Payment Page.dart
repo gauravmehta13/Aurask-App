@@ -367,6 +367,12 @@ class _PaymentPageState extends State<PaymentPage> {
               onPrimary: Colors.white, // foreground
             ),
             onPressed: () async {
+              if (["Free Seminar", "Live Session"].contains(widget.type)) {
+                if (widget.course["meetData"].length == 0) {
+                  displaySnackBar("No Dates Available", context);
+                  return;
+                }
+              }
               if (totalAmount == 0) {
                 purchaseCourse();
               } else if (kIsWeb) {
