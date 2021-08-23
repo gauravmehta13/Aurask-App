@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 
 import '../../../meta/Utility/Constants.dart';
@@ -26,8 +28,9 @@ class _SessionTabsState extends State<SessionTabs>
   @override
   void initState() {
     super.initState();
-    data = widget.course["data"];
     _tabController = new TabController(vsync: this, length: 5);
+
+    data = json.decode(json.encode(widget.course["data"]));
     for (var i = 0; i < data["syllabus"].length; i++) {
       List newContent = ["Practice Exercise", "Discussion Forums"];
       data["syllabus"][i]["content"].addAll(newContent);
