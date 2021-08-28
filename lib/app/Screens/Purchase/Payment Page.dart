@@ -214,108 +214,185 @@ class _PaymentPageState extends State<PaymentPage> {
                 style: GoogleFonts.montserrat(
                     fontSize: 20, fontWeight: FontWeight.w600)),
             box20,
-            Container(
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        "Basic Charges",
-                        style: TextStyle(fontSize: 15),
-                      ),
-                      Spacer(),
-                      Text(
-                        "₹ ${widget.price}",
-                        style: GoogleFonts.ubuntu(fontSize: 15),
-                      ),
-                    ],
-                  ),
-                  box10,
-                  if (!couponApplied)
-                    InkWell(
-                      onTap: () async {
-                        final Map result = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CouponScreen(
-                                    amount: "tempAmount",
-                                    coupons: "state.coupons",
-                                  )),
-                        );
-                        if (result.length != 0) {
-                          _controllerCenter.play();
-                          showCouponApplied(context, result);
-                          setState(() {
-                            // totalAmount = result["price"];
-                            coupon = result;
-                            couponApplied = true;
-                          });
-                        }
-
-                        print(result);
-                      },
-                      child: Container(
-                        width: double.infinity,
-                        padding: EdgeInsets.all(10),
-                        child: Row(
+            widget.course["genre"] == "Pega BPM"
+                ? Container(
+                    child: Column(
+                      children: [
+                        Row(
                           children: [
-                            Image.network(
-                                "https://image.flaticon.com/icons/png/128/726/726476.png",
-                                height: 18),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Text("Apply Coupon"),
-                            Spacer(),
-                            Icon(Icons.arrow_forward_ios)
-                          ],
-                        ),
-                        color: Colors.grey[300],
-                      ),
-                    )
-                  else if (couponApplied)
-                    InkWell(
-                      onTap: () {
-                        setState(() {
-                          couponApplied = false;
-                          totalAmount = tempAmount;
-                          coupon = {};
-                        });
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.close),
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Coupon Applied",
-                                style: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.grey),
-                              ),
-                              Text(
-                                coupon["Name"],
-                                style: TextStyle(fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          Spacer(),
-                          if (coupon["internalCoupon"] == "true")
                             Text(
-                              "- ₹ ${coupon["value"]}",
+                              "Registration Fees",
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 15, fontWeight: FontWeight.w500),
+                            ),
+                            Spacer(),
+                            Text(
+                              "₹ ${(widget.price * (20 / 100)).round()}",
                               style: GoogleFonts.ubuntu(fontSize: 15),
                             ),
-                        ],
-                      ),
+                          ],
+                        ),
+                        box10,
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "1st Installment",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "Within One Week",
+                                  style: GoogleFonts.montserrat(fontSize: 12),
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Text(
+                              "₹ ${(widget.price * (30 / 100)).round()}",
+                              style: GoogleFonts.ubuntu(fontSize: 15),
+                            ),
+                          ],
+                        ),
+                        box10,
+                        Row(
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "2nd Installment",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                                Text(
+                                  "In Last Week",
+                                  style: GoogleFonts.montserrat(fontSize: 12),
+                                ),
+                                Text(
+                                  "REFUNDABLE*",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w500),
+                                ),
+                              ],
+                            ),
+                            Spacer(),
+                            Text(
+                              "₹ ${(widget.price * (50 / 100)).round()}",
+                              style: GoogleFonts.ubuntu(fontSize: 15),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
-                ],
-              ),
-            ),
+                  )
+                : Container(
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              "Basic Charges",
+                              style: TextStyle(fontSize: 15),
+                            ),
+                            Spacer(),
+                            Text(
+                              "₹ ${widget.price}",
+                              style: GoogleFonts.ubuntu(fontSize: 15),
+                            ),
+                          ],
+                        ),
+                        box10,
+                        if (!couponApplied)
+                          InkWell(
+                            onTap: () async {
+                              final Map result = await Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => CouponScreen(
+                                          amount: "tempAmount",
+                                          coupons: "state.coupons",
+                                        )),
+                              );
+                              if (result.length != 0) {
+                                _controllerCenter.play();
+                                showCouponApplied(context, result);
+                                setState(() {
+                                  // totalAmount = result["price"];
+                                  coupon = result;
+                                  couponApplied = true;
+                                });
+                              }
+
+                              print(result);
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(10),
+                              child: Row(
+                                children: [
+                                  Image.network(
+                                      "https://image.flaticon.com/icons/png/128/726/726476.png",
+                                      height: 18),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Text("Apply Coupon"),
+                                  Spacer(),
+                                  Icon(Icons.arrow_forward_ios)
+                                ],
+                              ),
+                              color: Colors.grey[300],
+                            ),
+                          )
+                        else if (couponApplied)
+                          InkWell(
+                            onTap: () {
+                              setState(() {
+                                couponApplied = false;
+                                totalAmount = tempAmount;
+                                coupon = {};
+                              });
+                            },
+                            child: Row(
+                              children: [
+                                Icon(Icons.close),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Coupon Applied",
+                                      style: TextStyle(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey),
+                                    ),
+                                    Text(
+                                      coupon["Name"],
+                                      style: TextStyle(fontSize: 15),
+                                    ),
+                                  ],
+                                ),
+                                Spacer(),
+                                if (coupon["internalCoupon"] == "true")
+                                  Text(
+                                    "- ₹ ${coupon["value"]}",
+                                    style: GoogleFonts.ubuntu(fontSize: 15),
+                                  ),
+                              ],
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
             Divider(height: 40, thickness: 1, color: Colors.black54),
             GestureDetector(
               onTap: () {
@@ -411,7 +488,9 @@ class _PaymentPageState extends State<PaymentPage> {
                         : Row(
                             children: [
                               Text(
-                                "₹ $totalAmount ",
+                                widget.course["genre"] == "Pega BPM"
+                                    ? "₹ ${(widget.price * (20 / 100)).round()} "
+                                    : "₹ $totalAmount ",
                               ),
                               Spacer(),
                               Text(
@@ -447,7 +526,9 @@ class _PaymentPageState extends State<PaymentPage> {
       "key_secret": testing ? testKey : merchantKey,
       "website": testing ? testWebsite : website,
       "orderId": orderId,
-      "amount": totalAmount.toString(),
+      "amount": widget.course["genre"] == "Pega BPM"
+          ? "${(widget.price * (20 / 100)).round()}"
+          : totalAmount.toString(),
       "callbackUrl": callBackUrl,
       "custId": auth.currentUser!.uid,
       "mode": mode.toString(),
