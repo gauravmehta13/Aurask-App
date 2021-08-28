@@ -41,7 +41,7 @@ class PegaCourses extends StatelessWidget {
                   return InkWell(
                     onTap: () {
                       Modular.to
-                          .pushNamed('/liveSession', arguments: courses[index]);
+                          .pushNamed('/course', arguments: courses[index]);
                     },
                     child: Container(
                       margin: EdgeInsets.only(right: 10),

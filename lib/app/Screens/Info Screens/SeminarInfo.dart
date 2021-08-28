@@ -94,7 +94,7 @@ class _SeminarInfoState extends State<SeminarInfo> {
                           : () {
                               bookLiveSession();
                             },
-                      text: "Book Tickets",
+                      text: "Book Session",
                     ),
                   ],
                 ),

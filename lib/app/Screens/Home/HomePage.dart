@@ -61,16 +61,16 @@ class _HomePageState extends State<HomePage> {
 
   divideCourses(course) {
     for (var i = 0; i < course["courses"].length; i++) {
-      if (course["courses"][i]["type"] == "interview") {
+      if (course["courses"][i]["type"] == "Pega BPM") {
+        pegaCourses.add(course["courses"][i]);
+      } else if (course["courses"][i]["type"] == "interview") {
         interviewCourses.add(course["courses"][i]);
       } else if (course["courses"][i]["type"] == "popular") {
         popularCourses.add(course["courses"][i]);
       }
     }
     for (var i = 0; i < course["sessions"].length; i++) {
-      if (course["sessions"][i]["genre"] == "Pega BPM") {
-        pegaCourses.add(course["sessions"][i]);
-      } else if (course["sessions"][i]["type"] == "Live Session") {
+      if (course["sessions"][i]["type"] == "Live Session") {
         paidSessions.add(course["sessions"][i]);
       } else if (course["sessions"][i]["type"] == "Free Seminar") {
         freeSessions.add(course["sessions"][i]);

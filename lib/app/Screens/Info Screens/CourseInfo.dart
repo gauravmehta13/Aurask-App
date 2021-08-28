@@ -1,18 +1,14 @@
 import 'dart:convert';
 
 import 'package:aurask/app/Screens/Info%20Screens/SeminarInfo.dart';
-import 'package:aurask/app/Screens/My%20Courses/Live%20Sessions.dart';
 import 'package:aurask/core/resources/api_provider.dart';
 import 'package:aurask/core/resources/login_Provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:chewie/chewie.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 
 import 'package:youtube_player_iframe/youtube_player_iframe.dart' as web;
 import '../../../core/model/reviews%20Model.dart';
@@ -210,7 +206,8 @@ class _CourseInfoState extends State<CourseInfo> {
                                         ),
                                       ),
                                       Text(
-                                        course["pricing"][index]["title"],
+                                        course["pricing"][index]["name"] ??
+                                            course["pricing"][index]["title"],
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.montserrat(
                                             color: course["pricing"][index]
@@ -218,14 +215,18 @@ class _CourseInfoState extends State<CourseInfo> {
                                                     true
                                                 ? Colors.white
                                                 : Colors.black,
-                                            fontSize: 20,
+                                            fontSize: course["pricing"][index]
+                                                        ["name"] !=
+                                                    null
+                                                ? 15
+                                                : 20,
                                             fontWeight: FontWeight.w600),
                                       ),
-                                      if (course["pricing"][index]
-                                              ["selected"] ==
-                                          true)
-                                        Icon(Icons.keyboard_arrow_down,
-                                            color: Colors.white)
+                                      // if (course["pricing"][index]
+                                      //         ["selected"] ==
+                                      //     true)
+                                      //   Icon(Icons.keyboard_arrow_down,
+                                      //       color: Colors.white)
                                     ],
                                   ),
                                 ),
@@ -558,7 +559,9 @@ class _CourseInfoState extends State<CourseInfo> {
                                     size: 20, color: Colors.grey[800]!),
                                 wbox10,
                                 Text(
-                                  "16 hours of ondemand video",
+                                  course["type"] == "Pega BPM"
+                                      ? "${20 * 4} hours of ondemand video"
+                                      : "16 hours of ondemand video",
                                   style: TextStyle(
                                       fontSize: 14, color: Colors.grey[800]),
                                 )
