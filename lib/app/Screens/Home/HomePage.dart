@@ -235,6 +235,12 @@ class _HomePageState extends State<HomePage> {
                             )
                           else
                             box10,
+                          if (pegaCourses.length != 0)
+                            PegaCourses(courses: pegaCourses),
+                          box10,
+                          if (popularCourses.length != 0)
+                            buildPopularCourses(popularCourses, context),
+                          box10,
                           !courseLoaded
                               ? Container(
                                   height: 400, child: Center(child: Loading()))
@@ -405,12 +411,6 @@ class _HomePageState extends State<HomePage> {
                                   }).toList(),
                                 ),
                           box10,
-                          if (popularCourses.length != 0)
-                            buildPopularCourses(popularCourses, context),
-                          box20,
-                          if (pegaCourses.length != 0)
-                            PegaCourses(courses: pegaCourses),
-                          box20,
                           if (interviewCourses.length != 0)
                             buildInterviewCourses(interviewCourses, context),
                           if (freeSessions.length != 0)

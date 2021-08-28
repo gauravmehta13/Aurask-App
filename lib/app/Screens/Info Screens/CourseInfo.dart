@@ -487,58 +487,63 @@ class _CourseInfoState extends State<CourseInfo> {
                           ],
                         ),
                       ),
-
-                      CarouselSlider(
-                          carouselController: carouselController,
-                          options: CarouselOptions(
-                              aspectRatio: 16 / 9,
-                              viewportFraction: 0.95,
-                              initialPage: 0,
-                              enableInfiniteScroll: true,
-                              reverse: false,
-                              autoPlay: false,
-                              autoPlayInterval: Duration(seconds: 3),
-                              autoPlayAnimationDuration:
-                                  Duration(milliseconds: 800),
-                              autoPlayCurve: Curves.fastOutSlowIn,
-                              enlargeCenterPage: true,
-                              scrollDirection: Axis.horizontal,
-                              onPageChanged: (index, reason) {
-                                setState(() {
-                                  _current = index;
-                                });
-                              }),
-                          items: webcontroller.map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return web.YoutubePlayerIFrame(
-                                  gestureRecognizers: {},
-                                  controller: i,
+                      if (course["type"] != "Pega BPM")
+                        Column(
+                          children: [
+                            CarouselSlider(
+                                carouselController: carouselController,
+                                options: CarouselOptions(
+                                    aspectRatio: 16 / 9,
+                                    viewportFraction: 0.95,
+                                    initialPage: 0,
+                                    enableInfiniteScroll: true,
+                                    reverse: false,
+                                    autoPlay: false,
+                                    autoPlayInterval: Duration(seconds: 3),
+                                    autoPlayAnimationDuration:
+                                        Duration(milliseconds: 800),
+                                    autoPlayCurve: Curves.fastOutSlowIn,
+                                    enlargeCenterPage: true,
+                                    scrollDirection: Axis.horizontal,
+                                    onPageChanged: (index, reason) {
+                                      setState(() {
+                                        _current = index;
+                                      });
+                                    }),
+                                items: webcontroller.map((i) {
+                                  return Builder(
+                                    builder: (BuildContext context) {
+                                      return web.YoutubePlayerIFrame(
+                                        gestureRecognizers: {},
+                                        controller: i,
+                                      );
+                                    },
+                                  );
+                                }).toList()),
+                            box10,
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children:
+                                  webcontroller.asMap().entries.map((entry) {
+                                return GestureDetector(
+                                  onTap: () => carouselController
+                                      .animateToPage(entry.key),
+                                  child: Container(
+                                    width: 10.0,
+                                    height: 10.0,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 4.0),
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: primaryColor.withOpacity(
+                                            _current == entry.key ? 0.9 : 0.1)),
+                                  ),
                                 );
-                              },
-                            );
-                          }).toList()),
-
-                      box10,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: webcontroller.asMap().entries.map((entry) {
-                          return GestureDetector(
-                            onTap: () =>
-                                carouselController.animateToPage(entry.key),
-                            child: Container(
-                              width: 10.0,
-                              height: 10.0,
-                              margin: EdgeInsets.symmetric(
-                                  vertical: 8.0, horizontal: 4.0),
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: primaryColor.withOpacity(
-                                      _current == entry.key ? 0.9 : 0.1)),
+                              }).toList(),
                             ),
-                          );
-                        }).toList(),
-                      ),
+                          ],
+                        ),
+
                       // Container(
                       //   height: 250,
                       //   width: double.maxFinite,
@@ -701,7 +706,9 @@ class _CourseInfoState extends State<CourseInfo> {
                                       title: Row(
                                         children: [
                                           Text(
-                                            "Session ${x["session"]}",
+                                            course["type"] == "Pega BPM"
+                                                ? "4 hrs/day"
+                                                : "Session ${x["session"]}",
                                             style: TextStyle(
                                                 fontSize: 13,
                                                 fontWeight: FontWeight.w600,

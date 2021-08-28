@@ -161,7 +161,7 @@ class _OnboardingState extends State<Onboarding> {
                                 textAlign: TextAlign.center,
                                 style: GoogleFonts.montserrat(
                                     fontSize: 17, fontWeight: FontWeight.w500)),
-                            loginButton()
+                            loginButton(),
                           ],
                         ),
                       ),
@@ -539,6 +539,13 @@ class _OnboardingState extends State<Onboarding> {
                                     fontSize: 15,
                                     color: Colors.grey[800],
                                     fontWeight: FontWeight.w600)),
+                            // box10,
+                            // Text(
+                            //     "Career progression, quite simply put, is the process of climbing the ladder during your working life. Moving forward, being promoted, finding new challenges, new employers, new opportunities and getting the most out of your career. There are a huge number of aspects and elements that can contribute to successful and efficient career progression and, like most things in life, there are some aspects that we have no control over and that are hard to predict. That said, there are a number of really vital things that we can affect and impact, which can lead to better career progression, promotions in our work and successful career ladder climbing. In this guide, we will explore exactly what these contributing factors are, how we can effectively progress our careers and investigate how we can steer our working life in the right direction. One popular dictionary definition of career progression is ‘the process of making progress to better jobs’ and while some people would consider this to be the case, we define career progression not simply as finding better jobs but as staying in current jobs and roles too, while receiving greater responsibility, satisfaction and success (whatever each individual defines ‘success’ to be). Career progression is not simply about finding a new and ‘better’ job, but it’s also about receiving a pay rise, being given additional responsibilities, moving sideways in a company and can even be the process of leaving a company and starting your own venture or company.",
+                            //     style: GoogleFonts.montserrat(
+                            //         fontSize: 15,
+                            //         color: Colors.grey[800],
+                            //         fontWeight: FontWeight.w600)),
                             box30,
                             loginButton(),
                             box20,
@@ -637,8 +644,12 @@ class _OnboardingState extends State<Onboarding> {
         await auth.signInWithCredential(credential).then((value) async {
           print("User is New = ${value.additionalUserInfo!.isNewUser}");
           if (value.additionalUserInfo!.isNewUser) {
-            await login(auth.currentUser!.uid, auth.currentUser!.email,
-                auth.currentUser!.displayName, widget.id,auth.currentUser!.photoURL);
+            await login(
+                auth.currentUser!.uid,
+                auth.currentUser!.email,
+                auth.currentUser!.displayName,
+                widget.id,
+                auth.currentUser!.photoURL);
           }
           Navigator.pushReplacementNamed(context, "/");
           setState(() {
