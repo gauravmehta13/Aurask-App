@@ -127,6 +127,21 @@ class _CourseInfoState extends State<CourseInfo> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+                  if (course["type"] == "Pega BPM")
+                    Container(
+                      width: double.maxFinite,
+                      color: primaryColor.withOpacity(0.3),
+                      padding: const EdgeInsets.all(8.0),
+                      child: Center(
+                        child: Text(
+                          "Pay only ₹ 10000 to Register",
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.montserrat(
+                              fontSize: 13, fontWeight: FontWeight.w600),
+                        ),
+                      ),
+                    ),
+                  box5,
                   loading
                       ? Loading()
                       : GridView.builder(
@@ -353,15 +368,15 @@ class _CourseInfoState extends State<CourseInfo> {
               appBar: AppBar(
                 backgroundColor: primaryColor,
                 actions: [
-                  IconButton(
-                      onPressed: () async {
-                        String text =
-                            "Join this course at https://aurask.net/#/course/${course["id"]}";
-                        !kIsWeb
-                            ? await shareCourse(course["image"], text)
-                            : await share(text);
-                      },
-                      icon: Icon(Icons.share)),
+                  // IconButton(
+                  //     onPressed: () async {
+                  //       String text =
+                  //           "Join this course at https://aurask.net/#/course/${course["id"]}";
+                  //       !kIsWeb
+                  //           ? await shareCourse(course["image"], text)
+                  //           : await share(text);
+                  //     },
+                  //     icon: Icon(Icons.share)),
                 ],
               ),
               body: SingleChildScrollView(
@@ -373,9 +388,22 @@ class _CourseInfoState extends State<CourseInfo> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(course["name"],
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 25, fontWeight: FontWeight.w600)),
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(course["name"],
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 25,
+                                        fontWeight: FontWeight.w600)),
+                                wbox5,
+                                if (course["type"] == "Pega BPM")
+                                  Text("MoneyBack\nGuarantee",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 8,
+                                          color: primaryColor,
+                                          fontWeight: FontWeight.w600)),
+                              ],
+                            ),
                             box10,
                             Text(course["overview"]),
                             box20,

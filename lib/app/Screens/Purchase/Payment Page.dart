@@ -398,7 +398,7 @@ class _PaymentPageState extends State<PaymentPage> {
               onTap: () {
                 setState(() {
                   test = test + 1;
-                  if (test == 5) {
+                  if (test == 10) {
                     totalAmount = 1;
                   }
                 });
@@ -417,6 +417,14 @@ class _PaymentPageState extends State<PaymentPage> {
                   ),
                 ],
               ),
+            ),
+            Divider(height: 40, thickness: 1, color: Colors.black54),
+            Text(
+              "* We will refund 50% of the total amount in case you are not placed or are unhappy with the placement provided.",
+              style: GoogleFonts.montserrat(
+                  fontSize: 10,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.grey),
             ),
             // CheckboxListTile(
             //   dense: true,
