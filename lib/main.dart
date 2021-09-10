@@ -123,15 +123,13 @@ class _MyAppState extends State<MyApp> {
       child: StoreProvider<AppState>(
         store: widget.store!,
         child: MaterialApp(
-                title: 'Aurask',
-                debugShowCheckedModeBanner: false,
-                theme: AppTheme().lightTheme,
-                darkTheme: AppTheme().darkTheme,
-                themeMode: themeNotifier.getThemeMode(),
-                initialRoute: "/welcome"
-                //home,
-                )
-            .modular(),
+          title: 'Aurask',
+          debugShowCheckedModeBanner: false,
+          theme: AppTheme().lightTheme,
+          darkTheme: AppTheme().darkTheme,
+          themeMode: themeNotifier.getThemeMode(),
+          initialRoute: home,
+        ).modular(),
       ),
     );
   }
